@@ -1,0 +1,165 @@
+//
+//  JLXCPCH.pch
+//  JLXCSNS_iOS
+//
+//  Created by 李晓航 on 15/5/8.
+//  Copyright (c) 2015年 JLXC. All rights reserved.
+//
+
+#ifndef JLXCSNS_iOS_JLXCPCH_pch
+#define JLXCSNS_iOS_JLXCPCH_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+//国际化String
+#define KHClubString(title) NSLocalizedStringFromTable(title, @"KHClubString", nil)
+
+//共用字符串
+//网络异常
+#define StringCommonNetException KHClubString(@"Common_NetException")
+//确定
+#define StringCommonConfirm KHClubString(@"Common_Confirm")
+//完成
+#define StringCommonFinish KHClubString(@"Common_Finish")
+//取消
+#define StringCommonCancel KHClubString(@"Common_Cancel")
+//修改
+#define StringCommonModify KHClubString(@"Common_Modify")
+//编辑
+#define StringCommonEdit KHClubString(@"Common_Edit")
+//保存
+#define StringCommonSave KHClubString(@"Common_Save")
+//提示
+#define StringCommonPrompt KHClubString(@"Common_Prompt")
+
+//提交
+#define StringCommonSubmit KHClubString(@"Common_Submit")
+//数据获取中...
+#define StringCommonDownloadData KHClubString(@"Common_DownloadData")
+//数据上传中...
+#define StringCommonUploadData KHClubString(@"Common_UploadData")
+//数据获取失败
+#define StringCommonDownloadDataFail KHClubString(@"Common_DownloadDataFail")
+
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import <QuartzCore/QuartzCore.h>
+
+#define FileNameKey @"name"
+#define FileDataKey @"data"
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#ifdef DEBUG
+#define debugLog(...) NSLog(__VA_ARGS__)
+//NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__);
+#define debugMethod() NSLog(@"[method] = >%s", __func__)
+#else
+#define debugLog(...)
+#define debugMethod()
+#endif
+
+//标签字体大小
+#define FONT_SIZE_TAG                         13
+
+#define ALERT_SHOW(title, msg) \
+[[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:StringCommonConfirm otherButtonTitles:nil, nil] show]
+//tab高度
+#define kTabBarHeight       49
+//一页请求多少
+#define U_PAGE_SIZE         10
+//nav高度
+#define kNavBarAndStatusHeight ([UIDevice currentDevice].systemVersion.floatValue >= 7.0 ? 64 : 44)
+//聊天室切割图像 高度
+#define CutImageHeight 100
+//校园上一次刷新时间标示符
+#define SchoolLastRefreshDate @"SchoolLastRefreshDate"
+
+//国际化String 暂时就一种语言
+#define JLXCString(title) NSLocalizedStringFromTable(title, @"KHClubString", nil)
+
+//helper
+#import "DeviceManager.h"
+#import "ToolsManager.h"
+#import "NSString+Expand.h"
+#import "Colors.h"
+#import "UIColor+Hexadecimal.h"
+#import "JLXCFont.h"
+#import "EaseMob.h"
+#import "EMAlertView.h"
+#import "TTGlobalUICommon.h"
+#import "UIViewController+HUD.h"
+#import "UIViewController+DismissKeyboard.h"
+#import "NSString+Valid.h"
+
+//接口
+#import "Interface.h"
+#import "UserService.h"
+#import "DatabaseService.h"
+#import "PushService.h"
+
+//网络请求
+//#import "HttpService.h"
+
+//控件基类
+#import "CustomButton.h"
+#import "CustomLabel.h"
+#import "CustomImageView.h"
+#import "CustomTextField.h"
+#import "UIView+LayoutMethods.h"
+#import "PlaceHolderTextView.h"
+
+#define kCenterOriginX(i) (([DeviceManager getDeviceWidth]-i)/2.0)
+
+#if TARGET_IPHONE_SIMULATOR
+#define PATH_OF_DOCUMENT    @"/Users/lixiaohang/Desktop"
+#elif TARGET_OS_IPHONE
+#define PATH_OF_DOCUMENT    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]
+#endif
+
+//notifyKey
+//状态回复消息或点赞到来
+#define NOTIFY_NEWS_PUSH @"newsPush"
+//发送完状态 刷新通知
+#define NOTIFY_PUBLISH_NEWS @"publishNews"
+//tab栏徽标更新通知
+#define NOTIFY_TAB_BADGE @"tabBadge"
+//ip5
+#define IS_IPHONE_5 ( fabs( ( double )[ [ UIScreen mainScreen ] bounds ].size.height - ( double )568 ) < DBL_EPSILON )
+
+#define RGBACOLOR(r,g,b,a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)]
+
+#define KNOTIFICATION_LOGINCHANGE @"loginStateChange"
+
+#define CHATVIEWBACKGROUNDCOLOR [UIColor colorWithRed:0.936 green:0.932 blue:0.907 alpha:1]
+
+#define DEFAULT_AVATAR @"default_avatar"
+
+//友盟AppKey
+#define UMENG_AppKey @"55d17f9ae0f55a1ddf003b08"
+//高德AppKey
+#define GAODE_AppKey @"85ce4620d649aa688513efb0d2f227b2"
+//融云AppKey lmxuhwagx83id
+#define Rong_AppKey @"8brlm7ufr4fw3"
+//云巴AppKey 55c499f19477ebf5246955f3
+#define YunBa_AppKey @"5616180ae6b2257059049482"
+//SMS AppKey
+#define SMS_AppKey @"b87c4ca25bcb"
+//SMS AppSecurity
+#define SMS_Security @"675c44e12327b136c3f99c07c43ff82a"
+//环信
+#define IM_AppKey @"yukirin#khclub"
+
+
+//IM 推送 id马甲
+#define KH @"kh"
+//聊天室马甲
+#define KH_GROUP @"khGroup"
+
+//环信密码
+#define IM_PWD @"123456"
+
+#endif
