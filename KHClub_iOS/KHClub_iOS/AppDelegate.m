@@ -52,7 +52,7 @@
     
     //初始化数据库
     [DatabaseService sharedInstance];
-    
+    //这里初始化很多东西
     // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
     

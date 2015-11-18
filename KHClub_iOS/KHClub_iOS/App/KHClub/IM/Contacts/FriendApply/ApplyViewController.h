@@ -10,7 +10,7 @@
   * from EaseMob Technologies.
   */
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 typedef enum{
     ApplyStyleFriend            = 0,
@@ -18,7 +18,7 @@ typedef enum{
     ApplyStyleJoinGroup,
 }ApplyStyle;
 
-@interface ApplyViewController : UITableViewController
+@interface ApplyViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 {
     NSMutableArray *_dataSource;
 }

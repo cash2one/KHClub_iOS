@@ -50,6 +50,10 @@
 //@property (nonatomic, strong) EMSearchBar           *searchBar;
 //@property (nonatomic, strong) SRRefreshView         *slimeView;
 @property (nonatomic, strong) UIView                *networkStateView;
+//弹出视图背景
+@property (nonatomic, strong) UIView * popBackView;
+//屏幕遮罩
+@property (nonatomic, strong) UIView * screenCoverView;
 
 //@property (strong, nonatomic) EMSearchDisplayController *searchController;
 
@@ -69,6 +73,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [[EaseMob sharedInstance].chatManager loadAllConversationsFromDatabaseWithAppend2Chat:NO];
     [self removeEmptyConversationsFromDB];
 
@@ -76,7 +81,7 @@
     [self networkStateView];
     
     [self setNavBarTitle:KHClubString(@"Common_Main_Msg")];
-
+    [self initUI];
 }
 
 - (void)didReceiveMemoryWarning
@@ -138,6 +143,93 @@
                                                              deleteMessages:YES
                                                                 append2Chat:NO];
     }
+}
+
+#pragma mark- layout
+- (void)initUI
+{
+    //定制部分
+    __weak typeof(self) sself = self;
+    [self.navBar setRightBtnWithContent:@"" andBlock:^{
+        [sself showRightPopView];
+    }];
+    
+    self.navBar.rightBtn.frame  = CGRectMake([DeviceManager getDeviceWidth]-35, 35, 0, 0);
+    self.navBar.rightBtn.width  = 20;
+    self.navBar.rightBtn.height = 20;
+    
+    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
+    self.screenCoverView   = [[UIView alloc] init];
+    self.popBackView       = [[UIView alloc] init];
+    self.popBackView.userInteractionEnabled = YES;
+    [self.view addSubview:self.screenCoverView];
+    [self.view addSubview:self.popBackView];
+    //遮罩点击消失
+    UITapGestureRecognizer * dissmissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCover:)];
+    [self.screenCoverView addGestureRecognizer:dissmissTap];
+    
+    //右上角PopView
+    self.popBackView.backgroundColor     = [UIColor colorWithHexString:ColorDeepBlack];
+    self.popBackView.layer.masksToBounds = YES;
+    self.screenCoverView.frame           = self.view.bounds;
+    self.screenCoverView.hidden          = YES;
+    
+    //扫描二维码
+    CustomButton * qrcodeBtn  = [[CustomButton alloc] initWithFrame:CGRectMake(10, 0, 120, 45)];
+    //添加好友
+    CustomButton * addFriendBtn  = [[CustomButton alloc] initWithFrame:CGRectMake(10, 45, 120, 45)];
+    //新建群聊
+    CustomButton * newGroupBtn  = [[CustomButton alloc] initWithFrame:CGRectMake(10, 90, 120, 45)];
+    //我的二维码
+    CustomButton * myQrcodeBtn  = [[CustomButton alloc] initWithFrame:CGRectMake(10, 135, 120, 45)];
+    
+    [self defaultTopRightBtnHandle:qrcodeBtn imageName:@"icon_menu_qr_scan" andTitle:KHClubString(@"Message_Message_ScanQrcode")];
+    [self defaultTopRightBtnHandle:addFriendBtn imageName:@"icon_menu_add_friend" andTitle:KHClubString(@"Message_Message_Add")];
+    [self defaultTopRightBtnHandle:newGroupBtn imageName:@"icon_menu_new_group" andTitle:KHClubString(@"Message_Message_Group")];
+    [self defaultTopRightBtnHandle:myQrcodeBtn imageName:@"icon_menu_my_qr_code" andTitle:KHClubString(@"Message_Message_MyQrcode")];
+}
+//默认
+- (void)defaultTopRightBtnHandle:(CustomButton *)btn imageName:(NSString *)imageName andTitle:(NSString *)title
+{
+    CustomImageView * leftImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(0, 13, 20, 20)];
+    leftImageView.contentMode       = UIViewContentModeScaleAspectFit;
+    leftImageView.image             = [UIImage imageNamed:imageName];
+    [btn addSubview:leftImageView];
+    
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    btn.contentEdgeInsets          = UIEdgeInsetsMake(0, 25, 0, 0);
+    btn.titleLabel.font            = [UIFont systemFontOfSize:13];
+    [btn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor colorWithHexString:ColorLightWhite] forState:UIControlStateHighlighted];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [self.popBackView addSubview:btn];
+    [btn addTarget:self action:@selector(popViewClick:) forControlEvents:UIControlEventTouchUpInside];
+}
+
+//显示右边弹窗
+- (void)showRightPopView
+{
+    self.screenCoverView.hidden = NO;
+    self.popBackView.frame      = CGRectMake(self.viewWidth-35, kNavBarAndStatusHeight, 0, 0);
+    [UIView animateWithDuration:0.2 animations:^{
+        self.popBackView.frame         = CGRectMake(self.viewWidth-120, kNavBarAndStatusHeight, 120, 180);
+        self.navBar.rightBtn.transform = CGAffineTransformMakeRotation(M_PI_4);
+    }];
+}
+
+//遮罩点击消失
+- (void)dismissCover:(UITapGestureRecognizer *)ges
+{
+    self.screenCoverView.hidden = YES;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.popBackView.frame         = CGRectMake(self.viewWidth-35, 57, 0, 0);
+        self.navBar.rightBtn.transform = CGAffineTransformIdentity;
+    }];
+}
+//点击
+- (void)popViewClick:(id)sender
+{
+
 }
 
 #pragma mark - getter

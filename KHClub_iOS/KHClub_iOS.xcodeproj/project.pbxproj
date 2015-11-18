@@ -167,6 +167,11 @@
 		42D16EC21BEB27EB00A1C423 /* NewsCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EBF1BEB27EB00A1C423 /* NewsCommentCell.m */; };
 		42D16EC31BEB27EB00A1C423 /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EC11BEB27EB00A1C423 /* NewsListCell.m */; };
 		42D16EC61BEB284A00A1C423 /* OtherPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EC51BEB284A00A1C423 /* OtherPersonalViewController.m */; };
+		42D1D6081BFC86DB005FCDC3 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D6071BFC86DB005FCDC3 /* add@2x.png */; };
+		42D1D60D1BFC8D9E005FCDC3 /* icon_menu_add_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D6091BFC8D9E005FCDC3 /* icon_menu_add_friend@2x.png */; };
+		42D1D60E1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60A1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png */; };
+		42D1D60F1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60B1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png */; };
+		42D1D6101BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60C1BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png */; };
 		42ED929E1BF1DB9400E59147 /* chatListCellHead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F31BF1DB9400E59147 /* chatListCellHead@2x.png */; };
 		42ED929F1BF1DB9400E59147 /* VoiceSearchFeedback001.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F61BF1DB9400E59147 /* VoiceSearchFeedback001.png */; };
 		42ED92A01BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F71BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png */; };
@@ -791,6 +796,11 @@
 		42D16EC11BEB27EB00A1C423 /* NewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListCell.m; sourceTree = "<group>"; };
 		42D16EC41BEB284A00A1C423 /* OtherPersonalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OtherPersonalViewController.h; sourceTree = "<group>"; };
 		42D16EC51BEB284A00A1C423 /* OtherPersonalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OtherPersonalViewController.m; sourceTree = "<group>"; };
+		42D1D6071BFC86DB005FCDC3 /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
+		42D1D6091BFC8D9E005FCDC3 /* icon_menu_add_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_add_friend@2x.png"; sourceTree = "<group>"; };
+		42D1D60A1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_my_qr_code@2x.png"; sourceTree = "<group>"; };
+		42D1D60B1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_new_group@2x.png"; sourceTree = "<group>"; };
+		42D1D60C1BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_qr_scan@2x.png"; sourceTree = "<group>"; };
 		42ED91F31BF1DB9400E59147 /* chatListCellHead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatListCellHead@2x.png"; sourceTree = "<group>"; };
 		42ED91F61BF1DB9400E59147 /* VoiceSearchFeedback001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VoiceSearchFeedback001.png; sourceTree = "<group>"; };
 		42ED91F71BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VoiceSearchFeedback001@2x.png"; sourceTree = "<group>"; };
@@ -3448,6 +3458,11 @@
 		42FDE2341BE7052300825E5E /* message */ = {
 			isa = PBXGroup;
 			children = (
+				42D1D6091BFC8D9E005FCDC3 /* icon_menu_add_friend@2x.png */,
+				42D1D60A1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png */,
+				42D1D60B1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png */,
+				42D1D60C1BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png */,
+				42D1D6071BFC86DB005FCDC3 /* add@2x.png */,
 				42FDE2351BE7052300825E5E /* big_unread@2x.png */,
 				42FDE2361BE7052300825E5E /* msg_icon_newinfo@2x.png */,
 				42FDE2371BE7052300825E5E /* small_unread@2x.png */,
@@ -3529,6 +3544,11 @@
 				TargetAttributes = {
 					42C22E821BE6FDC0002A185B = {
 						CreatedOnToolsVersion = 6.3.2;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					42C22E9B1BE6FDC0002A185B = {
 						CreatedOnToolsVersion = 6.3.2;
@@ -3579,6 +3599,7 @@
 				42ED92C81BF1DB9400E59147 /* call_out@2x.png in Resources */,
 				42ED92AE1BF1DB9400E59147 /* VoiceSearchFeedback008@2x.png in Resources */,
 				42ED92AF1BF1DB9400E59147 /* VoiceSearchFeedback009.png in Resources */,
+				42D1D60D1BFC8D9E005FCDC3 /* icon_menu_add_friend@2x.png in Resources */,
 				42430A241BEA37F600731CA3 /* news_notice_normal@2x.png in Resources */,
 				42ED92D91BF1DB9400E59147 /* chatBar_textBg.png in Resources */,
 				42ED932F1BF1DB9400E59147 /* group_detail@2x.png in Resources */,
@@ -3685,6 +3706,7 @@
 				42ED92D21BF1DB9400E59147 /* chatBar_more_card@2x.png in Resources */,
 				42ED92DB1BF1DB9400E59147 /* chat_location_annotation_someone.png in Resources */,
 				42ED92D71BF1DB9400E59147 /* chatBar_more_faceSelected.png in Resources */,
+				42D1D60F1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png in Resources */,
 				42ED93231BF1DB9400E59147 /* chat_sender_audio_playing_001@2x.png in Resources */,
 				42ED931B1BF1DB9400E59147 /* chat_receiver_audio_playing003@2x.png in Resources */,
 				42ED92A91BF1DB9400E59147 /* VoiceSearchFeedback006.png in Resources */,
@@ -3700,6 +3722,7 @@
 				42C22FFA1BE70054002A185B /* grayArrow@2x.png in Resources */,
 				42FDE2951BE7052300825E5E /* LaunchImage-568@2x.png in Resources */,
 				42FDE2BE1BE7052300825E5E /* ScanQR3@2x.png in Resources */,
+				42D1D6081BFC86DB005FCDC3 /* add@2x.png in Resources */,
 				42ED931C1BF1DB9400E59147 /* chat_receiver_audio_playing_full.png in Resources */,
 				428767941BEB55D6007400B7 /* home_btn_contact_normal@2x.png in Resources */,
 				42C22FF81BE70054002A185B /* blueArrow@2x.png in Resources */,
@@ -3716,6 +3739,7 @@
 				42FDE2C11BE7052300825E5E /* ToastFinish@2x.png in Resources */,
 				42ED93021BF1DB9400E59147 /* chatBar_colorMore_photoSelected@2x.png in Resources */,
 				42F274D91BEC549800A63012 /* delete_btn_normal@2x.png in Resources */,
+				42D1D60E1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png in Resources */,
 				42430A2D1BEA3F8F00731CA3 /* add_picture@2x.png in Resources */,
 				42ED92F31BF1DB9400E59147 /* chatBar_record.png in Resources */,
 				42ED93321BF1DB9400E59147 /* group_creategroup@2x.png in Resources */,
@@ -3782,6 +3806,7 @@
 				42ED92CE1BF1DB9400E59147 /* call_silence_h@2x.png in Resources */,
 				42FDE2921BE7052300825E5E /* LaunchImage-414@3x.png in Resources */,
 				42ED92DA1BF1DB9400E59147 /* chatBar_textBg@2x.png in Resources */,
+				42D1D6101BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png in Resources */,
 				42ED931A1BF1DB9400E59147 /* chat_receiver_audio_playing003.png in Resources */,
 				42ED92E31BF1DB9400E59147 /* faceDelete.png in Resources */,
 				42ED93211BF1DB9400E59147 /* chat_sender_audio_playing_000@2x.png in Resources */,
@@ -4192,7 +4217,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bo Yang (4DK367P8DD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bo Yang (4DK367P8DD)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4215,6 +4241,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JLXC.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8dccd368-f4a5-477a-8b57-c19a6f7339fb";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -4224,7 +4251,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Bo Yang (4DK367P8DD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Bo Yang (4DK367P8DD)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4247,6 +4275,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.JLXC.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "8dccd368-f4a5-477a-8b57-c19a6f7339fb";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

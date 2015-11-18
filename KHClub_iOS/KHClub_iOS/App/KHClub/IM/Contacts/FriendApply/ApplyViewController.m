@@ -19,15 +19,16 @@ static ApplyViewController *controller = nil;
 
 @interface ApplyViewController ()<ApplyFriendCellDelegate>
 
+@property (nonatomic, strong) UITableView * tableView;
+
 @end
 
 @implementation ApplyViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
+- (instancetype)init
 {
-    self = [super initWithStyle:style];
+    self = [super init];
     if (self) {
-        // Custom initialization
         _dataSource = [[NSMutableArray alloc] init];
     }
     return self;
@@ -37,7 +38,7 @@ static ApplyViewController *controller = nil;
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        controller = [[self alloc] initWithStyle:UITableViewStylePlain];
+        controller = [[self alloc] init];
     });
     
     return controller;
@@ -46,6 +47,11 @@ static ApplyViewController *controller = nil;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView            = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView.delegate   = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
     
     // Uncomment the following line to preserve selection between presentations.
     self.title = NSLocalizedString(@"title.apply", @"Application and notification");

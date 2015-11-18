@@ -160,7 +160,6 @@
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
     
-    
     debugLog(@"get Device Token: %@", [NSString stringWithFormat:@"=====================Device Token: %@", deviceToken]);
     // uncomment to store device token to YunBa 26bec6bef14344f7a8c726001469e261b0586359f64aed8ecc90ed21264fc714
     [YunBaService storeDeviceToken:deviceToken resultBlock:^(BOOL succ, NSError *error) {

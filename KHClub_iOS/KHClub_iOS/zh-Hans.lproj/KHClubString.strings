@@ -127,3 +127,9 @@
 "News_NotifyNews_Title"                   = "通知";
 "News_NotifyNews_LikeTitle"               = "为你点了赞";
 
+//Message
+"Message_Message_ScanQrcode"              = "扫描二维码";
+"Message_Message_Add"                     = "加好友（群）";
+"Message_Message_Group"                   = "新建群聊";
+"Message_Message_MyQrcode"                = "我的二维码";
+

@@ -125,4 +125,9 @@
 "News_NotifyNews_Title"                   = "Notification";
 "News_NotifyNews_LikeTitle"               = "A Like for you";
 
+//Message
+"Message_Message_ScanQrcode"              = "Scan QR code";
+"Message_Message_Add"                     = "Search";
+"Message_Message_Group"                   = "New group";
+"Message_Message_MyQrcode"                = "My QR code";
 

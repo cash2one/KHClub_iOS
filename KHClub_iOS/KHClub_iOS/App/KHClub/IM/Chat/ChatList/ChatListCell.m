@@ -31,10 +31,11 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _timeLabel                 = [[UILabel alloc] initWithFrame:CGRectMake([DeviceManager getDeviceWidth]-80, 7, 80, 16)];
+        _timeLabel                 = [[UILabel alloc] initWithFrame:CGRectMake([DeviceManager getDeviceWidth]-200, 7, 180, 16)];
         _timeLabel.font            = [UIFont systemFontOfSize:13];
         _timeLabel.textColor       = [UIColor colorWithHexString:ColorDeepBlack];
         _timeLabel.backgroundColor = [UIColor clearColor];
+        _timeLabel.textAlignment   = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
         
         _unreadLabel                    = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, 20, 20)];
