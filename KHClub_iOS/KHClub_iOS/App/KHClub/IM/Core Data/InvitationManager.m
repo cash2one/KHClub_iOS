@@ -39,6 +39,27 @@ static InvitationManager *sharedInstance = nil;
     return self;
 }
 
+#define NewInviteUnreadKey @"NewInviteUnreadKey"
+
+//增加未读
+- (void)addUnread
+{
+    NSString * countStr = [_defaults objectForKey:NewInviteUnreadKey];
+    NSString * newStr = [NSString stringWithFormat:@"%ld", countStr.integerValue+1];
+    [_defaults setObject:newStr forKey:NewInviteUnreadKey];
+}
+
+//清空未读
+- (void)clearUnread
+{
+    [_defaults setObject:@"" forKey:NewInviteUnreadKey];
+}
+//获取未读
+- (NSInteger)getUnread
+{
+    return [[_defaults objectForKey:NewInviteUnreadKey] integerValue];
+}
+
 -(void)addInvitation:(ApplyEntity *)applyEntity loginUser:(NSString *)username{
     NSData *defalutData = [_defaults objectForKey:username];
     NSArray *ary = [NSKeyedUnarchiver unarchiveObjectWithData:defalutData];

@@ -274,7 +274,7 @@
             messageStr = [NSString stringWithFormat:@"%@：%@", username, messageTextField.text];
         }
         else{
-            messageStr = [NSString stringWithFormat:NSLocalizedString(@"friend.somebodyInvite", @"%@ invite you as a friend"), username];
+            messageStr = [NSString stringWithFormat:NSLocalizedString(@"friend.somebodyInvite", @"invite you as a friend")];
         }
         [self sendFriendApplyAtIndexPath:self.selectedIndexPath
                                  message:messageStr];

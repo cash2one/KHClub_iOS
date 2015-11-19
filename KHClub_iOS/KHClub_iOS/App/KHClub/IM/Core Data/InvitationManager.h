@@ -20,6 +20,13 @@
 
 + (instancetype)sharedInstance;
 
+//增加未读
+- (void)addUnread;
+//清空未读
+- (void)clearUnread;
+//获取未读
+- (NSInteger)getUnread;
+
 -(void)addInvitation:(ApplyEntity *)applyEntity loginUser:(NSString *)username;
 
 -(void)removeInvitation:(ApplyEntity *)applyEntity loginUser:(NSString *)username;

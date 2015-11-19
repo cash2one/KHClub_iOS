@@ -7,6 +7,7 @@
 //
 
 #import "CusTabBarViewController.h"
+#import "InvitationManager.h"
 #import "DeviceManager.h"
 #import "BaseViewController.h"
 #import "ToolsManager.h"
@@ -133,8 +134,16 @@ static CusTabBarViewController * instance = nil;
     });
     
     [self badgeNotify:nil];
+    
+    //获取好友列表
+    [[[EaseMob sharedInstance] chatManager] asyncFetchBuddyListWithCompletion:^(NSArray *buddyList, EMError *error) {
+    } onQueue:nil];
 }
 
+- (void)setUnread
+{
+    [self badgeNotify:nil];
+}
 
 //通知刷新徽标
 - (void)badgeNotify:(NSNotification *)notify
@@ -165,9 +174,10 @@ static CusTabBarViewController * instance = nil;
     [chatBtn refreshBadgeWith:unreadCount];
     
     //Con部分
-    NSInteger newUnreadCount = [[[ApplyViewController shareController] dataSource] count];
+    NSInteger newUnreadCount = [[InvitationManager sharedInstance] getUnread];
     TabBarBtn * conBtn = _btnArr[TabContact];
     [conBtn refreshBadgeWith:newUnreadCount];
+    [_contactsVC reloadApplyView];
     
     //外界Badge 设置为IM的UnreadCount
     UIApplication *application = [UIApplication sharedApplication];
@@ -249,7 +259,6 @@ static CusTabBarViewController * instance = nil;
     [self.view addSubview:self.coverView];
 }
 
-
 #pragma mark - UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -316,7 +325,6 @@ static CusTabBarViewController * instance = nil;
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[EaseMob sharedInstance].callManager removeDelegate:self];
 }
-
 
 - (void)networkChanged:(EMConnectionState)connectionState
 {
@@ -468,6 +476,7 @@ static CusTabBarViewController * instance = nil;
 }
 
 - (void)playSoundAndVibration{
+
     NSTimeInterval timeInterval = [[NSDate date]
                                    timeIntervalSinceDate:self.lastPlaySoundDate];
     if (timeInterval < kDefaultPlaySoundInterval) {
@@ -600,6 +609,20 @@ static CusTabBarViewController * instance = nil;
 - (void)didReceiveBuddyRequest:(NSString *)username
                        message:(NSString *)message
 {
+    
+    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+    NSString *loginName = [loginInfo objectForKey:kSDKUsername];
+    if(loginName == nil || [loginName length] < 1)
+    {
+        return;
+    }
+    
+    NSArray * applyArray = [[InvitationManager sharedInstance] applyEmtitiesWithloginUser:loginName];
+    NSPredicate * pre = [NSPredicate predicateWithFormat:@"applicantUsername == %ld ", username];
+    if ([applyArray filteredArrayUsingPredicate:pre].count < 1) {
+        return;
+    }
+    
 #if !TARGET_IPHONE_SIMULATOR
     [self playSoundAndVibration];
     
@@ -637,13 +660,14 @@ static CusTabBarViewController * instance = nil;
         [viewControllers removeObject:chatViewContrller];
         [self.navigationController setViewControllers:viewControllers animated:YES];
     }
-    [self showHint:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"delete", @"delete"), userNames[0]]];
+//    [self showHint:[NSString stringWithFormat:@"%@ %@", NSLocalizedString(@"delete", @"delete"), userNames[0]]];
 }
 
 - (void)didUpdateBuddyList:(NSArray *)buddyList
             changedBuddies:(NSArray *)changedBuddies
                      isAdd:(BOOL)isAdd
 {
+    
     if (!isAdd)
     {
         NSMutableArray *deletedBuddies = [NSMutableArray array];
@@ -691,17 +715,26 @@ static CusTabBarViewController * instance = nil;
             }
         }
     }
+
+    //缓存
+    [[IMUtils shareInstance] cacheBuddysToDisk];
+    
     [_contactsVC reloadDataSource];
+    
 }
 
 - (void)didRemovedByBuddy:(NSString *)username
 {
     [self _removeBuddies:@[username]];
+    //缓存
+    [[IMUtils shareInstance] cacheBuddysToDisk];
     [_contactsVC reloadDataSource];
 }
 
 - (void)didAcceptedByBuddy:(NSString *)username
 {
+    //缓存
+    [[IMUtils shareInstance] cacheBuddysToDisk];
     [_contactsVC reloadDataSource];
 }
 
@@ -713,6 +746,8 @@ static CusTabBarViewController * instance = nil;
 
 - (void)didAcceptBuddySucceed:(NSString *)username
 {
+    //缓存
+    [[IMUtils shareInstance] cacheBuddysToDisk];
     [_contactsVC reloadDataSource];
 }
 

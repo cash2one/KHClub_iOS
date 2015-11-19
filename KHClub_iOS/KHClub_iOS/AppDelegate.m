@@ -13,6 +13,7 @@
 #import "MobClick.h"
 #import "ZWIntroductionViewController.h"
 #import "AppDelegate+EaseMob.h"
+#import "InvitationManager.h"
 
 @interface AppDelegate ()
 
@@ -26,7 +27,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor colorWithHexString:ColorGold];
     [self.window makeKeyAndVisible];
-    
+
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
     //初始化主页

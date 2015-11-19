@@ -17,6 +17,7 @@
 		422DC0241BE8DFB20021FB78 /* card_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422DC0201BE8DFB20021FB78 /* card_phone@2x.png */; };
 		422DC0251BE8DFB20021FB78 /* default_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422DC0211BE8DFB20021FB78 /* default_avatar@2x.png */; };
 		422DC0271BE8E5050021FB78 /* loading_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422DC0261BE8E5050021FB78 /* loading_default@2x.png */; };
+		423599C71BFDB604007E3246 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 423599C61BFDB604007E3246 /* SearchViewController.m */; };
 		42430A0A1BE9ADA500731CA3 /* personal_more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42430A081BE9ADA500731CA3 /* personal_more@2x.png */; };
 		42430A0B1BE9ADA500731CA3 /* personal_setting@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42430A091BE9ADA500731CA3 /* personal_setting@2x.png */; };
 		42430A0E1BE9ADE400731CA3 /* PersonalSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42430A0D1BE9ADE400731CA3 /* PersonalSettingViewController.m */; };
@@ -542,6 +543,8 @@
 		422DC0201BE8DFB20021FB78 /* card_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_phone@2x.png"; sourceTree = "<group>"; };
 		422DC0211BE8DFB20021FB78 /* default_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_avatar@2x.png"; sourceTree = "<group>"; };
 		422DC0261BE8E5050021FB78 /* loading_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_default@2x.png"; sourceTree = "<group>"; };
+		423599C51BFDB604007E3246 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		423599C61BFDB604007E3246 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		42430A081BE9ADA500731CA3 /* personal_more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personal_more@2x.png"; sourceTree = "<group>"; };
 		42430A091BE9ADA500731CA3 /* personal_setting@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personal_setting@2x.png"; sourceTree = "<group>"; };
 		42430A0C1BE9ADE400731CA3 /* PersonalSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalSettingViewController.h; sourceTree = "<group>"; };
@@ -1517,6 +1520,8 @@
 		4257CE681BE86C1B00221F90 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				423599C51BFDB604007E3246 /* SearchViewController.h */,
+				423599C61BFDB604007E3246 /* SearchViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2711,7 +2716,6 @@
 				42EF84291BF0C9CC00DA16C3 /* Contacts */,
 				42EF84391BF0C9CC00DA16C3 /* Core Data */,
 				42EF843E1BF0C9CC00DA16C3 /* Robot */,
-				42EF83BF1BF0C8FB00DA16C3 /* Category */,
 				42EF83A11BF0C8B700DA16C3 /* Custom */,
 				42EF82C41BF03F5C00DA16C3 /* 3rd */,
 				42EF82BF1BF03B7400DA16C3 /* Service */,
@@ -3026,6 +3030,7 @@
 		42EF83A11BF0C8B700DA16C3 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				42EF83BF1BF0C8FB00DA16C3 /* Category */,
 				42EF83A21BF0C8B700DA16C3 /* BaseTableViewCell.h */,
 				42EF83A31BF0C8B700DA16C3 /* BaseTableViewCell.m */,
 				42EF83A41BF0C8B700DA16C3 /* EMSearchBar.h */,
@@ -3078,7 +3083,8 @@
 				42EF83CC1BF0C8FB00DA16C3 /* UIViewController+HUD.h */,
 				42EF83CD1BF0C8FB00DA16C3 /* UIViewController+HUD.m */,
 			);
-			path = Category;
+			name = Category;
+			path = ../Category;
 			sourceTree = "<group>";
 		};
 		42EF83D51BF0C9CC00DA16C3 /* Call */ = {
@@ -4050,6 +4056,7 @@
 				42FDE1E71BE7037C00825E5E /* CusTabBarViewController.m in Sources */,
 				42EF83831BF03F5C00DA16C3 /* UIView+EMWebCacheOperation.m in Sources */,
 				42EF83731BF03F5C00DA16C3 /* DACircularProgressView.m in Sources */,
+				423599C71BFDB604007E3246 /* SearchViewController.m in Sources */,
 				42EF83BB1BF0C8B700DA16C3 /* EMChooseViewController.m in Sources */,
 				42EF844B1BF0C9CC00DA16C3 /* ChatListCell.m in Sources */,
 				42C230541BE70054002A185B /* HttpService.m in Sources */,

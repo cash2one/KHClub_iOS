@@ -16,6 +16,7 @@ typedef enum{
     ApplyStyleFriend            = 0,
     ApplyStyleGroupInvitation,
     ApplyStyleJoinGroup,
+    ApplyStyleIsFriend
 }ApplyStyle;
 
 @interface ApplyViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>

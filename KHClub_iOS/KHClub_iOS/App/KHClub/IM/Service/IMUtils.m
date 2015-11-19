@@ -193,6 +193,35 @@
     [nameLabel setText:[ToolsManager emptyReturnNone:[UserService sharedService].user.name]];
 }
 
+- (void)cacheBuddysToDisk
+{
+
+    NSArray *buddys = [[EaseMob sharedInstance].chatManager buddyList];
+    
+    if (buddys.count > 0) {
+        NSMutableArray * tmpBuddys = [[NSMutableArray alloc] init];
+        for (EMBuddy * bd in buddys) {
+            if (bd.followState == eEMBuddyFollowState_FollowedBoth) {
+                [tmpBuddys addObject:bd.username];
+            }
+        }
+        //本地缓存
+        NSString * friendsPath =  [PATH_OF_DOCUMENT stringByAppendingFormat:@"/friends.plist"];
+        [tmpBuddys writeToFile:friendsPath atomically:YES];
+    }
+}
+
+- (NSArray *)getBuddys
+{
+    NSString * friendsPath = [PATH_OF_DOCUMENT stringByAppendingFormat:@"/friends.plist"];
+    NSArray * arr          = [NSArray arrayWithContentsOfFile:friendsPath];
+    NSMutableArray * buddys = [[NSMutableArray alloc] init];
+    for (NSString * username in arr) {
+        [buddys addObject:[EMBuddy buddyWithUsername:username]];
+    }
+    return buddys;
+}
+
 @end
 
 

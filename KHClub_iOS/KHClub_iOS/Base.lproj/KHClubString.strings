@@ -99,6 +99,9 @@
 "Personal_PersonalSetting_Setting"        = "Setting";
 "Personal_PersonalSetting_TooLong"        = "Content too long";
 "Personal_MyNews_PersonalNews"            = "Personal News";
+"Personal_OtherPersonal_AddFriend"        = "Add";
+"Personal_OtherPersonal_Send"             = "Send Message";
+
 
 //News
 "News_Publish_EnterContent"               = "Please enter content";
@@ -131,3 +134,6 @@
 "Message_Message_Group"                   = "New group";
 "Message_Message_MyQrcode"                = "My QR code";
 
+//Contact
+"Contact_Search_InputPrompt"              = "Input phone number or group id";
+"Contact_Search_SearchFail"               = "No result";

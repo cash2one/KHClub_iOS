@@ -11,16 +11,18 @@
   */
 
 #import "ContactsViewController.h"
-
+#import "InvitationManager.h"
 #import "BaseTableViewCell.h"
 #import "RealtimeSearchUtil.h"
 #import "ChineseToPinyin.h"
 #import "EMSearchDisplayController.h"
+#import "OtherPersonalViewController.h"
 #import "AddFriendViewController.h"
 #import "ApplyViewController.h"
 #import "GroupListViewController.h"
 #import "ChatViewController.h"
 #import "RobotListViewController.h"
+#import "SearchViewController.h"
 #import "IMUtils.h"
 
 //@implementation EMBuddy (search)
@@ -140,6 +142,11 @@
     [self defaultTopRightBtnHandle:addFriendBtn imageName:@"icon_menu_add_friend" andTitle:KHClubString(@"Message_Message_Add")];
     [self defaultTopRightBtnHandle:newGroupBtn imageName:@"icon_menu_new_group" andTitle:KHClubString(@"Message_Message_Group")];
     [self defaultTopRightBtnHandle:myQrcodeBtn imageName:@"icon_menu_my_qr_code" andTitle:KHClubString(@"Message_Message_MyQrcode")];
+    
+    qrcodeBtn.tag    = 1;
+    addFriendBtn.tag = 2;
+    newGroupBtn.tag  = 3;
+    myQrcodeBtn.tag  = 4;
 }
 //默认
 - (void)defaultTopRightBtnHandle:(CustomButton *)btn imageName:(NSString *)imageName andTitle:(NSString *)title
@@ -180,10 +187,30 @@
     }];
 }
 //点击
-- (void)popViewClick:(id)sender
+- (void)popViewClick:(CustomButton *)sender
 {
-    
+    switch (sender.tag) {
+        case 1:
+
+            break;
+        case 2:
+        {
+            SearchViewController * svc = [[SearchViewController alloc] init];
+            [self pushVC:svc];
+        }
+            break;
+        case 3:
+            
+            break;
+        case 4:
+            
+            break;
+            
+        default:
+            break;
+    }
 }
+
 
 
 #pragma mark - getter
@@ -323,7 +350,7 @@
             [tableView  endUpdates];
         }
         else{
-            [self showHint:[NSString stringWithFormat:NSLocalizedString(@"deleteFailed", @"Delete failed:%@"), error.description]];
+            [self showHint:[NSString stringWithFormat:NSLocalizedString(@"deleteFailed", @"Delete failed")]];
             [tableView reloadData];
         }
     }
@@ -422,9 +449,12 @@
             }
         }
         
-        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:buddy.username isGroup:NO];
+//        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:buddy.username isGroup:NO];
 //        chatVC.title = [[UserProfileManager sharedInstance] getNickNameWithUsername:buddy.username];
-        [self.navigationController pushViewController:chatVC animated:YES];
+//        [self.navigationController pushViewController:chatVC animated:YES];
+        OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
+        opvc.uid = [[buddy.username stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
+        [self pushVC:opvc];
     }
 }
 
@@ -458,21 +488,21 @@
 
 - (void)cellImageViewLongPressAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row >= 1) {
-        // 群组，聊天室
-        return;
-    }
-    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
-    NSString *loginUsername = [loginInfo objectForKey:kSDKUsername];
-    EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
-    if ([buddy.username isEqualToString:loginUsername])
-    {
-        return;
-    }
-
-    _currentLongPressIndex = indexPath;
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"friend.block", @"join the blacklist") otherButtonTitles:nil, nil];
-    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
+//    if (indexPath.section == 0 && indexPath.row >= 1) {
+//        // 群组，聊天室
+//        return;
+//    }
+//    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+//    NSString *loginUsername = [loginInfo objectForKey:kSDKUsername];
+//    EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
+//    if ([buddy.username isEqualToString:loginUsername])
+//    {
+//        return;
+//    }
+//
+//    _currentLongPressIndex = indexPath;
+//    UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") destructiveButtonTitle:NSLocalizedString(@"friend.block", @"join the blacklist") otherButtonTitles:nil, nil];
+//    [actionSheet showInView:[[UIApplication sharedApplication] keyWindow]];
 }
 
 #pragma mark - private
@@ -531,21 +561,24 @@
 {
     [self.dataSource removeAllObjects];
     [self.contactsSource removeAllObjects];
-    
-    NSArray *buddyList = [[EaseMob sharedInstance].chatManager buddyList];
+
+//    NSArray *buddyList = [[EaseMob sharedInstance].chatManager buddyList];
+    NSArray *buddyList = [[IMUtils shareInstance] getBuddys];
+    //黑名单暂时不使用
     NSArray *blockList = [[EaseMob sharedInstance].chatManager blockedList];
+    
     for (EMBuddy *buddy in buddyList) {
         if (![blockList containsObject:buddy.username]) {
             [self.contactsSource addObject:buddy];
         }
     }
     
-    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
-    NSString *loginUsername = [loginInfo objectForKey:kSDKUsername];
-    if (loginUsername && loginUsername.length > 0) {
-        EMBuddy *loginBuddy = [EMBuddy buddyWithUsername:loginUsername];
-        [self.contactsSource addObject:loginBuddy];
-    }
+//    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+//    NSString *loginUsername = [loginInfo objectForKey:kSDKUsername];
+//    if (loginUsername && loginUsername.length > 0) {
+//        EMBuddy *loginBuddy = [EMBuddy buddyWithUsername:loginUsername];
+//        [self.contactsSource addObject:loginBuddy];
+//    }
     
     [self.dataSource addObjectsFromArray:[self sortDataArray:self.contactsSource]];
     
@@ -556,7 +589,8 @@
 
 - (void)reloadApplyView
 {
-    NSInteger count = [[[ApplyViewController shareController] dataSource] count];
+    
+    NSInteger count = [[InvitationManager sharedInstance] getUnread];
     
     if (count == 0) {
         self.unapplyCountLabel.hidden = YES;

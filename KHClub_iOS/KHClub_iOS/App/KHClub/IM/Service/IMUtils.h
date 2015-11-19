@@ -71,6 +71,18 @@
 - (void)setCurrentUserNick:(UILabel *)nameLabel;
 
 
+/**
+ *  好友列表缓存到本地
+ */
+- (void)cacheBuddysToDisk;
+
+/**
+ *  获取本地好友列表
+ *
+ *  @return arr
+ */
+- (NSArray *)getBuddys;
+
 @end
 
 

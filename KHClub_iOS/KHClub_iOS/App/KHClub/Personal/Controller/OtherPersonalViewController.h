@@ -18,4 +18,9 @@
  */
 @property (nonatomic, assign) NSInteger uid;
 
+/**
+ *  刚添加完
+ */
+@property (nonatomic, assign) BOOL newFriend;
+
 @end

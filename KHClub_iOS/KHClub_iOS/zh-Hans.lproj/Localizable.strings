@@ -53,7 +53,7 @@
 "receiveMessage" = "您有一条新消息";
 "loginAtOtherDevice" = "你的账号已在其他地方登录";
 "loginUserRemoveFromServer" = "你的账号已被从服务器端移除";
-"deleteFailed" = "删除失败:%@";
+"deleteFailed" = "删除失败";
 "notFound" = "没有找到";
 "noMore" = "没有更多数据了";
 "hasRead" = "已读";
@@ -97,6 +97,7 @@
 "apns.content" = "推送内容";
 
 //friend
+"friend.search" = "查询";
 "friend.add" = "添加好友";
 "friend.somebodyAddWithName" = "%@ 添加你为好友";
 "friend.beRefusedToAdd" = "你被'%@'无耻的拒绝了";
@@ -105,7 +106,7 @@
 "friend.repeatApply" = "您已向'%@'发送好友请求了!";
 "friend.notAddSelf" = "不能添加自己为好友";
 "friend.repeatInvite" = "%@已经给你发来了申请";
-"friend.somebodyInvite" = "%@ 邀请你为好友";
+"friend.somebodyInvite" = "邀请你为好友";
 "friend.sendApply" = "正在发送申请...";
 "friend.sendApplyFail" = "发送申请失败，请重新操作";
 "friend.sendApplySuccess" = "发送申请成功";

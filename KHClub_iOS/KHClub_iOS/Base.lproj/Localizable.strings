@@ -53,7 +53,7 @@
 "receiveMessage" = "you have a new message";
 "loginAtOtherDevice" = "your login account has been logged in other places";
 "loginUserRemoveFromServer" = "your account has been removed from the server side";
-"deleteFailed" = "Delete failed:%@";
+"deleteFailed" = "Delete failed";
 "notFound" = "Can't found";
 "noMore" = "No more data";
 "hasRead" = "Read";
@@ -97,6 +97,7 @@
 "apns.content" = "Apns content";
 
 //friend
+"friend.search" = "Search";
 "friend.add" = "add friend";
 "friend.somebodyAddWithName" = "%@ add you as a friend";
 "friend.beRefusedToAdd" = "you are shameless refused by '%@'";
@@ -105,7 +106,7 @@
 "friend.repeatApply" = "you have send fridend request to '%@'!";
 "friend.notAddSelf" = "can't add yourself as a friend";
 "friend.repeatInvite" = "%@ have sent the application to you";
-"friend.somebodyInvite" = "%@ invite you as a friend";
+"friend.somebodyInvite" = "invite you as a friend";
 "friend.sendApply" = "sending application...";
 "friend.sendApplyFail" = "send application fails, please operate again";
 "friend.sendApplySuccess" = "send successfully";

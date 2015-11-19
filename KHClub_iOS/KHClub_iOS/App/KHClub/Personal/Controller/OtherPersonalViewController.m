@@ -11,6 +11,8 @@
 #import "PersonalInfoView.h"
 #import "ImageModel.h"
 #import "MyNewsListViewController.h"
+#import "IMUtils.h"
+#import "ChatViewController.h"
 
 @interface OtherPersonalViewController ()
 
@@ -32,6 +34,8 @@
 @property (nonatomic, strong) UserModel * otherUser;
 //是不是好友
 @property (nonatomic, assign) BOOL isFriend;
+//添加或者发送消息 按钮
+@property (nonatomic, strong) CustomButton * sendOrAddBtn;
 
 @end
 
@@ -40,6 +44,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.isFriend = [self didBuddyExist:[ToolsManager getCommonTargetId:self.uid]];
+    if (self.newFriend) {
+        //新好友
+        self.isFriend = YES;
+    }
     //初始化
     [self initWidget];
     //编辑UI
@@ -58,7 +67,7 @@
 {
     //背景滚动视图
     self.backScrollView    = [[UIScrollView alloc] init];
-    self.infoView          = [[PersonalInfoView alloc] initWithFrame:CGRectMake(10, 10, self.viewWidth-20, 190) isSelf:YES];
+    self.infoView          = [[PersonalInfoView alloc] initWithFrame:CGRectMake(10, 10, self.viewWidth-20, 190) isSelf:NO];
     self.imageView1        = [[CustomImageView alloc] init];
     self.imageView2        = [[CustomImageView alloc] init];
     self.imageView3        = [[CustomImageView alloc] init];
@@ -66,11 +75,16 @@
     //签名部分
     self.signBackView      = [[UIView alloc] init];
     self.signLabel         = [[CustomLabel alloc] init];
+    //添加发送按钮
+    self.sendOrAddBtn      = [[CustomButton alloc] init];
     
     [self.view addSubview:self.backScrollView];
     [self.backScrollView addSubview:self.infoView];
     [self.backScrollView addSubview:self.signBackView];
     [self.signBackView addSubview:self.signLabel];
+    [self.backScrollView addSubview:self.sendOrAddBtn];
+    
+    [self.sendOrAddBtn addTarget:self action:@selector(sendOrAddClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)configUI
@@ -113,6 +127,19 @@
     self.signLabel.font               = [UIFont systemFontOfSize:15];
     self.signLabel.numberOfLines      = 0;
     self.signLabel.lineBreakMode      = NSLineBreakByCharWrapping;
+
+    self.sendOrAddBtn.frame           = CGRectMake(20, self.signBackView.bottom+20, self.viewWidth-40, 45);
+    self.sendOrAddBtn.backgroundColor = [UIColor colorWithHexString:ColorGold];
+    
+    if (self.uid == [UserService sharedService].user.uid) {
+        self.sendOrAddBtn.hidden = YES;
+    }
+    //是好友
+    if (self.isFriend) {
+        [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_Send") forState:UIControlStateNormal];
+    }else {
+        [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_AddFriend") forState:UIControlStateNormal];
+    }
     
 }
 
@@ -123,6 +150,17 @@
     mnlvc.isOther                    = YES;
     mnlvc.uid                        = self.uid;
     [self pushVC:mnlvc];
+}
+
+- (void)sendOrAddClick:(id)sender
+{
+    if (self.isFriend) {
+        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:[ToolsManager getCommonTargetId:self.uid] isGroup:NO];
+        [self pushVC:chatVC];
+    }else{
+        [self addContact];
+    }
+    
 }
 
 #pragma mark- private method
@@ -168,7 +206,8 @@
     }else{
         self.backScrollView.contentSize = CGSizeMake(0, self.signBackView.height+10);
     }
-    
+    //布局
+    self.sendOrAddBtn.y = self.signBackView.bottom + 20;
     //图片数组
     NSArray * imageList = responseData[HttpResult][@"image_list"];
     
@@ -195,6 +234,42 @@
     
     //设置数据
     [self.infoView setDataWithModel:self.otherUser];
+}
+
+- (BOOL)didBuddyExist:(NSString *)buddyName
+{
+    
+    NSArray *buddyList = [[[EaseMob sharedInstance] chatManager] buddyList];
+    for (EMBuddy *buddy in buddyList) {
+        if ([buddy.username isEqualToString:buddyName] &&
+            buddy.followState != eEMBuddyFollowState_NotFollowed) {
+            return YES;
+        }
+    }
+    
+    if ([[[IMUtils shareInstance] getBuddys] containsObject:buddyName]) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (void)addContact
+{
+
+    NSString *buddyName = [ToolsManager getCommonTargetId:self.uid];
+    if (buddyName && buddyName.length > 0) {
+        [self showHudInView:self.view hint:NSLocalizedString(@"friend.sendApply", @"sending application...")];
+        EMError *error;
+        [[EaseMob sharedInstance].chatManager addBuddy:buddyName message:[NSString stringWithFormat:NSLocalizedString(@"friend.somebodyInvite", @"invite you as a friend")] error:&error];
+        [self hideHud];
+        if (error) {
+            [self showHint:NSLocalizedString(@"friend.sendApplyFail", @"send application fails, please operate again")];
+        }
+        else{
+            [self showHint:NSLocalizedString(@"friend.sendApplySuccess", @"send successfully")];
+        }
+    }
 }
 
 /*

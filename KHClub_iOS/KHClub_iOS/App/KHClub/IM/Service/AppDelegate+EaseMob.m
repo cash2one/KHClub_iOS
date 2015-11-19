@@ -11,6 +11,8 @@
  */
 
 #import "AppDelegate+EaseMob.h"
+#import "ApplyViewController.h"
+#import "CusTabBarViewController.h"
 
 /**
  *  本类中做了EaseMob初始化和推送等操作
@@ -280,7 +282,7 @@
 //    [alertView show];
 }
 
-#warning Friends 好友申请回调注释
+#pragma Friends 好友申请回调注释
 // 好友申请回调
 - (void)didReceiveBuddyRequest:(NSString *)username
                        message:(NSString *)message
@@ -291,11 +293,10 @@
     if (!message) {
         message = [NSString stringWithFormat:NSLocalizedString(@"friend.somebodyAddWithName", @"%@ add you as a friend"), username];
     }
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"title":username, @"username":username, @"applyMessage":message, @"applyStyle":[NSNumber numberWithInteger:ApplyStyleFriend]}];
-//    [[ApplyViewController shareController] addNewApply:dic];
-//    if (self.mainController) {
-//        [self.mainController setupUntreatedApplyCount];
-//    }
+    NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"title":username, @"username":username, @"applyMessage":message, @"applyStyle":[NSNumber numberWithInteger:ApplyStyleFriend]}];
+    [[ApplyViewController shareController] addNewApply:dic];
+    
+    [[CusTabBarViewController sharedService] setUnread];
 }
 
 // 离开群组回调
@@ -333,7 +334,7 @@
     [alertView show];
 }
 
-#warning Group 接收到入群申请注释
+#pragma Group 接收到入群申请注释
 //接收到入群申请
 - (void)didReceiveApplyToJoinGroup:(NSString *)groupId
                          groupname:(NSString *)groupname
@@ -358,11 +359,9 @@
         [alertView show];
     }
     else{
-//        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"title":groupname, @"groupId":groupId, @"username":username, @"groupname":groupname, @"applyMessage":reason, @"applyStyle":[NSNumber numberWithInteger:ApplyStyleJoinGroup]}];
-//        [[ApplyViewController shareController] addNewApply:dic];
-//        if (self.mainController) {
-//            [self.mainController setupUntreatedApplyCount];
-//        }
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:@{@"title":groupname, @"groupId":groupId, @"username":username, @"groupname":groupname, @"applyMessage":reason, @"applyStyle":[NSNumber numberWithInteger:ApplyStyleJoinGroup]}];
+        [[ApplyViewController shareController] addNewApply:dic];
+        [[CusTabBarViewController sharedService] setUnread];
     }
 }
 
@@ -394,12 +393,12 @@
     }
 }
 
-#warning Net 接收到入群申请注释
+#pragma Net 接收到入群申请注释
 // 网络状态变化回调
 - (void)didConnectionStateChanged:(EMConnectionState)connectionState
 {
     _connectionState = connectionState;
-//    [self.mainController networkChanged:connectionState];
+    [[CusTabBarViewController sharedService] networkChanged:connectionState];
 }
 
 // 打印收到的apns信息

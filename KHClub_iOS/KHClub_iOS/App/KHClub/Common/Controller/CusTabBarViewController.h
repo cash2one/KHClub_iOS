@@ -27,9 +27,17 @@
  */
 - (void)customSelectedIndex:(NSInteger)index;
 
-/*!
- @brief 设置侧滑
+/**
+ *  设置未读
  */
-//- (void)setLeftBtnSlideWithNavBar:(NavBar *)navBar;
+- (void)setUnread;
+
+/**
+ *  网络变化
+ *
+ *  @param connectionState 网络状态
+ */
+- (void)networkChanged:(EMConnectionState)connectionState;
+
 
 @end

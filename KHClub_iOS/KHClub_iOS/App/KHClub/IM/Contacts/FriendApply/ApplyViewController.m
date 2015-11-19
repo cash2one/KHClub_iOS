@@ -11,7 +11,8 @@
   */
 
 #import "ApplyViewController.h"
-
+#import "OtherPersonalViewController.h"
+#import "IMUtils.h"
 #import "ApplyFriendCell.h"
 #import "InvitationManager.h"
 
@@ -30,6 +31,13 @@ static ApplyViewController *controller = nil;
     self = [super init];
     if (self) {
         _dataSource = [[NSMutableArray alloc] init];
+        NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+        NSString *loginName = [loginInfo objectForKey:kSDKUsername];
+        if(loginName && [loginName length] > 0)
+        {
+            NSArray * applyArray = [[InvitationManager sharedInstance] applyEmtitiesWithloginUser:loginName];
+            [self.dataSource addObjectsFromArray:applyArray];
+        }
     }
     return self;
 }
@@ -48,23 +56,19 @@ static ApplyViewController *controller = nil;
 {
     [super viewDidLoad];
     
+    [self setNavBarTitle:NSLocalizedString(@"title.apply", @"Application and notification")];
+    
     self.tableView            = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
     self.tableView.delegate   = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
-    
+
     // Uncomment the following line to preserve selection between presentations.
-    self.title = NSLocalizedString(@"title.apply", @"Application and notification");
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [self.navigationItem setLeftBarButtonItem:backItem];
-    
     [self loadDataSourceFromLocalDB];
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -76,9 +80,16 @@ static ApplyViewController *controller = nil;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [[InvitationManager sharedInstance] clearUnread];
+    //发通知
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_TAB_BADGE object:nil];
     
 //    [self.tableView reloadData];
 }
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"setupUntreatedApplyCount" object:nil];
+//}
 
 #pragma mark - getter
 
@@ -139,8 +150,11 @@ static ApplyViewController *controller = nil;
                 cell.headerImageView.image = [UIImage imageNamed:@"groupPrivateHeader"];
             }
             else if(applyStyle == ApplyStyleFriend){
-                cell.titleLabel.text = entity.applicantUsername;
-                cell.headerImageView.image = [UIImage imageNamed:@"chatListCellHead"];
+                NSString * username = [entity.applicantUsername stringByReplacingOccurrencesOfString:KH withString:@""];
+//                cell.titleLabel.text = entity.applicantUsername;
+                [[IMUtils shareInstance] setUserNickWith:username and:cell.titleLabel];
+                [[IMUtils shareInstance] setUserAvatarWith:username and:cell.headerImageView];
+//                cell.headerImageView.image = [UIImage imageNamed:@"chatListCellHead"];
             }
             cell.contentLabel.text = entity.reason;
         }
@@ -185,56 +199,98 @@ static ApplyViewController *controller = nil;
         }
         else */if (applyStyle == ApplyStyleJoinGroup)
         {
+            //群组
             [[EaseMob sharedInstance].chatManager acceptApplyJoinGroup:entity.groupId groupname:entity.groupSubject applicant:entity.applicantUsername error:&error];
+            
+            [self hideHud];
+            if (!error) {
+                [self.dataSource removeObject:entity];
+                NSString *loginUsername = [[[EaseMob sharedInstance].chatManager loginInfo] objectForKey:kSDKUsername];
+                [[InvitationManager sharedInstance] removeInvitation:entity loginUser:loginUsername];
+                [self.tableView reloadData];
+            }
+            else{
+                [self showHint:NSLocalizedString(@"acceptFail", @"accept failure")];
+            }
+            
         }
         else if(applyStyle == ApplyStyleFriend){
-            [[EaseMob sharedInstance].chatManager acceptBuddyRequest:entity.applicantUsername error:&error];
+            //kAddFriendPath
+            NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                                      @"target_id":[entity.applicantUsername stringByReplacingOccurrencesOfString:KH withString:@""]};
+            
+            debugLog(@"%@ %@", kAddFriendPath, params);
+            //添加好友
+            [HttpService postWithUrlString:kAddFriendPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+                
+                [self hideHud];
+                int status = [responseData[HttpStatus] intValue];
+                if (status == HttpStatusCodeSuccess) {
+                    EMError * error;
+                    //环信添加
+                    [[EaseMob sharedInstance].chatManager acceptBuddyRequest:entity.applicantUsername error:&error];
+                    if (!error) {
+                        [self.dataSource removeObject:entity];
+                        NSString *loginUsername = [[[EaseMob sharedInstance].chatManager loginInfo] objectForKey:kSDKUsername];
+                        [[InvitationManager sharedInstance] removeInvitation:entity loginUser:loginUsername];
+                        [self.tableView reloadData];
+                        //进入主页
+                        OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
+                        opvc.uid                           = [[entity.applicantUsername stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
+                        opvc.newFriend                     = YES;
+                        [self pushVC:opvc];
+                    }
+                    else{
+                        [self showHint:NSLocalizedString(@"acceptFail", @"accept failure")];
+                    }
+                    
+                }else{
+                    [self showHint:StringCommonNetException];
+                }
+                
+                
+            } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+                [self hideHud];
+                [self showHint:StringCommonNetException];
+            }];
+            
+            
         }
         
-        [self hideHud];
-        if (!error) {
-            [self.dataSource removeObject:entity];
-            NSString *loginUsername = [[[EaseMob sharedInstance].chatManager loginInfo] objectForKey:kSDKUsername];
-            [[InvitationManager sharedInstance] removeInvitation:entity loginUser:loginUsername];
-            [self.tableView reloadData];
-        }
-        else{
-            [self showHint:NSLocalizedString(@"acceptFail", @"accept failure")];
-        }
     }
 }
 
 - (void)applyCellRefuseFriendAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row < [self.dataSource count]) {
-        [self showHudInView:self.view hint:NSLocalizedString(@"sendingApply", @"sending apply...")];
-        ApplyEntity *entity = [self.dataSource objectAtIndex:indexPath.row];
-        ApplyStyle applyStyle = [entity.style intValue];
-        EMError *error;
-        
-        if (applyStyle == ApplyStyleGroupInvitation) {
-            [[EaseMob sharedInstance].chatManager rejectInvitationForGroup:entity.groupId toInviter:entity.applicantUsername reason:@""];
-        }
-        else if (applyStyle == ApplyStyleJoinGroup)
-        {
-            [[EaseMob sharedInstance].chatManager rejectApplyJoinGroup:entity.groupId groupname:entity.groupSubject toApplicant:entity.applicantUsername reason:nil];
-        }
-        else if(applyStyle == ApplyStyleFriend){
-            [[EaseMob sharedInstance].chatManager rejectBuddyRequest:entity.applicantUsername reason:@"" error:&error];
-        }
-        
-        [self hideHud];
-        if (!error) {
-            [self.dataSource removeObject:entity];
-            NSString *loginUsername = [[[EaseMob sharedInstance].chatManager loginInfo] objectForKey:kSDKUsername];
-            [[InvitationManager sharedInstance] removeInvitation:entity loginUser:loginUsername];
-            
-            [self.tableView reloadData];
-        }
-        else{
-            [self showHint:NSLocalizedString(@"rejectFail", @"reject failure")];
-        }
-    }
+//    if (indexPath.row < [self.dataSource count]) {
+//        [self showHudInView:self.view hint:NSLocalizedString(@"sendingApply", @"sending apply...")];
+//        ApplyEntity *entity = [self.dataSource objectAtIndex:indexPath.row];
+//        ApplyStyle applyStyle = [entity.style intValue];
+//        EMError *error;
+//        
+//        if (applyStyle == ApplyStyleGroupInvitation) {
+//            [[EaseMob sharedInstance].chatManager rejectInvitationForGroup:entity.groupId toInviter:entity.applicantUsername reason:@""];
+//        }
+//        else if (applyStyle == ApplyStyleJoinGroup)
+//        {
+//            [[EaseMob sharedInstance].chatManager rejectApplyJoinGroup:entity.groupId groupname:entity.groupSubject toApplicant:entity.applicantUsername reason:nil];
+//        }
+//        else if(applyStyle == ApplyStyleFriend){
+//            [[EaseMob sharedInstance].chatManager rejectBuddyRequest:entity.applicantUsername reason:@"" error:&error];
+//        }
+//        
+//        [self hideHud];
+//        if (!error) {
+//            [self.dataSource removeObject:entity];
+//            NSString *loginUsername = [[[EaseMob sharedInstance].chatManager loginInfo] objectForKey:kSDKUsername];
+//            [[InvitationManager sharedInstance] removeInvitation:entity loginUser:loginUsername];
+//            
+//            [self.tableView reloadData];
+//        }
+//        else{
+//            [self showHint:NSLocalizedString(@"rejectFail", @"reject failure")];
+//        }
+//    }
 }
 
 #pragma mark - public
@@ -242,6 +298,7 @@ static ApplyViewController *controller = nil;
 - (void)addNewApply:(NSDictionary *)dictionary
 {
     if (dictionary && [dictionary count] > 0) {
+        
         NSString *applyUsername = [dictionary objectForKey:@"username"];
         ApplyStyle style = [[dictionary objectForKey:@"applyStyle"] intValue];
         
@@ -284,7 +341,9 @@ static ApplyViewController *controller = nil;
             newEntity.groupSubject = (groupSubject && groupSubject.length > 0) ? groupSubject : @"";
             
             NSString *loginUsername = [[[EaseMob sharedInstance].chatManager loginInfo] objectForKey:kSDKUsername];
+            //增加未读
             [[InvitationManager sharedInstance] addInvitation:newEntity loginUser:loginUsername];
+            [[InvitationManager sharedInstance] addUnread];
             
             [_dataSource insertObject:newEntity atIndex:0];
             [self.tableView reloadData];
@@ -307,13 +366,6 @@ static ApplyViewController *controller = nil;
         [self.tableView reloadData];
     }
 }
-
-- (void)back
-{
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"setupUntreatedApplyCount" object:nil];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 - (void)clear
 {

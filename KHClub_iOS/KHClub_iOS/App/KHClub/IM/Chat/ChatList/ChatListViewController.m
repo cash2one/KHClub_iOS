@@ -187,6 +187,11 @@
     [self defaultTopRightBtnHandle:addFriendBtn imageName:@"icon_menu_add_friend" andTitle:KHClubString(@"Message_Message_Add")];
     [self defaultTopRightBtnHandle:newGroupBtn imageName:@"icon_menu_new_group" andTitle:KHClubString(@"Message_Message_Group")];
     [self defaultTopRightBtnHandle:myQrcodeBtn imageName:@"icon_menu_my_qr_code" andTitle:KHClubString(@"Message_Message_MyQrcode")];
+    
+    qrcodeBtn.tag    = 1;
+    addFriendBtn.tag = 2;
+    newGroupBtn.tag  = 3;
+    myQrcodeBtn.tag  = 4;
 }
 //默认
 - (void)defaultTopRightBtnHandle:(CustomButton *)btn imageName:(NSString *)imageName andTitle:(NSString *)title
@@ -227,9 +232,25 @@
     }];
 }
 //点击
-- (void)popViewClick:(id)sender
+- (void)popViewClick:(CustomButton *)sender
 {
-
+    switch (sender.tag) {
+        case 1:
+            
+            break;
+        case 2:
+            
+            break;
+        case 3:
+            
+            break;
+        case 4:
+            
+            break;
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - getter
@@ -394,14 +415,11 @@
         }
         cell.placeholderImage = [UIImage imageNamed:imageName];
     }
-    cell.detailMsg = [self subTitleMessageByConversation:conversation];
-    cell.time = [self lastMessageTimeByConversation:conversation];
-    cell.unreadCount = [self unreadMessageCountByConversation:conversation];
-    if (indexPath.row % 2 == 1) {
-        cell.contentView.backgroundColor = RGBACOLOR(246, 246, 246, 1);
-    }else{
-        cell.contentView.backgroundColor = [UIColor whiteColor];
-    }
+    cell.detailMsg                   = [self subTitleMessageByConversation:conversation];
+    cell.time                        = [self lastMessageTimeByConversation:conversation];
+    cell.unreadCount                 = [self unreadMessageCountByConversation:conversation];
+    cell.contentView.backgroundColor = [UIColor whiteColor];
+
     return cell;
 }
 

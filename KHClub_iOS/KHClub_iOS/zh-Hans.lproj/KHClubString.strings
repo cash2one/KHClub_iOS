@@ -101,6 +101,8 @@
 "Personal_PersonalSetting_Setting"        = "设置";
 "Personal_PersonalSetting_TooLong"        = "内容太长";
 "Personal_MyNews_PersonalNews"            = "个人动态";
+"Personal_OtherPersonal_AddFriend"        = "添加为好友";
+"Personal_OtherPersonal_Send"             = "发送消息";
 
 //News
 "News_Publish_EnterContent"               = "请输入内容";
@@ -132,4 +134,9 @@
 "Message_Message_Add"                     = "加好友（群）";
 "Message_Message_Group"                   = "新建群聊";
 "Message_Message_MyQrcode"                = "我的二维码";
+
+//Contact
+"Contact_Search_InputPrompt"              = "输入手机号、群ID号";
+"Contact_Search_SearchFail"               = "未查询到相关信息";
+
 

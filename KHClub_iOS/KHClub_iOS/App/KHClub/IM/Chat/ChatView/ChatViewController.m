@@ -14,7 +14,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <MobileCoreServices/MobileCoreServices.h>
-
+#import "OtherPersonalViewController.h"
 #import "SRRefreshView.h"
 #import "DXChatBarMoreView.h"
 #import "DXRecordView.h"
@@ -660,6 +660,10 @@
 {
 //    UserProfileViewController *userprofile = [[UserProfileViewController alloc] initWithUsername:model.username];
 //    [self.navigationController pushViewController:userprofile animated:YES];
+    OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
+    opvc.uid                           = [[model.username stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
+    [self pushVC:opvc];
+    
 }
 
 //链接被点击

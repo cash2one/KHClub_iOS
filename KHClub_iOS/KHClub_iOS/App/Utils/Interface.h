@@ -115,6 +115,9 @@
 //搜索用户列表
 #define kFindUserListPath [kHomeAddr stringByAppendingString:@"/findUserList"]
 
+//搜索用户或者群组
+#define kFindUserOrGroupPath [kHomeAddr stringByAppendingString:@"/findUserOrGroup"]
+
 //////////////////////////////////////通讯录部分//////////////////////////////////////////
 // 收藏名片
 #define kCollectCardPath [kHomeAddr stringByAppendingString:@"/collectCard"]
