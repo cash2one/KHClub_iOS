@@ -338,21 +338,43 @@
             return;
         }
         
-        EMError *error = nil;
-        [[EaseMob sharedInstance].chatManager removeBuddy:buddy.username removeFromRemote:YES error:&error];
-        if (!error) {
-            [[EaseMob sharedInstance].chatManager removeConversationByChatter:buddy.username deleteMessages:YES append2Chat:YES];
+        
+        [self showHudInView:self.view hint:@""];
+        //删除好友
+        NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                                  @"target_id":[buddy.username stringByReplacingOccurrencesOfString:KH withString:@""]};
+        [HttpService postWithUrlString:kDeleteFriendPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
             
-            [tableView beginUpdates];
-            [[self.dataSource objectAtIndex:(indexPath.section - 1)] removeObjectAtIndex:indexPath.row];
-            [self.contactsSource removeObject:buddy];
-            [tableView  deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [tableView  endUpdates];
-        }
-        else{
-            [self showHint:[NSString stringWithFormat:NSLocalizedString(@"deleteFailed", @"Delete failed")]];
-            [tableView reloadData];
-        }
+            [self hideHud];
+            int status = [responseData[HttpStatus] intValue];
+            if (status == HttpStatusCodeSuccess) {
+                EMError *error = nil;
+                [[EaseMob sharedInstance].chatManager removeBuddy:buddy.username removeFromRemote:YES error:&error];
+                if (!error) {
+                    [[EaseMob sharedInstance].chatManager removeConversationByChatter:buddy.username deleteMessages:YES append2Chat:YES];
+                    
+                    [tableView beginUpdates];
+                    [[self.dataSource objectAtIndex:(indexPath.section - 1)] removeObjectAtIndex:indexPath.row];
+                    [self.contactsSource removeObject:buddy];
+                    [tableView  deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                    [tableView  endUpdates];
+                }
+                else{
+                    [self showHint:[NSString stringWithFormat:NSLocalizedString(@"deleteFailed", @"Delete failed")]];
+                    [tableView reloadData];
+                }
+                
+            }else{
+                [self showHint:StringCommonNetException];
+            }
+            
+            
+        } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [self hideHud];
+            [self showHint:StringCommonNetException];
+        }];
+        
+
     }
 }
 
