@@ -133,7 +133,12 @@
 "Message_Message_Add"                     = "Search";
 "Message_Message_Group"                   = "New group";
 "Message_Message_MyQrcode"                = "My QR code";
+"Message_Create_Cover"                    = "Cover";
+"Message_GroupDetail_QRcode"              = "Group QRcode";
+"Message_GroupDetail_Share"               = "Share";
+"Message_GroupDetail_QRcodeCard"          = "QRcode Card";
 
 //Contact
 "Contact_Search_InputPrompt"              = "Input phone number or group id";
 "Contact_Search_SearchFail"               = "No result";
+"IM_Group_Cover"                          = "Cover";

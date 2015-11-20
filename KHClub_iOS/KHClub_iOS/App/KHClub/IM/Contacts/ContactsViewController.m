@@ -23,6 +23,7 @@
 #import "ChatViewController.h"
 #import "RobotListViewController.h"
 #import "SearchViewController.h"
+#import "CreateGroupViewController.h"
 #import "IMUtils.h"
 
 //@implementation EMBuddy (search)
@@ -200,7 +201,10 @@
         }
             break;
         case 3:
-            
+        {
+            CreateGroupViewController * cgvc = [[CreateGroupViewController alloc] init];
+            [self pushVC:cgvc];
+        }
             break;
         case 4:
             
@@ -440,7 +444,7 @@
         else if (indexPath.row == 1)
         {
             if (_groupController == nil) {
-                _groupController = [[GroupListViewController alloc] initWithStyle:UITableViewStylePlain];
+                _groupController = [[GroupListViewController alloc] init];
             }
             else{
                 [_groupController reloadDataSource];

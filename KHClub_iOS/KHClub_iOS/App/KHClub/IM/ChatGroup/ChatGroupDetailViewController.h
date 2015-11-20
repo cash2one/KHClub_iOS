@@ -10,7 +10,7 @@
   * from EaseMob Technologies.
   */
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 /**
  *  群组成员类型
@@ -20,7 +20,7 @@ typedef enum{
     GroupOccupantTypeMember,//成员
 }GroupOccupantType;
 
-@interface ChatGroupDetailViewController : UITableViewController<IChatManagerDelegate>
+@interface ChatGroupDetailViewController : BaseViewController<IChatManagerDelegate, UITableViewDataSource, UITableViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 - (instancetype)initWithGroup:(EMGroup *)chatGroup;
 

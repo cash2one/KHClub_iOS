@@ -41,27 +41,34 @@
 {
     [super viewDidLoad];
 
-    self.title = NSLocalizedString(@"title.groupSubjectChanging", @"Change group name");
+//    self.title = NSLocalizedString(@"title.groupSubjectChanging", @"Change group name");
+//
+//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+//    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+//    [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+//    [self.navigationItem setLeftBarButtonItem:backItem];
 
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [self.navigationItem setLeftBarButtonItem:backItem];
+//    if (_isOwner)
+//    {
+//        UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"save", @"Save") style:UIBarButtonItemStylePlain target:self action:@selector(save:)];
+//        saveItem.tintColor = [UIColor colorWithRed:32 / 255.0 green:134 / 255.0 blue:158 / 255.0 alpha:1.0];
+//        [self.navigationItem setRightBarButtonItem:saveItem];
+//    }
 
-    if (_isOwner)
-    {
-        UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"save", @"Save") style:UIBarButtonItemStylePlain target:self action:@selector(save:)];
-        saveItem.tintColor = [UIColor colorWithRed:32 / 255.0 green:134 / 255.0 blue:158 / 255.0 alpha:1.0];
-        [self.navigationItem setRightBarButtonItem:saveItem];
-    }
-
-    CGRect frame = CGRectMake(20, 80, self.view.frame.size.width - 40, 40);
-    _subjectField = [[UITextField alloc] initWithFrame:frame];
+    [self setNavBarTitle:NSLocalizedString(@"title.groupSubjectChanging", @"Change group name")];
+    __weak typeof(self) sself = self;
+    [self.navBar setRightBtnWithContent:StringCommonSave andBlock:^{
+        [sself save:nil];
+    }];
+    
+    CGRect frame                     = CGRectMake(20, 80, self.view.frame.size.width - 40, 40);
+    _subjectField                    = [[UITextField alloc] initWithFrame:frame];
     _subjectField.layer.cornerRadius = 5.0;
-    _subjectField.layer.borderWidth = 1.0;
-    _subjectField.placeholder = NSLocalizedString(@"group.setting.subject", @"Please input group name");
-    _subjectField.text = _group.groupSubject;
+    _subjectField.layer.borderWidth  = 1.0;
+    _subjectField.layer.borderColor  = [UIColor colorWithHexString:ColorDeepGary].CGColor;
+    _subjectField.placeholder        = NSLocalizedString(@"group.setting.subject", @"Please input group name");
+    _subjectField.text               = _group.groupSubject;
     if (!_isOwner)
     {
         _subjectField.enabled = NO;
@@ -110,12 +117,39 @@
 - (void)save:(id)sender
 {
     [self saveSubject];
-    [self back];
 }
 
 - (void)saveSubject
 {
-    [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_subjectField.text forGroup:_group.groupId];
+    //kAddFriendPath
+    NSDictionary * params = @{@"group_id":_group.groupId,
+                              @"group_name":_subjectField.text};
+    
+    [self showHudInView:self.view hint:@""];
+    //添加好友
+    [HttpService postWithUrlString:kUpdateGroupNamePath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        
+        [self hideHud];
+        
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            [[EaseMob sharedInstance].chatManager asyncChangeGroupSubject:_subjectField.text forGroup:_group.groupId];
+            [self back];
+        }else{
+            [self showHint:StringCommonNetException];
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self hideHud];
+        [self showHint:StringCommonNetException];
+    }];
+    
+
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [_subjectField resignFirstResponder];
 }
 
 @end

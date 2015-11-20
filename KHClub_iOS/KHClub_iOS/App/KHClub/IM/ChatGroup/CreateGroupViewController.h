@@ -10,8 +10,8 @@
   * from EaseMob Technologies.
   */
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface CreateGroupViewController : UIViewController
+@interface CreateGroupViewController : BaseViewController<UINavigationControllerDelegate,UIImagePickerControllerDelegate, UIActionSheetDelegate>
 
 @end

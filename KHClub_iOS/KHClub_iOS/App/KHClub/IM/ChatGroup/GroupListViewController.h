@@ -10,9 +10,9 @@
   * from EaseMob Technologies.
   */
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface GroupListViewController : UITableViewController
+@interface GroupListViewController : BaseViewController
 
 - (void)reloadDataSource;
 

@@ -63,7 +63,8 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
                 if (self.messageModel.message.isReadAcked)
                 {
                     _activityView.hidden = NO;
-                    _hasRead.hidden = NO;
+                    //再也不显示了
+                    _hasRead.hidden = YES;
                 }
                 else
                 {
@@ -165,10 +166,11 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
         [_activityView addSubview:_activtiy];
 
         //已读
-        _hasRead = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SEND_STATUS_SIZE, SEND_STATUS_SIZE)];
-        _hasRead.text = NSLocalizedString(@"hasRead", @"Read");
+        _hasRead               = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, SEND_STATUS_SIZE, SEND_STATUS_SIZE)];
+        _hasRead.text          = NSLocalizedString(@"hasRead", @"Read");
         _hasRead.textAlignment = NSTextAlignmentCenter;
-        _hasRead.font = [UIFont systemFontOfSize:12];
+        _hasRead.font          = [UIFont systemFontOfSize:12];
+        _hasRead.hidden        = YES;
         [_hasRead sizeToFit];
         [_activityView addSubview:_hasRead];
     }

@@ -98,6 +98,11 @@
         _conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:chatter
                                                                     conversationType:type];
         [_conversation markAllMessagesAsRead:YES];
+        if (type == eConversationTypeGroupChat) {
+            [[IMUtils shareInstance] setGroupNameWith:chatter and:self.navBar.titleLabel andGroupTitle:self.groupName];
+        }else if (type == eConversationTypeChat) {
+            [[IMUtils shareInstance] setUserNickWith:chatter and:self.navBar.titleLabel];
+        }
     }
     
     return self;
@@ -164,7 +169,7 @@
 //        self.edgesForExtendedLayout =  UIRectEdgeNone;
 //    }
     
-#warning 以下三行代码必须写，注册为SDK的ChatManager的delegate
+//#warning 以下三行代码必须写，注册为SDK的ChatManager的delegate
     [EMCDDeviceManager sharedInstance].delegate = self;
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     //注册为SDK的ChatManager的delegate
@@ -182,7 +187,7 @@
     _messageQueue = dispatch_queue_create("easemob.com", NULL);
     _isScrollToBottom = YES;
     
-//    [self setupBarButtonItem];
+    [self setupBarButtonItem];
     [self.view addSubview:self.tableView];
     [self.tableView addSubview:self.slimeView];
     [self.view addSubview:self.chatToolBar];
@@ -222,27 +227,24 @@
     }
 }
 
-//- (void)setupBarButtonItem
-//{
-//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-//    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-//    [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-//    [self.navigationItem setLeftBarButtonItem:backItem];
-//    
-//    if (self.isChatGroup) {
-//        UIButton *detailButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 44)];
-//        [detailButton setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
-//        [detailButton addTarget:self action:@selector(showRoomContact:) forControlEvents:UIControlEventTouchUpInside];
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:detailButton];
-//    }
-//    else{
-//        UIButton *clearButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-//        [clearButton setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
-//        [clearButton addTarget:self action:@selector(removeAllMessages:) forControlEvents:UIControlEventTouchUpInside];
-//        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:clearButton];
-//    }
-//}
+- (void)setupBarButtonItem
+{
+
+    __weak typeof(self) sself = self;
+    if (self.isChatGroup) {
+        
+        [self.navBar setRightBtnWithContent:nil andBlock:^{
+            [sself showRoomContact:nil];
+        }];
+        [self.navBar.rightBtn setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
+    } else{
+        
+        [self.navBar setRightBtnWithContent:nil andBlock:^{
+            [sself removeAllMessages:nil];
+        }];
+        [self.navBar.rightBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+    }
+}
 
 - (void)didReceiveMemoryWarning
 {
@@ -509,13 +511,13 @@
             return timeCell;
         }
         else{
-            MessageModel *model = (MessageModel *)obj;
+            MessageModel *model      = (MessageModel *)obj;
             NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
-            EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            EMChatViewCell *cell     = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {
-                cell = [[EMChatViewCell alloc] initWithMessageModel:model reuseIdentifier:cellIdentifier];
+                cell                 = [[EMChatViewCell alloc] initWithMessageModel:model reuseIdentifier:cellIdentifier];
                 cell.backgroundColor = [UIColor clearColor];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.selectionStyle  = UITableViewCellSelectionStyleNone;
             }
             cell.messageModel = model;
             

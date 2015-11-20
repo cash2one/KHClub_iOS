@@ -31,13 +31,13 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _timeLabel                 = [[UILabel alloc] initWithFrame:CGRectMake([DeviceManager getDeviceWidth]-200, 7, 180, 16)];
-        _timeLabel.font            = [UIFont systemFontOfSize:13];
-        _timeLabel.textColor       = [UIColor colorWithHexString:ColorDeepBlack];
-        _timeLabel.backgroundColor = [UIColor clearColor];
-        _timeLabel.textAlignment   = NSTextAlignmentRight;
+        _timeLabel                      = [[UILabel alloc] initWithFrame:CGRectMake([DeviceManager getDeviceWidth]-200, 7, 180, 16)];
+        _timeLabel.font                 = [UIFont systemFontOfSize:13];
+        _timeLabel.textColor            = [UIColor colorWithHexString:ColorDeepBlack];
+        _timeLabel.backgroundColor      = [UIColor clearColor];
+        _timeLabel.textAlignment        = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
-        
+
         _unreadLabel                    = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, 20, 20)];
         _unreadLabel.backgroundColor    = [UIColor redColor];
         _unreadLabel.textColor          = [UIColor whiteColor];
@@ -47,18 +47,20 @@
         _unreadLabel.layer.cornerRadius = 10;
         _unreadLabel.clipsToBounds      = YES;
         [self.contentView addSubview:_unreadLabel];
-        
-        _detailLabel                 = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 175, 20)];
-        _detailLabel.backgroundColor = [UIColor clearColor];
-        _detailLabel.font            = [UIFont systemFontOfSize:15];
-        _detailLabel.textColor       = [UIColor lightGrayColor];
+
+        _detailLabel                    = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 175, 20)];
+        _detailLabel.backgroundColor    = [UIColor clearColor];
+        _detailLabel.font               = [UIFont systemFontOfSize:15];
+        _detailLabel.textColor          = [UIColor lightGrayColor];
         [self.contentView addSubview:_detailLabel];
-        
-        self.textLabel.backgroundColor = [UIColor clearColor];
-        
-        _lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], 1)];
-        _lineView.backgroundColor = RGBACOLOR(207, 210, 213, 0.7);
+
+        self.textLabel.backgroundColor  = [UIColor clearColor];
+
+        _lineView                       = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], 1)];
+        _lineView.backgroundColor       = RGBACOLOR(207, 210, 213, 0.7);
         [self.contentView addSubview:_lineView];
+
+        self.textLabel.textColor        = [UIColor colorWithHexString:ColorDeepBlack];
     }
     return self;
 }
@@ -89,12 +91,17 @@
     
 //    [self.imageView sd_setImageWithURL:_imageURL placeholderImage:_placeholderImage];
 //    [self.imageView imageWithUsername:_name placeholderImage:_placeholderImage];
-    [[IMUtils shareInstance] setUserAvatarWith:_name and:self.imageView];
+    if (self.groupId.length > 0) {
+        //群组
+        [[IMUtils shareInstance] setGroupImageWith:_groupId and:self.imageView];
+        [[IMUtils shareInstance] setGroupNameWith:_groupId and:self.textLabel andGroupTitle:_name];
+    }else{
+        //个人
+        [[IMUtils shareInstance] setUserNickWith:_name and:self.textLabel];
+        [[IMUtils shareInstance] setUserAvatarWith:_name and:self.imageView];
+    }
+
     self.imageView.frame = CGRectMake(10, 7, 45, 45);
-    
-//    self.textLabel.text = _name;
-//    [self.textLabel setTextWithUsername:_name];
-    [[IMUtils shareInstance] setUserNickWith:_name and:self.textLabel];
     self.textLabel.frame = CGRectMake(65, 7, 175, 20);
     
     _detailLabel.text = _detailMsg;

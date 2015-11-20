@@ -11,20 +11,21 @@
  */
 
 #import "ChatGroupDetailViewController.h"
-
+#import "IMUtils.h"
 #import "ContactSelectionViewController.h"
 #import "GroupSettingViewController.h"
 #import "EMGroup.h"
 #import "ContactView.h"
 #import "GroupBansViewController.h"
 #import "GroupSubjectChangingViewController.h"
+#import "QRcodeCardView.h"
 
 #pragma mark - ChatGroupDetailViewController
 
 #define kColOfRow 5
 #define kContactSize 60
 
-@interface ChatGroupDetailViewController ()<IChatManagerDelegate, EMChooseViewDelegate, UIActionSheetDelegate>
+@interface ChatGroupDetailViewController ()<IChatManagerDelegate, EMChooseViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
 
 - (void)unregisterNotifications;
 - (void)registerNotifications;
@@ -32,6 +33,7 @@
 @property (nonatomic) GroupOccupantType occupantType;
 @property (strong, nonatomic) EMGroup *chatGroup;
 
+@property (nonatomic, strong) UITableView * tableView;
 @property (strong, nonatomic) NSMutableArray *dataSource;
 @property (strong, nonatomic) UIScrollView *scrollView;
 @property (strong, nonatomic) UIButton *addButton;
@@ -43,6 +45,8 @@
 @property (strong, nonatomic) UIButton *configureButton;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPress;
 @property (strong, nonatomic) ContactView *selectedContact;
+
+@property (nonatomic, strong) CustomImageView * coverImageView;
 
 - (void)dissolveAction;
 - (void)clearAction;
@@ -107,11 +111,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [self.navigationItem setLeftBarButtonItem:backItem];
+//    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
+//    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
+//    [backButton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
+//    [self.navigationItem setLeftBarButtonItem:backItem];
+    
+    [[IMUtils shareInstance] setGroupNameWith:_chatGroup.groupId and:self.navBar.titleLabel andGroupTitle:_chatGroup.groupSubject];
+    
+    self.tableView                = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView.delegate       = self;
+    self.tableView.dataSource     = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableView];
     
     self.tableView.tableFooterView = self.footerView;
     
@@ -162,7 +174,7 @@
         [_clearButton setTitle:NSLocalizedString(@"group.removeAllMessages", @"remove all messages") forState:UIControlStateNormal];
         [_clearButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_clearButton addTarget:self action:@selector(clearAction) forControlEvents:UIControlEventTouchUpInside];
-        [_clearButton setBackgroundColor:[UIColor colorWithRed:87 / 255.0 green:186 / 255.0 blue:205 / 255.0 alpha:1.0]];
+        [_clearButton setBackgroundColor:[UIColor colorWithHexString:ColorGold]];
     }
     
     return _clearButton;
@@ -224,11 +236,11 @@
     // Return the number of rows in the section.
     if (self.occupantType == GroupOccupantTypeOwner)
     {
-        return 6;
+        return 8;
     }
     else
     {
-        return 5;
+        return 6;
     }
 }
 
@@ -240,7 +252,6 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
     }
-    
     if (indexPath.row == 0) {
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.contentView addSubview:self.scrollView];
@@ -264,15 +275,41 @@
     }
     else if (indexPath.row == 4)
     {
+        cell.textLabel.text = KHClubString(@"Message_GroupDetail_Share");
+        cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+    }else if (indexPath.row == 5){
+        cell.textLabel.text = KHClubString(@"Message_GroupDetail_QRcode");
+        cell.accessoryType  = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    else if (indexPath.row == 6)
+    {
         cell.textLabel.text = NSLocalizedString(@"title.groupSubjectChanging", @"Change group name");
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }else if (indexPath.row == 7){
+        cell.textLabel.text = KHClubString(@"IM_Group_Cover");
+        if (self.coverImageView == nil) {
+            self.coverImageView       = [[CustomImageView alloc] init];
+            self.coverImageView.frame = CGRectMake(self.viewWidth - 60, 5, 40, 40);
+            
+            [cell.contentView addSubview:self.coverImageView];
+            [[IMUtils shareInstance] setGroupImageWith:_chatGroup.groupId and:self.coverImageView];
+        }
     }
-    else if (indexPath.row == 5)
-    {
-        cell.textLabel.text = NSLocalizedString(@"title.groupBlackList", @"Group black list");
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
+//    else if (indexPath.row == 5)
+//    {
+//        cell.textLabel.text = NSLocalizedString(@"title.groupBlackList", @"Group black list");
+//        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//    }
     
+    [[cell.contentView viewWithTag:100] removeFromSuperview];
+    UIView * line        = [[UIView alloc] initWithFrame:CGRectMake(5, 49, self.viewWidth-10, 1)];
+    if (indexPath.row == 0) {
+        line.y = self.scrollView.frame.size.height + 39;
+    }
+    line.tag = 100;
+    line.backgroundColor = [UIColor colorWithHexString:ColorLightGary];
+    [cell.contentView addSubview:line];
+
     return cell;
 }
 
@@ -299,24 +336,72 @@
     }
     else if (indexPath.row == 4)
     {
+
+    }
+    else if (indexPath.row == 5) {
+        QRcodeCardView * qcv = [[QRcodeCardView alloc] init];
+        [[IMUtils shareInstance] setGroupQrCodeWith:_chatGroup.groupId and:qcv.imageView];
+        [qcv show];
+    }
+    else if (indexPath.row == 6)
+    {
         GroupSubjectChangingViewController *changingController = [[GroupSubjectChangingViewController alloc] initWithGroup:_chatGroup];
         [self.navigationController pushViewController:changingController animated:YES];
     }
-    else if (indexPath.row == 5) {
-        GroupBansViewController *bansController = [[GroupBansViewController alloc] initWithGroup:_chatGroup];
-        [self.navigationController pushViewController:bansController animated:YES];
+    else if (indexPath.row == 7) {
+//        GroupBansViewController *bansController = [[GroupBansViewController alloc] initWithGroup:_chatGroup];
+//        [self.navigationController pushViewController:bansController animated:YES];
+        UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:StringCommonCancel destructiveButtonTitle:nil otherButtonTitles:KHClubString(@"Common_Camera"),KHClubString(@"Common_Gallery"), nil];
+        sheet.tag             = 50;
+        [sheet showInView:self.view];
     }
 }
 
+#pragma mark- UIImagePickerControllerDelegate
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+    UIImage * image           = [ImageHelper getBigImage:info[UIImagePickerControllerOriginalImage]];
+
+    //上传
+    [self showHudInView:self.view hint:@""];
+    NSDictionary * params = @{@"group_id": _chatGroup.groupId};
+    NSString * fileName   = [ToolsManager getUploadImageName];
+    NSArray * files       = @[@{FileDataKey:UIImageJPEGRepresentation(image, 0.9),FileNameKey:fileName}];
+    [HttpService postFileWithUrlString:kUpdateGroupCoverPath params:params files:files andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        [self hideHud];
+        int status = [responseData[@"status"] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            self.coverImageView.image = image;            
+            NSDictionary * topicDic = responseData[HttpResult];
+            //缓存二维码和图片
+            [[IMUtils shareInstance] saveGroupImage:topicDic[@"group_cover"] groupName:topicDic[@"group_id"]];
+            [[IMUtils shareInstance] saveQrCode:topicDic[@"group_qr_code"] groupName:topicDic[@"group_id"]];
+            
+        }else{
+            [self showHint:StringCommonNetException];
+        }
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self hideHud];
+        [self showHint:StringCommonNetException];
+    }];    
+    
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - EMChooseViewDelegate
-- (BOOL)viewController:(EMChooseViewController *)viewController didFinishSelectedSources:(NSArray *)selectedSources
+- (void)viewController:(EMChooseViewController *)viewController didFinishSelectedSources:(NSArray *)selectedSources
 {
     NSInteger maxUsersCount = _chatGroup.groupSetting.groupMaxUsersCount;
     if (([selectedSources count] + _chatGroup.groupOccupantsCount) > maxUsersCount) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"group.maxUserCount", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
         [alertView show];
-        
-        return NO;
+        return;
     }
     
     [self showHudInView:self.view hint:NSLocalizedString(@"group.addingOccupant", @"add a group member...")];
@@ -345,7 +430,6 @@
         }
     });
     
-    return YES;
 }
 
 - (void)groupBansChanged
@@ -526,7 +610,7 @@
                         return;
                     }
                     _selectedContact = contactView;
-                    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"delete", @"deleting member..."), NSLocalizedString(@"friend.block", @"add to black list"), nil];
+                    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"cancel") destructiveButtonTitle:nil otherButtonTitles:NSLocalizedString(@"delete", @"deleting member..."), nil];
                     [sheet showInView:self.view];
                 }
             }
@@ -545,7 +629,6 @@
             if ([contactView.remark isEqualToString:loginUsername]) {
                 continue;
             }
-            
             [contactView setEditing:isEditing];
         }
     }
@@ -578,18 +661,8 @@
 //解散群组
 - (void)dissolveAction
 {
-    __weak typeof(self) weakSelf = self;
-    [self showHudInView:self.view hint:NSLocalizedString(@"group.destroy", @"dissolution of the group")];
-    [[EaseMob sharedInstance].chatManager asyncDestroyGroup:_chatGroup.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
-        [weakSelf hideHud];
-        if (error) {
-            [weakSelf showHint:NSLocalizedString(@"group.destroyFail", @"dissolution of group failure")];
-        }
-        else{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
-        }
-    } onQueue:nil];
-    
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"group.dismissed", @"The group will be dismissed after exiting") message:nil delegate:self cancelButtonTitle:StringCommonCancel otherButtonTitles:StringCommonConfirm, nil];
+    [alert show];
     //    [[EaseMob sharedInstance].chatManager asyncLeaveGroup:_chatGroup.groupId];
 }
 
@@ -599,9 +672,9 @@
     [[[EaseMob sharedInstance] chatManager] asyncIgnoreGroupPushNotification:_chatGroup.groupId
                                                                     isIgnore:_chatGroup.isPushNotificationEnabled];
     
-    return;
-    UIViewController *viewController = [[UIViewController alloc] init];
-    [self.navigationController pushViewController:viewController animated:YES];
+//    return;
+//    UIViewController *viewController = [[UIViewController alloc] init];
+//    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 //退出群组
@@ -642,34 +715,53 @@
 #pragma mark - UIActionSheetDelegate
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    if (actionSheet.tag == 50) {
+        //选照片
+        if (buttonIndex != 2) {
+            UIImagePickerController * picker = [[UIImagePickerController alloc] init];
+            if (buttonIndex == 0) {
+                if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+                    [picker setSourceType:UIImagePickerControllerSourceTypeCamera];
+                }
+            }
+            if (buttonIndex == 1) {
+                [picker setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+            }
+            picker.delegate = self;
+            [self presentViewController:picker animated:YES completion:nil];
+        }
+        
+        return;
+    }
+    
     NSInteger index = _selectedContact.index;
     if (buttonIndex == 0)
     {
         //delete
         _selectedContact.deleteContact(index);
     }
-    else if (buttonIndex == 1)
-    {
-        //add to black list
-        [self showHudInView:self.view hint:NSLocalizedString(@"group.ban.adding", @"Adding to black list..")];
-        NSArray *occupants = [NSArray arrayWithObject:[self.dataSource objectAtIndex:_selectedContact.index]];
-        __weak ChatGroupDetailViewController *weakSelf = self;
-        [[EaseMob sharedInstance].chatManager asyncBlockOccupants:occupants fromGroup:self.chatGroup.groupId completion:^(EMGroup *group, EMError *error) {
-            if (weakSelf)
-            {
-                __weak ChatGroupDetailViewController *strongSelf = weakSelf;
-                [strongSelf hideHud];
-                if (!error) {
-                    strongSelf.chatGroup = group;
-                    [strongSelf.dataSource removeObjectAtIndex:index];
-                    [strongSelf refreshScrollView];
-                }
-                else{
-                    [strongSelf showHint:error.description];
-                }
-            }
-        } onQueue:nil];
-    }
+//    else if (buttonIndex == 1)
+//    {
+//        //add to black list
+//        [self showHudInView:self.view hint:NSLocalizedString(@"group.ban.adding", @"Adding to black list..")];
+//        NSArray *occupants = [NSArray arrayWithObject:[self.dataSource objectAtIndex:_selectedContact.index]];
+//        __weak ChatGroupDetailViewController *weakSelf = self;
+//        [[EaseMob sharedInstance].chatManager asyncBlockOccupants:occupants fromGroup:self.chatGroup.groupId completion:^(EMGroup *group, EMError *error) {
+//            if (weakSelf)
+//            {
+//                __weak ChatGroupDetailViewController *strongSelf = weakSelf;
+//                [strongSelf hideHud];
+//                if (!error) {
+//                    strongSelf.chatGroup = group;
+//                    [strongSelf.dataSource removeObjectAtIndex:index];
+//                    [strongSelf refreshScrollView];
+//                }
+//                else{
+//                    [strongSelf showHint:error.description];
+//                }
+//            }
+//        } onQueue:nil];
+//    }
     _selectedContact = nil;
 }
 
@@ -677,4 +769,23 @@
 {
     _selectedContact = nil;
 }
+#pragma mark- UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        __weak typeof(self) weakSelf = self;
+        [self showHudInView:self.view hint:NSLocalizedString(@"group.destroy", @"dissolution of the group")];
+        [[EaseMob sharedInstance].chatManager asyncDestroyGroup:_chatGroup.groupId completion:^(EMGroup *group, EMGroupLeaveReason reason, EMError *error) {
+            [weakSelf hideHud];
+            if (error) {
+                [weakSelf showHint:NSLocalizedString(@"group.destroyFail", @"dissolution of group failure")];
+            }
+            else{
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
+            }
+        } onQueue:nil];
+    }
+    
+}
+
 @end

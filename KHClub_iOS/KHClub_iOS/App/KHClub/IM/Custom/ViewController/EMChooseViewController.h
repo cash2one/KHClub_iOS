@@ -10,14 +10,14 @@
   * from EaseMob Technologies.
   */
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 @protocol EMChooseViewDelegate;
 
 /**
  *  展示，提供单选多选
  */
-@interface EMChooseViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
+@interface EMChooseViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 {
     __weak id<EMChooseViewDelegate> _delegate;
     NSMutableArray *_dataSource;
@@ -138,6 +138,6 @@
  *  @param selectedSources 选择的联系人信息，每个联系人提供姓名和手机号两个字段，以字典形式返回
  *  @return 是否隐藏页面
  */
-- (BOOL)viewController:(EMChooseViewController *)viewController didFinishSelectedSources:(NSArray *)selectedSources;
+- (void)viewController:(EMChooseViewController *)viewController didFinishSelectedSources:(NSArray *)selectedSources;
 
 @end

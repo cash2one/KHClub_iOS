@@ -397,8 +397,9 @@
             NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
             for (EMGroup *group in groupArray) {
                 if ([group.groupId isEqualToString:conversation.chatter]) {
-                    cell.name = group.groupSubject;
-                    imageName = group.isPublic ? @"groupPublicHeader" : @"groupPrivateHeader";
+                    cell.name    = group.groupSubject;
+                    cell.groupId = conversation.chatter;
+                    imageName    = group.isPublic ? @"groupPublicHeader" : @"groupPrivateHeader";
 
                     NSMutableDictionary *ext = [NSMutableDictionary dictionaryWithDictionary:conversation.ext];
                     [ext setObject:group.groupSubject forKey:@"groupSubject"];
@@ -410,8 +411,9 @@
         }
         else
         {
-            cell.name = [conversation.ext objectForKey:@"groupSubject"];
-            imageName = [[conversation.ext objectForKey:@"isPublic"] boolValue] ? @"groupPublicHeader" : @"groupPrivateHeader";
+            cell.name    = [conversation.ext objectForKey:@"groupSubject"];
+            cell.groupId = conversation.chatter;
+            imageName    = [[conversation.ext objectForKey:@"isPublic"] boolValue] ? @"groupPublicHeader" : @"groupPrivateHeader";
         }
         cell.placeholderImage = [UIImage imageNamed:imageName];
     }

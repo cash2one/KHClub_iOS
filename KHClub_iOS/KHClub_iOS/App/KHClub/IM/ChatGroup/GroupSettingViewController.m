@@ -20,22 +20,16 @@
     UISwitch *_blockSwitch;
 }
 
+@property (nonatomic, strong) UITableView * tableView;
+
 @end
 
 @implementation GroupSettingViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (instancetype)initWithGroup:(EMGroup *)group
 {
-    self = [self initWithStyle:UITableViewStylePlain];
+    self = [self init];
     if (self) {
         _group = group;
         
@@ -51,18 +45,21 @@
 {
     [super viewDidLoad];
     
-    self.title = NSLocalizedString(@"title.groupSetting", @"Group Setting");
+    [self setNavBarTitle:NSLocalizedString(@"title.groupSetting", @"Group Setting")];
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [self.navigationItem setLeftBarButtonItem:backItem];
+    self.tableView                = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView.delegate       = self;
+    self.tableView.dataSource     = self;
+    [self.view addSubview:self.tableView];
     
-    if (!_isOwner) {
-        UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"save", @"Save") style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
-        [self.navigationItem setRightBarButtonItem:saveItem];
-    }
+//    if (!_isOwner) {
+////        UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"save", @"Save") style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
+////        [self.navigationItem setRightBarButtonItem:saveItem];
+//        __weak typeof(self) sself = self;
+//        [self.navBar setRightBtnWithContent:StringCommonSave andBlock:^{
+//            [sself saveAction:nil];
+//        }];
+//    }
     
     _pushSwitch = [[UISwitch alloc] init];
     [_pushSwitch addTarget:self action:@selector(pushSwitchChanged:) forControlEvents:UIControlEventValueChanged];
@@ -121,7 +118,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    
+    cell.textLabel.textColor = [UIColor colorWithHexString:ColorDeepBlack];
     if ((_isOwner && indexPath.row == 0) || (!_isOwner && indexPath.row == 1)) {
         _pushSwitch.frame = CGRectMake(self.tableView.frame.size.width - (_pushSwitch.frame.size.width + 10), (cell.contentView.frame.size.height - _pushSwitch.frame.size.height) / 2, _pushSwitch.frame.size.width, _pushSwitch.frame.size.height);
         
@@ -194,6 +191,8 @@
 
 - (void)blockSwitchChanged:(id)sender
 {
+    [self saveAction:nil];
+    
     [self.tableView reloadData];
 }
 

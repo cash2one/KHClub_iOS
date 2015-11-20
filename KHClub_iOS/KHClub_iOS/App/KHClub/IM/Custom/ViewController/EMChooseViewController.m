@@ -47,21 +47,21 @@
     // Uncomment the following line to preserve selection between presentations.
     _indexCollation = [UILocalizedIndexedCollation currentCollation];
     
-    if (!self.defaultEditing) {
-        UIButton *chooseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
-        [chooseButton setTitle:NSLocalizedString(@"choose", @"Choose") forState:UIControlStateNormal];
-        [chooseButton setTitle:NSLocalizedString(@"down", @"Down") forState:UIControlStateSelected];
-        [chooseButton setBackgroundColor:[UIColor clearColor]];
-        [chooseButton addTarget:self action:@selector(chooseAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:chooseButton]];
-    }
-    else{
-        UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
-        [doneButton setTitle:NSLocalizedString(@"down", @"Down") forState:UIControlStateNormal];
-        [doneButton setBackgroundColor:[UIColor clearColor]];
-        [doneButton addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:doneButton]];
-    }
+//    if (!self.defaultEditing) {
+//        UIButton *chooseButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+//        [chooseButton setTitle:NSLocalizedString(@"choose", @"Choose") forState:UIControlStateNormal];
+//        [chooseButton setTitle:NSLocalizedString(@"down", @"Down") forState:UIControlStateSelected];
+//        [chooseButton setBackgroundColor:[UIColor clearColor]];
+//        [chooseButton addTarget:self action:@selector(chooseAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:chooseButton]];
+//    }
+//    else{
+//        UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+//        [doneButton setTitle:NSLocalizedString(@"down", @"Down") forState:UIControlStateNormal];
+//        [doneButton setBackgroundColor:[UIColor clearColor]];
+//        [doneButton addTarget:self action:@selector(doneAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithCustomView:doneButton]];
+//    }
     
     [self.view addSubview:self.tableView];
     self.tableView.editing = self.defaultEditing;
@@ -334,19 +334,16 @@
 
 - (void)doneAction:(id)sender
 {
-    BOOL isPop = YES;
     if (_delegate && [_delegate respondsToSelector:@selector(viewController:didFinishSelectedSources:)]) {
         NSMutableArray *resultArray = [NSMutableArray array];
         for (NSIndexPath *indexPath in self.selectedIndexPaths) {
             [resultArray addObject:[[self.dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row]];
         }
         
-        isPop = [_delegate viewController:self didFinishSelectedSources:resultArray];
+        [_delegate viewController:self didFinishSelectedSources:resultArray];
     }
     
-    if (isPop) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

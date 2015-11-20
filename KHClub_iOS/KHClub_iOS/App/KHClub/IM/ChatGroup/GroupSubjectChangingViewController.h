@@ -10,11 +10,11 @@
  * from EaseMob Technologies.
  */
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 #import "EMGroup.h"
 
-@interface GroupSubjectChangingViewController : UIViewController
+@interface GroupSubjectChangingViewController : BaseViewController
 
 - (instancetype)initWithGroup:(EMGroup *)group;
 

@@ -10,6 +10,7 @@
 
 #define NAMEKEY @"name"
 #define AVATARKEY @"avatar"
+
 #define GROUP_AVATARKEY @"groupAvatar"
 #define GROUP_QRCODEKEY @"groupQrcode"
 
@@ -82,6 +83,47 @@
  *  @return arr
  */
 - (NSArray *)getBuddys;
+
+/**
+ *  保存群组名字
+ *
+ *  @param imageName
+ *  @param groupName
+ */
+- (void)saveGroupImage:(NSString *)imageName groupName:(NSString *)groupName;
+
+/**
+ *  保存群组二维码
+ *
+ *  @param qrCode
+ *  @param groupName 
+ */
+- (void)saveQrCode:(NSString *)qrCode groupName:(NSString *)groupName;
+
+/**
+ *  设置用户头像
+ *
+ *  @param groupId
+ *  @param imageView 需要设置头像的imageView
+ */
+- (void)setGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView;
+
+/**
+ *  设置用户名字
+ *
+ *  @param groupId
+ *  @param nameLabel 填写内容的label
+ */
+- (void)setGroupNameWith:(NSString *)groupId and:(UILabel *)nameLabel andGroupTitle:(NSString *)title;
+
+/**
+ *  设置二维码
+ *
+ *  @param groupId
+ *  @param imageView 需要设置二维码的imageView
+ */
+- (void)setGroupQrCodeWith:(NSString *)groupId and:(UIImageView *)imageView;
+
 
 @end
 

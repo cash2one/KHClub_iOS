@@ -112,7 +112,6 @@
     }
     //网络请求获取新的
     NSString * url = [NSString stringWithFormat:@"%@?user_id=%@",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""]];
-    debugLog(@"%@", url);
     //获取图片 姓名
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         
@@ -220,6 +219,103 @@
         [buddys addObject:[EMBuddy buddyWithUsername:username]];
     }
     return buddys;
+}
+
+
+- (void)saveGroupImage:(NSString *)imageName groupName:(NSString *)groupName
+{
+    [_defaults setObject:[ToolsManager completeUrlStr:imageName] forKey:[groupName stringByAppendingString:GROUP_AVATARKEY]];
+    [_defaults synchronize];
+}
+
+- (void)saveQrCode:(NSString *)qrCode groupName:(NSString *)groupName
+{
+    [_defaults setObject:[kRootAddr stringByAppendingString:qrCode] forKey:[groupName stringByAppendingString:GROUP_QRCODEKEY]];
+    [_defaults synchronize];
+}
+
+- (void)setGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView
+{
+    //获取
+    NSString * path = [_defaults objectForKey:[groupId stringByAppendingString:GROUP_AVATARKEY]];
+    //如果本地有的话
+    [imageView sd_setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"groups_icon"]];
+    //网络请求获取新的
+    NSString * url = [NSString stringWithFormat:@"%@?group_id=%@",kGetGroupImageAndNameAndQrcodePath, groupId];
+    //获取图片 名字
+    [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            NSDictionary * result  = responseData[HttpResult];
+            NSString * groupCover  = result[@"group_cover"];
+            NSString * groupQrcode = result[@"group_qr_code"];
+            [self saveQrCode:groupQrcode groupName:groupId];
+            [self saveGroupImage:groupCover groupName:groupId];
+            if ([[ToolsManager completeUrlStr:groupCover] compare:path] != NSOrderedSame) {
+                //设置
+                [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:groupCover]] placeholderImage:[UIImage imageNamed:@"groups_icon"]];
+            }
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
+- (void)setGroupQrCodeWith:(NSString *)groupId and:(UIImageView *)imageView
+{
+    //获取
+    NSString * path = [_defaults objectForKey:[groupId stringByAppendingString:GROUP_QRCODEKEY]];
+    //如果本地有的话
+    [imageView sd_setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"loading_default"]];
+    //网络请求获取新的
+    NSString * url = [NSString stringWithFormat:@"%@?group_id=%@",kGetGroupImageAndNameAndQrcodePath, groupId];
+    //获取图片 名字
+    [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            
+            NSDictionary * result  = responseData[HttpResult];
+            NSString * groupCover  = result[@"group_cover"];
+            NSString * groupQrcode = result[@"group_qr_code"];
+
+            [self saveQrCode:groupQrcode groupName:groupId];
+            [self saveGroupImage:groupCover groupName:groupId];
+            //设置
+            [imageView sd_setImageWithURL:[NSURL URLWithString:[kRootAddr stringByAppendingString:groupQrcode]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
+- (void)setGroupNameWith:(NSString *)groupId and:(UILabel *)nameLabel andGroupTitle:(NSString *)title 
+{
+    nameLabel.text = title;
+    
+    //网络请求获取新的
+    NSString * url = [NSString stringWithFormat:@"%@?group_id=%@",kGetGroupImageAndNameAndQrcodePath, groupId];
+    //获取图片 名字
+    [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            
+            NSDictionary * result  = responseData[HttpResult];
+            NSString * groupCover  = result[@"group_cover"];
+            NSString * groupQrcode = result[@"group_qr_code"];
+            NSString * name        = result[@"group_name"];
+            if (name.length > 0) {
+                nameLabel.text         = name;
+            }
+            [self saveQrCode:groupQrcode groupName:groupId];
+            [self saveGroupImage:groupCover groupName:groupId];
+
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
 }
 
 @end

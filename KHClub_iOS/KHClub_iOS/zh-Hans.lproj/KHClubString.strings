@@ -134,9 +134,14 @@
 "Message_Message_Add"                     = "加好友（群）";
 "Message_Message_Group"                   = "新建群聊";
 "Message_Message_MyQrcode"                = "我的二维码";
+"Message_Create_Cover"                    = "选择封面";
+"Message_GroupDetail_QRcode"              = "群二维码";
+"Message_GroupDetail_Share"               = "分享本群";
+"Message_GroupDetail_QRcodeCard"          = "二维码名片";
 
 //Contact
 "Contact_Search_InputPrompt"              = "输入手机号、群ID号";
 "Contact_Search_SearchFail"               = "未查询到相关信息";
+"IM_Group_Cover"                          = "封面";
 
 

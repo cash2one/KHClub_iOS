@@ -170,6 +170,7 @@
 "group.destroyFail" = "解散群组失败";
 "group.leaveFail" = "退出群组失败";
 "group.addOccupantFail" = "添加群成员失败, 请稍后再试";
+"group.dismissed" = "退出后，此群将被解散";
 
 //Group Setting
 "group.setting.receiveAndPrompt" = "接收并提示群消息";

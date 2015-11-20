@@ -26,6 +26,7 @@
         [self.contentView addSubview:_bottomLineView];
         
         self.textLabel.backgroundColor = [UIColor clearColor];
+        self.textLabel.textColor       = [UIColor colorWithHexString:ColorDeepBlack];
         
         _headerLongPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(headerLongPress:)];
         [self addGestureRecognizer:_headerLongPress];

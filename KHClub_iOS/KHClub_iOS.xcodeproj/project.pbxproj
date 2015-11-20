@@ -173,6 +173,8 @@
 		42D1D60E1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60A1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png */; };
 		42D1D60F1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60B1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png */; };
 		42D1D6101BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60C1BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png */; };
+		42DB9C4F1BFEF90400631721 /* groups_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */; };
+		42DB9C521BFF40AD00631721 /* QRcodeCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DB9C511BFF40AD00631721 /* QRcodeCardView.m */; };
 		42ED929E1BF1DB9400E59147 /* chatListCellHead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F31BF1DB9400E59147 /* chatListCellHead@2x.png */; };
 		42ED929F1BF1DB9400E59147 /* VoiceSearchFeedback001.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F61BF1DB9400E59147 /* VoiceSearchFeedback001.png */; };
 		42ED92A01BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F71BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png */; };
@@ -804,6 +806,9 @@
 		42D1D60A1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_my_qr_code@2x.png"; sourceTree = "<group>"; };
 		42D1D60B1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_new_group@2x.png"; sourceTree = "<group>"; };
 		42D1D60C1BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_qr_scan@2x.png"; sourceTree = "<group>"; };
+		42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "groups_icon@2x.png"; sourceTree = "<group>"; };
+		42DB9C501BFF40AD00631721 /* QRcodeCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRcodeCardView.h; sourceTree = "<group>"; };
+		42DB9C511BFF40AD00631721 /* QRcodeCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRcodeCardView.m; sourceTree = "<group>"; };
 		42ED91F31BF1DB9400E59147 /* chatListCellHead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatListCellHead@2x.png"; sourceTree = "<group>"; };
 		42ED91F61BF1DB9400E59147 /* VoiceSearchFeedback001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VoiceSearchFeedback001.png; sourceTree = "<group>"; };
 		42ED91F71BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VoiceSearchFeedback001@2x.png"; sourceTree = "<group>"; };
@@ -1487,6 +1492,8 @@
 				42430A291BEA399800731CA3 /* BrowseImageView.m */,
 				422DC01A1BE8C11C0021FB78 /* PersonalInfoView.h */,
 				422DC01B1BE8C11C0021FB78 /* PersonalInfoView.m */,
+				42DB9C501BFF40AD00631721 /* QRcodeCardView.h */,
+				42DB9C511BFF40AD00631721 /* QRcodeCardView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3464,6 +3471,7 @@
 		42FDE2341BE7052300825E5E /* message */ = {
 			isa = PBXGroup;
 			children = (
+				42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */,
 				42D1D6091BFC8D9E005FCDC3 /* icon_menu_add_friend@2x.png */,
 				42D1D60A1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png */,
 				42D1D60B1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png */,
@@ -3654,6 +3662,7 @@
 				42430A131BEA208700731CA3 /* comment_border_view@2x.png in Resources */,
 				42FDE2931BE7052300825E5E /* LaunchImage-480.png in Resources */,
 				42ED931D1BF1DB9400E59147 /* chat_receiver_audio_playing_full@2x.png in Resources */,
+				42DB9C4F1BFEF90400631721 /* groups_icon@2x.png in Resources */,
 				42ED931E1BF1DB9400E59147 /* chat_receiver_bg.png in Resources */,
 				42ED92F91BF1DB9400E59147 /* chatBar_recordSelectedBg.png in Resources */,
 				42ED93111BF1DB9400E59147 /* chatBar_more_photoSelected.png in Resources */,
@@ -3891,6 +3900,7 @@
 				42C2303C1BE70054002A185B /* SDWebImageDecoder.m in Sources */,
 				42C2303B1BE70054002A185B /* SDWebImageCompat.m in Sources */,
 				42EF83641BF03F5C00DA16C3 /* EMCDDeviceManager+Remind.m in Sources */,
+				42DB9C521BFF40AD00631721 /* QRcodeCardView.m in Sources */,
 				42C2302C1BE70054002A185B /* HanyuPinyinOutputFormat.m in Sources */,
 				42EF84621BF0C9CC00DA16C3 /* MessageReadManager.m in Sources */,
 				42EF84511BF0C9CC00DA16C3 /* LocationViewController.m in Sources */,

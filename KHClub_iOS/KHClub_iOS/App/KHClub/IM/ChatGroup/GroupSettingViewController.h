@@ -10,11 +10,11 @@
  * from EaseMob Technologies.
  */
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
 #import "EMGroup.h"
 
-@interface GroupSettingViewController : UITableViewController
+@interface GroupSettingViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 
 - (instancetype)initWithGroup:(EMGroup *)group;
 

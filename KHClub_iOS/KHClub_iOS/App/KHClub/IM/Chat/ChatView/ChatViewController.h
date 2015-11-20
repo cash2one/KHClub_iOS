@@ -21,11 +21,14 @@
 @end
 
 @interface ChatViewController : BaseViewController
+
 @property (strong, nonatomic, readonly) NSString *chatter;
 @property (strong, nonatomic) NSMutableArray *dataSource;//tableView数据源
 @property (nonatomic) BOOL isInvisible;
 @property (nonatomic, assign) id <ChatViewControllerDelegate> delelgate;
 @property (strong, nonatomic) EMConversation *conversation;//会话管理者
+@property (strong, nonatomic) NSString * groupName;
+
 - (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
 - (instancetype)initWithChatter:(NSString *)chatter conversationType:(EMConversationType)type;
 
