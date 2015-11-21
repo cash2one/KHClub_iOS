@@ -8,6 +8,7 @@
 
 #import "SearchViewController.h"
 #import "OtherPersonalViewController.h"
+#import "PublicGroupDetailViewController.h"
 
 @interface SearchViewController ()
 
@@ -94,7 +95,7 @@
     
     [self showLoading:nil];
 
-    NSString * path = [NSString stringWithFormat:@"%@?target_id=%@", kFindUserOrGroupPath,  self.searchTextField.text];
+    NSString * path = [NSString stringWithFormat:@"%@?target_id=%@", kFindUserOrGroupPath,  [self.searchTextField.text trim]];
     
     [HttpService getWithUrlString:path andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
 
@@ -103,6 +104,8 @@
             int direction = [responseData[@"result"][@"type"] intValue];
             //群组
             if (direction == 1) {
+                PublicGroupDetailViewController * pgdv = [[PublicGroupDetailViewController alloc] initWithGroupId:[self.searchTextField.text trim]];
+                [self pushVC:pgdv];
             }
             //个人
             if (direction == 0) {

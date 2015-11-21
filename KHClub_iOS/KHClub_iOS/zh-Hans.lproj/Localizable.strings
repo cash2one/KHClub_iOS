@@ -99,6 +99,7 @@
 //friend
 "friend.search" = "查询";
 "friend.add" = "添加好友";
+"friend.isFriend" = "你们已经成为了好友，开始聊天吧";
 "friend.somebodyAddWithName" = "%@ 添加你为好友";
 "friend.beRefusedToAdd" = "你被'%@'无耻的拒绝了";
 "friend.inputNameToSearch" = "输入要查找的好友";
@@ -117,12 +118,12 @@
 
 //group
 "group.somebodyInvite" = "%@ 邀请你加入群组\'%@\'";
-"group.applyJoin" = "%@ 申请加入群组\'%@\'";
+"group.applyJoin" = "申请加入群组\'%@\'";
 "group.applyJoinWithName" = "%@ 申请加入群组\'%@\'：%@";
 "group.sendApplyFail" = "发送申请失败:%@\n原因：%@";
 "group.beRefusedToJoin" = "被拒绝加入群组\'%@\'";
 "group.beKicked" = "你被从群组\'%@\'中踢出";
-"group.agreedAndJoined" = "同意并已加入群组\'%@\'";
+"group.agreedAndJoined" = "您已加入群组";
 "group.join" = "加入群组";
 "group.joined" = "已加入";
 "group.owner" = "群主";

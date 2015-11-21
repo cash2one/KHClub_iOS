@@ -99,6 +99,7 @@
 //friend
 "friend.search" = "Search";
 "friend.add" = "add friend";
+"friend.isFriend" = "you have become friends";
 "friend.somebodyAddWithName" = "%@ add you as a friend";
 "friend.beRefusedToAdd" = "you are shameless refused by '%@'";
 "friend.inputNameToSearch" = "input to find friends";
@@ -117,12 +118,12 @@
 
 //group
 "group.somebodyInvite" = "%@ invite you to join group \'%@\'";
-"group.applyJoin" = "%@ apply to join groups\'%@\'";
+"group.applyJoin" = "apply to join groups\'%@\'";
 "group.applyJoinWithName" = "%@ apply to join groups\'%@\'：%@";
 "group.sendApplyFail" = "send application failure:%@\nreason：%@";
 "group.beRefusedToJoin" = "be refused to join the group\'%@\'";
 "group.beKicked" = "you have been kicked out from the group of \'%@\'";
-"group.agreedAndJoined" = "agreed and joined the group of \'%@\'";
+"group.agreedAndJoined" = "joined the group";
 "group.join" = "join the group";
 "group.joined" = "joined";
 "group.owner" = "Owner";

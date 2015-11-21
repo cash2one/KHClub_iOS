@@ -238,13 +238,16 @@
 {
     if (_tableView == nil)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.backgroundColor = [UIColor whiteColor];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView                             = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+        _tableView.separatorStyle              = UITableViewCellSeparatorStyleNone;
+        _tableView.backgroundColor             = [UIColor whiteColor];
+        _tableView.autoresizingMask            = UIViewAutoresizingFlexibleHeight;
+        _tableView.delegate                    = self;
+        _tableView.dataSource                  = self;
+        _tableView.tableFooterView             = [[UIView alloc] init];
+        _tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+        _tableView.sectionIndexColor           = [UIColor colorWithHexString:ColorGold];
+        
     }
     
     return _tableView;
@@ -313,6 +316,12 @@
             cell.username = buddy.username;
         }
     }
+    
+//    for(UIView *view in [tableView subviews]) {
+//        if([view respondsToSelector:@selector(setIndexColor:)]) {
+//            [view performSelector:@selector(setIndexColor:) withObject:[UIColor whiteColor]];
+//        }
+//    }
     
     return cell;
 }

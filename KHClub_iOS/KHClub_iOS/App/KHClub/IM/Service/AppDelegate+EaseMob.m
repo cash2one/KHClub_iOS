@@ -347,10 +347,11 @@
     }
     
     if (!reason || reason.length == 0) {
-        reason = [NSString stringWithFormat:NSLocalizedString(@"group.applyJoin", @"%@ apply to join groups\'%@\'"), username, groupname];
+        reason = [NSString stringWithFormat:NSLocalizedString(@"group.applyJoin", @"apply to join groups\'%@\'"), groupname];
     }
     else{
-        reason = [NSString stringWithFormat:NSLocalizedString(@"group.applyJoinWithName", @"%@ apply to join groups\'%@\'：%@"), username, groupname, reason];
+        reason = [NSString stringWithFormat:NSLocalizedString(@"group.applyJoin", @"apply to join groups\'%@\'"), groupname];        
+//        reason = [NSString stringWithFormat:NSLocalizedString(@"group.applyJoinWithName", @"%@ apply to join groups\'%@\'：%@"), username, groupname, reason];
     }
     
     if (error) {

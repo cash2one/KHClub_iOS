@@ -195,7 +195,7 @@
     [self setNavBarTitle:self.otherUser.name];
     
     //签名
-    NSString * signStr       = [ToolsManager emptyReturnNone:[UserService sharedService].user.signature];
+    NSString * signStr       = [ToolsManager emptyReturnNone:self.otherUser.signature];
     CGSize size              = [ToolsManager getSizeWithContent:signStr andFontSize:15 andFrame:CGRectMake(0, 0, self.viewWidth-30, MAXFLOAT)];
     self.signLabel.text      = signStr;
     self.signBackView.height = size.height+60;

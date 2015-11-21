@@ -688,7 +688,8 @@
             [weakSelf showHint:NSLocalizedString(@"group.leaveFail", @"exit the group failure")];
         }
         else{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
+            [self popToTabBarViewController];
         }
     } onQueue:nil];
     
@@ -781,7 +782,8 @@
                 [weakSelf showHint:NSLocalizedString(@"group.destroyFail", @"dissolution of group failure")];
             }
             else{
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:@"ExitGroup" object:nil];
+                [self popToTabBarViewController];
             }
         } onQueue:nil];
     }

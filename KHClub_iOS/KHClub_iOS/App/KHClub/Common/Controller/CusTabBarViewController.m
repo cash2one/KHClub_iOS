@@ -138,6 +138,15 @@ static CusTabBarViewController * instance = nil;
     //获取好友列表
     [[[EaseMob sharedInstance] chatManager] asyncFetchBuddyListWithCompletion:^(NSArray *buddyList, EMError *error) {
     } onQueue:nil];
+    
+//    //提示
+//    EMChatText *text        = [[EMChatText alloc] initWithText:NSLocalizedString(@"friend.isFriend", @"you have become friends")];
+//    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithChatObject:text];
+//    EMMessage *retureMsg    = [[EMMessage alloc] initWithReceiver:@"kh2" bodies:@[body]];
+//    retureMsg.messageType   = eMessageTypeChat;
+//    retureMsg.deliveryState = eMessageDeliveryState_Delivered;
+//    [[EaseMob sharedInstance].chatManager insertMessageToDB:retureMsg append2Chat:YES];
+    
 }
 
 - (void)setUnread
@@ -740,15 +749,26 @@ static CusTabBarViewController * instance = nil;
 
 - (void)didRejectedByBuddy:(NSString *)username
 {
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"friend.beRefusedToAdd", @"you are shameless refused by '%@'"), username];
-    TTAlertNoTitle(message);
+//    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"friend.beRefusedToAdd", @"you are shameless refused by '%@'"), username];
+//    TTAlertNoTitle(message);
 }
 
 - (void)didAcceptBuddySucceed:(NSString *)username
 {
+#if !TARGET_IPHONE_SIMULATOR
+    [self playSoundAndVibration];
+#endif
     //缓存
     [[IMUtils shareInstance] cacheBuddysToDisk];
     [_contactsVC reloadDataSource];
+    
+    //提示
+    EMChatText *text        = [[EMChatText alloc] initWithText:NSLocalizedString(@"friend.isFriend", @"you have become friends")];
+    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithChatObject:text];
+    EMMessage *retureMsg    = [[EMMessage alloc] initWithReceiver:username bodies:@[body]];
+    retureMsg.messageType   = eMessageTypeChat;
+    retureMsg.deliveryState = eMessageDeliveryState_Delivered;
+    [[EaseMob sharedInstance].chatManager insertMessageToDB:retureMsg append2Chat:YES];
 }
 
 #pragma mark - IChatManagerDelegate 群组变化
@@ -784,16 +804,30 @@ static CusTabBarViewController * instance = nil;
                           invitee:(NSString *)username
                            reason:(NSString *)reason
 {
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"friend.beRefusedToAdd", @"you are shameless refused by '%@'"), username];
-    TTAlertNoTitle(message);
+//    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"friend.beRefusedToAdd", @"you are shameless refused by '%@'"), username];
+//    TTAlertNoTitle(message);
 }
 
 
 - (void)didReceiveAcceptApplyToJoinGroup:(NSString *)groupId
                                groupname:(NSString *)groupname
 {
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"group.agreedAndJoined", @"agreed to join the group of \'%@\'"), groupname];
-    [self showHint:message];
+    
+#if !TARGET_IPHONE_SIMULATOR
+    [self playSoundAndVibration];
+#endif
+    //提示
+    EMChatText *text          = [[EMChatText alloc] initWithText:NSLocalizedString(@"group.agreedAndJoined", @"agreed to join the group")];
+    EMTextMessageBody *body   = [[EMTextMessageBody alloc] initWithChatObject:text];
+    EMMessage *retureMsg      = [[EMMessage alloc] initWithReceiver:groupId bodies:@[body]];
+    retureMsg.messageType     = eMessageTypeGroupChat;
+    retureMsg.deliveryState   = eMessageDeliveryState_Delivered;
+    retureMsg.groupSenderName = [ToolsManager getCommonTargetId:[UserService sharedService].user.uid];
+    [[EaseMob sharedInstance].chatManager insertMessageToDB:retureMsg append2Chat:YES];
+    
+    
+//    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"group.agreedAndJoined", @"agreed to join the group of \'%@\'"), groupname];
+//    [self showHint:message];
 }
 
 #pragma mark - IChatManagerDelegate 收到聊天室邀请

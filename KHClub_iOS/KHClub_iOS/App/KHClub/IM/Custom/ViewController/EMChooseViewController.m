@@ -118,6 +118,8 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.sectionIndexBackgroundColor = [UIColor clearColor];
+        _tableView.sectionIndexColor           = [UIColor colorWithHexString:ColorGold];
     }
     
     return _tableView;

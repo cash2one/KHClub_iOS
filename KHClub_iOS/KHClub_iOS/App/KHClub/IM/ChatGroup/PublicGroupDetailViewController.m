@@ -11,7 +11,7 @@
   */
 
 #import "PublicGroupDetailViewController.h"
-
+#import "IMUtils.h"
 @interface PublicGroupDetailViewController ()<UIAlertViewDelegate>
 
 @property (strong, nonatomic) NSString *groupId;
@@ -19,6 +19,7 @@
 @property (strong, nonatomic) UIView *headerView;
 @property (strong, nonatomic) UIView *footerView;
 @property (strong, nonatomic) UIButton *footerButton;
+@property (nonatomic, strong) UITableView * tableView;
 
 @property (strong, nonatomic) UILabel *nameLabel;
 
@@ -28,7 +29,7 @@
 
 - (instancetype)initWithGroupId:(NSString *)groupId
 {
-    self = [self initWithStyle:UITableViewStylePlain];
+    self = [self init];
     if (self) {
         _groupId = groupId;
     }
@@ -36,14 +37,7 @@
     return self;
 }
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+
 
 - (void)viewDidLoad
 {
@@ -51,17 +45,19 @@
     
     // Uncomment the following line to preserve selection between presentations.
     
+    self.tableView                = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView.delegate       = self;
+    self.tableView.dataSource     = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableHeaderView = self.headerView;
     self.tableView.tableFooterView = self.footerView;
     
-    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 44, 44)];
-    [backButton setImage:[UIImage imageNamed:@"back.png"] forState:UIControlStateNormal];
-    [backButton addTarget:self.navigationController action:@selector(popViewControllerAnimated:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backButton];
-    [self.navigationItem setLeftBarButtonItem:backItem];
+    [self.view addSubview:self.tableView];
     
     [self fetchGroupInfo];
+    
+    [[IMUtils shareInstance] setGroupNameWith:_groupId and:self.navBar.titleLabel andGroupTitle:_group.groupSubject];
 }
 
 - (void)didReceiveMemoryWarning
@@ -75,16 +71,21 @@
 - (UIView *)headerView
 {
     if (_headerView == nil) {
-        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 90)];
+        _headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 90)];
         _headerView.backgroundColor = [UIColor whiteColor];
         
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 50, 50)];
-        imageView.image = [UIImage imageNamed:@"groupPublicHeader"];
+//        imageView.image = [UIImage imageNamed:@"groupPublicHeader"];
+        //设置图片
+        [[IMUtils shareInstance] setGroupImageWith:_groupId and:imageView];
         [_headerView addSubview:imageView];
         
         _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 20, _headerView.frame.size.width - 80 - 20, 30)];
+        _nameLabel.textColor = [UIColor colorWithHexString:ColorDeepBlack];
         _nameLabel.backgroundColor = [UIColor clearColor];
-        _nameLabel.text = (_group.groupSubject && _group.groupSubject.length) > 0 ? _group.groupSubject : _group.groupId;
+//        _nameLabel.text = (_group.groupSubject && _group.groupSubject.length) > 0 ? _group.groupSubject : _group.groupId;
+        
+        [[IMUtils shareInstance] setGroupNameWith:_groupId and:_nameLabel andGroupTitle:_group.groupSubject];
         [_headerView addSubview:_nameLabel];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, _headerView.frame.size.height - 0.5, _headerView.frame.size.width, 0.5)];
@@ -98,7 +99,7 @@
 - (UIView *)footerView
 {
     if (_footerView == nil) {
-        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 80)];
+        _footerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 80)];
         _footerView.backgroundColor = [UIColor whiteColor];
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, _footerView.frame.size.width, 0.5)];
@@ -109,7 +110,7 @@
         [_footerButton setTitle:NSLocalizedString(@"group.join", @"join the group") forState:UIControlStateNormal];
         [_footerButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [_footerButton addTarget:self action:@selector(joinAction) forControlEvents:UIControlEventTouchUpInside];
-        [_footerButton setBackgroundColor:[UIColor colorWithRed:87 / 255.0 green:186 / 255.0 blue:205 / 255.0 alpha:1.0]];
+        [_footerButton setBackgroundColor:[UIColor colorWithHexString:ColorGold]];
         _footerButton.enabled = NO;
         [_footerView addSubview:_footerButton];
     }
@@ -128,14 +129,14 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"DetailCell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    
+    UITableViewCell *cell           = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    cell.selectionStyle             = UITableViewCellSelectionStyleNone;
     // Configure the cell...
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:CellIdentifier];
@@ -143,12 +144,13 @@
     
     if (indexPath.row == 0) {
         cell.textLabel.text = NSLocalizedString(@"group.owner", @"Owner");
-        cell.detailTextLabel.text = _group.owner;
+        [[IMUtils shareInstance] setUserNickWith:_group.owner and:cell.detailTextLabel];
+        
     }
-    else{
-        cell.textLabel.text = NSLocalizedString(@"group.describe", @"Describe");
-        cell.detailTextLabel.text = _group.groupDescription;
-    }
+//    else{
+//        cell.textLabel.text = NSLocalizedString(@"group.describe", @"Describe");
+//        cell.detailTextLabel.text = _group.groupDescription;
+//    }
     
     return cell;
 }
@@ -221,15 +223,21 @@
             weakSelf.footerButton.enabled = YES;
             [weakSelf.footerButton setTitle:NSLocalizedString(@"group.join", @"join the group") forState:UIControlStateNormal];
         }
+        
+        if ([weakSelf.group.owner isEqualToString:[ToolsManager getCommonTargetId:[UserService sharedService].user.uid]]) {
+            weakSelf.footerButton.hidden = YES;
+        }
+        
         [weakSelf.tableView reloadData];
     });
 }
-
+//隐藏alert 直接申请
 - (void)showMessageAlertView
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"saySomething", @"say somthing") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"ok", @"OK"), nil];
-    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
-    [alert show];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"saySomething", @"say somthing") delegate:self cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel") otherButtonTitles:NSLocalizedString(@"ok", @"OK"), nil];
+//    [alert setAlertViewStyle:UIAlertViewStylePlainTextInput];
+//    [alert show];
+    [self applyJoinGroup:_groupId withGroupname:_group.groupSubject message:@""];
 }
 
 - (void)joinAction

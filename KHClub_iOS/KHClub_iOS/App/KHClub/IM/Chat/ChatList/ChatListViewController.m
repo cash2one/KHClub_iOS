@@ -388,6 +388,7 @@
     cell.name = conversation.chatter;
     if (conversation.conversationType == eConversationTypeChat) {
         cell.name = [[RobotManager sharedInstance] getRobotNickWithUsername:conversation.chatter];
+        cell.groupId = nil;
         cell.placeholderImage = [UIImage imageNamed:@"chatListCellHead.png"];
     }
     else{

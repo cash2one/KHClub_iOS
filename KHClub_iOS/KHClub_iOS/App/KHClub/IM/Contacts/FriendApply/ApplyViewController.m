@@ -146,11 +146,13 @@ static ApplyViewController *controller = nil;
             }
             else if (applyStyle == ApplyStyleJoinGroup)
             {
-                cell.titleLabel.text = NSLocalizedString(@"title.groupApply", @"Group Notification");
-                cell.headerImageView.image = [UIImage imageNamed:@"groupPrivateHeader"];
+//                cell.titleLabel.text = NSLocalizedString(@"title.groupApply", @"Group Notification");
+                [[IMUtils shareInstance] setUserNickWith:entity.applicantUsername and:cell.titleLabel];
+                [[IMUtils shareInstance] setUserAvatarWith:entity.applicantUsername and:cell.headerImageView];
+//                cell.headerImageView.image = [UIImage imageNamed:@"groupPrivateHeader"];
             }
             else if(applyStyle == ApplyStyleFriend){
-                NSString * username = [entity.applicantUsername stringByReplacingOccurrencesOfString:KH withString:@""];
+                NSString * username = entity.applicantUsername;
 //                cell.titleLabel.text = entity.applicantUsername;
                 [[IMUtils shareInstance] setUserNickWith:username and:cell.titleLabel];
                 [[IMUtils shareInstance] setUserAvatarWith:username and:cell.headerImageView];
@@ -180,6 +182,13 @@ static ApplyViewController *controller = nil;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ApplyEntity *entity = [self.dataSource objectAtIndex:indexPath.row];    
+    //进入主页
+    OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
+    opvc.uid                           = [[entity.applicantUsername stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
+    opvc.newFriend                     = YES;
+    [self pushVC:opvc];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

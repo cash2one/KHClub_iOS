@@ -10,9 +10,9 @@
   * from EaseMob Technologies.
   */
 
-#import <UIKit/UIKit.h>
+#import "BaseViewController.h"
 
-@interface PublicGroupDetailViewController : UITableViewController
+@interface PublicGroupDetailViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 
 - (instancetype)initWithGroupId:(NSString *)groupId;
 
