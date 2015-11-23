@@ -12,9 +12,6 @@
 		422DC00C1BE8BBE70021FB78 /* PersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DBFDF1BE8BBE70021FB78 /* PersonalViewController.m */; };
 		422DC00D1BE8BBE70021FB78 /* ReportOffenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DBFE11BE8BBE70021FB78 /* ReportOffenceViewController.m */; };
 		422DC01C1BE8C11C0021FB78 /* PersonalInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 422DC01B1BE8C11C0021FB78 /* PersonalInfoView.m */; };
-		422DC0221BE8DFB20021FB78 /* card_email@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422DC01E1BE8DFB20021FB78 /* card_email@2x.png */; };
-		422DC0231BE8DFB20021FB78 /* card_location@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422DC01F1BE8DFB20021FB78 /* card_location@2x.png */; };
-		422DC0241BE8DFB20021FB78 /* card_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422DC0201BE8DFB20021FB78 /* card_phone@2x.png */; };
 		422DC0251BE8DFB20021FB78 /* default_avatar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422DC0211BE8DFB20021FB78 /* default_avatar@2x.png */; };
 		422DC0271BE8E5050021FB78 /* loading_default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 422DC0261BE8E5050021FB78 /* loading_default@2x.png */; };
 		423599C71BFDB604007E3246 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 423599C61BFDB604007E3246 /* SearchViewController.m */; };
@@ -465,6 +462,18 @@
 		42EF84781BF0C9CC00DA16C3 /* RobotChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EF84441BF0C9CC00DA16C3 /* RobotChatViewController.m */; };
 		42EF84791BF0C9CC00DA16C3 /* RobotListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EF84461BF0C9CC00DA16C3 /* RobotListViewController.m */; };
 		42EF847A1BF0C9CC00DA16C3 /* RobotManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EF84481BF0C9CC00DA16C3 /* RobotManager.m */; };
+		42F1502F1C02DEC100D1A8E4 /* card_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F1502E1C02DEC100D1A8E4 /* card_icon@2x.png */; };
+		42F150321C02E00E00D1A8E4 /* CardListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F150311C02E00E00D1A8E4 /* CardListViewController.m */; };
+		42F1503B1C02E41C00D1A8E4 /* icon_address@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150331C02E41C00D1A8E4 /* icon_address@2x.png */; };
+		42F1503C1C02E41C00D1A8E4 /* icon_company@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150341C02E41C00D1A8E4 /* icon_company@2x.png */; };
+		42F1503D1C02E41C00D1A8E4 /* icon_email@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150351C02E41C00D1A8E4 /* icon_email@2x.png */; };
+		42F1503E1C02E41C00D1A8E4 /* icon_job@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150361C02E41C00D1A8E4 /* icon_job@2x.png */; };
+		42F1503F1C02E41C00D1A8E4 /* icon_manager_name@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150371C02E41C00D1A8E4 /* icon_manager_name@2x.png */; };
+		42F150401C02E41C00D1A8E4 /* icon_phone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150381C02E41C00D1A8E4 /* icon_phone@2x.png */; };
+		42F150411C02E41C00D1A8E4 /* icon_web@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150391C02E41C00D1A8E4 /* icon_web@2x.png */; };
+		42F150421C02E41C00D1A8E4 /* icon_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F1503A1C02E41C00D1A8E4 /* icon_weixin@2x.png */; };
+		42F150451C03148900D1A8E4 /* iconfont_collect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150431C03148900D1A8E4 /* iconfont_collect@2x.png */; };
+		42F150461C03148900D1A8E4 /* iconfont_collected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F150441C03148900D1A8E4 /* iconfont_collected@2x.png */; };
 		42F274D91BEC549800A63012 /* delete_btn_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42F274D81BEC549800A63012 /* delete_btn_normal@2x.png */; };
 		42F274DC1BEC89A100A63012 /* NotifyNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F274DB1BEC89A100A63012 /* NotifyNewsViewController.m */; };
 		42F274DF1BEC8A3300A63012 /* NewsPushCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42F274DE1BEC8A3300A63012 /* NewsPushCell.m */; };
@@ -540,9 +549,6 @@
 		422DBFE11BE8BBE70021FB78 /* ReportOffenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportOffenceViewController.m; sourceTree = "<group>"; };
 		422DC01A1BE8C11C0021FB78 /* PersonalInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalInfoView.h; sourceTree = "<group>"; };
 		422DC01B1BE8C11C0021FB78 /* PersonalInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalInfoView.m; sourceTree = "<group>"; };
-		422DC01E1BE8DFB20021FB78 /* card_email@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_email@2x.png"; sourceTree = "<group>"; };
-		422DC01F1BE8DFB20021FB78 /* card_location@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_location@2x.png"; sourceTree = "<group>"; };
-		422DC0201BE8DFB20021FB78 /* card_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_phone@2x.png"; sourceTree = "<group>"; };
 		422DC0211BE8DFB20021FB78 /* default_avatar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "default_avatar@2x.png"; sourceTree = "<group>"; };
 		422DC0261BE8E5050021FB78 /* loading_default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_default@2x.png"; sourceTree = "<group>"; };
 		423599C51BFDB604007E3246 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
@@ -1319,6 +1325,19 @@
 		42EF84461BF0C9CC00DA16C3 /* RobotListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RobotListViewController.m; sourceTree = "<group>"; };
 		42EF84471BF0C9CC00DA16C3 /* RobotManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RobotManager.h; sourceTree = "<group>"; };
 		42EF84481BF0C9CC00DA16C3 /* RobotManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RobotManager.m; sourceTree = "<group>"; };
+		42F1502E1C02DEC100D1A8E4 /* card_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "card_icon@2x.png"; sourceTree = "<group>"; };
+		42F150301C02E00E00D1A8E4 /* CardListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardListViewController.h; sourceTree = "<group>"; };
+		42F150311C02E00E00D1A8E4 /* CardListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardListViewController.m; sourceTree = "<group>"; };
+		42F150331C02E41C00D1A8E4 /* icon_address@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_address@2x.png"; sourceTree = "<group>"; };
+		42F150341C02E41C00D1A8E4 /* icon_company@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_company@2x.png"; sourceTree = "<group>"; };
+		42F150351C02E41C00D1A8E4 /* icon_email@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_email@2x.png"; sourceTree = "<group>"; };
+		42F150361C02E41C00D1A8E4 /* icon_job@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_job@2x.png"; sourceTree = "<group>"; };
+		42F150371C02E41C00D1A8E4 /* icon_manager_name@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_manager_name@2x.png"; sourceTree = "<group>"; };
+		42F150381C02E41C00D1A8E4 /* icon_phone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_phone@2x.png"; sourceTree = "<group>"; };
+		42F150391C02E41C00D1A8E4 /* icon_web@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_web@2x.png"; sourceTree = "<group>"; };
+		42F1503A1C02E41C00D1A8E4 /* icon_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_weixin@2x.png"; sourceTree = "<group>"; };
+		42F150431C03148900D1A8E4 /* iconfont_collect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont_collect@2x.png"; sourceTree = "<group>"; };
+		42F150441C03148900D1A8E4 /* iconfont_collected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont_collected@2x.png"; sourceTree = "<group>"; };
 		42F274D81BEC549800A63012 /* delete_btn_normal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_btn_normal@2x.png"; sourceTree = "<group>"; };
 		42F274DA1BEC89A100A63012 /* NotifyNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotifyNewsViewController.h; sourceTree = "<group>"; };
 		42F274DB1BEC89A100A63012 /* NotifyNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotifyNewsViewController.m; sourceTree = "<group>"; };
@@ -1501,14 +1520,21 @@
 		422DC01D1BE8DFB20021FB78 /* personal */ = {
 			isa = PBXGroup;
 			children = (
+				42F150431C03148900D1A8E4 /* iconfont_collect@2x.png */,
+				42F150441C03148900D1A8E4 /* iconfont_collected@2x.png */,
+				42F150331C02E41C00D1A8E4 /* icon_address@2x.png */,
+				42F150341C02E41C00D1A8E4 /* icon_company@2x.png */,
+				42F150351C02E41C00D1A8E4 /* icon_email@2x.png */,
+				42F150361C02E41C00D1A8E4 /* icon_job@2x.png */,
+				42F150371C02E41C00D1A8E4 /* icon_manager_name@2x.png */,
+				42F150381C02E41C00D1A8E4 /* icon_phone@2x.png */,
+				42F150391C02E41C00D1A8E4 /* icon_web@2x.png */,
+				42F1503A1C02E41C00D1A8E4 /* icon_weixin@2x.png */,
 				42430A311BEA46CA00731CA3 /* default_back_image@2x.png */,
 				42430A121BEA208700731CA3 /* comment_border_view@2x.png */,
 				42430A081BE9ADA500731CA3 /* personal_more@2x.png */,
 				42430A091BE9ADA500731CA3 /* personal_setting@2x.png */,
 				422DC0261BE8E5050021FB78 /* loading_default@2x.png */,
-				422DC01E1BE8DFB20021FB78 /* card_email@2x.png */,
-				422DC01F1BE8DFB20021FB78 /* card_location@2x.png */,
-				422DC0201BE8DFB20021FB78 /* card_phone@2x.png */,
 				422DC0211BE8DFB20021FB78 /* default_avatar@2x.png */,
 			);
 			path = personal;
@@ -1529,6 +1555,8 @@
 			children = (
 				423599C51BFDB604007E3246 /* SearchViewController.h */,
 				423599C61BFDB604007E3246 /* SearchViewController.m */,
+				42F150301C02E00E00D1A8E4 /* CardListViewController.h */,
+				42F150311C02E00E00D1A8E4 /* CardListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2431,6 +2459,7 @@
 		42ED92921BF1DB9400E59147 /* other */ = {
 			isa = PBXGroup;
 			children = (
+				42F1502E1C02DEC100D1A8E4 /* card_icon@2x.png */,
 				42ED92931BF1DB9400E59147 /* group_creategroup@2x.png */,
 				42ED92941BF1DB9400E59147 /* group_header@2x.png */,
 				42ED92951BF1DB9400E59147 /* group_invitee_delete@2x.png */,
@@ -3601,6 +3630,7 @@
 				42FDE2D01BE705A300825E5E /* AMap.bundle in Resources */,
 				42ED92C71BF1DB9400E59147 /* call_out.png in Resources */,
 				42FDE2901BE7052300825E5E /* Icon@2x.png in Resources */,
+				42F150411C02E41C00D1A8E4 /* icon_web@2x.png in Resources */,
 				42ED92E61BF1DB9400E59147 /* messageSendFail@2x.png in Resources */,
 				42ED93241BF1DB9400E59147 /* chat_sender_audio_playing_002.png in Resources */,
 				42ED93011BF1DB9400E59147 /* chatBar_colorMore_photo@2x.png in Resources */,
@@ -3643,6 +3673,7 @@
 				42EF83921BF03F5C00DA16C3 /* sr_refresh.png in Resources */,
 				42ED92AD1BF1DB9400E59147 /* VoiceSearchFeedback008.png in Resources */,
 				42ED93341BF1DB9400E59147 /* group_invitee_delete@2x.png in Resources */,
+				42F1503D1C02E41C00D1A8E4 /* icon_email@2x.png in Resources */,
 				42ED932A1BF1DB9400E59147 /* chat_sender_bg.png in Resources */,
 				42FDE2BC1BE7052300825E5E /* ScanQR1@2x.png in Resources */,
 				42ED93081BF1DB9400E59147 /* chatBar_more_camera@2x.png in Resources */,
@@ -3652,6 +3683,7 @@
 				42ED932B1BF1DB9400E59147 /* chat_sender_bg@2x.png in Resources */,
 				42ED93221BF1DB9400E59147 /* chat_sender_audio_playing_001.png in Resources */,
 				42ED92A01BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png in Resources */,
+				42F1503C1C02E41C00D1A8E4 /* icon_company@2x.png in Resources */,
 				42FDE2C01BE7052300825E5E /* testimage.png in Resources */,
 				42ED92DF1BF1DB9400E59147 /* chat_location_detail_disclosureHL.png in Resources */,
 				428767971BEB55D6007400B7 /* home_btn_msg_normal@2x.png in Resources */,
@@ -3671,7 +3703,6 @@
 				42ED93291BF1DB9400E59147 /* chat_sender_audio_playing_full@2x.png in Resources */,
 				42ED92FD1BF1DB9400E59147 /* chatBar_colorMore_camera@2x.png in Resources */,
 				42ED92C11BF1DB9400E59147 /* VoiceSearchFeedback018.png in Resources */,
-				422DC0241BE8DFB20021FB78 /* card_phone@2x.png in Resources */,
 				42FDE2C21BE7052300825E5E /* ToastWarn@2x.png in Resources */,
 				42ED92D11BF1DB9400E59147 /* chatBar_more_card.png in Resources */,
 				42ED92D81BF1DB9400E59147 /* chatBar_more_faceSelected@2x.png in Resources */,
@@ -3683,6 +3714,7 @@
 				42ED93131BF1DB9400E59147 /* messageToolbarBg@2x.png in Resources */,
 				42ED92A81BF1DB9400E59147 /* VoiceSearchFeedback005@2x.png in Resources */,
 				42ED92F71BF1DB9400E59147 /* chatBar_recordSelected.png in Resources */,
+				42F150421C02E41C00D1A8E4 /* icon_weixin@2x.png in Resources */,
 				42ED92A21BF1DB9400E59147 /* VoiceSearchFeedback002@2x.png in Resources */,
 				42ED92B11BF1DB9400E59147 /* VoiceSearchFeedback010.png in Resources */,
 				42ED932E1BF1DB9400E59147 /* delete@2x.png in Resources */,
@@ -3705,6 +3737,7 @@
 				42FDE2851BE7052300825E5E /* Icon-76.png in Resources */,
 				42ED92C61BF1DB9400E59147 /* VoiceSearchFeedback020@2x.png in Resources */,
 				42FDE2881BE7052300825E5E /* Icon-Small-40@2x.png in Resources */,
+				42F1503B1C02E41C00D1A8E4 /* icon_address@2x.png in Resources */,
 				42ED92DD1BF1DB9400E59147 /* chat_location_detail_disclosure.png in Resources */,
 				42ED92EF1BF1DB9400E59147 /* chatBar_more.png in Resources */,
 				42ED93261BF1DB9400E59147 /* chat_sender_audio_playing_003.png in Resources */,
@@ -3716,6 +3749,7 @@
 				42ED92B61BF1DB9400E59147 /* VoiceSearchFeedback012@2x.png in Resources */,
 				42ED92A51BF1DB9400E59147 /* VoiceSearchFeedback004.png in Resources */,
 				42FDE2CD1BE7052300825E5E /* ZYQAssetPicker.Bundle in Resources */,
+				42F150401C02E41C00D1A8E4 /* icon_phone@2x.png in Resources */,
 				42ED92C91BF1DB9400E59147 /* call_out_h.png in Resources */,
 				42ED92E91BF1DB9400E59147 /* chatBar_faceSelected.png in Resources */,
 				42ED92D21BF1DB9400E59147 /* chatBar_more_card@2x.png in Resources */,
@@ -3725,6 +3759,7 @@
 				42ED93231BF1DB9400E59147 /* chat_sender_audio_playing_001@2x.png in Resources */,
 				42ED931B1BF1DB9400E59147 /* chat_receiver_audio_playing003@2x.png in Resources */,
 				42ED92A91BF1DB9400E59147 /* VoiceSearchFeedback006.png in Resources */,
+				42F1503E1C02E41C00D1A8E4 /* icon_job@2x.png in Resources */,
 				42ED93301BF1DB9400E59147 /* titleBar.png in Resources */,
 				42ED93181BF1DB9400E59147 /* chat_receiver_audio_playing002.png in Resources */,
 				42ED93251BF1DB9400E59147 /* chat_sender_audio_playing_002@2x.png in Resources */,
@@ -3733,6 +3768,7 @@
 				42ED92FC1BF1DB9400E59147 /* chatBar_colorMore_audioCallSelected@2x.png in Resources */,
 				42FDE2861BE7052300825E5E /* Icon-76@2x.png in Resources */,
 				42ED93391BF1DB9400E59147 /* groupPublicHeader@2x.png in Resources */,
+				42F1502F1C02DEC100D1A8E4 /* card_icon@2x.png in Resources */,
 				42ED93191BF1DB9400E59147 /* chat_receiver_audio_playing002@2x.png in Resources */,
 				42C22FFA1BE70054002A185B /* grayArrow@2x.png in Resources */,
 				42FDE2951BE7052300825E5E /* LaunchImage-568@2x.png in Resources */,
@@ -3774,6 +3810,7 @@
 				42ED92BE1BF1DB9400E59147 /* VoiceSearchFeedback016@2x.png in Resources */,
 				42ED929E1BF1DB9400E59147 /* chatListCellHead@2x.png in Resources */,
 				42FDE2891BE7052300825E5E /* Icon-Small-40@3x.png in Resources */,
+				42F150451C03148900D1A8E4 /* iconfont_collect@2x.png in Resources */,
 				428767951BEB55D6007400B7 /* home_btn_homepage_normal@2x.png in Resources */,
 				42430A301BEA409500731CA3 /* location_content_image@2x.png in Resources */,
 				42EF82B71BF0365100DA16C3 /* EaseMob.bundle in Resources */,
@@ -3799,7 +3836,6 @@
 				42ED92B21BF1DB9400E59147 /* VoiceSearchFeedback010@2x.png in Resources */,
 				42EF83931BF03F5C00DA16C3 /* sr_refresh@2X.png in Resources */,
 				42ED92A61BF1DB9400E59147 /* VoiceSearchFeedback004@2x.png in Resources */,
-				422DC0231BE8DFB20021FB78 /* card_location@2x.png in Resources */,
 				42ED933A1BF1DB9400E59147 /* nav_createGroup@2x.png in Resources */,
 				42ED92A31BF1DB9400E59147 /* VoiceSearchFeedback003.png in Resources */,
 				42ED92EA1BF1DB9400E59147 /* chatBar_faceSelected@2x.png in Resources */,
@@ -3825,7 +3861,7 @@
 				42ED931A1BF1DB9400E59147 /* chat_receiver_audio_playing003.png in Resources */,
 				42ED92E31BF1DB9400E59147 /* faceDelete.png in Resources */,
 				42ED93211BF1DB9400E59147 /* chat_sender_audio_playing_000@2x.png in Resources */,
-				422DC0221BE8DFB20021FB78 /* card_email@2x.png in Resources */,
+				42F1503F1C02E41C00D1A8E4 /* icon_manager_name@2x.png in Resources */,
 				42ED92B51BF1DB9400E59147 /* VoiceSearchFeedback012.png in Resources */,
 				42ED92E01BF1DB9400E59147 /* chat_location_detail_disclosureHL@2x.png in Resources */,
 				42ED92CD1BF1DB9400E59147 /* call_silence_h.png in Resources */,
@@ -3836,6 +3872,7 @@
 				42ED92DC1BF1DB9400E59147 /* chat_location_annotation_someone@2x.png in Resources */,
 				42ED93071BF1DB9400E59147 /* chatBar_more_camera.png in Resources */,
 				42ED92D61BF1DB9400E59147 /* chatBar_more_face@2x.png in Resources */,
+				42F150461C03148900D1A8E4 /* iconfont_collected@2x.png in Resources */,
 				42C22E941BE6FDC0002A185B /* Images.xcassets in Resources */,
 				42C2301F1BE70054002A185B /* whiteArrow@2x.png in Resources */,
 				42430A321BEA46CA00731CA3 /* default_back_image@2x.png in Resources */,
@@ -3991,6 +4028,7 @@
 				42C22FE41BE70054002A185B /* DatabaseService.m in Sources */,
 				42EF838B1BF03F5C00DA16C3 /* PSTCollectionViewLayout.m in Sources */,
 				42FDE1EC1BE7037C00825E5E /* NavBar.m in Sources */,
+				42F150321C02E00E00D1A8E4 /* CardListViewController.m in Sources */,
 				42C22FEA1BE70054002A185B /* AFHTTPSessionManager.m in Sources */,
 				4287679A1BEB7595007400B7 /* NewsDetailViewController.m in Sources */,
 				42C22FE51BE70054002A185B /* PushService.m in Sources */,

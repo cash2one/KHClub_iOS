@@ -15,7 +15,7 @@
 #define FontLoginTextField 14
 
 //NavBar字体
-#define FontNavBarTitle 15
+#define FontNavBarTitle 17
 
 //个人主页 个人信息字体
 #define FontInformation 16

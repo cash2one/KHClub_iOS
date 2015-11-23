@@ -11,6 +11,9 @@
   */
 
 #import "ContactsViewController.h"
+#import "UIImageView+WebCache.h"
+#import "QRcodeViewController.h"
+#import "QRcodeCardView.h"
 #import "InvitationManager.h"
 #import "BaseTableViewCell.h"
 #import "RealtimeSearchUtil.h"
@@ -24,6 +27,7 @@
 #import "RobotListViewController.h"
 #import "SearchViewController.h"
 #import "CreateGroupViewController.h"
+#import "CardListViewController.h"
 #import "IMUtils.h"
 
 //@implementation EMBuddy (search)
@@ -111,13 +115,11 @@
         [sself showRightPopView];
     }];
     
-    self.navBar.rightBtn.frame  = CGRectMake([DeviceManager getDeviceWidth]-35, 35, 0, 0);
-    self.navBar.rightBtn.width  = 20;
-    self.navBar.rightBtn.height = 20;
-    
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"add"] forState:UIControlStateNormal];
-    self.screenCoverView   = [[UIView alloc] init];
-    self.popBackView       = [[UIView alloc] init];
+    self.navBar.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(12, 26, 12, 0);
+    self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    self.screenCoverView                       = [[UIView alloc] init];
+    self.popBackView                           = [[UIView alloc] init];
     [self.view addSubview:self.screenCoverView];
     [self.view addSubview:self.popBackView];
     //遮罩点击消失
@@ -131,9 +133,9 @@
     self.screenCoverView.hidden          = YES;
     
     //扫描二维码
-    CustomButton * qrcodeBtn  = [[CustomButton alloc] initWithFrame:CGRectMake(10, 0, 120, 45)];
+    CustomButton * qrcodeBtn    = [[CustomButton alloc] initWithFrame:CGRectMake(10, 0, 120, 45)];
     //添加好友
-    CustomButton * addFriendBtn  = [[CustomButton alloc] initWithFrame:CGRectMake(10, 45, 120, 45)];
+    CustomButton * addFriendBtn = [[CustomButton alloc] initWithFrame:CGRectMake(10, 45, 120, 45)];
     //新建群聊
     CustomButton * newGroupBtn  = [[CustomButton alloc] initWithFrame:CGRectMake(10, 90, 120, 45)];
     //我的二维码
@@ -173,8 +175,8 @@
     self.screenCoverView.hidden = NO;
     self.popBackView.frame      = CGRectMake(self.viewWidth-35, kNavBarAndStatusHeight, 0, 0);
     [UIView animateWithDuration:0.2 animations:^{
-        self.popBackView.frame         = CGRectMake(self.viewWidth-120, kNavBarAndStatusHeight, 120, 180);
-        self.navBar.rightBtn.transform = CGAffineTransformMakeRotation(M_PI_4);
+        self.popBackView.frame                   = CGRectMake(self.viewWidth-120, kNavBarAndStatusHeight, 120, 180);
+//        self.navBar.rightBtn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
     }];
 }
 
@@ -183,8 +185,8 @@
 {
     self.screenCoverView.hidden = YES;
     [UIView animateWithDuration:0.2 animations:^{
-        self.popBackView.frame         = CGRectMake(self.viewWidth-35, 57, 0, 0);
-        self.navBar.rightBtn.transform = CGAffineTransformIdentity;
+        self.popBackView.frame                   = CGRectMake(self.viewWidth-35, 57, 0, 0);
+//        self.navBar.rightBtn.imageView.transform = CGAffineTransformIdentity;
     }];
 }
 //点击
@@ -192,7 +194,11 @@
 {
     switch (sender.tag) {
         case 1:
-
+        {
+            QRcodeViewController * qvc = [[QRcodeViewController alloc] init];
+            qvc.lastViewController     = self;
+            [self presentViewController:qvc animated:YES completion:nil];
+        }
             break;
         case 2:
         {
@@ -207,15 +213,35 @@
         }
             break;
         case 4:
-            
+        {
+            QRcodeCardView * qcv = [[QRcodeCardView alloc] init];
+            [self getQRCodeWithImageView:qcv.imageView];
+            [qcv show];
+        }
             break;
-            
         default:
             break;
     }
+    
+    [self dismissCover:nil];
 }
 
-
+//二维码
+- (void)getQRCodeWithImageView:(UIImageView *)imageView
+{
+    
+    NSString * path = [kGetUserQRCodePath stringByAppendingFormat:@"?user_id=%ld", [UserService sharedService].user.uid];
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",kRootAddr,[UserService sharedService].user.qr_code]]];
+    [HttpService getWithUrlString:path andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            NSString *path = [NSString stringWithFormat:@"%@%@",kRootAddr,responseData[HttpResult]];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:path]];
+        }
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
 
 #pragma mark - getter
 
@@ -306,9 +332,9 @@
 //            cell.username = NSLocalizedString(@"title.chatroomlist",@"chatroom list");
 //        }
         else if (indexPath.section == 0 && indexPath.row == 2) {
-            cell.imageView.image = [UIImage imageNamed:@"groupPublicHeader"];
+            cell.imageView.image = [UIImage imageNamed:@"card_icon"];
 //            cell.username = NSLocalizedString(@"title.robotlist",@"robot list");
-            cell.textLabel.text = NSLocalizedString(@"title.robotlist",@"robot list");
+            cell.textLabel.text = NSLocalizedString(@"title.cardlist",@"Card");
         }
         else{
             EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section - 1)] objectAtIndex:indexPath.row];
@@ -467,8 +493,10 @@
 //        }
         else if (indexPath.row == 2)
         {
-            RobotListViewController *controller = [[RobotListViewController alloc] initWithStyle:UITableViewStylePlain];
-            [self.navigationController pushViewController:controller animated:YES];
+//            RobotListViewController *controller = [[RobotListViewController alloc] initWithStyle:UITableViewStylePlain];
+//            [self.navigationController pushViewController:controller animated:YES];
+            CardListViewController * clvc = [[CardListViewController alloc] init];
+            [self pushVC:clvc];
         }
     }
     else{

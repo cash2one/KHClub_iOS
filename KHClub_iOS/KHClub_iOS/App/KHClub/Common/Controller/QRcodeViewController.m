@@ -9,6 +9,8 @@
 #import "QRcodeViewController.h"
 #import "Base64.h"
 #import "WebViewController.h"
+#import "OtherPersonalViewController.h"
+#import "PublicGroupDetailViewController.h"
 
 @interface QRcodeViewController ()
 
@@ -24,12 +26,17 @@ static int ScanQRSize = 16;
 	// Do any additional setup after loading the view.
     [self.view setBackgroundColor:[UIColor blackColor]];
     
-    [self.navBar setNavTitle:@"扫一扫"];
+    [self.navBar setNavTitle:KHClubString(@"Message_Scan_Scan")];
+    
+    __weak typeof(self) sself = self;
+    [self.navBar setLeftBtnWithContent:@"" andBlock:^{
+        [sself dismissViewControllerAnimated:YES completion:nil];
+    }];
     
     //扫描框
-    _borderView  = [[UIView alloc] initWithFrame:CGRectMake(50, self.navBar.frame.size.height+65, 220, 220)];
+    _borderView                   = [[UIView alloc] initWithFrame:CGRectMake(50, self.navBar.frame.size.height+65, 220, 220)];
     [_borderView setBackgroundColor:[UIColor clearColor]];
-    _borderView.layer.borderWidth=1;
+    _borderView.layer.borderWidth = 1;
     _borderView.layer.borderColor = [[UIColor grayColor] CGColor];
     [self.view insertSubview:_borderView belowSubview:self.navBar];
     
@@ -115,33 +122,38 @@ static int ScanQRSize = 16;
     }
     [self.session stopRunning];
     
-    //如果是添加好友
-    if ([stringValue hasPrefix:KH]) {
-        NSString * uid                        = [[stringValue substringFromIndex:4] base64DecodedString];
-        //如果是自己
-        if (uid.integerValue == [UserService sharedService].user.uid) {
+    //如果是群组
+    if ([stringValue hasPrefix:KH_GROUP]) {
+        NSString * groupID                     = [stringValue stringByReplacingOccurrencesOfString:KH_GROUP withString:@""];
+        PublicGroupDetailViewController * pgdv = [[PublicGroupDetailViewController alloc] initWithGroupId:groupID];
+        [self.lastViewController pushVC:pgdv];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
 
-            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"发现" message:@"不要没事扫自己玩(ㅎ‸ㅎ)" delegate:self cancelButtonTitle:StringCommonCancel otherButtonTitles:nil, nil];
-            [alert show];
-            return;
-        }
-//        OtherPersonalViewController * otherVC = [[OtherPersonalViewController alloc] init];
-//        otherVC.uid                           = [uid integerValue];
-//        [self pushVC:otherVC];
+    //如果是人
+    if ([stringValue hasPrefix:KH]) {
+        NSString * uid                        = [[stringValue substringFromIndex:2] base64DecodedString];
+        OtherPersonalViewController * otherVC = [[OtherPersonalViewController alloc] init];
+        otherVC.uid                           = [uid integerValue];
+        [self.lastViewController pushVC:otherVC];
+        [self dismissViewControllerAnimated:YES completion:nil];
         return;
     }
-    
+
     //如果是网页
-    if ([ToolsManager validateWEB:stringValue]) {
-        WebViewController * webVC = [[WebViewController alloc] init];
-        webVC.webURL              = [NSURL URLWithString:stringValue];
-        [self pushVC:webVC];
-        return;
-    }else{
-        //什么都没扫到
-        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"扫到了未知生物" message:[NSString stringWithFormat:@"[%@]是啥？", stringValue] delegate:self cancelButtonTitle:StringCommonCancel otherButtonTitles:nil, nil];
-        [alert show];
-    }
+//    if ([ToolsManager validateWEB:stringValue]) {
+//        WebViewController * webVC = [[WebViewController alloc] init];
+//        webVC.webURL              = [NSURL URLWithString:stringValue];
+//        [self pushVC:webVC];
+//        return;
+//    }else{
+    //什么都没扫到
+//    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"扫到了未知生物" message:[NSString stringWithFormat:@"[%@]？", stringValue] delegate:self cancelButtonTitle:StringCommonCancel otherButtonTitles:nil, nil];
+//    [alert show];
+//    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self showHint:[NSString stringWithFormat:@"[%@]？", stringValue]];
 }
 
 #pragma mark- UIAlertViewDelegate

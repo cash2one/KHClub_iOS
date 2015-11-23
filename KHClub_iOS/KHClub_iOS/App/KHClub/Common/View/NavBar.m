@@ -108,4 +108,18 @@
     }
 }
 
+/*! 设置右上角图片*/
+- (void)setRightImage:(UIImage *)image
+{
+//    UIImageView * imageView = [[UIImageView alloc] initWithImage:image];
+//    imageView.frame = CGRectMake(35, 20, 20, 20);
+//    [self.rightBtn addSubview:imageView];
+}
+
+/*! 设置左上角图片*/
+- (void)setLeftImage:(UIImage *)image
+{
+
+}
+
 @end

@@ -79,11 +79,15 @@
         [sself pushVC:pnvc];
     }];
     
+    
     self.navBar.leftBtn.hidden = NO;
+    self.navBar.leftBtn.imageEdgeInsets        = UIEdgeInsetsMake(6, 0, 0, 16);
+    self.navBar.leftBtn.imageView.contentMode  = UIViewContentModeScaleAspectFit;
+    self.navBar.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(12, 26, 12, 0);
+    self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    
     [self.navBar.leftBtn setImage:[UIImage imageNamed:@"news_notice_normal"] forState:UIControlStateNormal];
-    [self.navBar.leftBtn setImage:[UIImage imageNamed:@"news_notice_press"] forState:UIControlStateHighlighted];
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"news_publish_normal"] forState:UIControlStateNormal];
-    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"news_publish_press"] forState:UIControlStateHighlighted];
     
     //未读
     self.unreadView.frame              = CGRectMake(42, 28, 6, 6);

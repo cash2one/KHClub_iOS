@@ -36,7 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     //初始化
     [self initWidget];
     //编辑UI
@@ -97,36 +97,39 @@
 
     //顶部栏设置部分
     self.navBar.leftBtn.hidden                       = NO;
+    self.navBar.leftBtn.imageEdgeInsets              = UIEdgeInsetsMake(6, 0, 0, 16);
+    self.navBar.leftBtn.imageView.contentMode        = UIViewContentModeScaleAspectFit;
+    self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(12, 26, 12, 0);
+    self.navBar.rightBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
     [self.navBar.leftBtn setImage:nil forState:UIControlStateNormal];
     //名片和设置
     [self.navBar.leftBtn setImage:[UIImage imageNamed:@"personal_setting"] forState:UIControlStateNormal];
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
 
-    CustomButton * imageBackView        = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.infoView.bottom+20, self.viewWidth, 75)];
+    CustomButton * imageBackView  = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60)];
     imageBackView.backgroundColor = [UIColor whiteColor];
 
-    CustomLabel * imageLabel      = [[CustomLabel alloc] initWithFontSize:18];
+    CustomLabel * imageLabel      = [[CustomLabel alloc] initWithFontSize:17];
     imageLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
-    imageLabel.frame              = CGRectMake(15, 0, 100, 75);
+    imageLabel.frame              = CGRectMake(15, 0, 80, 60);
     imageLabel.text               = KHClubString(@"Personal_Personal_Moments");
     [imageBackView addSubview:imageLabel];
 
-    self.imageView1.frame         = CGRectMake(self.viewWidth-70, 10, 55, 55);
-    self.imageView2.frame         = CGRectMake(self.imageView1.x-65, 10, 55, 55);
-    self.imageView3.frame         = CGRectMake(self.imageView1.x-65, 10, 55, 55);
+    self.imageView1.frame         = CGRectMake(imageLabel.right+5, 5, 50, 50);
+    self.imageView2.frame         = CGRectMake(self.imageView1.right+5, 5, 50, 50);
+    self.imageView3.frame         = CGRectMake(self.imageView2.right+5, 5, 50, 50);
     [self.backScrollView addSubview:imageBackView];
     [imageBackView addSubview:self.imageView1];
     [imageBackView addSubview:self.imageView2];
     [imageBackView addSubview:self.imageView3];
     [imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    
-    self.signBackView.frame           = CGRectMake(0, imageBackView.bottom+20, self.viewWidth, 60);
+    self.signBackView.frame           = CGRectMake(0, imageBackView.bottom+1, self.viewWidth, 60);
     self.signBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
 
-    CustomLabel * signTitleLabel      = [[CustomLabel alloc] initWithFontSize:18];
+    CustomLabel * signTitleLabel      = [[CustomLabel alloc] initWithFontSize:17];
     signTitleLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
-    signTitleLabel.frame              = CGRectMake(15, 10, 100, 40);
+    signTitleLabel.frame              = CGRectMake(15, 0, 100, 40);
     signTitleLabel.text               = KHClubString(@"Personal_Personal_Sign");
     [self.signBackView addSubview:signTitleLabel];
 
@@ -143,12 +146,11 @@
     [self.infoView setSelfData];
     //状态更新
     [self getNewsImages];
-    
     //签名
     NSString * signStr       = [ToolsManager emptyReturnNone:[UserService sharedService].user.signature];
     CGSize size              = [ToolsManager getSizeWithContent:signStr andFontSize:15 andFrame:CGRectMake(0, 0, self.viewWidth-30, MAXFLOAT)];
     self.signLabel.text      = signStr;
-    self.signBackView.height = size.height+60;
+    self.signBackView.height = size.height+50;
     self.signLabel.height    = size.height;
 
     if (self.signBackView.bottom < self.backScrollView.height) {

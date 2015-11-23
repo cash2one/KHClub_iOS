@@ -8,21 +8,20 @@
 
 #import "PersonalInfoView.h"
 #import "UIImageView+WebCache.h"
+#import "HttpService.h"
 
 @interface PersonalInfoView()
 
-//背景滚动视图
-@property (nonatomic, strong) UIScrollView * backScrollView;
 //头像
 @property (nonatomic, strong) CustomImageView * headImageView;
-//名字
+//名字 和 工作名
 @property (nonatomic, strong) CustomLabel * nameLabel;
 //二级名字
 @property (nonatomic, strong) CustomLabel * secondNameLabel;
 //收藏按钮
 @property (nonatomic, strong) CustomButton * collectBtn;
-//工作名
-@property (nonatomic, strong) CustomLabel * jobLabel;
+////工作名
+//@property (nonatomic, strong) CustomLabel * jobLabel;
 //公司名
 @property (nonatomic, strong) CustomLabel * companyLabel;
 //公司名
@@ -32,8 +31,11 @@
 //住址
 @property (nonatomic, strong) CustomLabel * addressLabel;
 
+@property (nonatomic, assign) BOOL isSelf;
 
+@property (nonatomic, assign) BOOL isUpload;
 
+@property (nonatomic, strong) UserModel * user;
 
 @end
 
@@ -51,6 +53,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.isSelf = isSelf;
         [self initWidget];
         [self configUI];
         
@@ -67,27 +70,27 @@
  */
 - (void)initWidget
 {
-    self.backScrollView  = [[UIScrollView alloc] init];
     self.headImageView   = [[CustomImageView alloc] init];
     self.nameLabel       = [[CustomLabel alloc] init];
     self.secondNameLabel = [[CustomLabel alloc] init];
     self.collectBtn      = [[CustomButton alloc] init];
-    self.jobLabel        = [[CustomLabel alloc] init];
+//    self.jobLabel        = [[CustomLabel alloc] init];
     self.companyLabel    = [[CustomLabel alloc] init];
     self.phoneLabel      = [[CustomLabel alloc] init];
     self.emailLabel      = [[CustomLabel alloc] init];
     self.addressLabel    = [[CustomLabel alloc] init];
     
-    [self addSubview:self.backScrollView];
-    [self.backScrollView addSubview:self.headImageView];
-    [self.backScrollView addSubview:self.nameLabel];
-    [self.backScrollView addSubview:self.secondNameLabel];
-    [self.backScrollView addSubview:self.collectBtn];
-    [self.backScrollView addSubview:self.jobLabel];
-    [self.backScrollView addSubview:self.companyLabel];
-    [self.backScrollView addSubview:self.phoneLabel];
-    [self.backScrollView addSubview:self.emailLabel];
-    [self.backScrollView addSubview:self.addressLabel];
+    [self addSubview:self.headImageView];
+    [self addSubview:self.nameLabel];
+    [self addSubview:self.secondNameLabel];
+    [self addSubview:self.collectBtn];
+//    [self addSubview:self.jobLabel];
+    [self addSubview:self.companyLabel];
+    [self addSubview:self.phoneLabel];
+    [self addSubview:self.emailLabel];
+    [self addSubview:self.addressLabel];
+    
+    [self.collectBtn addTarget:self action:@selector(collectClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 /**
@@ -95,74 +98,176 @@
  */
 - (void)configUI
 {
-    self.backgroundColor = [UIColor whiteColor];
-    self.backScrollView.frame                          = CGRectMake(0, 0, self.width, self.height);
-    self.backScrollView.contentSize                    = CGSizeMake(self.width*2, 0);
-    self.backScrollView.showsHorizontalScrollIndicator = NO;
-    self.backScrollView.pagingEnabled                  = YES;
-    self.backScrollView.bounces = NO;
+    self.backgroundColor   = [UIColor whiteColor];
+    self.collectBtn.frame  = CGRectMake(self.width-30, 8, 22, 22);
+    self.collectBtn.hidden = YES;
+    [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collect"] forState:UIControlStateNormal];
 
-    //位置
-    self.headImageView.frame    = CGRectMake(10, 10, 80, 80);
-    self.nameLabel.frame        = CGRectMake(self.headImageView.right+10, self.headImageView.y+2, 200, 20);
-    self.companyLabel.frame     = CGRectMake(self.headImageView.right+10, self.nameLabel.bottom+8, 200, 20);
-    self.jobLabel.frame         = CGRectMake(self.headImageView.right+10, self.companyLabel.bottom+8, 200, 20);
+    //头像
+    self.headImageView.frame               = CGRectMake(kCenterOriginX(70)-10, 6, 70, 70);
+    self.headImageView.contentMode         = UIViewContentModeScaleAspectFill;
+    self.headImageView.layer.cornerRadius  = 35;
+    self.headImageView.layer.borderColor   = [UIColor colorWithWhite:0.5 alpha:0.5].CGColor;
+    self.headImageView.layer.borderWidth   = 1;
+    self.headImageView.layer.masksToBounds = YES;
+    //姓名职位
+    self.nameLabel.frame         = CGRectMake(0, self.headImageView.bottom+2, [DeviceManager getDeviceWidth]-20, 20);
+    self.nameLabel.textAlignment = NSTextAlignmentCenter;
+//    self.nameLabel.frame        = CGRectMake(self.headImageView.right+10, self.headImageView.y+2, 200, 20);
+//    self.companyLabel.frame     = CGRectMake(self.headImageView.right+10, self.nameLabel.bottom+8, 200, 20);
+//    self.jobLabel.frame         = CGRectMake(self.headImageView.right+10, self.companyLabel.bottom+8, 200, 20);
+//
+    CustomImageView * companyImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"icon_company"]];
+    CustomImageView * phoneImageView   = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"icon_phone"]];
+    CustomImageView * emailImageView   = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"icon_email"]];
+    CustomImageView * addressImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"icon_address"]];
+    companyImageView.frame             = CGRectMake(10, self.nameLabel.bottom, 25, 25);
+    phoneImageView.frame               = CGRectMake(10, companyImageView.bottom-5, 25, 25);
+    emailImageView.frame               = CGRectMake(10, phoneImageView.bottom-5, 25, 25);
+    addressImageView.frame             = CGRectMake(10, emailImageView.bottom-5, 25, 25);
     
-    CustomImageView * phoneImageView   = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"card_phone"]];
-    CustomImageView * emailImageView   = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"card_email"]];
-    CustomImageView * addressImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"card_location"]];
-    phoneImageView.frame               = CGRectMake(self.headImageView.x, self.headImageView.bottom+10, 20, 20);
-    emailImageView.frame               = CGRectMake(self.headImageView.x, phoneImageView.bottom+10, 20, 20);
-    addressImageView.frame             = CGRectMake(self.headImageView.x, emailImageView.bottom+10, 20, 20);
-    
-    self.phoneLabel.frame       = CGRectMake(phoneImageView.right+5, self.headImageView.bottom+10, 260, 20);
-    self.emailLabel.frame       = CGRectMake(phoneImageView.right+5, self.phoneLabel.bottom+10, 260, 20);
-    self.addressLabel.frame     = CGRectMake(phoneImageView.right+5, self.emailLabel.bottom+10, 260, 20);
-
+    self.companyLabel.frame     = CGRectMake(phoneImageView.right, companyImageView.y+3, 200, 20);
+    self.phoneLabel.frame       = CGRectMake(phoneImageView.right, phoneImageView.y+3, 260, 20);
+    self.emailLabel.frame       = CGRectMake(phoneImageView.right, emailImageView.y+3, 260, 20);
+    self.addressLabel.frame     = CGRectMake(phoneImageView.right, addressImageView.y+3, 260, 20);
     //字体
     self.nameLabel.font         = [UIFont systemFontOfSize:18];
-    self.companyLabel.font      = [UIFont systemFontOfSize:16];
-    self.jobLabel.font          = [UIFont systemFontOfSize:16];
-    self.phoneLabel.font        = [UIFont systemFontOfSize:16];
-    self.emailLabel.font        = [UIFont systemFontOfSize:16];
-    self.addressLabel.font      = [UIFont systemFontOfSize:16];
+    self.companyLabel.font      = [UIFont systemFontOfSize:14];
+//    self.jobLabel.font          = [UIFont systemFontOfSize:16];
+    self.phoneLabel.font        = [UIFont systemFontOfSize:14];
+    self.emailLabel.font        = [UIFont systemFontOfSize:14];
+    self.addressLabel.font      = [UIFont systemFontOfSize:14];
 
     //颜色
     self.nameLabel.textColor    = [UIColor colorWithHexString:ColorDeepBlack];
     self.companyLabel.textColor = [UIColor colorWithHexString:ColorDeepBlack];
-    self.jobLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
-    self.phoneLabel.textColor   = [UIColor colorWithHexString:ColorLightBlack];
-    self.emailLabel.textColor   = [UIColor colorWithHexString:ColorLightBlack];
-    self.addressLabel.textColor = [UIColor colorWithHexString:ColorLightBlack];
-    
-    [self.backScrollView addSubview:phoneImageView];
-    [self.backScrollView addSubview:emailImageView];
-    [self.backScrollView addSubview:addressImageView];
+//    self.jobLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
+    self.phoneLabel.textColor   = [UIColor colorWithHexString:ColorDeepBlack];
+    self.emailLabel.textColor   = [UIColor colorWithHexString:ColorDeepBlack];
+    self.addressLabel.textColor = [UIColor colorWithHexString:ColorDeepBlack];
+
+    [self addSubview:phoneImageView];
+    [self addSubview:emailImageView];
+    [self addSubview:addressImageView];
+    [self addSubview:companyImageView];
     
 }
 
 - (void)setSelfData
 {
     UserModel * user       = [UserService sharedService].user;
-    
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:user.head_sub_image]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
-    self.nameLabel.text    = [ToolsManager emptyReturnNone:user.name];
-    self.companyLabel.text = [ToolsManager emptyReturnNone:user.company_name];
-    self.jobLabel.text     = [ToolsManager emptyReturnNone:user.job];
-    self.phoneLabel.text   = [ToolsManager emptyReturnNone:user.phone_num];
-    self.emailLabel.text   = [ToolsManager emptyReturnNone:user.e_mail];
-    self.addressLabel.text = [ToolsManager emptyReturnNone:user.address];
+    [self setDataWithModel:user];
 }
 
 - (void)setDataWithModel:(UserModel *)user
 {
+    
+    self.user = user;
+    
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:user.head_sub_image]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
+    
     self.nameLabel.text    = [ToolsManager emptyReturnNone:user.name];
+    if (user.job.length > 0) {
+        self.nameLabel.text    = [NSString stringWithFormat:@"%@ / %@", self.nameLabel.text, user.job];
+    }
     self.companyLabel.text = [ToolsManager emptyReturnNone:user.company_name];
-    self.jobLabel.text     = [ToolsManager emptyReturnNone:user.job];
+//    self.jobLabel.text     = [ToolsManager emptyReturnNone:user.job];
     self.phoneLabel.text   = [ToolsManager emptyReturnNone:user.phone_num];
     self.emailLabel.text   = [ToolsManager emptyReturnNone:user.e_mail];
     self.addressLabel.text = [ToolsManager emptyReturnNone:user.address];
+    
+    //不是自己 不是好友
+    if (!self.isSelf && user.uid != [UserService sharedService].user.uid && self.isFriend == NO) {
+        self.collectBtn.hidden = NO;
+        //收藏了
+        if (self.isCollect) {
+            [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collected"] forState:UIControlStateNormal];
+        }else{
+            [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collect"] forState:UIControlStateNormal];
+        }
+        
+        if (!self.isFriend) {
+            //权限
+            if (user.phone_state == SeeOnlyFriends) {
+                self.phoneLabel.text = @"********";
+            }
+            if (user.email_state == SeeOnlyFriends) {
+                self.emailLabel.text = @"********";
+            }
+            if (user.address_state == SeeOnlyFriends) {
+                self.addressLabel.text = @"********";
+            }
+        }else{
+            //如果有备注的话
+            if (self.remark.length > 0) {
+                if (user.job.length > 0) {
+                    self.nameLabel.text    = [NSString stringWithFormat:@"%@ / %@", self.remark, user.job];
+                }
+            }
+        }
+    }
+
+}
+/**
+ *  收藏点击
+ *
+ *  @param sender btn
+ */
+- (void)collectClick:(id)sender
+{
+    if (self.isUpload == NO) {
+        self.isUpload  = YES;
+        
+        NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                                  @"target_id":[NSString stringWithFormat:@"%ld", self.user.uid]};
+        
+        NSString * path = kCollectCardPath;
+        [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collected"] forState:UIControlStateNormal];
+        if (self.isCollect) {
+            path = kDeleteCardPath;
+            [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collect"] forState:UIControlStateNormal];
+        }
+        self.isCollect = !self.isCollect;
+        
+        debugLog(@"%@ %@", path, params);
+        [HttpService postWithUrlString:path params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+            self.isUpload = NO;
+            int status = [responseData[HttpStatus] intValue];
+            //成功后
+            if (status == HttpStatusCodeSuccess) {
+
+                NSString * toast = KHClubString(@"Personal_OtherPersonal_CancelCollectSuccess");
+                if (self.isCollect) {
+                    toast = KHClubString(@"Personal_OtherPersonal_CollectSuccess");
+                }
+                [self.parentVC showHint:toast];
+                
+            }else{
+                //失败后
+                self.isCollect = !self.isCollect;
+                NSString * toast = KHClubString(@"Personal_OtherPersonal_CollectFail");
+                if (self.isCollect) {
+                    [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collected"] forState:UIControlStateNormal];
+                    toast = KHClubString(@"Personal_OtherPersonal_CancelCollectFail");
+                }else{
+                    [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collect"] forState:UIControlStateNormal];
+                }
+                [self.parentVC showHint:toast];
+            }
+            
+        } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+            self.isUpload = NO;
+            self.isCollect = !self.isCollect;
+            NSString * toast = KHClubString(@"Personal_OtherPersonal_CollectFail");
+            if (self.isCollect) {
+                [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collected"] forState:UIControlStateNormal];
+                toast = KHClubString(@"Personal_OtherPersonal_CancelCollectFail");
+            }else{
+                [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collect"] forState:UIControlStateNormal];
+            }
+            [self.parentVC showHint:toast];
+        }];
+    }
 }
 
 

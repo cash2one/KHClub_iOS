@@ -33,7 +33,7 @@
         // Initialization code
         _timeLabel                      = [[UILabel alloc] initWithFrame:CGRectMake([DeviceManager getDeviceWidth]-200, 7, 180, 16)];
         _timeLabel.font                 = [UIFont systemFontOfSize:13];
-        _timeLabel.textColor            = [UIColor colorWithHexString:ColorDeepBlack];
+        _timeLabel.textColor            = [UIColor colorWithHexString:ColorLightBlack];
         _timeLabel.backgroundColor      = [UIColor clearColor];
         _timeLabel.textAlignment        = NSTextAlignmentRight;
         [self.contentView addSubview:_timeLabel];
@@ -55,7 +55,8 @@
         [self.contentView addSubview:_detailLabel];
 
         self.textLabel.backgroundColor  = [UIColor clearColor];
-
+        self.textLabel.textColor        = [UIColor colorWithHexString:ColorDeepBlack];
+        
         _lineView                       = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth], 1)];
         _lineView.backgroundColor       = RGBACOLOR(207, 210, 213, 0.7);
         [self.contentView addSubview:_lineView];

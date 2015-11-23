@@ -32,6 +32,7 @@
     self = [self init];
     if (self) {
         _groupId = groupId;
+        debugLog(@"%@", groupId);
     }
     
     return self;

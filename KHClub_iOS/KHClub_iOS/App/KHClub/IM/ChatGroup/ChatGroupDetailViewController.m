@@ -414,10 +414,10 @@
         }
         
         NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
-        NSString *username = [loginInfo objectForKey:kSDKUsername];
-        NSString *messageStr = [NSString stringWithFormat:NSLocalizedString(@"group.somebodyInvite", @"%@ invite you to join group \'%@\'"), username, weakSelf.chatGroup.groupSubject];
-        EMError *error = nil;
-        weakSelf.chatGroup = [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.chatGroup.groupId welcomeMessage:messageStr error:&error];
+        NSString *username      = [loginInfo objectForKey:kSDKUsername];
+        NSString *messageStr    = [NSString stringWithFormat:NSLocalizedString(@"group.somebodyInvite", @"%@ invite you to join group \'%@\'"), username, weakSelf.chatGroup.groupSubject];
+        EMError *error          = nil;
+        weakSelf.chatGroup      = [[EaseMob sharedInstance].chatManager addOccupants:source toGroup:weakSelf.chatGroup.groupId welcomeMessage:messageStr error:&error];
         if (!error) {
             [weakSelf reloadDataSource];
         }

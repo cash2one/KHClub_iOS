@@ -34,4 +34,24 @@
  */
 - (void)setDataWithModel:(UserModel *)user;
 
+/**
+ *  是否收藏了
+ */
+@property (nonatomic, assign) BOOL isCollect;
+
+/**
+ *  是否是好友
+ */
+@property (nonatomic, assign) BOOL isFriend;
+
+/**
+ *  备注
+ */
+@property (nonatomic, copy) NSString * remark;
+
+/**
+ *  父控制器
+ */
+@property (nonatomic, strong) UIViewController * parentVC;
+
 @end

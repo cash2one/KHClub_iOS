@@ -33,6 +33,12 @@ typedef void(^RightBlock) (void);
 /*!设置右边按钮不变位置*/
 - (void)setRightBtnWithContent:(NSString *)content andBlock:(LeftBlock)block;
 
+/*! 设置右上角图片*/
+- (void)setRightImage:(UIImage *)image;
+
+/*! 设置左上角图片*/
+- (void)setLeftImage:(UIImage *)image;
+
 /*!设置标题*/
 - (void)setNavTitle:(NSString *)title;
 

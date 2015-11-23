@@ -95,30 +95,30 @@
     self.backScrollView.showsVerticalScrollIndicator = NO;
     
     //顶部栏设置部分
-    CustomButton * imageBackView  = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.infoView.bottom+20, self.viewWidth, 75)];
+    CustomButton * imageBackView  = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60)];
     imageBackView.backgroundColor = [UIColor whiteColor];
 
-    CustomLabel * imageLabel      = [[CustomLabel alloc] initWithFontSize:18];
+    CustomLabel * imageLabel      = [[CustomLabel alloc] initWithFontSize:17];
     imageLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
-    imageLabel.frame              = CGRectMake(15, 0, 100, 75);
+    imageLabel.frame              = CGRectMake(15, 0, 80, 60);
     imageLabel.text               = KHClubString(@"Personal_Personal_Moments");
     [imageBackView addSubview:imageLabel];
     [imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.imageView1.frame         = CGRectMake(self.viewWidth-70, 10, 55, 55);
-    self.imageView2.frame         = CGRectMake(self.imageView1.x-65, 10, 55, 55);
-    self.imageView3.frame         = CGRectMake(self.imageView1.x-65, 10, 55, 55);
+    self.imageView1.frame         = CGRectMake(imageLabel.right+5, 5, 50, 50);
+    self.imageView2.frame         = CGRectMake(self.imageView1.right+5, 5, 50, 50);
+    self.imageView3.frame         = CGRectMake(self.imageView2.right+5, 5, 50, 50);
     [self.backScrollView addSubview:imageBackView];
     [imageBackView addSubview:self.imageView1];
     [imageBackView addSubview:self.imageView2];
     [imageBackView addSubview:self.imageView3];
     
-    self.signBackView.frame           = CGRectMake(0, imageBackView.bottom+20, self.viewWidth, 60);
+    self.signBackView.frame           = CGRectMake(0, imageBackView.bottom+1, self.viewWidth, 60);
     self.signBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
     
-    CustomLabel * signTitleLabel      = [[CustomLabel alloc] initWithFontSize:18];
+    CustomLabel * signTitleLabel      = [[CustomLabel alloc] initWithFontSize:17];
     signTitleLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
-    signTitleLabel.frame              = CGRectMake(15, 10, 100, 40);
+    signTitleLabel.frame              = CGRectMake(15, 0, 100, 40);
     signTitleLabel.text               = KHClubString(@"Personal_Personal_Sign");
     [self.signBackView addSubview:signTitleLabel];
     
@@ -198,7 +198,7 @@
     NSString * signStr       = [ToolsManager emptyReturnNone:self.otherUser.signature];
     CGSize size              = [ToolsManager getSizeWithContent:signStr andFontSize:15 andFrame:CGRectMake(0, 0, self.viewWidth-30, MAXFLOAT)];
     self.signLabel.text      = signStr;
-    self.signBackView.height = size.height+60;
+    self.signBackView.height = size.height+50;
     self.signLabel.height    = size.height;
     
     if (self.signBackView.bottom < self.backScrollView.height) {
@@ -232,6 +232,13 @@
         [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:image.sub_url]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
     }
     
+    //是否收藏
+    self.infoView.isCollect = [responseData[HttpResult][@"isCollected"] boolValue];
+    //是否好友
+    self.infoView.isFriend  = self.isFriend;
+    //是好友的话备注
+    self.infoView.remark    = responseData[HttpResult][@"remark"];
+    self.infoView.parentVC  = self;
     //设置数据
     [self.infoView setDataWithModel:self.otherUser];
 }

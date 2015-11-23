@@ -8,6 +8,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "BaseViewController.h"
+
 /*!
     二维码扫描页面
  */
@@ -20,5 +21,7 @@
 @property (strong, nonatomic)AVCaptureMetadataOutput *output;
 @property (strong, nonatomic)AVCaptureSession *session;
 @property (strong, nonatomic)AVCaptureVideoPreviewLayer *preview;
+
+@property (strong, nonatomic) BaseViewController * lastViewController;
 
 @end
