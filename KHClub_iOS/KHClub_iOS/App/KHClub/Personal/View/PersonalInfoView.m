@@ -14,6 +14,8 @@
 
 //头像
 @property (nonatomic, strong) CustomImageView * headImageView;
+//二维码
+@property (nonatomic, strong) CustomImageView * qrcodeImageView;
 //名字 和 工作名
 @property (nonatomic, strong) CustomLabel * nameLabel;
 //二级名字
@@ -79,6 +81,7 @@
     self.phoneLabel      = [[CustomLabel alloc] init];
     self.emailLabel      = [[CustomLabel alloc] init];
     self.addressLabel    = [[CustomLabel alloc] init];
+    self.qrcodeImageView = [[CustomImageView alloc] init];
     
     [self addSubview:self.headImageView];
     [self addSubview:self.nameLabel];
@@ -89,8 +92,10 @@
     [self addSubview:self.phoneLabel];
     [self addSubview:self.emailLabel];
     [self addSubview:self.addressLabel];
+    [self addSubview:self.qrcodeImageView];
     
     [self.collectBtn addTarget:self action:@selector(collectClick:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 /**
@@ -151,6 +156,9 @@
     [self addSubview:addressImageView];
     [self addSubview:companyImageView];
     
+    //二维码位置
+    self.qrcodeImageView.frame = CGRectMake(self.width-95, self.height-95, 95, 95);
+    
 }
 
 - (void)setSelfData
@@ -175,6 +183,8 @@
     self.phoneLabel.text   = [ToolsManager emptyReturnNone:user.phone_num];
     self.emailLabel.text   = [ToolsManager emptyReturnNone:user.e_mail];
     self.addressLabel.text = [ToolsManager emptyReturnNone:user.address];
+    //二维码
+    [self setQRcode];
     
     //不是自己 不是好友
     if (!self.isSelf && user.uid != [UserService sharedService].user.uid && self.isFriend == NO) {
@@ -200,14 +210,46 @@
         }else{
             //如果有备注的话
             if (self.remark.length > 0) {
+                self.nameLabel.text    = self.remark;
                 if (user.job.length > 0) {
                     self.nameLabel.text    = [NSString stringWithFormat:@"%@ / %@", self.remark, user.job];
+                }
+            }else{
+                self.nameLabel.text    = [ToolsManager emptyReturnNone:user.name];
+                if (user.job.length > 0) {
+                    self.nameLabel.text    = [NSString stringWithFormat:@"%@ / %@", self.nameLabel.text, user.job];
                 }
             }
         }
     }
 
 }
+
+/**
+ *  设置二维码
+ */
+- (void)setQRcode
+{
+    [self.qrcodeImageView sd_setImageWithURL:[NSURL URLWithString:[kRootAddr stringByAppendingString:self.user.qr_code]]];
+    NSString * path = [kGetUserQRCodePath stringByAppendingFormat:@"?user_id=%ld", self.user.uid];
+    debugLog(@"%@", path);
+    [HttpService getWithUrlString:path andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        int status = [responseData[HttpStatus] intValue];
+        //成功后
+        if (status == HttpStatusCodeSuccess) {
+            NSString * qrpath = responseData[HttpResult];
+            if (qrpath.length > 0) {
+                //存在设置
+                [self.qrcodeImageView sd_setImageWithURL:[NSURL URLWithString:[kRootAddr stringByAppendingString:qrpath]]];
+                [UserService sharedService].user.qr_code = qrpath;
+                [[UserService sharedService] saveAndUpdate];
+            }
+        }
+
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+    }];
+}
+
 /**
  *  收藏点击
  *

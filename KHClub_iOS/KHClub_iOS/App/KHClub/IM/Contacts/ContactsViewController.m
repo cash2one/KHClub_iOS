@@ -81,8 +81,6 @@
     self.tableView.frame = CGRectMake(0, kNavBarAndStatusHeight, self.view.frame.size.width, self.view.frame.size.height - kNavBarAndStatusHeight-kTabBarHeight);
     [self.view addSubview:self.tableView];
     
-    [self reloadDataSource];
-    
     [self setNavBarTitle:KHClubString(@"Common_Main_Contact")];
     
     [self initUI];
@@ -99,6 +97,7 @@
     [super viewWillAppear:animated];
     
     [self reloadApplyView];
+    [self reloadDataSource];
 }
 
 - (void)dealloc

@@ -96,11 +96,11 @@
     //高亮
 //    [self.navBar.leftBtn setImage:[UIImage imageNamed:@"back_white_btn_selected"] forState:UIControlStateHighlighted];
     if ([DeviceManager getDeviceSystem] >= 7.0) {
-        [self.navBar setLeftBtnWithFrame:CGRectMake(10, 15, 40, 50) andContent:nil andBlock:^{
+        [self.navBar setLeftBtnWithFrame:CGRectMake(5, 17, 40, 50) andContent:nil andBlock:^{
             [sself.navigationController popViewControllerAnimated:YES];
         }];
     }else{
-        [self.navBar setLeftBtnWithFrame:CGRectMake(10, 0, 40, 50) andContent:nil  andBlock:^{
+        [self.navBar setLeftBtnWithFrame:CGRectMake(5, 2, 40, 50) andContent:nil  andBlock:^{
             [sself.navigationController popViewControllerAnimated:YES];
         }];
     }

@@ -21,6 +21,7 @@
 "Common_Delete"                               = "删除";
 "Common_DownloadData"                         = "数据获取中...";
 "Common_UploadData"                           = "数据保存中...";
+"Common_UploadDataFail"                       = "保存失败";
 "Common_DownloadDataFail"                     = "数据获取失败";
 "Common_Camera"                               = "相机";
 "Common_Gallery"                              = "相册";
@@ -76,6 +77,7 @@
 "Personal_Personal_Sign"                      = "个人说明";
 "Personal_Personal_Moments"                   = "动态列表";
 "Personal_Personal_None"                      = "暂无信息";
+"Personal_PersonalSetting_Title"              = "编辑";
 "Personal_PersonalSetting_Icon"               = "头像";
 "Personal_PersonalSetting_Name"               = "昵称";
 "Personal_PersonalSetting_Job"                = "职业";
@@ -93,8 +95,6 @@
 "Personal_PersonalSetting_EnterCompany"       = "请输入公司";
 "Personal_PersonalSetting_Man"                = "男";
 "Personal_PersonalSetting_Woman"              = "女";
-"Personal_PersonalSetting_Man"                = "姓名不能为空";
-"Personal_PersonalSetting_Woman"              = "姓名太长";
 "Personal_PersonalSetting_NameNotNull"        = "姓名不能为空";
 "Personal_PersonalSetting_NameTooLong"        = "姓名太长";
 "Personal_PersonalSetting_FriendsCanSee"      = "仅好友可见";
@@ -107,7 +107,13 @@
 "Personal_OtherPersonal_CollectFail"          = "收藏失败";
 "Personal_OtherPersonal_CancelCollectSuccess" = "取消收藏成功";
 "Personal_OtherPersonal_CancelCollectFail"    = "取消收藏失败";
-
+"Personal_OtherPersonal_DeleteFriend"         = "删除好友";
+"Personal_OtherPersonal_Remark"               = "修改备注";
+"Personal_AppSetting_Title"                   = "设置";
+"Personal_AppSetting_LogoutPrompt"            = "确定退出该账号吗？";
+"Personal_AppSetting_ClearOK"                 = "清除成功";
+"Personal_AppSetting_Clear"                   = "清空缓存";
+"Personal_AppSetting_Logout"                  = "退出";
 
 //News
 "News_Publish_EnterContent"                   = "请输入内容";

@@ -11,7 +11,7 @@
 /**
  *  其他人的信息详情
  */
-@interface OtherPersonalViewController : BaseViewController
+@interface OtherPersonalViewController : BaseViewController<UIAlertViewDelegate>
 
 /**
  *  用户ID

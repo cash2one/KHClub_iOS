@@ -172,6 +172,17 @@
 		42D1D6101BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60C1BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png */; };
 		42DB9C4F1BFEF90400631721 /* groups_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */; };
 		42DB9C521BFF40AD00631721 /* QRcodeCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DB9C511BFF40AD00631721 /* QRcodeCardView.m */; };
+		42E84C441C03F99A00D92319 /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C431C03F99A00D92319 /* CardModel.m */; };
+		42E84C471C03F9A600D92319 /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C461C03F9A600D92319 /* CardCell.m */; };
+		42E84C4A1C040DB000D92319 /* AppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C491C040DB000D92319 /* AppSettingViewController.m */; };
+		42E84C4C1C0441E900D92319 /* logout_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E84C4B1C0441E900D92319 /* logout_btn@2x.png */; };
+		42E84C4F1C04501C00D92319 /* ShareAlertPopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C4E1C04501C00D92319 /* ShareAlertPopView.m */; };
+		42E84C561C04698100D92319 /* iconfont_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E84C501C04698100D92319 /* iconfont_friend@2x.png */; };
+		42E84C571C04698100D92319 /* iconfont_pengyouquan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E84C511C04698100D92319 /* iconfont_pengyouquan@2x.png */; };
+		42E84C581C04698100D92319 /* iconfont_qq@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E84C521C04698100D92319 /* iconfont_qq@2x.png */; };
+		42E84C591C04698100D92319 /* iconfont_qqkongjian@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E84C531C04698100D92319 /* iconfont_qqkongjian@2x.png */; };
+		42E84C5A1C04698100D92319 /* iconfont_weibo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E84C541C04698100D92319 /* iconfont_weibo@2x.png */; };
+		42E84C5B1C04698100D92319 /* iconfont_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E84C551C04698100D92319 /* iconfont_weixin@2x.png */; };
 		42ED929E1BF1DB9400E59147 /* chatListCellHead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F31BF1DB9400E59147 /* chatListCellHead@2x.png */; };
 		42ED929F1BF1DB9400E59147 /* VoiceSearchFeedback001.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F61BF1DB9400E59147 /* VoiceSearchFeedback001.png */; };
 		42ED92A01BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F71BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png */; };
@@ -815,6 +826,21 @@
 		42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "groups_icon@2x.png"; sourceTree = "<group>"; };
 		42DB9C501BFF40AD00631721 /* QRcodeCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRcodeCardView.h; sourceTree = "<group>"; };
 		42DB9C511BFF40AD00631721 /* QRcodeCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRcodeCardView.m; sourceTree = "<group>"; };
+		42E84C421C03F99A00D92319 /* CardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
+		42E84C431C03F99A00D92319 /* CardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
+		42E84C451C03F9A600D92319 /* CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
+		42E84C461C03F9A600D92319 /* CardCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardCell.m; sourceTree = "<group>"; };
+		42E84C481C040DB000D92319 /* AppSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSettingViewController.h; sourceTree = "<group>"; };
+		42E84C491C040DB000D92319 /* AppSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSettingViewController.m; sourceTree = "<group>"; };
+		42E84C4B1C0441E900D92319 /* logout_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logout_btn@2x.png"; sourceTree = "<group>"; };
+		42E84C4D1C04501C00D92319 /* ShareAlertPopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareAlertPopView.h; sourceTree = "<group>"; };
+		42E84C4E1C04501C00D92319 /* ShareAlertPopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareAlertPopView.m; sourceTree = "<group>"; };
+		42E84C501C04698100D92319 /* iconfont_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont_friend@2x.png"; sourceTree = "<group>"; };
+		42E84C511C04698100D92319 /* iconfont_pengyouquan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont_pengyouquan@2x.png"; sourceTree = "<group>"; };
+		42E84C521C04698100D92319 /* iconfont_qq@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont_qq@2x.png"; sourceTree = "<group>"; };
+		42E84C531C04698100D92319 /* iconfont_qqkongjian@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont_qqkongjian@2x.png"; sourceTree = "<group>"; };
+		42E84C541C04698100D92319 /* iconfont_weibo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont_weibo@2x.png"; sourceTree = "<group>"; };
+		42E84C551C04698100D92319 /* iconfont_weixin@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont_weixin@2x.png"; sourceTree = "<group>"; };
 		42ED91F31BF1DB9400E59147 /* chatListCellHead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatListCellHead@2x.png"; sourceTree = "<group>"; };
 		42ED91F61BF1DB9400E59147 /* VoiceSearchFeedback001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VoiceSearchFeedback001.png; sourceTree = "<group>"; };
 		42ED91F71BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VoiceSearchFeedback001@2x.png"; sourceTree = "<group>"; };
@@ -1491,6 +1517,8 @@
 				42430A0D1BE9ADE400731CA3 /* PersonalSettingViewController.m */,
 				42D16EC41BEB284A00A1C423 /* OtherPersonalViewController.h */,
 				42D16EC51BEB284A00A1C423 /* OtherPersonalViewController.m */,
+				42E84C481C040DB000D92319 /* AppSettingViewController.h */,
+				42E84C491C040DB000D92319 /* AppSettingViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1513,6 +1541,8 @@
 				422DC01B1BE8C11C0021FB78 /* PersonalInfoView.m */,
 				42DB9C501BFF40AD00631721 /* QRcodeCardView.h */,
 				42DB9C511BFF40AD00631721 /* QRcodeCardView.m */,
+				42E84C4D1C04501C00D92319 /* ShareAlertPopView.h */,
+				42E84C4E1C04501C00D92319 /* ShareAlertPopView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1520,6 +1550,13 @@
 		422DC01D1BE8DFB20021FB78 /* personal */ = {
 			isa = PBXGroup;
 			children = (
+				42E84C501C04698100D92319 /* iconfont_friend@2x.png */,
+				42E84C511C04698100D92319 /* iconfont_pengyouquan@2x.png */,
+				42E84C521C04698100D92319 /* iconfont_qq@2x.png */,
+				42E84C531C04698100D92319 /* iconfont_qqkongjian@2x.png */,
+				42E84C541C04698100D92319 /* iconfont_weibo@2x.png */,
+				42E84C551C04698100D92319 /* iconfont_weixin@2x.png */,
+				42E84C4B1C0441E900D92319 /* logout_btn@2x.png */,
 				42F150431C03148900D1A8E4 /* iconfont_collect@2x.png */,
 				42F150441C03148900D1A8E4 /* iconfont_collected@2x.png */,
 				42F150331C02E41C00D1A8E4 /* icon_address@2x.png */,
@@ -1564,6 +1601,8 @@
 		4257CE691BE86C1B00221F90 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				42E84C421C03F99A00D92319 /* CardModel.h */,
+				42E84C431C03F99A00D92319 /* CardModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1571,6 +1610,8 @@
 		4257CE6A1BE86C1B00221F90 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				42E84C451C03F9A600D92319 /* CardCell.h */,
+				42E84C461C03F9A600D92319 /* CardCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3717,6 +3758,7 @@
 				42F150421C02E41C00D1A8E4 /* icon_weixin@2x.png in Resources */,
 				42ED92A21BF1DB9400E59147 /* VoiceSearchFeedback002@2x.png in Resources */,
 				42ED92B11BF1DB9400E59147 /* VoiceSearchFeedback010.png in Resources */,
+				42E84C5B1C04698100D92319 /* iconfont_weixin@2x.png in Resources */,
 				42ED932E1BF1DB9400E59147 /* delete@2x.png in Resources */,
 				42FDE26C1BE7052300825E5E /* back_btn@2x.png in Resources */,
 				42ED92BF1BF1DB9400E59147 /* VoiceSearchFeedback017.png in Resources */,
@@ -3735,6 +3777,7 @@
 				42FDE28F1BE7052300825E5E /* Icon.png in Resources */,
 				42ED92E41BF1DB9400E59147 /* faceDelete@2x.png in Resources */,
 				42FDE2851BE7052300825E5E /* Icon-76.png in Resources */,
+				42E84C591C04698100D92319 /* iconfont_qqkongjian@2x.png in Resources */,
 				42ED92C61BF1DB9400E59147 /* VoiceSearchFeedback020@2x.png in Resources */,
 				42FDE2881BE7052300825E5E /* Icon-Small-40@2x.png in Resources */,
 				42F1503B1C02E41C00D1A8E4 /* icon_address@2x.png in Resources */,
@@ -3754,6 +3797,7 @@
 				42ED92E91BF1DB9400E59147 /* chatBar_faceSelected.png in Resources */,
 				42ED92D21BF1DB9400E59147 /* chatBar_more_card@2x.png in Resources */,
 				42ED92DB1BF1DB9400E59147 /* chat_location_annotation_someone.png in Resources */,
+				42E84C5A1C04698100D92319 /* iconfont_weibo@2x.png in Resources */,
 				42ED92D71BF1DB9400E59147 /* chatBar_more_faceSelected.png in Resources */,
 				42D1D60F1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png in Resources */,
 				42ED93231BF1DB9400E59147 /* chat_sender_audio_playing_001@2x.png in Resources */,
@@ -3794,6 +3838,7 @@
 				42430A2D1BEA3F8F00731CA3 /* add_picture@2x.png in Resources */,
 				42ED92F31BF1DB9400E59147 /* chatBar_record.png in Resources */,
 				42ED93321BF1DB9400E59147 /* group_creategroup@2x.png in Resources */,
+				42E84C561C04698100D92319 /* iconfont_friend@2x.png in Resources */,
 				42ED932D1BF1DB9400E59147 /* back@2x.png in Resources */,
 				42ED92B91BF1DB9400E59147 /* VoiceSearchFeedback014.png in Resources */,
 				42ED93161BF1DB9400E59147 /* chat_receiver_audio_playing001.png in Resources */,
@@ -3856,16 +3901,19 @@
 				42FDE28D1BE7052300825E5E /* Icon-Small@2x.png in Resources */,
 				42ED92CE1BF1DB9400E59147 /* call_silence_h@2x.png in Resources */,
 				42FDE2921BE7052300825E5E /* LaunchImage-414@3x.png in Resources */,
+				42E84C4C1C0441E900D92319 /* logout_btn@2x.png in Resources */,
 				42ED92DA1BF1DB9400E59147 /* chatBar_textBg@2x.png in Resources */,
 				42D1D6101BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png in Resources */,
 				42ED931A1BF1DB9400E59147 /* chat_receiver_audio_playing003.png in Resources */,
 				42ED92E31BF1DB9400E59147 /* faceDelete.png in Resources */,
 				42ED93211BF1DB9400E59147 /* chat_sender_audio_playing_000@2x.png in Resources */,
 				42F1503F1C02E41C00D1A8E4 /* icon_manager_name@2x.png in Resources */,
+				42E84C581C04698100D92319 /* iconfont_qq@2x.png in Resources */,
 				42ED92B51BF1DB9400E59147 /* VoiceSearchFeedback012.png in Resources */,
 				42ED92E01BF1DB9400E59147 /* chat_location_detail_disclosureHL@2x.png in Resources */,
 				42ED92CD1BF1DB9400E59147 /* call_silence_h.png in Resources */,
 				42ED93281BF1DB9400E59147 /* chat_sender_audio_playing_full.png in Resources */,
+				42E84C571C04698100D92319 /* iconfont_pengyouquan@2x.png in Resources */,
 				42ED92C41BF1DB9400E59147 /* VoiceSearchFeedback019@2x.png in Resources */,
 				42ED932C1BF1DB9400E59147 /* add@2x.png in Resources */,
 				42C230301BE70054002A185B /* unicode_to_hanyu_pinyin.txt in Resources */,
@@ -4036,6 +4084,7 @@
 				42C230531BE70054002A185B /* HttpCache.m in Sources */,
 				42EF83841BF03F5C00DA16C3 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				42C22FDE1BE70054002A185B /* LoginViewController.m in Sources */,
+				42E84C471C03F9A600D92319 /* CardCell.m in Sources */,
 				42C22FED1BE70054002A185B /* AFURLConnectionOperation.m in Sources */,
 				4257CEC21BE86C1B00221F90 /* NewsUtils.m in Sources */,
 				42EF845B1BF0C9CC00DA16C3 /* EMChatTextBubbleView.m in Sources */,
@@ -4073,6 +4122,7 @@
 				42EF84651BF0C9CC00DA16C3 /* ContactView.m in Sources */,
 				42FDE1ED1BE7037C00825E5E /* RefreshTableView.m in Sources */,
 				42EF83791BF03F5C00DA16C3 /* EMSDWebImageManager.m in Sources */,
+				42E84C4A1C040DB000D92319 /* AppSettingViewController.m in Sources */,
 				42EF83771BF03F5C00DA16C3 /* EMSDWebImageDownloader.m in Sources */,
 				42EF84671BF0C9CC00DA16C3 /* GroupBansViewController.m in Sources */,
 				42EF83861BF03F5C00DA16C3 /* PSTCollectionViewCell.m in Sources */,
@@ -4084,6 +4134,7 @@
 				42EF84771BF0C9CC00DA16C3 /* EMRotbotChatViewCell.m in Sources */,
 				42C22FDB1BE70054002A185B /* CustomLabel.m in Sources */,
 				42430A111BE9DF1000731CA3 /* InformationChangeViewController.m in Sources */,
+				42E84C441C03F99A00D92319 /* CardModel.m in Sources */,
 				42EF84521BF0C9CC00DA16C3 /* DXMessageToolBar.m in Sources */,
 				42EF83811BF03F5C00DA16C3 /* UIImageView+EMHighlightedWebCache.m in Sources */,
 				42C230221BE70054002A185B /* FMDatabaseAdditions.m in Sources */,
@@ -4099,6 +4150,7 @@
 				42EF846B1BF0C9CC00DA16C3 /* PublicGroupDetailViewController.m in Sources */,
 				42C22FE71BE70054002A185B /* UserService.m in Sources */,
 				42FDE2D71BE7074F00825E5E /* QRcodeViewController.m in Sources */,
+				42E84C4F1C04501C00D92319 /* ShareAlertPopView.m in Sources */,
 				42C230381BE70054002A185B /* MKAnnotationView+WebCache.m in Sources */,
 				42C22FEB1BE70054002A185B /* AFNetworkReachabilityManager.m in Sources */,
 				42FDE1E71BE7037C00825E5E /* CusTabBarViewController.m in Sources */,

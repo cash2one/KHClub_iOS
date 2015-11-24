@@ -71,6 +71,12 @@
  */
 - (void)setCurrentUserNick:(UILabel *)nameLabel;
 
+/**
+ *  保存名字到本地
+ *
+ *  @param name 名字
+ */
+- (void)setUserNickWithStr:(NSString *)name andUsername:(NSString *)username;
 
 /**
  *  好友列表缓存到本地

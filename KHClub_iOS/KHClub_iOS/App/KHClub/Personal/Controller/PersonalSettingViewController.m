@@ -10,6 +10,7 @@
 #import "UIImageView+WebCache.h"
 #import "NSData+ImageCache.h"
 #import "InformationChangeViewController.h"
+#import "AppSettingViewController.h"
 
 @interface PersonalSettingViewController ()
 
@@ -58,6 +59,12 @@
     self.headImageView  = [[CustomImageView alloc] init];
     
     [self.view addSubview:self.backScrollView];
+    
+    __weak typeof(self) sself = self;
+    [self.navBar setRightBtnWithContent:@"" andBlock:^{
+        AppSettingViewController * asvc = [[AppSettingViewController alloc] init];
+        [sself pushVC:asvc];
+    }];
 }
 
 - (void)configUI
@@ -101,6 +108,12 @@
     self.signLabel    = [self setCommonCellWith:KHClubString(@"Personal_Personal_Sign") andFrame:CGRectMake(0, 80+15+50*7, self.viewWidth, 50) tag:9];
  
     [backView addTarget:self action:@selector(settingClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.backScrollView.contentSize            = CGSizeMake(0, self.backScrollView.height+1);
+    self.navBar.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(12, 26, 12, 0);
+    self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    //设置
+    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_setting"] forState:UIControlStateNormal];
 }
 
 #pragma mark- UIAlertViewDelegate

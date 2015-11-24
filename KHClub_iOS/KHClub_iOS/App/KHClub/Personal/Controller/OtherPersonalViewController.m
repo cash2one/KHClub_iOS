@@ -13,6 +13,7 @@
 #import "MyNewsListViewController.h"
 #import "IMUtils.h"
 #import "ChatViewController.h"
+#import "ShareAlertPopView.h"
 
 @interface OtherPersonalViewController ()
 
@@ -36,6 +37,10 @@
 @property (nonatomic, assign) BOOL isFriend;
 //添加或者发送消息 按钮
 @property (nonatomic, strong) CustomButton * sendOrAddBtn;
+//右上角点击分享按钮
+@property (nonatomic, strong) ShareAlertPopView * shareAlertPopView;
+//备注
+@property (nonatomic, copy) NSString * remark;
 
 @end
 
@@ -67,6 +72,32 @@
 {
     //背景滚动视图
     self.backScrollView    = [[UIScrollView alloc] init];
+    
+    __weak typeof(self) sself = self;
+    [self.navBar setRightBtnWithContent:@"" andBlock:^{
+        [sself.shareAlertPopView show];
+    }];
+    //先隐藏
+    self.navBar.rightBtn.hidden = YES;
+    
+    self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:self.isFriend];
+    [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
+        switch (type) {
+            case ShareAlertRemark:
+            {
+                UIAlertView * alert     = [[UIAlertView alloc] initWithTitle:KHClubString(@"Personal_OtherPersonal_Remark") message:nil delegate:sself cancelButtonTitle:StringCommonCancel otherButtonTitles:StringCommonConfirm, nil];
+                alert.alertViewStyle    = UIAlertViewStylePlainTextInput;
+                UITextField * textField = [alert textFieldAtIndex:0];
+                textField.text          = sself.remark;
+                [alert show];
+            }
+                break;
+                
+            default:
+                break;
+        }
+    }];
+
     self.infoView          = [[PersonalInfoView alloc] initWithFrame:CGRectMake(10, 10, self.viewWidth-20, 190) isSelf:NO];
     self.imageView1        = [[CustomImageView alloc] init];
     self.imageView2        = [[CustomImageView alloc] init];
@@ -85,15 +116,20 @@
     [self.backScrollView addSubview:self.sendOrAddBtn];
     
     [self.sendOrAddBtn addTarget:self action:@selector(sendOrAddClick:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)configUI
 {
+    [self.navBar setNavTitle:KHClubString(@"Personal_PersonalSetting_Title")];
+
+    self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(12, 26, 12, 0);
+    self.navBar.rightBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
+    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
     
     //背景滚动视图
     self.backScrollView.frame                        = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
     self.backScrollView.showsVerticalScrollIndicator = NO;
-    
     //顶部栏设置部分
     CustomButton * imageBackView  = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60)];
     imageBackView.backgroundColor = [UIColor whiteColor];
@@ -174,7 +210,8 @@
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
             [self handleDataWithDic:responseData];
-            
+            //显示
+            self.navBar.rightBtn.hidden = NO;
         }else{
             [self showWarn:responseData[HttpMessage]];
         }
@@ -238,6 +275,7 @@
     self.infoView.isFriend  = self.isFriend;
     //是好友的话备注
     self.infoView.remark    = responseData[HttpResult][@"remark"];
+    self.remark             = responseData[HttpResult][@"remark"];
     self.infoView.parentVC  = self;
     //设置数据
     [self.infoView setDataWithModel:self.otherUser];
@@ -277,6 +315,44 @@
             [self showHint:NSLocalizedString(@"friend.sendApplySuccess", @"send successfully")];
         }
     }
+}
+
+/**
+ *  设置备注
+ *
+ *  @param remark 备注
+ */
+- (void)setRemarkWith:(NSString *)remark
+{
+    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                              @"target_id":[NSString stringWithFormat:@"%ld", self.uid],
+                              @"friend_remark":remark};
+    
+    [self showLoading:StringCommonUploadData];
+    
+    [HttpService postWithUrlString:kAddRemarkPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        [self hideLoading];
+        int status = [responseData[HttpStatus] intValue];
+        //成功后
+        if (status == HttpStatusCodeSuccess) {
+            self.infoView.remark = remark;
+            self.remark          = remark;
+            //设置数据
+            [self.infoView setDataWithModel:self.otherUser];
+            //如果有备注设置本地缓存
+            if (remark.length > 0) {
+                [[IMUtils shareInstance] setUserNickWithStr:remark andUsername:[NSString stringWithFormat:@"%@%ld", KH, self.uid]];
+            }else{
+                [[IMUtils shareInstance] setUserNickWithStr:self.otherUser.name andUsername:[NSString stringWithFormat:@"%@%ld", KH, self.uid]];
+            }
+        }else{
+            [self showHint:StringCommonUploadDataFail];
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self hideLoading];
+        [self showHint:StringCommonNetException];
+    }];
 }
 
 /*

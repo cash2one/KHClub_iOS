@@ -21,6 +21,7 @@
 "Common_Delete"                               = "Delete";
 "Common_DownloadData"                         = "Loading...";
 "Common_UploadData"                           = "Uploading...";
+"Common_UploadDataFail"                       = "Fail";
 "Common_DownloadDataFail"                     = "Loading Fail";
 "Common_Camera"                               = "Camera";
 "Common_Gallery"                              = "Album";
@@ -76,6 +77,7 @@
 "Personal_Personal_Sign"                      = "Signature";
 "Personal_Personal_Moments"                   = "Moments";
 "Personal_Personal_None"                      = "None";
+"Personal_PersonalSetting_Title"              = "Edit";
 "Personal_PersonalSetting_Icon"               = "Icon";
 "Personal_PersonalSetting_Name"               = "Name";
 "Personal_PersonalSetting_Job"                = "Job";
@@ -105,6 +107,13 @@
 "Personal_OtherPersonal_CollectFail"          = "Collect fail";
 "Personal_OtherPersonal_CancelCollectSuccess" = "Cancel the collection success";
 "Personal_OtherPersonal_CancelCollectFail"    = "Cancel the collection fail";
+"Personal_OtherPersonal_DeleteFriend"         = "Delete Friend";
+"Personal_OtherPersonal_Remark"               = "Edit Remark";
+"Personal_AppSetting_Title"                   = "Setting";
+"Personal_AppSetting_LogoutPrompt"            = "Log out？";
+"Personal_AppSetting_ClearOK"                 = "Clear Success";
+"Personal_AppSetting_Clear"                   = "Clear Cache";
+"Personal_AppSetting_Logout"                  = "Log out";
 
 //News
 "News_Publish_EnterContent"                   = "Please enter content";

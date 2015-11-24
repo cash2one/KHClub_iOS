@@ -64,7 +64,8 @@ static InvitationManager *sharedInstance = nil;
     NSData *defalutData = [_defaults objectForKey:username];
     NSArray *ary = [NSKeyedUnarchiver unarchiveObjectWithData:defalutData];
     NSMutableArray *appleys = [[NSMutableArray alloc] initWithArray:ary];
-    [appleys addObject:applyEntity];
+//    [appleys addObject:applyEntity];
+    [appleys insertObject:applyEntity atIndex:0];
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:appleys];
     [_defaults setObject:data forKey:username];
 }

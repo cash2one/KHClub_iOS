@@ -39,6 +39,8 @@
 #define StringCommonDownloadData KHClubString(@"Common_DownloadData")
 //数据上传中...
 #define StringCommonUploadData KHClubString(@"Common_UploadData")
+//上传失败
+#define StringCommonUploadDataFail KHClubString(@"Common_UploadDataFail")
 //数据获取失败
 #define StringCommonDownloadDataFail KHClubString(@"Common_DownloadDataFail")
 

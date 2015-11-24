@@ -192,6 +192,12 @@
     [nameLabel setText:[ToolsManager emptyReturnNone:[UserService sharedService].user.name]];
 }
 
+- (void)setUserNickWithStr:(NSString *)name andUsername:(NSString *)username
+{
+    [_defaults setObject:name forKey:[username stringByAppendingString:NAMEKEY]];
+    [_defaults synchronize];
+}
+
 - (void)cacheBuddysToDisk
 {
 
