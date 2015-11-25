@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "UserModel.h"
 
+typedef void (^UIRefreshBlock) (void);
+
 /**
  *  个人信息View
  */
@@ -35,6 +37,13 @@
 - (void)setDataWithModel:(UserModel *)user;
 
 /**
+ *  页面刷新设置
+ *
+ *  @param block 页面刷新block
+ */
+- (void)setRefreshBlock:(UIRefreshBlock)block;
+
+/**
  *  是否收藏了
  */
 @property (nonatomic, assign) BOOL isCollect;
@@ -53,5 +62,7 @@
  *  父控制器
  */
 @property (nonatomic, strong) UIViewController * parentVC;
+
+
 
 @end

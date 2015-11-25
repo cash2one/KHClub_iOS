@@ -84,6 +84,11 @@
 - (void)cacheBuddysToDisk;
 
 /**
+ *  删除好友后更新
+ */
+- (void)cacheBuddysToDiskWithRemoveUsername:(NSString *)username;
+
+/**
  *  获取本地好友列表
  *
  *  @return arr

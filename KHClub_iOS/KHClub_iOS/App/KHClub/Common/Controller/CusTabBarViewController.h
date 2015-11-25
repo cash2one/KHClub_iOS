@@ -39,5 +39,10 @@
  */
 - (void)networkChanged:(EMConnectionState)connectionState;
 
+/**
+ *  IM部分的请求提示
+ */
+- (void)newMessageSound;
+
 
 @end

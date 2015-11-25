@@ -34,6 +34,9 @@
         case ChangePersonalJob:
         case ChangePersonalCompany:
         case ChangePersonalEmail:
+        case ChangePersonalTitle1:
+        case ChangePersonalTitle2:
+        case ChangePersonalTitle3:
             [self createShortUI];
             break;
         case ChangePersonalSign:
@@ -51,6 +54,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 #pragma mark- layout
 /**
  *  短UI
@@ -63,16 +67,21 @@
         
         if (self.changeType == ChangePersonalName) {
             if (sself.nameTextFiled.text.length < 1) {
-                [sself showWarn:KHClubString(@"Personal_PersonalSetting_NameNotNull")];
+                [sself showHint:KHClubString(@"Personal_PersonalSetting_NameNotNull")];
                 return ;
             }
             if (sself.nameTextFiled.text.length>64) {
-                [sself showWarn:KHClubString(@"Personal_PersonalSetting_NameTooLong")];
+                [sself showHint:KHClubString(@"Personal_PersonalSetting_NameTooLong")];
+                return ;
+            }
+        }else if (self.changeType == ChangePersonalTitle1 || self.changeType == ChangePersonalTitle2 || self.changeType == ChangePersonalTitle3){
+            if (sself.nameTextFiled.text.length>10) {
+                [sself showHint:KHClubString(@"Personal_PersonalSetting_TooLong")];
                 return ;
             }
         }else{
             if (sself.nameTextFiled.text.length>40) {
-                [sself showWarn:KHClubString(@"Personal_PersonalSetting_TooLong")];
+                [sself showHint:KHClubString(@"Personal_PersonalSetting_TooLong")];
                 return ;
             }
         }
@@ -98,6 +107,7 @@
     self.nameTextFiled.textColor    = [UIColor colorWithHexString:ColorDeepBlack];
     
     UserModel * user = [UserService sharedService].user;
+    //页面布局处理
     switch (self.changeType) {
         case ChangePersonalName:
             [self setNavBarTitle:KHClubString(@"Personal_PersonalSetting_Name")];
@@ -127,6 +137,8 @@
             [self setStateView];
             break;
         default:
+            self.nameTextFiled.placeholder = KHClubString(@"News_Publish_EnterContent");
+            self.nameTextFiled.text        = self.content;
             break;
     }
     
@@ -143,7 +155,7 @@
     [self.navBar setRightBtnWithContent:StringCommonSave andBlock:^{
         
         if (sself.signTextView.text.length > 50) {
-            [sself showWarn:KHClubString(@"Personal_PersonalSetting_TooLong")];
+            [sself showHint:KHClubString(@"Personal_PersonalSetting_TooLong")];
             return ;
         }
         if (ccblock) {

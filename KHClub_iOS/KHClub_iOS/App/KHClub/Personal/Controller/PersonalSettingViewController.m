@@ -34,10 +34,22 @@
 @property (nonatomic, strong) CustomLabel * sexLabel;
 //签名
 @property (nonatomic, strong) CustomLabel * signLabel;
+////标签1
+//@property (nonatomic, strong) CustomLabel * titleLabel1;
+////标签2
+//@property (nonatomic, strong) CustomLabel * titleLabel2;
+////标签3
+//@property (nonatomic, strong) CustomLabel * titleLabel3;
+
+@property (nonatomic, strong) NSUserDefaults * defaults;
 
 @end
 
 @implementation PersonalSettingViewController
+
+//#define Title_1_Key @"title_1"
+//#define Title_2_Key @"title_2"
+//#define Title_3_Key @"title_3"
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -45,6 +57,7 @@
     [self initWidget];
     [self configUI];
     [self setData];
+//    [self getExtraInfo];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,6 +68,8 @@
 #pragma mark- private method
 - (void)initWidget
 {
+    self.defaults = [NSUserDefaults standardUserDefaults];
+    
     self.backScrollView = [[UIScrollView alloc] init];
     self.headImageView  = [[CustomImageView alloc] init];
     
@@ -87,6 +102,7 @@
     [backView addSubview:self.headImageView];
     [backView addSubview:lineView];
     [backView addSubview:titleLabel];
+    [backView addTarget:self action:@selector(settingClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.backScrollView addSubview:backView];
     
     //姓名
@@ -106,15 +122,56 @@
     self.phoneLabel   = [self setCommonCellWith:KHClubString(@"Personal_PersonalSetting_Phone") andFrame:CGRectMake(0, 80+15+50*6, self.viewWidth, 50) tag:8];
     //签名
     self.signLabel    = [self setCommonCellWith:KHClubString(@"Personal_Personal_Sign") andFrame:CGRectMake(0, 80+15+50*7, self.viewWidth, 50) tag:9];
- 
-    [backView addTarget:self action:@selector(settingClick:) forControlEvents:UIControlEventTouchUpInside];
+//    //头衔部分
+//    [self setTitlePart];
     
-    self.backScrollView.contentSize            = CGSizeMake(0, self.backScrollView.height+1);
     self.navBar.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(12, 26, 12, 0);
     self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     //设置
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_setting"] forState:UIControlStateNormal];
+    
+    self.backScrollView.contentSize = CGSizeMake(0, self.backScrollView.height+1);
 }
+
+//#define Title1Tag 11
+//#define Title2Tag 12
+//#define Title3Tag 13
+
+//- (void)setTitlePart
+//{
+//    //头衔部分
+//    CustomButton * titleBackView  = [[CustomButton alloc] initWithFrame:CGRectMake(0, 100+15+50*8, self.viewWidth, 50)];
+//    titleBackView.backgroundColor = [UIColor whiteColor];
+//    CustomLabel * messageLabel1   = [[CustomLabel alloc] initWithFrame:CGRectMake(15, 10, 70, 30)];
+//    messageLabel1.textColor       = [UIColor colorWithHexString:ColorCharGary];
+//    messageLabel1.font            = [UIFont systemFontOfSize:14];
+//    messageLabel1.text            = @"个人头衔";
+//    CustomLabel * messageLabel2   = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-250, 10, 240, 30)];
+//    messageLabel2.textAlignment   = NSTextAlignmentRight;
+//    messageLabel2.textColor       = [UIColor colorWithHexString:ColorCharGary];
+//    messageLabel2.font            = [UIFont systemFontOfSize:14];
+//    messageLabel2.text            = @"请介绍您更多的身份（10个字以内）";
+//    UIView * lineView             = [[UIView alloc] initWithFrame:CGRectMake(0, titleBackView.height-1, titleBackView.width, 1)];
+//    lineView.backgroundColor      = [UIColor colorWithHexString:ColorLightGary];
+//    [titleBackView addSubview:lineView];
+//    [titleBackView addSubview:messageLabel1];
+//    [titleBackView addSubview:messageLabel2];
+//    [self.backScrollView addSubview:titleBackView];
+//    
+//    //邮箱
+//    self.titleLabel1                = [self setCommonTitleCellFrame:CGRectMake(0, titleBackView.bottom, self.viewWidth, 50) tag:Title1Tag];
+//    //电话
+//    self.titleLabel2                = [self setCommonTitleCellFrame:CGRectMake(0, titleBackView.bottom+50, self.viewWidth, 50) tag:Title2Tag];
+//    //签名
+//    self.titleLabel3                = [self setCommonTitleCellFrame:CGRectMake(0, titleBackView.bottom+50*2, self.viewWidth, 50) tag:Title3Tag];
+//
+//    self.backScrollView.contentSize = CGSizeMake(0, titleBackView.bottom+50*2+80);
+//
+//    self.titleLabel1.text           = [ToolsManager emptyReturnNone:[self.defaults objectForKey:Title_1_Key]];
+//    self.titleLabel2.text           = [ToolsManager emptyReturnNone:[self.defaults objectForKey:Title_2_Key]];
+//    self.titleLabel3.text           = [ToolsManager emptyReturnNone:[self.defaults objectForKey:Title_3_Key]];
+//    
+//}
 
 #pragma mark- UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -178,6 +235,7 @@
 #pragma mark- event response
 - (void)settingClick:(CustomButton *)btn
 {
+    
     switch (btn.tag) {
         case 1:
             //头像
@@ -215,6 +273,16 @@
             //签名
             [self infoChangeWith:ChangePersonalSign];
             break;
+//            //标签
+//        case Title1Tag:
+//            [self infoChangeWith:ChangePersonalTitle1];
+//            break;
+//        case Title2Tag:
+//            [self infoChangeWith:ChangePersonalTitle2];
+//            break;
+//        case Title3Tag:
+//            [self infoChangeWith:ChangePersonalTitle3];
+//            break;
         default:
             break;
     }
@@ -284,6 +352,26 @@
     }];
 }
 
+//上传用户信息
+- (void)uploadExtraInformation:(NSString *)field andValue:(NSString *)value andKeyStr:(NSString *)key
+{
+    NSDictionary * params = @{@"uid":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                              @"field":field,
+                              @"value":value};
+    
+    debugLog(@"%@ %@", kChangePersonalExtraInformationPath, params);
+    [HttpService postWithUrlString:kChangePersonalExtraInformationPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        debugLog(@"%@", responseData);
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            [self.defaults setObject:value forKey:key];
+            [self.defaults synchronize];
+        }
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
 //上传用户信息 有状态的借口
 - (void)updateDataInformationWithField:(NSString *)field andValue:(NSString *)value andStateField:(NSString *)stateField andStateValue:(NSInteger)stateValue
 {
@@ -344,6 +432,28 @@
     return contentLabel;
 }
 
+- (CustomLabel *)setCommonTitleCellFrame:(CGRect)frame tag:(NSInteger)tag
+{
+    CustomButton * backView    = [[CustomButton alloc] initWithFrame:frame];
+    backView.tag               = tag;
+    backView.backgroundColor   = [UIColor whiteColor];
+    
+    CustomLabel * contentLabel = [[CustomLabel alloc] initWithFontSize:15];
+    contentLabel.frame         = CGRectMake(15, 10, 300, 30);
+    contentLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
+    contentLabel.textAlignment = NSTextAlignmentLeft;
+    
+    UIView * lineView          = [[UIView alloc] initWithFrame:CGRectMake(0, backView.height-1, backView.width, 1)];
+    lineView.backgroundColor   = [UIColor colorWithHexString:ColorLightGary];
+    
+    [backView addSubview:lineView];
+    [backView addSubview:contentLabel];
+    [self.backScrollView addSubview:backView];
+    
+    [backView addTarget:self action:@selector(settingClick:) forControlEvents:UIControlEventTouchUpInside];
+    return contentLabel;
+}
+
 #pragma mark- private method
 //头像
 - (void)headImageClick
@@ -397,13 +507,36 @@
                 self.emailLabel.text = [ToolsManager emptyReturnNone:content];
                 [self updateDataInformationWithField:@"e_mail" andValue:content andStateField:@"email_state" andStateValue:state];
                 break;
-                
+//            case ChangePersonalTitle1:
+//                self.titleLabel1.text = [ToolsManager emptyReturnNone:content];
+//                [self uploadExtraInformation:Title_1_Key andValue:content andKeyStr:Title_1_Key];
+//                break;
+//            case ChangePersonalTitle2:
+//                self.titleLabel2.text = [ToolsManager emptyReturnNone:content];
+//                [self uploadExtraInformation:Title_2_Key andValue:content andKeyStr:Title_2_Key];
+//                break;
+//            case ChangePersonalTitle3:
+//                self.titleLabel3.text = [ToolsManager emptyReturnNone:content];
+//                [self uploadExtraInformation:Title_3_Key andValue:content andKeyStr:Title_3_Key];
+//                break;
+//                
             default:
                 break;
         }
     }];
+    
+//    //传内容
+//    if (type == ChangePersonalTitle1) {
+//        icvc.content = [self.defaults objectForKey:Title_1_Key];
+//    }else if (type == ChangePersonalTitle2) {
+//        icvc.content = [self.defaults objectForKey:Title_2_Key];
+//    }else if (type == ChangePersonalTitle3) {
+//        icvc.content = [self.defaults objectForKey:Title_3_Key];
+//    }
     [self pushVC:icvc];
 }
+
+
 
 - (void)setData
 {
@@ -424,6 +557,29 @@
         self.sexLabel.text = KHClubString(@"Personal_PersonalSetting_Woman");
     }
 }
+
+//- (void)getExtraInfo
+//{
+//    NSString * path = [kGetPersonalExtraInformationPath stringByAppendingFormat:@"?uid=%ld",[UserService sharedService].user.uid];
+//    [HttpService getWithUrlString:path andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+//        int status = [responseData[HttpStatus] intValue];
+//        if (status == HttpStatusCodeSuccess) {
+//            NSDictionary * resultDic = responseData[HttpResult];
+//            self.titleLabel1.text    = [ToolsManager emptyReturnNone:resultDic[Title_1_Key]];
+//            self.titleLabel2.text    = [ToolsManager emptyReturnNone:resultDic[Title_2_Key]];
+//            self.titleLabel3.text    = [ToolsManager emptyReturnNone:resultDic[Title_3_Key]];
+//
+//            [self.defaults setObject:resultDic[Title_1_Key] forKey:Title_1_Key];
+//            [self.defaults setObject:resultDic[Title_2_Key] forKey:Title_2_Key];
+//            [self.defaults setObject:resultDic[Title_3_Key] forKey:Title_3_Key];
+//            [self.defaults synchronize];
+//        }
+//        
+//    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        
+//    }];
+//}
+
 /*
 #pragma mark - Navigation
 

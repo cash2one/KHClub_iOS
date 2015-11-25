@@ -618,32 +618,27 @@ static CusTabBarViewController * instance = nil;
 - (void)didReceiveBuddyRequest:(NSString *)username
                        message:(NSString *)message
 {
-    
-    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
-    NSString *loginName = [loginInfo objectForKey:kSDKUsername];
-    if(loginName == nil || [loginName length] < 1)
-    {
-        return;
-    }
-    
-    NSArray * applyArray = [[InvitationManager sharedInstance] applyEmtitiesWithloginUser:loginName];
-    NSPredicate * pre = [NSPredicate predicateWithFormat:@"applicantUsername == %ld ", username];
-    if ([applyArray filteredArrayUsingPredicate:pre].count < 1) {
-        return;
-    }
-    
+    //这里暂时不使用了 和IM Service产生了冲突
+
+}
+
+/**
+ *  IM部分的请求提示
+ */
+- (void)newMessageSound
+{
 #if !TARGET_IPHONE_SIMULATOR
     [self playSoundAndVibration];
     
-    BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
-    if (!isAppActivity) {
-        //发送本地推送
-        UILocalNotification *notification = [[UILocalNotification alloc] init];
-        notification.fireDate = [NSDate date]; //触发通知的时间
-        notification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"friend.somebodyAddWithName", @"%@ add you as a friend"), username];
-        notification.alertAction = NSLocalizedString(@"open", @"Open");
-        notification.timeZone = [NSTimeZone defaultTimeZone];
-    }
+//    BOOL isAppActivity = [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
+//    if (!isAppActivity) {
+//        //发送本地推送
+//        UILocalNotification *notification = [[UILocalNotification alloc] init];
+//        notification.fireDate = [NSDate date]; //触发通知的时间
+//        notification.alertBody = [NSString stringWithFormat:NSLocalizedString(@"friend.somebodyAddWithName", @"%@ add you as a friend"), username];
+//        notification.alertAction = NSLocalizedString(@"open", @"Open");
+//        notification.timeZone = [NSTimeZone defaultTimeZone];
+//    }
 #endif
     
     [_contactsVC reloadApplyView];
@@ -736,7 +731,7 @@ static CusTabBarViewController * instance = nil;
 {
     [self _removeBuddies:@[username]];
     //缓存
-    [[IMUtils shareInstance] cacheBuddysToDisk];
+    [[IMUtils shareInstance] cacheBuddysToDiskWithRemoveUsername:username];
     [_contactsVC reloadDataSource];
 }
 

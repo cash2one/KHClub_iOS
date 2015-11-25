@@ -65,7 +65,7 @@
 #endif
 
 //标签字体大小
-#define FONT_SIZE_TAG                         13
+#define FONT_SIZE_TAG       13
 
 #define ALERT_SHOW(title, msg) \
 [[[UIAlertView alloc] initWithTitle:title message:msg delegate:nil cancelButtonTitle:StringCommonConfirm otherButtonTitles:nil, nil] show]
@@ -156,10 +156,12 @@
 #define IM_AppKey @"yukirin#khclub"
 
 
-//IM 推送 id马甲
+//IM 推送 id前缀
 #define KH @"kh"
-//聊天室马甲
+//群前缀
 #define KH_GROUP @"khGroup"
+//客服
+#define KH_ROBOT @"kh100"
 
 //环信密码
 #define IM_PWD @"123456"

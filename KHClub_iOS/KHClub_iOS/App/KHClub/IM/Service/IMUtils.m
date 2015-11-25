@@ -72,26 +72,26 @@
 {
     UserIMEntity * user = [self getUserInfoWithUsername:username];
     
-    //网络请求获取新的
-    NSString * url = [NSString stringWithFormat:@"%@?user_id=%@",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""]];
-    //获取图片 姓名
-    [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
-        
-        int status = [responseData[HttpStatus] intValue];
-        if (status == HttpStatusCodeSuccess) {
-            NSDictionary * result = responseData[HttpResult];
-            NSString * name = result[@"name"];
-            NSString * headImage = result[@"head_sub_image"];
-            if (headImage.length > 0) {
-                headImage = [kAttachmentAddr stringByAppendingString:headImage];
-            }
-            [_defaults setObject:name forKey:[username stringByAppendingString:NAMEKEY]];
-            [_defaults setObject:headImage forKey:[username stringByAppendingString:AVATARKEY]];
-            [_defaults synchronize];
-        }
-        
-    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-    }];
+//    //网络请求获取新的
+//    NSString * url = [NSString stringWithFormat:@"%@?user_id=%@&self_id=%ld",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""], [UserService sharedService].user.uid];
+//    //获取图片 姓名
+//    [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+//        
+//        int status = [responseData[HttpStatus] intValue];
+//        if (status == HttpStatusCodeSuccess) {
+//            NSDictionary * result = responseData[HttpResult];
+//            NSString * name = result[@"name"];
+//            NSString * headImage = result[@"head_sub_image"];
+//            if (headImage.length > 0) {
+//                headImage = [kAttachmentAddr stringByAppendingString:headImage];
+//            }
+//            [_defaults setObject:name forKey:[username stringByAppendingString:NAMEKEY]];
+//            [_defaults setObject:headImage forKey:[username stringByAppendingString:AVATARKEY]];
+//            [_defaults synchronize];
+//        }
+//        
+//    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+//    }];
     
     return [ToolsManager emptyReturnNone:user.nickname];
 }
@@ -111,7 +111,7 @@
         [imageView sd_setImageWithURL:[NSURL URLWithString:user.imageUrl] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
     }
     //网络请求获取新的
-    NSString * url = [NSString stringWithFormat:@"%@?user_id=%@",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""]];
+    NSString * url = [NSString stringWithFormat:@"%@?user_id=%@&self_id=%ld",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""], [UserService sharedService].user.uid];
     //获取图片 姓名
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         
@@ -123,7 +123,6 @@
             if (headImage.length > 0) {
                 headImage = [kAttachmentAddr stringByAppendingString:headImage];
             }
-            
             [_defaults setObject:name forKey:[username stringByAppendingString:NAMEKEY]];
             [_defaults setObject:headImage forKey:[username stringByAppendingString:AVATARKEY]];
             [_defaults synchronize];
@@ -154,12 +153,13 @@
 {
     //获取
     UserIMEntity * user = [self getUserInfoWithUsername:username];
+    
     if (user) {
         //如果本地有的话
         [nameLabel setText:[ToolsManager emptyReturnNone:user.nickname]];
     }
     //网络请求获取新的
-    NSString * url = [NSString stringWithFormat:@"%@?user_id=%@",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""]];
+    NSString * url = [NSString stringWithFormat:@"%@?user_id=%@&self_id=%ld",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""], [UserService sharedService].user.uid];
     //获取图片 姓名
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         
@@ -176,6 +176,7 @@
             [_defaults setObject:headImage forKey:[username stringByAppendingString:AVATARKEY]];
             [_defaults synchronize];
             [nameLabel setText:[ToolsManager emptyReturnNone:name]];
+            
         }
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -216,10 +217,19 @@
     }
 }
 
+- (void)cacheBuddysToDiskWithRemoveUsername:(NSString *)username
+{
+    NSMutableArray * arr   = [[NSMutableArray alloc] initWithContentsOfFile:[PATH_OF_DOCUMENT stringByAppendingFormat:@"/friends.plist"]];
+    [arr removeObject:username];
+    //本地缓存
+    NSString * friendsPath = [PATH_OF_DOCUMENT stringByAppendingFormat:@"/friends.plist"];
+    [arr writeToFile:friendsPath atomically:YES];
+}
+
 - (NSArray *)getBuddys
 {
-    NSString * friendsPath = [PATH_OF_DOCUMENT stringByAppendingFormat:@"/friends.plist"];
-    NSArray * arr          = [NSArray arrayWithContentsOfFile:friendsPath];
+    NSString * friendsPath  = [PATH_OF_DOCUMENT stringByAppendingFormat:@"/friends.plist"];
+    NSArray * arr           = [NSArray arrayWithContentsOfFile:friendsPath];
     NSMutableArray * buddys = [[NSMutableArray alloc] init];
     for (NSString * username in arr) {
         [buddys addObject:[EMBuddy buddyWithUsername:username]];

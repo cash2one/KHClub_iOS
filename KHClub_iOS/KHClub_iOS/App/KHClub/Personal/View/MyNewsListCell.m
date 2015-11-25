@@ -19,13 +19,13 @@
 @interface MyNewsListCell()
 
 //新闻模型
-@property (nonatomic, strong) NewsModel * news;
+@property (nonatomic, strong) NewsModel    * news;
 //时间
-@property (nonatomic, strong) CustomLabel * timeLabel;
+@property (nonatomic, strong) CustomLabel  * timeLabel;
 //内容
-@property (nonatomic, strong) CustomLabel * contentLabel;
+@property (nonatomic, strong) CustomLabel  * contentLabel;
 //线view
-@property (nonatomic, strong) UIView * lineView;
+@property (nonatomic, strong) UIView       * lineView;
 //地址按钮
 @property (nonatomic, strong) CustomButton * locationBtn;
 //评论按钮

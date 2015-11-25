@@ -77,6 +77,7 @@
 "Personal_Personal_Sign"                      = "Signature";
 "Personal_Personal_Moments"                   = "Moments";
 "Personal_Personal_None"                      = "None";
+"Personal_Personal_RobotTitle"                = "Official business manager";
 "Personal_PersonalSetting_Title"              = "Edit";
 "Personal_PersonalSetting_Icon"               = "Icon";
 "Personal_PersonalSetting_Name"               = "Name";

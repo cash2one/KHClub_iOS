@@ -13,7 +13,7 @@
 #import "AppDelegate+EaseMob.h"
 #import "ApplyViewController.h"
 #import "CusTabBarViewController.h"
-
+#import "InvitationManager.h"
 /**
  *  本类中做了EaseMob初始化和推送等操作
  */
@@ -290,6 +290,20 @@
     if (!username) {
         return;
     }
+    
+    NSDictionary *loginInfo = [[[EaseMob sharedInstance] chatManager] loginInfo];
+    NSString *loginName = [loginInfo objectForKey:kSDKUsername];
+    if(loginName == nil || [loginName length] < 1)
+    {
+        return;
+    }
+    //添加过了就不添加了
+    NSArray * applyArray = [[InvitationManager sharedInstance] applyEmtitiesWithloginUser:loginName];
+    NSPredicate * pre = [NSPredicate predicateWithFormat:@"applicantUsername == %@ ", username];
+    if ([applyArray filteredArrayUsingPredicate:pre].count > 0) {
+        return;
+    }
+    
     if (!message) {
         message = [NSString stringWithFormat:NSLocalizedString(@"friend.somebodyAddWithName", @"%@ add you as a friend"), username];
     }
@@ -297,6 +311,7 @@
     [[ApplyViewController shareController] addNewApply:dic];
     
     [[CusTabBarViewController sharedService] setUnread];
+    [[CusTabBarViewController sharedService] newMessageSound];
 }
 
 // 离开群组回调

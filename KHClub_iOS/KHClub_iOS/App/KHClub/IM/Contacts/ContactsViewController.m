@@ -396,6 +396,8 @@
                     [self.contactsSource removeObject:buddy];
                     [tableView  deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
                     [tableView  endUpdates];
+                    
+                    [[IMUtils shareInstance] cacheBuddysToDiskWithRemoveUsername:buddy.username];
                 }
                 else{
                     [self showHint:[NSString stringWithFormat:NSLocalizedString(@"deleteFailed", @"Delete failed")]];

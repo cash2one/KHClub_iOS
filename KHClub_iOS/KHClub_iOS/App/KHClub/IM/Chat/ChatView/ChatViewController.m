@@ -101,7 +101,12 @@
         if (type == eConversationTypeGroupChat) {
             [[IMUtils shareInstance] setGroupNameWith:chatter and:self.navBar.titleLabel andGroupTitle:self.groupName];
         }else if (type == eConversationTypeChat) {
-            [[IMUtils shareInstance] setUserNickWith:chatter and:self.navBar.titleLabel];
+            if ([self.chatter isEqualToString:KH_ROBOT]) {
+                [self.navBar setNavTitle:KHClubString(@"Personal_Personal_RobotTitle")];
+            }else{
+                [[IMUtils shareInstance] setUserNickWith:chatter and:self.navBar.titleLabel];
+            }
+
         }
     }
     
@@ -662,6 +667,9 @@
 {
 //    UserProfileViewController *userprofile = [[UserProfileViewController alloc] initWithUsername:model.username];
 //    [self.navigationController pushViewController:userprofile animated:YES];
+    if ([self.chatter isEqualToString:KH_ROBOT]) {
+        return;
+    }
     OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
     opvc.uid                           = [[model.username stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
     [self pushVC:opvc];

@@ -39,7 +39,19 @@ typedef  NS_ENUM(NSInteger, ChangePersonalType){
     /**
      *  邮箱
      */
-    ChangePersonalEmail = 7
+    ChangePersonalEmail = 7,
+    /**
+     *  头衔1
+     */
+    ChangePersonalTitle1 = 9,
+    /**
+     *  头衔2
+     */
+    ChangePersonalTitle2 = 10,
+    /**
+     *  头衔3
+     */
+    ChangePersonalTitle3 = 11
 };
 
 typedef void(^ChangeBlock) (NSString * contentm, NSInteger state);
@@ -47,7 +59,7 @@ typedef void(^ChangeBlock) (NSString * contentm, NSInteger state);
 @interface InformationChangeViewController : BaseViewController<UITextFieldDelegate>
 
 @property (nonatomic, assign) ChangePersonalType changeType;
-
+@property (nonatomic, copy) NSString * content;
 //设置回调Block
 - (void)setChangeBlock:(ChangeBlock)block;
 

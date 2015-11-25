@@ -162,6 +162,7 @@
 		42C230571BE70054002A185B /* ImageHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C22FD61BE70054002A185B /* ImageHelper.m */; };
 		42C230581BE70054002A185B /* ToolsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C22FD81BE70054002A185B /* ToolsManager.m */; };
 		42C2305C1BE70105002A185B /* KHClubString.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42C2305E1BE70105002A185B /* KHClubString.strings */; };
+		42CD7F741C05A89600BA129C /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CD7F731C05A89600BA129C /* CardViewController.m */; };
 		42D16EC21BEB27EB00A1C423 /* NewsCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EBF1BEB27EB00A1C423 /* NewsCommentCell.m */; };
 		42D16EC31BEB27EB00A1C423 /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EC11BEB27EB00A1C423 /* NewsListCell.m */; };
 		42D16EC61BEB284A00A1C423 /* OtherPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EC51BEB284A00A1C423 /* OtherPersonalViewController.m */; };
@@ -812,6 +813,8 @@
 		42C230591BE700BD002A185B /* KHClubPCH.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KHClubPCH.pch; sourceTree = "<group>"; };
 		42C2305F1BE70109002A185B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/KHClubString.strings"; sourceTree = "<group>"; };
 		42C230601BE7011E002A185B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/KHClubString.strings; sourceTree = "<group>"; };
+		42CD7F721C05A89600BA129C /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
+		42CD7F731C05A89600BA129C /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		42D16EBE1BEB27EB00A1C423 /* NewsCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCommentCell.h; sourceTree = "<group>"; };
 		42D16EBF1BEB27EB00A1C423 /* NewsCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCommentCell.m; sourceTree = "<group>"; };
 		42D16EC01BEB27EB00A1C423 /* NewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListCell.h; sourceTree = "<group>"; };
@@ -1519,6 +1522,8 @@
 				42D16EC51BEB284A00A1C423 /* OtherPersonalViewController.m */,
 				42E84C481C040DB000D92319 /* AppSettingViewController.h */,
 				42E84C491C040DB000D92319 /* AppSettingViewController.m */,
+				42CD7F721C05A89600BA129C /* CardViewController.h */,
+				42CD7F731C05A89600BA129C /* CardViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4083,6 +4088,7 @@
 				42EF84551BF0C9CC00DA16C3 /* DXChatBarMoreView.m in Sources */,
 				42C230531BE70054002A185B /* HttpCache.m in Sources */,
 				42EF83841BF03F5C00DA16C3 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
+				42CD7F741C05A89600BA129C /* CardViewController.m in Sources */,
 				42C22FDE1BE70054002A185B /* LoginViewController.m in Sources */,
 				42E84C471C03F9A600D92319 /* CardCell.m in Sources */,
 				42C22FED1BE70054002A185B /* AFURLConnectionOperation.m in Sources */,

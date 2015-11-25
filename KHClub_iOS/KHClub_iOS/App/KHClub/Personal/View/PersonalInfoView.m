@@ -42,7 +42,9 @@
 @end
 
 @implementation PersonalInfoView
-
+{
+    UIRefreshBlock _block;
+}
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -50,6 +52,8 @@
     // Drawing code
 }
 */
+
+#define OriginHeight 190
 
 - (instancetype)initWithFrame:(CGRect)frame isSelf:(BOOL)isSelf
 {
@@ -131,26 +135,28 @@
     emailImageView.frame               = CGRectMake(10, phoneImageView.bottom-5, 25, 25);
     addressImageView.frame             = CGRectMake(10, emailImageView.bottom-5, 25, 25);
     
-    self.companyLabel.frame     = CGRectMake(phoneImageView.right, companyImageView.y+3, 200, 20);
-    self.phoneLabel.frame       = CGRectMake(phoneImageView.right, phoneImageView.y+3, 260, 20);
-    self.emailLabel.frame       = CGRectMake(phoneImageView.right, emailImageView.y+3, 260, 20);
-    self.addressLabel.frame     = CGRectMake(phoneImageView.right, addressImageView.y+3, 260, 20);
+    self.companyLabel.frame     = CGRectMake(phoneImageView.right, companyImageView.y+3, self.width-135, 20);
+    self.phoneLabel.frame       = CGRectMake(phoneImageView.right, phoneImageView.y+3, self.companyLabel.width, 20);
+    self.emailLabel.frame       = CGRectMake(phoneImageView.right, emailImageView.y+3, self.companyLabel.width, 20);
+    self.addressLabel.frame     = CGRectMake(phoneImageView.right, addressImageView.y+3, self.companyLabel.width, 20);
     //字体
     self.nameLabel.font         = [UIFont systemFontOfSize:18];
-    self.companyLabel.font      = [UIFont systemFontOfSize:14];
+    self.companyLabel.font      = [UIFont systemFontOfSize:13];
 //    self.jobLabel.font          = [UIFont systemFontOfSize:16];
-    self.phoneLabel.font        = [UIFont systemFontOfSize:14];
-    self.emailLabel.font        = [UIFont systemFontOfSize:14];
-    self.addressLabel.font      = [UIFont systemFontOfSize:14];
+    self.phoneLabel.font        = [UIFont systemFontOfSize:13];
+    self.emailLabel.font        = [UIFont systemFontOfSize:13];
+    self.addressLabel.font      = [UIFont systemFontOfSize:13];
 
     //颜色
-    self.nameLabel.textColor    = [UIColor colorWithHexString:ColorDeepBlack];
-    self.companyLabel.textColor = [UIColor colorWithHexString:ColorDeepBlack];
+    self.nameLabel.textColor        = [UIColor colorWithHexString:ColorDeepBlack];
+    self.companyLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
 //    self.jobLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
-    self.phoneLabel.textColor   = [UIColor colorWithHexString:ColorDeepBlack];
-    self.emailLabel.textColor   = [UIColor colorWithHexString:ColorDeepBlack];
-    self.addressLabel.textColor = [UIColor colorWithHexString:ColorDeepBlack];
+    self.phoneLabel.textColor       = [UIColor colorWithHexString:ColorDeepBlack];
+    self.emailLabel.textColor       = [UIColor colorWithHexString:ColorDeepBlack];
+    self.addressLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
 
+    self.addressLabel.numberOfLines = 0;
+    
     [self addSubview:phoneImageView];
     [self addSubview:emailImageView];
     [self addSubview:addressImageView];
@@ -182,21 +188,31 @@
 //    self.jobLabel.text     = [ToolsManager emptyReturnNone:user.job];
     self.phoneLabel.text   = [ToolsManager emptyReturnNone:user.phone_num];
     self.emailLabel.text   = [ToolsManager emptyReturnNone:user.e_mail];
+    //地址长度可变
     self.addressLabel.text = [ToolsManager emptyReturnNone:user.address];
+    CGSize addressSize = [ToolsManager getSizeWithContent:user.address andFontSize:13 andFrame:CGRectMake(0, 0, self.width-135, 60)];
+    if (addressSize.height > 20) {
+        self.addressLabel.height   = addressSize.height;
+        self.height                = OriginHeight+addressSize.height-20;
+    }else{
+        self.addressLabel.height   = 20;
+        self.height                = OriginHeight;
+    }
+    
     //二维码
     [self setQRcode];
     
     //不是自己 不是好友
-    if (!self.isSelf && user.uid != [UserService sharedService].user.uid && self.isFriend == NO) {
-        self.collectBtn.hidden = NO;
-        //收藏了
-        if (self.isCollect) {
-            [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collected"] forState:UIControlStateNormal];
-        }else{
-            [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collect"] forState:UIControlStateNormal];
-        }
+    if (!self.isSelf && user.uid != [UserService sharedService].user.uid) {
         
         if (!self.isFriend) {
+            self.collectBtn.hidden = NO;
+            //收藏了
+            if (self.isCollect) {
+                [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collected"] forState:UIControlStateNormal];
+            }else{
+                [self.collectBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_collect"] forState:UIControlStateNormal];
+            }
             //权限
             if (user.phone_state == SeeOnlyFriends) {
                 self.phoneLabel.text = @"********";
@@ -205,7 +221,10 @@
                 self.emailLabel.text = @"********";
             }
             if (user.address_state == SeeOnlyFriends) {
-                self.addressLabel.text = @"********";
+                self.addressLabel.text     = @"********";
+                //变换
+                self.addressLabel.height   = 20;
+                self.height                = OriginHeight;
             }
         }else{
             //如果有备注的话
@@ -222,7 +241,13 @@
             }
         }
     }
-
+    
+    self.qrcodeImageView.frame = CGRectMake(self.width-95, self.height-95, 95, 95);
+    
+    //外部刷新
+    if (_block) {
+        _block();
+    }
 }
 
 /**
@@ -312,5 +337,9 @@
     }
 }
 
+- (void)setRefreshBlock:(UIRefreshBlock)block
+{
+    _block = [block copy];
+}
 
 @end

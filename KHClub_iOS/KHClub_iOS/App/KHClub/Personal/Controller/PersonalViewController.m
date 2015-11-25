@@ -12,23 +12,28 @@
 #import "PersonalInfoView.h"
 #import "UIImageView+WebCache.h"
 #import "PersonalSettingViewController.h"
+#import "ChatViewController.h"
 
 @interface PersonalViewController ()
 
 //背景滚动视图
-@property (nonatomic, strong) UIScrollView * backScrollView;
-
+@property (nonatomic, strong) UIScrollView     * backScrollView;
 //横版滚动视图
 @property (nonatomic, strong) PersonalInfoView * infoView;
-
-@property (nonatomic, strong) CustomImageView * imageView1;
-@property (nonatomic, strong) CustomImageView * imageView2;
-@property (nonatomic, strong) CustomImageView * imageView3;
-
+//图片1
+@property (nonatomic, strong) CustomImageView  * imageView1;
+//图片2
+@property (nonatomic, strong) CustomImageView  * imageView2;
+//图片3
+@property (nonatomic, strong) CustomImageView  * imageView3;
 //签名背景
-@property (nonatomic, strong) UIView * signBackView;
+@property (nonatomic, strong) UIView           * signBackView;
 //签名
-@property (nonatomic, strong) CustomLabel * signLabel;
+@property (nonatomic, strong) CustomLabel      * signLabel;
+//图像背景
+@property (nonatomic, strong) CustomButton     * imageBackView;
+//小助手
+@property (nonatomic, strong) CustomButton     * robotBackView;
 
 @end
 
@@ -64,14 +69,19 @@
     self.imageView1        = [[CustomImageView alloc] init];
     self.imageView2        = [[CustomImageView alloc] init];
     self.imageView3        = [[CustomImageView alloc] init];
-    
+    //状态背景
+    self.imageBackView     = [[CustomButton alloc] init];
     //签名部分
     self.signBackView      = [[UIView alloc] init];
     self.signLabel         = [[CustomLabel alloc] init];
+    //客服
+    self.robotBackView     = [[CustomButton alloc] init];
     
     [self.view addSubview:self.backScrollView];
     [self.backScrollView addSubview:self.infoView];
+    [self.backScrollView addSubview:self.imageBackView];    
     [self.backScrollView addSubview:self.signBackView];
+    [self.backScrollView addSubview:self.robotBackView];
     [self.signBackView addSubview:self.signLabel];
  
     __weak typeof(self) sself = self;
@@ -84,6 +94,16 @@
     [self.navBar setRightBtnWithContent:@"" andBlock:^{
 
     }];
+    
+    //设置页面UI刷新
+    [self.infoView setRefreshBlock:^{
+        sself.imageBackView.y = self.infoView.bottom+10;
+        sself.signBackView.y  = self.imageBackView.bottom+1;
+        sself.robotBackView.y = self.signBackView.bottom+10;
+    }];
+    
+    [self.imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.robotBackView addTarget:self action:@selector(robotClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)configUI
@@ -97,34 +117,31 @@
 
     //顶部栏设置部分
     self.navBar.leftBtn.hidden                       = NO;
-    self.navBar.leftBtn.imageEdgeInsets              = UIEdgeInsetsMake(6, 0, 0, 16);
+    self.navBar.leftBtn.imageEdgeInsets              = UIEdgeInsetsMake(4, 3, 0, 16);
     self.navBar.leftBtn.imageView.contentMode        = UIViewContentModeScaleAspectFit;
     self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(12, 26, 12, 0);
     self.navBar.rightBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
-    [self.navBar.leftBtn setImage:nil forState:UIControlStateNormal];
     //名片和设置
     [self.navBar.leftBtn setImage:[UIImage imageNamed:@"personal_setting"] forState:UIControlStateNormal];
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
 
-    CustomButton * imageBackView  = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60)];
-    imageBackView.backgroundColor = [UIColor whiteColor];
+    self.imageBackView.frame           = CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60);
+    self.imageBackView.backgroundColor = [UIColor whiteColor];
 
     CustomLabel * imageLabel      = [[CustomLabel alloc] initWithFontSize:17];
     imageLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
     imageLabel.frame              = CGRectMake(15, 0, 80, 60);
     imageLabel.text               = KHClubString(@"Personal_Personal_Moments");
-    [imageBackView addSubview:imageLabel];
+    [self.imageBackView addSubview:imageLabel];
 
     self.imageView1.frame         = CGRectMake(imageLabel.right+5, 5, 50, 50);
     self.imageView2.frame         = CGRectMake(self.imageView1.right+5, 5, 50, 50);
     self.imageView3.frame         = CGRectMake(self.imageView2.right+5, 5, 50, 50);
-    [self.backScrollView addSubview:imageBackView];
-    [imageBackView addSubview:self.imageView1];
-    [imageBackView addSubview:self.imageView2];
-    [imageBackView addSubview:self.imageView3];
-    [imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.imageBackView addSubview:self.imageView1];
+    [self.imageBackView addSubview:self.imageView2];
+    [self.imageBackView addSubview:self.imageView3];
     
-    self.signBackView.frame           = CGRectMake(0, imageBackView.bottom+1, self.viewWidth, 60);
+    self.signBackView.frame           = CGRectMake(0, self.imageBackView.bottom+1, self.viewWidth, 60);
     self.signBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
 
     CustomLabel * signTitleLabel      = [[CustomLabel alloc] initWithFontSize:17];
@@ -138,6 +155,19 @@
     self.signLabel.font               = [UIFont systemFontOfSize:15];
     self.signLabel.numberOfLines      = 0;
     self.signLabel.lineBreakMode      = NSLineBreakByCharWrapping;
+    
+    self.robotBackView.frame           = CGRectMake(0, self.signBackView.bottom+10, self.viewWidth, 60);
+    self.robotBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
+    CustomLabel * robotTitleLabel      = [[CustomLabel alloc] initWithFontSize:16];
+    robotTitleLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
+    robotTitleLabel.frame              = CGRectMake(65, 10, 200, 40);
+    robotTitleLabel.text               = KHClubString(@"Personal_Personal_RobotTitle");
+    
+    CustomImageView * robotImageView   = [[CustomImageView alloc] initWithFrame:CGRectMake(15, 10, 40, 40)];
+    robotImageView.image               = [UIImage imageNamed:@"Icon"];
+    
+    [self.robotBackView addSubview:robotImageView];
+    [self.robotBackView addSubview:robotTitleLabel];
     
 }
 
@@ -153,10 +183,12 @@
     self.signBackView.height = size.height+50;
     self.signLabel.height    = size.height;
 
-    if (self.signBackView.bottom < self.backScrollView.height) {
+    self.robotBackView.y     = self.signBackView.bottom+10;
+    
+    if (self.robotBackView.bottom < self.backScrollView.height) {
         self.backScrollView.contentSize = CGSizeMake(0, self.backScrollView.height+1);
     }else{
-        self.backScrollView.contentSize = CGSizeMake(0, self.signBackView.height+10);
+        self.backScrollView.contentSize = CGSizeMake(0, self.robotBackView.height+10);
     }
     
 }
@@ -166,6 +198,17 @@
 {
     MyNewsListViewController * mnlvc = [[MyNewsListViewController alloc] init];
     [self pushVC:mnlvc];
+}
+
+/**
+ *  客服
+ *
+ *  @param sender
+ */
+- (void)robotClick:(id)sender
+{
+    ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:KH_ROBOT isGroup:NO];
+    [self pushVC:chatVC];
 }
 
 #pragma mark- private method

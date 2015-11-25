@@ -12,9 +12,9 @@
 
 @interface BrowseImageView ()<MBProgressHUDDelegate>
 
-@property (nonatomic, strong) MBProgressHUD * hudProgress;
+@property (nonatomic, strong) MBProgressHUD   * hudProgress;
 
-@property (nonatomic, strong) UIImage * currentImage;
+@property (nonatomic, strong) UIImage         * currentImage;
 
 @property (nonatomic, strong) CustomImageView * imageView;
 

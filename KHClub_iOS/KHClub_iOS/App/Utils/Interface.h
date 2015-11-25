@@ -76,6 +76,12 @@
 //个人信息 查看别人的信息
 #define kPersnalInformationPath [kHomeAddr stringByAppendingString:@"/personalInfo"]
 
+//个人信息 获取个人额外信息
+#define kGetPersonalExtraInformationPath [kHomeAddr stringByAppendingString:@"/getPersonalExtraInformation"]
+
+//个人信息 修改个人额外信息
+#define kChangePersonalExtraInformationPath [kHomeAddr stringByAppendingString:@"/changePersonalExtraInformation"]
+
 //举报用户
 #define kReportOffencePath [kHomeAddr stringByAppendingString:@"/reportOffence"]
 

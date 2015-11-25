@@ -18,29 +18,31 @@
 @interface OtherPersonalViewController ()
 
 //背景滚动视图
-@property (nonatomic, strong) UIScrollView * backScrollView;
-
+@property (nonatomic, strong) UIScrollView      * backScrollView;
 //横版滚动视图
-@property (nonatomic, strong) PersonalInfoView * infoView;
-
-@property (nonatomic, strong) CustomImageView * imageView1;
-@property (nonatomic, strong) CustomImageView * imageView2;
-@property (nonatomic, strong) CustomImageView * imageView3;
-
+@property (nonatomic, strong) PersonalInfoView  * infoView;
+//图片1
+@property (nonatomic, strong) CustomImageView   * imageView1;
+//图片2
+@property (nonatomic, strong) CustomImageView   * imageView2;
+//图片3
+@property (nonatomic, strong) CustomImageView   * imageView3;
 //签名背景
-@property (nonatomic, strong) UIView * signBackView;
+@property (nonatomic, strong) UIView            * signBackView;
 //签名
-@property (nonatomic, strong) CustomLabel * signLabel;
+@property (nonatomic, strong) CustomLabel       * signLabel;
 //用户模型
-@property (nonatomic, strong) UserModel * otherUser;
+@property (nonatomic, strong) UserModel         * otherUser;
 //是不是好友
-@property (nonatomic, assign) BOOL isFriend;
+@property (nonatomic, assign) BOOL              isFriend;
 //添加或者发送消息 按钮
-@property (nonatomic, strong) CustomButton * sendOrAddBtn;
+@property (nonatomic, strong) CustomButton      * sendOrAddBtn;
 //右上角点击分享按钮
 @property (nonatomic, strong) ShareAlertPopView * shareAlertPopView;
+//图像背景
+@property (nonatomic, strong) CustomButton      * imageBackView;
 //备注
-@property (nonatomic, copy) NSString * remark;
+@property (nonatomic, copy  ) NSString          * remark;
 
 @end
 
@@ -92,6 +94,10 @@
                 [alert show];
             }
                 break;
+            case ShareAlertDelete:
+            {
+                [sself deleteFriend];
+            }
                 
             default:
                 break;
@@ -99,6 +105,7 @@
     }];
 
     self.infoView          = [[PersonalInfoView alloc] initWithFrame:CGRectMake(10, 10, self.viewWidth-20, 190) isSelf:NO];
+    self.imageBackView     = [[CustomButton alloc] init];
     self.imageView1        = [[CustomImageView alloc] init];
     self.imageView2        = [[CustomImageView alloc] init];
     self.imageView3        = [[CustomImageView alloc] init];
@@ -111,12 +118,17 @@
     
     [self.view addSubview:self.backScrollView];
     [self.backScrollView addSubview:self.infoView];
+    [self.backScrollView addSubview:self.imageBackView];
     [self.backScrollView addSubview:self.signBackView];
     [self.signBackView addSubview:self.signLabel];
     [self.backScrollView addSubview:self.sendOrAddBtn];
     
     [self.sendOrAddBtn addTarget:self action:@selector(sendOrAddClick:) forControlEvents:UIControlEventTouchUpInside];
-
+    //设置页面UI刷新
+    [self.infoView setRefreshBlock:^{
+        sself.imageBackView.y = self.infoView.bottom+10;
+        sself.signBackView.y  = self.imageBackView.bottom+1;
+    }];
 }
 
 - (void)configUI
@@ -131,25 +143,24 @@
     self.backScrollView.frame                        = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
     self.backScrollView.showsVerticalScrollIndicator = NO;
     //顶部栏设置部分
-    CustomButton * imageBackView  = [[CustomButton alloc] initWithFrame:CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60)];
-    imageBackView.backgroundColor = [UIColor whiteColor];
+    self.imageBackView.frame           = CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60);
+    self.imageBackView.backgroundColor = [UIColor whiteColor];
 
     CustomLabel * imageLabel      = [[CustomLabel alloc] initWithFontSize:17];
     imageLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
     imageLabel.frame              = CGRectMake(15, 0, 80, 60);
     imageLabel.text               = KHClubString(@"Personal_Personal_Moments");
-    [imageBackView addSubview:imageLabel];
-    [imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.imageBackView addSubview:imageLabel];
+    [self.imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
     
     self.imageView1.frame         = CGRectMake(imageLabel.right+5, 5, 50, 50);
     self.imageView2.frame         = CGRectMake(self.imageView1.right+5, 5, 50, 50);
     self.imageView3.frame         = CGRectMake(self.imageView2.right+5, 5, 50, 50);
-    [self.backScrollView addSubview:imageBackView];
-    [imageBackView addSubview:self.imageView1];
-    [imageBackView addSubview:self.imageView2];
-    [imageBackView addSubview:self.imageView3];
+    [self.imageBackView addSubview:self.imageView1];
+    [self.imageBackView addSubview:self.imageView2];
+    [self.imageBackView addSubview:self.imageView3];
     
-    self.signBackView.frame           = CGRectMake(0, imageBackView.bottom+1, self.viewWidth, 60);
+    self.signBackView.frame           = CGRectMake(0, self.imageBackView.bottom+1, self.viewWidth, 60);
     self.signBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
     
     CustomLabel * signTitleLabel      = [[CustomLabel alloc] initWithFontSize:17];
@@ -176,7 +187,17 @@
     }else {
         [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_AddFriend") forState:UIControlStateNormal];
     }
-    
+}
+
+#pragma mark- UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        NSString * newRemark = [[alertView textFieldAtIndex:0].text trim];
+        if (![self.remark isEqualToString:newRemark]) {
+            [self setRemarkWith:newRemark];
+        }
+    }
 }
 
 #pragma mark- method response
@@ -279,6 +300,50 @@
     self.infoView.parentVC  = self;
     //设置数据
     [self.infoView setDataWithModel:self.otherUser];
+}
+
+- (void)deleteFriend
+{
+    [self showHudInView:self.view hint:@""];
+    
+    NSString * username = [ToolsManager getCommonTargetId:self.otherUser.uid];
+    //删除好友
+    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                              @"target_id":[NSString stringWithFormat:@"%ld", self.otherUser.uid]};
+    [HttpService postWithUrlString:kDeleteFriendPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        
+        [self hideHud];
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            EMError *error = nil;
+            [[EaseMob sharedInstance].chatManager removeBuddy:username removeFromRemote:YES error:&error];
+            if (!error) {
+                [[EaseMob sharedInstance].chatManager removeConversationByChatter:username deleteMessages:YES append2Chat:YES];
+                [[IMUtils shareInstance] cacheBuddysToDiskWithRemoveUsername:username];
+                
+                //三个地方需要修改
+                self.isFriend                   = NO;
+                self.infoView.isFriend          = NO;
+                self.shareAlertPopView.isFriend = NO;
+                [self.infoView setDataWithModel:self.otherUser];
+                [self.shareAlertPopView cancelPop];
+                
+                [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_AddFriend") forState:UIControlStateNormal];                
+            }
+            else{
+                [self showHint:[NSString stringWithFormat:NSLocalizedString(@"deleteFailed", @"Delete failed")]];
+            }
+            
+        }else{
+            [self showHint:StringCommonNetException];
+        }
+        
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self hideHud];
+        [self showHint:StringCommonNetException];
+    }];
+
 }
 
 - (BOOL)didBuddyExist:(NSString *)buddyName

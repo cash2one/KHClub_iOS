@@ -77,6 +77,7 @@
 "Personal_Personal_Sign"                      = "个人说明";
 "Personal_Personal_Moments"                   = "动态列表";
 "Personal_Personal_None"                      = "暂无信息";
+"Personal_Personal_RobotTitle"                = "官方商务管家";
 "Personal_PersonalSetting_Title"              = "编辑";
 "Personal_PersonalSetting_Icon"               = "头像";
 "Personal_PersonalSetting_Name"               = "昵称";

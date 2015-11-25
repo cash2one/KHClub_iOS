@@ -69,6 +69,11 @@ typedef void (^ShareClickBlock) (ShareAlertType type);
  */
 - (void)show;
 
+/**
+ *  隐藏
+ */
+- (void)cancelPop;
+
 @property (nonatomic, assign) BOOL isFriend;
 
 /**

@@ -80,7 +80,7 @@
 //    [self.imageView imageWithUsername:_username placeholderImage:self.imageView.image];
     [[IMUtils shareInstance] setUserNickWith:username and:self.textLabel];
     [[IMUtils shareInstance] setUserAvatarWith:username and:self.self.imageView];
-    
+
 }
 
 

@@ -81,7 +81,7 @@
     
     
     self.navBar.leftBtn.hidden = NO;
-    self.navBar.leftBtn.imageEdgeInsets        = UIEdgeInsetsMake(6, 0, 0, 16);
+    self.navBar.leftBtn.imageEdgeInsets        = UIEdgeInsetsMake(4, 2, 0, 16);
     self.navBar.leftBtn.imageView.contentMode  = UIViewContentModeScaleAspectFit;
     self.navBar.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(12, 26, 12, 0);
     self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
