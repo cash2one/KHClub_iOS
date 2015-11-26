@@ -15,25 +15,25 @@
 @interface PersonalSettingViewController ()
 
 //背景滚动视图
-@property (nonatomic, strong) UIScrollView * backScrollView;
+@property (nonatomic, strong) UIScrollView    * backScrollView;
 //头像
 @property (nonatomic, strong) CustomImageView * headImageView;
 //名字
-@property (nonatomic, strong) CustomLabel * nameLabel;
+@property (nonatomic, strong) CustomLabel     * nameLabel;
 //工作名
-@property (nonatomic, strong) CustomLabel * jobLabel;
+@property (nonatomic, strong) CustomLabel     * jobLabel;
 //公司名
-@property (nonatomic, strong) CustomLabel * companyLabel;
+@property (nonatomic, strong) CustomLabel     * companyLabel;
 //公司名
-@property (nonatomic, strong) CustomLabel * phoneLabel;
+@property (nonatomic, strong) CustomLabel     * phoneLabel;
 //邮箱
-@property (nonatomic, strong) CustomLabel * emailLabel;
+@property (nonatomic, strong) CustomLabel     * emailLabel;
 //住址
-@property (nonatomic, strong) CustomLabel * addressLabel;
+@property (nonatomic, strong) CustomLabel     * addressLabel;
 //性别
-@property (nonatomic, strong) CustomLabel * sexLabel;
+@property (nonatomic, strong) CustomLabel     * sexLabel;
 //签名
-@property (nonatomic, strong) CustomLabel * signLabel;
+@property (nonatomic, strong) CustomLabel     * signLabel;
 ////标签1
 //@property (nonatomic, strong) CustomLabel * titleLabel1;
 ////标签2
@@ -41,7 +41,7 @@
 ////标签3
 //@property (nonatomic, strong) CustomLabel * titleLabel3;
 
-@property (nonatomic, strong) NSUserDefaults * defaults;
+@property (nonatomic, strong) NSUserDefaults  * defaults;
 
 @end
 

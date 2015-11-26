@@ -254,6 +254,9 @@
         height            = cellOtherHeight+contentSize.height+lineNum*(itemWidth+10);
     }
     
+    if (news.location.length > 0) {
+        height += 25;
+    }
     
     return height;
 }

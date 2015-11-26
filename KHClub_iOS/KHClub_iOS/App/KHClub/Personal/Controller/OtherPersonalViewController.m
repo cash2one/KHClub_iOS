@@ -14,6 +14,7 @@
 #import "IMUtils.h"
 #import "ChatViewController.h"
 #import "ShareAlertPopView.h"
+#import "ShareUtils.h"
 
 @interface OtherPersonalViewController ()
 
@@ -52,6 +53,7 @@
     [super viewDidLoad];
 
     self.isFriend = [self didBuddyExist:[ToolsManager getCommonTargetId:self.uid]];
+    debugLog(@"%d", self.isFriend);
     if (self.newFriend) {
         //新好友
         self.isFriend = YES;
@@ -85,6 +87,34 @@
     self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:self.isFriend];
     [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
         switch (type) {
+            case ShareAlertFriend:
+            {}
+            break;
+            case ShareAlertWechat:
+            {
+                [ShareUtils shareWechatWithUser:sself.otherUser];
+            }
+            break;
+            case ShareAlertWechatMoment:
+            {
+                [ShareUtils shareWechatMomentsWithUser:sself.otherUser];
+            }
+            break;
+            case ShareAlertSina:
+            {
+                [ShareUtils shareSinaWithUser:sself.otherUser];
+            }
+            break;
+            case ShareAlertQQ:
+            {
+                [ShareUtils shareQQWithUser:sself.otherUser];
+            }
+            break;
+            case ShareAlertQzone:
+            {
+                [ShareUtils shareQzoneWithUser:sself.otherUser];
+            }
+            break;
             case ShareAlertRemark:
             {
                 UIAlertView * alert     = [[UIAlertView alloc] initWithTitle:KHClubString(@"Personal_OtherPersonal_Remark") message:nil delegate:sself cancelButtonTitle:StringCommonCancel otherButtonTitles:StringCommonConfirm, nil];
@@ -102,6 +132,8 @@
             default:
                 break;
         }
+        
+        [sself.shareAlertPopView cancelPop];
     }];
 
     self.infoView          = [[PersonalInfoView alloc] initWithFrame:CGRectMake(10, 10, self.viewWidth-20, 190) isSelf:NO];
@@ -135,7 +167,7 @@
 {
     [self.navBar setNavTitle:KHClubString(@"Personal_PersonalSetting_Title")];
 
-    self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(12, 26, 12, 0);
+    self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(3, 15, 0, 0);
     self.navBar.rightBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
     
@@ -326,7 +358,6 @@
                 self.infoView.isFriend          = NO;
                 self.shareAlertPopView.isFriend = NO;
                 [self.infoView setDataWithModel:self.otherUser];
-                [self.shareAlertPopView cancelPop];
                 
                 [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_AddFriend") forState:UIControlStateNormal];                
             }
@@ -356,9 +387,12 @@
             return YES;
         }
     }
-    
-    if ([[[IMUtils shareInstance] getBuddys] containsObject:buddyName]) {
-        return YES;
+
+    buddyList = [[IMUtils shareInstance] getBuddys];
+    for (EMBuddy *buddy in buddyList) {
+        if ([buddy.username isEqualToString:buddyName]) {
+            return YES;
+        }
     }
     
     return NO;

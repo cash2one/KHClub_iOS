@@ -82,39 +82,39 @@
 #pragma mark- layout
 - (void)configUI
 {
-    self.selectionStyle                   = UITableViewCellSelectionStyleNone;
+    self.selectionStyle                         = UITableViewCellSelectionStyleNone;
     //时间
-    self.timeLabel.frame                  = CGRectMake(12, 8, 200, 20);
-    self.timeLabel.font                   = [UIFont systemFontOfSize:17];
-    self.timeLabel.textColor              = [UIColor colorWithHexString:ColorDeepBlack];
+    self.timeLabel.frame                        = CGRectMake(12, 8, 200, 20);
+    self.timeLabel.font                         = [UIFont systemFontOfSize:17];
+    self.timeLabel.textColor                    = [UIColor colorWithHexString:ColorDeepBlack];
 
     //内容
-    self.contentLabel.frame                  = CGRectMake(self.timeLabel.x, self.timeLabel.bottom+5, [DeviceManager getDeviceWidth]-30, 0);
-    self.contentLabel.userInteractionEnabled = YES;
-    self.contentLabel.numberOfLines          = 0;
-    self.contentLabel.font                   = [UIFont systemFontOfSize:15];
-    self.contentLabel.textColor              = [UIColor colorWithHexString:ColorDeepBlack];
-    
+    self.contentLabel.frame                     = CGRectMake(self.timeLabel.x, self.timeLabel.bottom+5, [DeviceManager getDeviceWidth]-30, 0);
+    self.contentLabel.userInteractionEnabled    = YES;
+    self.contentLabel.numberOfLines             = 0;
+    self.contentLabel.font                      = [UIFont systemFontOfSize:15];
+    self.contentLabel.textColor                 = [UIColor colorWithHexString:ColorDeepBlack];
+
     //地理位置
     [self.locationBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlue] forState:UIControlStateNormal];
     [self.locationBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
     self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
     self.locationBtn.frame                      = CGRectMake(self.timeLabel.x, 0, 190, 20);
     self.locationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    
+
     //评论按钮
-    self.commentBtn.titleLabel.font     = [UIFont systemFontOfSize:14];
-    self.commentBtn.titleEdgeInsets     = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.commentBtn.titleLabel.font             = [UIFont systemFontOfSize:14];
+    self.commentBtn.titleEdgeInsets             = UIEdgeInsetsMake(0, 15, 0, 0);
     [self.commentBtn setBackgroundImage:[UIImage imageNamed:@"btn_comment_normal"] forState:UIControlStateNormal];
     [self.commentBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
-    
+
     //点赞
-    self.likeBtn.titleLabel.font        = [UIFont systemFontOfSize:14];
-    self.likeBtn.titleEdgeInsets        = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.likeBtn.titleLabel.font                = [UIFont systemFontOfSize:14];
+    self.likeBtn.titleEdgeInsets                = UIEdgeInsetsMake(0, 15, 0, 0);
     [self.likeBtn setBackgroundImage:[UIImage imageNamed:@"btn_like_normal"] forState:UIControlStateNormal];
     [self.likeBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
-    
-    self.lineView.backgroundColor       = [UIColor colorWithHexString:ColorLightWhite];
+
+    self.lineView.backgroundColor               = [UIColor colorWithHexString:ColorLightWhite];
 }
 
 /*! 内容填充*/
@@ -135,14 +135,14 @@
     self.contentLabel.text   = news.content_text;
     
     //底部位置
-    CGFloat bottomPosition = self.contentLabel.bottom ;
+    CGFloat bottomPosition   = self.contentLabel.bottom ;
     //图片处理
     if (news.image_arr.count == 1) {
         //一张图片放大
         ImageModel * imageModel          = news.image_arr[0];
         CGRect rect                      = [NewsUtils getRectWithSize:CGSizeMake(imageModel.width, imageModel.height)];
         rect.origin.x                    = self.timeLabel.x;
-        rect.origin.y                    = self.contentLabel.bottom+5;
+        rect.origin.y                    = self.contentLabel.bottom + 5;
         CustomImageView * imageView      = [[CustomImageView alloc] init];
         //加载单张
         NSURL * imageUrl                 = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
@@ -160,21 +160,19 @@
         //多张图片九宫格
         NSArray * btnArr        = news.image_arr;
         for (int i=0; i<btnArr.count; i++) {
-            ImageModel * imageModel = news.image_arr[i];
-            NSInteger columnNum     = i%3;
-            NSInteger lineNum       = i/3;
-            CustomImageView * imageView = [[CustomImageView alloc] init];
-            imageView.tag            = i;
+            ImageModel * imageModel          = news.image_arr[i];
+            NSInteger columnNum              = i%3;
+            NSInteger lineNum                = i/3;
+            CustomImageView * imageView      = [[CustomImageView alloc] init];
+            imageView.tag                    = i;
             imageView.userInteractionEnabled = YES;
-            imageView.contentMode    = UIViewContentModeScaleAspectFill;
-            imageView.layer.masksToBounds = YES;
-            CGFloat itemWidth = [DeviceManager getDeviceWidth]/5.0;
-            imageView.frame          = CGRectMake(self.timeLabel.x+(itemWidth+10)*columnNum, self.contentLabel.bottom+5+(itemWidth+10)*lineNum, itemWidth, itemWidth);
-            
+            imageView.contentMode            = UIViewContentModeScaleAspectFill;
+            imageView.layer.masksToBounds    = YES;
+            CGFloat itemWidth                = [DeviceManager getDeviceWidth]/5.0;
+            imageView.frame                  = CGRectMake(self.timeLabel.x+(itemWidth+10)*columnNum, self.contentLabel.bottom+5+(itemWidth+10)*lineNum, itemWidth, itemWidth);
             //加载缩略图
-            NSURL * imageUrl        = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
-            
-            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDetailClick:)];
+            NSURL * imageUrl                 = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
+            UITapGestureRecognizer * tap     = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDetailClick:)];
             [imageView addGestureRecognizer:tap];
             [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
             
@@ -194,7 +192,7 @@
         [self.locationBtn setTitle:locationTitle forState:UIControlStateNormal];
         self.locationBtn.y                        = bottomPosition+5;
         bottomPosition                            = self.locationBtn.bottom;
-        self.locationBtn.hidden = NO;
+        self.locationBtn.hidden                   = NO;
     }else{
         self.locationBtn.hidden = YES;
     }
@@ -217,10 +215,11 @@
     }
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%ld", news.like_quantity] forState:UIControlStateNormal];
     //游标
-    bottomPosition = self.commentBtn.bottom+9;
+    bottomPosition             = self.commentBtn.bottom+9;
     
     //线
     self.lineView.frame        = CGRectMake(0, bottomPosition, [DeviceManager getDeviceWidth], 1);
+
 }
 
 #pragma mark- method response

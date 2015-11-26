@@ -8,6 +8,7 @@
 //包名_类名_描述
 
 //共用
+"Common_App_Name"                             = "商务圈";
 "Common_NetException"                         = "网络异常";
 "Common_Confirm"                              = "确定";
 "Common_Cancel"                               = "取消";
@@ -115,6 +116,7 @@
 "Personal_AppSetting_ClearOK"                 = "清除成功";
 "Personal_AppSetting_Clear"                   = "清空缓存";
 "Personal_AppSetting_Logout"                  = "退出";
+"Personal_Personal_ExchangeCard"              = "（交换名片）";
 
 //News
 "News_Publish_EnterContent"                   = "请输入内容";
@@ -156,6 +158,9 @@
 //Contact
 "Contact_Search_InputPrompt"                  = "输入手机号、群ID号";
 "Contact_Search_SearchFail"                   = "未查询到相关信息";
+"Contact_Search_Contacts"                     = "添加通讯录好友";
+
+//IM
 "IM_Group_Cover"                              = "封面";
 
 

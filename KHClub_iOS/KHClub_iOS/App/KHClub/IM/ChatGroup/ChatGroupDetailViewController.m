@@ -11,6 +11,7 @@
  */
 
 #import "ChatGroupDetailViewController.h"
+#import "OtherPersonalViewController.h"
 #import "IMUtils.h"
 #import "ContactSelectionViewController.h"
 #import "GroupSettingViewController.h"
@@ -19,6 +20,8 @@
 #import "GroupBansViewController.h"
 #import "GroupSubjectChangingViewController.h"
 #import "QRcodeCardView.h"
+#import "ShareAlertPopView.h"
+#import "ShareUtils.h"
 
 #pragma mark - ChatGroupDetailViewController
 
@@ -30,23 +33,26 @@
 - (void)unregisterNotifications;
 - (void)registerNotifications;
 
-@property (nonatomic) GroupOccupantType occupantType;
-@property (strong, nonatomic) EMGroup *chatGroup;
+@property (nonatomic        ) GroupOccupantType            occupantType;
+@property (strong, nonatomic) EMGroup                      *chatGroup;
 
-@property (nonatomic, strong) UITableView * tableView;
-@property (strong, nonatomic) NSMutableArray *dataSource;
-@property (strong, nonatomic) UIScrollView *scrollView;
-@property (strong, nonatomic) UIButton *addButton;
+@property (nonatomic, strong) UITableView                  * tableView;
+@property (strong, nonatomic) NSMutableArray               *dataSource;
+@property (strong, nonatomic) UIScrollView                 *scrollView;
+@property (strong, nonatomic) UIButton                     *addButton;
 
-@property (strong, nonatomic) UIView *footerView;
-@property (strong, nonatomic) UIButton *clearButton;
-@property (strong, nonatomic) UIButton *exitButton;
-@property (strong, nonatomic) UIButton *dissolveButton;
-@property (strong, nonatomic) UIButton *configureButton;
+@property (strong, nonatomic) UIView                       *footerView;
+@property (strong, nonatomic) UIButton                     *clearButton;
+@property (strong, nonatomic) UIButton                     *exitButton;
+@property (strong, nonatomic) UIButton                     *dissolveButton;
+@property (strong, nonatomic) UIButton                     *configureButton;
 @property (strong, nonatomic) UILongPressGestureRecognizer *longPress;
-@property (strong, nonatomic) ContactView *selectedContact;
+@property (strong, nonatomic) ContactView                  *selectedContact;
 
-@property (nonatomic, strong) CustomImageView * coverImageView;
+@property (nonatomic, strong) CustomImageView              * coverImageView;
+
+//分享按钮
+@property (nonatomic, strong) ShareAlertPopView            * shareAlertPopView;
 
 - (void)dissolveAction;
 - (void)clearAction;
@@ -75,8 +81,8 @@
     self = [super init];
     if (self) {
         // Custom initialization
-        _chatGroup = chatGroup;
-        _dataSource = [NSMutableArray array];
+        _chatGroup    = chatGroup;
+        _dataSource   = [NSMutableArray array];
         _occupantType = GroupOccupantTypeMember;
         [self registerNotifications];
     }
@@ -85,7 +91,7 @@
 
 - (instancetype)initWithGroupId:(NSString *)chatGroupId
 {
-    EMGroup *chatGroup = nil;
+    EMGroup *chatGroup  = nil;
     NSArray *groupArray = [[EaseMob sharedInstance].chatManager groupList];
     for (EMGroup *group in groupArray) {
         if ([group.groupId isEqualToString:chatGroupId]) {
@@ -119,21 +125,62 @@
     
     [[IMUtils shareInstance] setGroupNameWith:_chatGroup.groupId and:self.navBar.titleLabel andGroupTitle:_chatGroup.groupSubject];
     
-    self.tableView                = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
-    self.tableView.delegate       = self;
-    self.tableView.dataSource     = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView                 = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView.delegate        = self;
+    self.tableView.dataSource      = self;
+    self.tableView.separatorStyle  = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
-    
+
     self.tableView.tableFooterView = self.footerView;
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapView:)];
-    tap.cancelsTouchesInView = NO;
+
+    UITapGestureRecognizer *tap    = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapView:)];
+    tap.cancelsTouchesInView       = NO;
     [self.view addGestureRecognizer:tap];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(groupBansChanged) name:@"GroupBansChanged" object:nil];
     
     [self fetchGroupInfo];
+    
+    __weak typeof(self) sself = self;
+    self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:NO];
+    [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
+        switch (type) {
+            case ShareAlertFriend:
+            {}
+                break;
+            case ShareAlertWechat:
+            {
+                [ShareUtils shareWechatWithTitle:sself.chatGroup.groupSubject];
+            }
+                break;
+            case ShareAlertWechatMoment:
+            {
+                [ShareUtils shareWechatMomentsWithTitle:sself.chatGroup.groupSubject];
+            }
+                break;
+            case ShareAlertSina:
+            {
+                [ShareUtils shareSinaWithTitle:sself.chatGroup.groupSubject];
+            }
+                break;
+            case ShareAlertQQ:
+            {
+                [ShareUtils shareQQWithTitle:sself.chatGroup.groupSubject];
+            }
+                break;
+            case ShareAlertQzone:
+            {
+                [ShareUtils shareQzoneWithTitle:sself.chatGroup.groupSubject];
+            }
+                break;
+            default:
+                break;
+        }
+        
+        [sself.shareAlertPopView cancelPop];
+    }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -336,7 +383,7 @@
     }
     else if (indexPath.row == 4)
     {
-
+        [self.shareAlertPopView show];
     }
     else if (indexPath.row == 5) {
         QRcodeCardView * qcv = [[QRcodeCardView alloc] init];
@@ -397,6 +444,10 @@
 #pragma mark - EMChooseViewDelegate
 - (void)viewController:(EMChooseViewController *)viewController didFinishSelectedSources:(NSArray *)selectedSources
 {
+    if (selectedSources.count < 1) {
+        return;
+    }
+    
     NSInteger maxUsersCount = _chatGroup.groupSetting.groupMaxUsersCount;
     if (([selectedSources count] + _chatGroup.groupOccupantsCount) > maxUsersCount) {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"group.maxUserCount", nil) message:nil delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
@@ -528,6 +579,10 @@
                 contactView.index = i * kColOfRow + j;
                 contactView.image = [UIImage imageNamed:@"chatListCellHead.png"];
                 contactView.remark = username;
+                
+                UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headPress:)];
+                [contactView addGestureRecognizer:tap];
+                
                 if (![username isEqualToString:loginUsername]) {
                     contactView.editing = isEditing;
                 }
@@ -550,6 +605,7 @@
                 }];
                 
                 [self.scrollView addSubview:contactView];
+                
             }
             else{
                 if(showAddButton && index == self.dataSource.count)
@@ -583,6 +639,16 @@
 }
 
 #pragma mark - action
+
+- (void)headPress:(UITapGestureRecognizer *)tap
+{
+    ContactView * contact = (ContactView *)tap.view;
+    if (contact.remark.length > 0) {
+        OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
+        opvc.uid                           = [[contact.remark stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
+        [self pushVC:opvc];
+    }
+}
 
 - (void)tapView:(UITapGestureRecognizer *)tap
 {

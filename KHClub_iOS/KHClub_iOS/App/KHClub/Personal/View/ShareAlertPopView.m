@@ -88,6 +88,23 @@
         
         [self configUI];
         
+        self.shareFriendBtn.tag       = ShareAlertFriend;
+        self.shareWechatBtn.tag       = ShareAlertWechat;
+        self.shareWechatMomentBtn.tag = ShareAlertWechatMoment;
+        self.shareSinaBtn.tag         = ShareAlertSina;
+        self.shareQQBtn.tag           = ShareAlertQQ;
+        self.shareQzoneBtn.tag        = ShareAlertQzone;
+        self.deleteBtn.tag            = ShareAlertDelete;
+        self.remarkBtn.tag            = ShareAlertRemark;
+
+        [self.shareFriendBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.shareWechatBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.shareWechatMomentBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.shareSinaBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.shareQQBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.shareQzoneBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.remarkBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
+        [self.deleteBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.cancelBtn addTarget:self action:@selector(cancelPop) forControlEvents:UIControlEventTouchUpInside];
     }
     return self;
@@ -138,12 +155,6 @@
     self.cancelBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     self.remarkBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     
-    
-    self.deleteBtn.tag = ShareAlertDelete;
-    self.remarkBtn.tag = ShareAlertRemark;
-    
-    [self.remarkBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.deleteBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)setShareBlock:(ShareClickBlock)block

@@ -8,6 +8,7 @@
 //包名_类名_描述
 
 //共用
+"Common_App_Name"                             = "KHClub";
 "Common_NetException"                         = "Net Exception";
 "Common_Confirm"                              = "Confirm";
 "Common_Cancel"                               = "Cancel";
@@ -115,6 +116,7 @@
 "Personal_AppSetting_ClearOK"                 = "Clear Success";
 "Personal_AppSetting_Clear"                   = "Clear Cache";
 "Personal_AppSetting_Logout"                  = "Log out";
+"Personal_Personal_ExchangeCard"              = "（Exchange card）";
 
 //News
 "News_Publish_EnterContent"                   = "Please enter content";
@@ -152,8 +154,10 @@
 "Message_GroupDetail_QRcodeCard"              = "QRcode Card";
 "Message_Scan_Scan"                           = "Scan";
 
-
 //Contact
 "Contact_Search_InputPrompt"                  = "Input phone number or group id";
 "Contact_Search_SearchFail"                   = "No result";
+"Contact_Search_Contacts"                     = "Contacts";
+
+//IM
 "IM_Group_Cover"                              = "Cover";

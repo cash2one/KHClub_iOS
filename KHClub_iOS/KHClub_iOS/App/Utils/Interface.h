@@ -19,6 +19,11 @@
 
 #define kUserProtocolPath @"http://www.90newtec.com/license.html"
 
+//分享名片地址
+#define kShareCardWeb [kRootAddr stringByAppendingString:@"index.php/Home/WX/cardDetail"]
+//分享网站地址
+#define kShareWeb @"http://www.khclub.sg/"
+
 ////////////////////////////////////////////////登录注册////////////////////////////////////////////////
 //是否有该用户
 #define kIsUserPath [kHomeAddr stringByAppendingString:@"/isUser"]
@@ -134,6 +139,8 @@
 //// ////////////////////////////主菜，搜索，二维码，创建群///////////////////////////////////
 // 获取所收藏的名片列表
 #define kFindUserOrGroupPath [kHomeAddr stringByAppendingString:@"/findUserOrGroup"]
+
+
 
 
 #endif

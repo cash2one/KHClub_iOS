@@ -104,6 +104,11 @@
  */
 - (void)setUserAvatarWith:(NSString *)username and:(UIImageView *)imageView
 {
+    if ([username isEqualToString:KH_ROBOT]) {
+        imageView.image = [UIImage imageNamed:@"Icon"];
+        return;
+    }
+    
     //获取
     UserIMEntity * user = [self getUserInfoWithUsername:username];
     if (user) {
@@ -151,6 +156,11 @@
  */
 - (void)setUserNickWith:(NSString *)username and:(UILabel *)nameLabel
 {
+    if ([username isEqualToString:KH_ROBOT]) {
+        nameLabel.text = KHClubString(@"Personal_Personal_RobotTitle");
+        return;
+    }
+    
     //获取
     UserIMEntity * user = [self getUserInfoWithUsername:username];
     

@@ -13,27 +13,30 @@
 #import "UIImageView+WebCache.h"
 #import "PersonalSettingViewController.h"
 #import "ChatViewController.h"
-
+#import "ShareAlertPopView.h"
+#import "ShareUtils.h"
 @interface PersonalViewController ()
 
 //背景滚动视图
-@property (nonatomic, strong) UIScrollView     * backScrollView;
+@property (nonatomic, strong) UIScrollView      * backScrollView;
 //横版滚动视图
-@property (nonatomic, strong) PersonalInfoView * infoView;
+@property (nonatomic, strong) PersonalInfoView  * infoView;
 //图片1
-@property (nonatomic, strong) CustomImageView  * imageView1;
+@property (nonatomic, strong) CustomImageView   * imageView1;
 //图片2
-@property (nonatomic, strong) CustomImageView  * imageView2;
+@property (nonatomic, strong) CustomImageView   * imageView2;
 //图片3
-@property (nonatomic, strong) CustomImageView  * imageView3;
+@property (nonatomic, strong) CustomImageView   * imageView3;
 //签名背景
-@property (nonatomic, strong) UIView           * signBackView;
+@property (nonatomic, strong) UIView            * signBackView;
 //签名
-@property (nonatomic, strong) CustomLabel      * signLabel;
+@property (nonatomic, strong) CustomLabel       * signLabel;
 //图像背景
-@property (nonatomic, strong) CustomButton     * imageBackView;
+@property (nonatomic, strong) CustomButton      * imageBackView;
 //小助手
-@property (nonatomic, strong) CustomButton     * robotBackView;
+@property (nonatomic, strong) CustomButton      * robotBackView;
+//右上角点击分享按钮
+@property (nonatomic, strong) ShareAlertPopView * shareAlertPopView;
 
 @end
 
@@ -90,10 +93,49 @@
         PersonalSettingViewController * psVC= [[PersonalSettingViewController alloc] init];
         [sself pushVC:psVC];
     }];
-    //右上角名片
     [self.navBar setRightBtnWithContent:@"" andBlock:^{
-
+        [sself.shareAlertPopView show];
     }];
+    
+    self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:NO];
+    [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
+        switch (type) {
+            case ShareAlertFriend:
+            {}
+                break;
+            case ShareAlertWechat:
+            {
+                [ShareUtils shareWechatWithUser:[UserService sharedService].user];
+            }
+                break;
+            case ShareAlertWechatMoment:
+            {
+                [ShareUtils shareWechatMomentsWithUser:[UserService sharedService].user];
+            }
+                break;
+            case ShareAlertSina:
+            {
+                [ShareUtils shareSinaWithUser:[UserService sharedService].user];
+            }
+                break;
+            case ShareAlertQQ:
+            {
+                [ShareUtils shareQQWithUser:[UserService sharedService].user];
+            }
+                break;
+            case ShareAlertQzone:
+            {
+                [ShareUtils shareQzoneWithUser:[UserService sharedService].user];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+        [sself.shareAlertPopView cancelPop];
+    }];
+
     
     //设置页面UI刷新
     [self.infoView setRefreshBlock:^{
@@ -117,26 +159,26 @@
 
     //顶部栏设置部分
     self.navBar.leftBtn.hidden                       = NO;
-    self.navBar.leftBtn.imageEdgeInsets              = UIEdgeInsetsMake(4, 3, 0, 16);
+//    self.navBar.leftBtn.imageEdgeInsets              = UIEdgeInsetsMake(4, 3, 0, 10);
     self.navBar.leftBtn.imageView.contentMode        = UIViewContentModeScaleAspectFit;
-    self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(12, 26, 12, 0);
+    self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(0, 15, 0, 0);
     self.navBar.rightBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
     //名片和设置
-    [self.navBar.leftBtn setImage:[UIImage imageNamed:@"personal_setting"] forState:UIControlStateNormal];
+    [self.navBar.leftBtn setImage:[UIImage imageNamed:@"personal_info_edit"] forState:UIControlStateNormal];
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
-
+    
     self.imageBackView.frame           = CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60);
     self.imageBackView.backgroundColor = [UIColor whiteColor];
 
-    CustomLabel * imageLabel      = [[CustomLabel alloc] initWithFontSize:17];
-    imageLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
-    imageLabel.frame              = CGRectMake(15, 0, 80, 60);
-    imageLabel.text               = KHClubString(@"Personal_Personal_Moments");
+    CustomLabel * imageLabel           = [[CustomLabel alloc] initWithFontSize:17];
+    imageLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
+    imageLabel.frame                   = CGRectMake(15, 0, 80, 60);
+    imageLabel.text                    = KHClubString(@"Personal_Personal_Moments");
     [self.imageBackView addSubview:imageLabel];
 
-    self.imageView1.frame         = CGRectMake(imageLabel.right+5, 5, 50, 50);
-    self.imageView2.frame         = CGRectMake(self.imageView1.right+5, 5, 50, 50);
-    self.imageView3.frame         = CGRectMake(self.imageView2.right+5, 5, 50, 50);
+    self.imageView1.frame              = CGRectMake(imageLabel.right+5, 5, 50, 50);
+    self.imageView2.frame              = CGRectMake(self.imageView1.right+5, 5, 50, 50);
+    self.imageView3.frame              = CGRectMake(self.imageView2.right+5, 5, 50, 50);
     [self.imageBackView addSubview:self.imageView1];
     [self.imageBackView addSubview:self.imageView2];
     [self.imageBackView addSubview:self.imageView3];

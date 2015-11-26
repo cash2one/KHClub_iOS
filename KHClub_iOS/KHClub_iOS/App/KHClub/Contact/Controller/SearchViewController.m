@@ -16,8 +16,8 @@
 @property (nonatomic, strong) UITextField * searchTextField;
 //搜索button
 @property (nonatomic, strong) CustomButton * searchBtn;
-//通讯录button
-@property (nonatomic, strong) CustomButton * contactBtn;
+////通讯录button
+//@property (nonatomic, strong) CustomButton * contactBtn;
 
 @end
 
@@ -42,14 +42,14 @@
     self.searchTextField          = [[UITextField alloc] init];
     self.searchTextField.delegate = self;
     self.searchBtn                = [[CustomButton alloc] init];
-    self.contactBtn               = [[CustomButton alloc] init];
+//    self.contactBtn               = [[CustomButton alloc] init];
 
     [self.view addSubview:self.searchTextField];
     [self.view addSubview:self.searchBtn];
-    [self.view addSubview:self.contactBtn];
+//    [self.view addSubview:self.contactBtn];
     
     [self.searchBtn addTarget:self action:@selector(searchClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.contactBtn addTarget:self action:@selector(contactClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contactBtn addTarget:self action:@selector(contactClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)configUI
@@ -68,8 +68,20 @@
     [self.searchBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.searchBtn setTitle:NSLocalizedString(@"friend.search", @"Search") forState:UIControlStateNormal];
     
-    self.contactBtn.frame           = CGRectMake(0, self.searchBtn.bottom+15, self.viewWidth, 50);
-    self.contactBtn.backgroundColor = [UIColor whiteColor];
+//    self.contactBtn.frame              = CGRectMake(0, self.searchBtn.bottom+15, self.viewWidth, 60);
+//    self.contactBtn.backgroundColor    = [UIColor whiteColor];
+    
+    //图片
+//    CustomImageView * contactImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(15, 10, 40, 40)];
+//    contactImageView.image             = [UIImage imageNamed:@"add_contacts_friend_icon"];
+//    [self.contactBtn addSubview:contactImageView];
+//    
+//    CustomLabel * contactLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(60, 10, 100, 40)];
+//    contactLabel.font          = [UIFont systemFontOfSize:15];
+//    contactLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
+//    contactLabel.text          = KHClubString(@"Contact_Search_Contacts");
+//    [self.contactBtn addSubview:contactLabel];
+    
 }
 
 #pragma mark- UITextFieldDelegate
