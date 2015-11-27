@@ -161,3 +161,9 @@
 
 //IM
 "IM_Group_Cover"                              = "Cover";
+"IM_Push_ANewMessage"                         = "A new message";
+"IM_Push_InviteSuccess"                       = "Invite success";
+"IM_Push_PushInvite"                          = " invite to join";
+
+
+

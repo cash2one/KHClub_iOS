@@ -40,37 +40,37 @@
 
 @property (nonatomic, weak) id <DXMessageToolBarDelegate> delegate;
 
-@property (strong, nonatomic) UIButton *recordButton;
+@property (strong, nonatomic) UIButton          * recordButton;
 
 /**
  *  操作栏背景图片
  */
-@property (strong, nonatomic) UIImage *toolbarBackgroundImage;
+@property (strong, nonatomic) UIImage           * toolbarBackgroundImage;
 
 /**
  *  背景图片
  */
-@property (strong, nonatomic) UIImage *backgroundImage;
+@property (strong, nonatomic) UIImage           * backgroundImage;
 
 /**
  *  更多的附加页面
  */
-@property (strong, nonatomic) UIView *moreView;
+@property (strong, nonatomic) UIView            * moreView;
 
 /**
  *  表情的附加页面
  */
-@property (strong, nonatomic) UIView *faceView;
+@property (strong, nonatomic) UIView            * faceView;
 
 /**
  *  录音的附加页面
  */
-@property (strong, nonatomic) UIView *recordView;
+@property (strong, nonatomic) UIView            * recordView;
 
 /**
  *  用于输入文本消息的输入框
  */
-@property (strong, nonatomic) XHMessageTextView *inputTextView;
+@property (strong, nonatomic) XHMessageTextView * inputTextView;
 
 /**
  *  文字输入区域最大高度，必须 > KInputTextViewMinHeight(最小高度)并且 < KInputTextViewMaxHeight，否则设置无效

@@ -22,6 +22,7 @@
 #import "QRcodeCardView.h"
 #import "ShareAlertPopView.h"
 #import "ShareUtils.h"
+#import "PushService.h"
 
 #pragma mark - ChatGroupDetailViewController
 
@@ -34,20 +35,20 @@
 - (void)registerNotifications;
 
 @property (nonatomic        ) GroupOccupantType            occupantType;
-@property (strong, nonatomic) EMGroup                      *chatGroup;
+@property (strong, nonatomic) EMGroup                      * chatGroup;
 
 @property (nonatomic, strong) UITableView                  * tableView;
-@property (strong, nonatomic) NSMutableArray               *dataSource;
-@property (strong, nonatomic) UIScrollView                 *scrollView;
-@property (strong, nonatomic) UIButton                     *addButton;
+@property (strong, nonatomic) NSMutableArray               * dataSource;
+@property (strong, nonatomic) UIScrollView                 * scrollView;
+@property (strong, nonatomic) UIButton                     * addButton;
 
-@property (strong, nonatomic) UIView                       *footerView;
-@property (strong, nonatomic) UIButton                     *clearButton;
-@property (strong, nonatomic) UIButton                     *exitButton;
-@property (strong, nonatomic) UIButton                     *dissolveButton;
-@property (strong, nonatomic) UIButton                     *configureButton;
-@property (strong, nonatomic) UILongPressGestureRecognizer *longPress;
-@property (strong, nonatomic) ContactView                  *selectedContact;
+@property (strong, nonatomic) UIView                       * footerView;
+@property (strong, nonatomic) UIButton                     * clearButton;
+@property (strong, nonatomic) UIButton                     * exitButton;
+@property (strong, nonatomic) UIButton                     * dissolveButton;
+@property (strong, nonatomic) UIButton                     * configureButton;
+@property (strong, nonatomic) UILongPressGestureRecognizer * longPress;
+@property (strong, nonatomic) ContactView                  * selectedContact;
 
 @property (nonatomic, strong) CustomImageView              * coverImageView;
 
@@ -444,7 +445,27 @@
 #pragma mark - EMChooseViewDelegate
 - (void)viewController:(EMChooseViewController *)viewController didFinishSelectedSources:(NSArray *)selectedSources
 {
+    
     if (selectedSources.count < 1) {
+        return;
+    }
+    
+    if (self.occupantType == GroupOccupantTypeMember) {
+        //发送邀请推送
+        EMBuddy * buddy               = selectedSources[0];
+        NSMutableDictionary * pushDic = [[NSMutableDictionary alloc] init];
+        [pushDic setObject:[NSString stringWithFormat:@"%ld", PushGroupInvite] forKey:@"type"];
+        [pushDic setObject:@{@"uid":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                             @"name":[UserService sharedService].user.name,
+                             @"targetid":buddy.username,
+                             @"groupid":self.chatGroup.groupId,
+                             @"groupname":self.chatGroup.groupSubject} forKey:@"content"];
+        
+        [[PushService sharedInstance] pushGroupInviteMessageWith:pushDic andTarget:self.chatGroup.owner success:^{
+            [self showHint:KHClubString(@"IM_Push_InviteSuccess")];
+        } fail:^{
+            [self showHint:StringCommonNetException];
+        }];
         return;
     }
     
@@ -552,6 +573,10 @@
         showAddButton = YES;
     }
     else if (self.chatGroup.groupSetting.groupStyle == eGroupStyle_PrivateMemberCanInvite && self.occupantType == GroupOccupantTypeMember) {
+        [self.scrollView addSubview:self.addButton];
+        showAddButton = YES;
+    }else if (self.occupantType == GroupOccupantTypeMember) {
+        //如果是成员也提供邀请功能
         [self.scrollView addSubview:self.addButton];
         showAddButton = YES;
     }
@@ -705,6 +730,9 @@
 - (void)addContact:(id)sender
 {
     ContactSelectionViewController *selectionController = [[ContactSelectionViewController alloc] initWithBlockSelectedUsernames:_chatGroup.occupants];
+    if (self.occupantType == GroupOccupantTypeMember) {
+        selectionController.isInvite = YES;
+    }
     selectionController.delegate = self;
     [self.navigationController pushViewController:selectionController animated:YES];
 }

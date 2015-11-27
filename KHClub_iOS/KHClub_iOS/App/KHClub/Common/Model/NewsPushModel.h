@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-enum {
+typedef NS_ENUM(NSInteger, PushType){
     //添加好友
     PushAddFriend     = 1,
     //回复消息
@@ -16,7 +16,9 @@ enum {
     //回复二级评论
     PushSecondComment = 3,
     //点赞
-    PushLikeNews      = 4
+    PushLikeNews      = 4,
+    //成员邀请成员 发给群主的通知
+    PushGroupInvite   = 5
 };
 
 //该模型对应数据表 jlxc_news_push 该表中不存储类型为'添加好友'的推送类型
@@ -29,34 +31,34 @@ enum {
 @property (nonatomic, assign) NSInteger uid;
 
 //发送人的头像
-@property (nonatomic, copy) NSString * head_image;
+@property (nonatomic, copy  ) NSString  * head_image;
 
 //姓名
-@property (nonatomic, copy) NSString * name;
+@property (nonatomic, copy  ) NSString  * name;
 
 //评论内容
-@property (nonatomic, copy) NSString * comment_content;
+@property (nonatomic, copy  ) NSString  * comment_content;
 
 //推送类型 Push
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, assign) PushType  type;
 
 //新闻id
 @property (nonatomic, assign) NSInteger news_id;
 
 //新闻内容
-@property (nonatomic, copy) NSString * news_content;
+@property (nonatomic, copy  ) NSString  * news_content;
 
 //新闻cover图片
-@property (nonatomic, copy) NSString * news_image;
+@property (nonatomic, copy  ) NSString  * news_image;
 
 //新闻用户名
-@property (nonatomic, copy) NSString * news_user_name;
+@property (nonatomic, copy  ) NSString  * news_user_name;
 
 //是否已读
-@property (nonatomic, assign) BOOL is_read;
+@property (nonatomic, assign) BOOL      is_read;
 
 //发布时间
-@property (nonatomic, copy) NSString * push_time;
+@property (nonatomic, copy  ) NSString  * push_time;
 
 //所有者
 @property (nonatomic, assign) NSInteger owner;

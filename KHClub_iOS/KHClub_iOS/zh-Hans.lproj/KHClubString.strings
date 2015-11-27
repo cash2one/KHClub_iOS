@@ -162,5 +162,7 @@
 
 //IM
 "IM_Group_Cover"                              = "封面";
-
+"IM_Push_ANewMessage"                         = "一条新消息";
+"IM_Push_InviteSuccess"                       = "邀请成功，等待群主验证";
+"IM_Push_PushInvite"                          = "邀请加入";
 

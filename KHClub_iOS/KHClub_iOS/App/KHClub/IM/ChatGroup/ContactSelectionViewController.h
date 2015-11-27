@@ -17,4 +17,9 @@
 //已有选中的成员username，在该页面，这些成员不能被取消选择
 - (instancetype)initWithBlockSelectedUsernames:(NSArray *)blockUsernames;
 
+/**
+ *  是否是邀请
+ */
+@property (nonatomic, assign) BOOL isInvite;
+
 @end

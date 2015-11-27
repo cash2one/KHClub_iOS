@@ -8,6 +8,7 @@
 
 #import "PushService.h"
 #import "YunBaService.h"
+#import "ApplyViewController.h"
 
 @implementation PushService
 
@@ -89,7 +90,10 @@ static PushService *_shareInstance=nil;
             case PushLikeNews:
                 [self handleNewsPush:dic];
                 break;
-                
+                //群组邀请
+            case PushGroupInvite:
+                [self handleGroupPush:dic];
+                break;
             default:
                 break;
         }
@@ -211,6 +215,22 @@ static PushService *_shareInstance=nil;
 
 }
 
+/**
+ *  群组邀请消息处理
+ *
+ *  @param dic 推送内容
+ */
+- (void)handleGroupPush:(NSDictionary *)dic
+{
+    NSDictionary * pushDic = dic[@"content"];
+    
+    
+    NSDictionary * applyDic = @{@"title":pushDic[@"groupname"], @"groupId":pushDic[@"groupid"], @"username":pushDic[@"targetid"], @"groupname":pushDic[@"groupname"], @"applyMessage":[NSString stringWithFormat:@"%@%@", pushDic[@"name"], KHClubString(@"IM_Push_PushInvite")], @"applyStyle":[NSNumber numberWithInteger:ApplyStyleJoinGroup]};
+    [[ApplyViewController shareController] addNewApply:applyDic];
+    [[CusTabBarViewController sharedService] setUnread];
+    [[CusTabBarViewController sharedService] newMessageSound];
+}
+
 ////处理消息回复
 //- (void)handleNewsAnwser:(NSDictionary *)dic
 //{
@@ -232,6 +252,33 @@ static PushService *_shareInstance=nil;
 //    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_NEWS_PUSH object:nil];
 //}
 
+- (void)pushGroupInviteMessageWith:(NSDictionary *)content andTarget:(NSString *)targetID success:(PushSuccess)success fail:(PushFail)fail
+{
 
+    NSData * data =[NSJSONSerialization dataWithJSONObject:content options:NSJSONWritingPrettyPrinted error:nil];
+
+//    [YunBaService publish:targetID data:data option:[YBPublishOption optionWithQos:kYBQosLevel2 retained:YES] resultBlock:^(BOOL succ, NSError *error) {
+//
+//    }];
+    
+    YBPublish2Option *option = [[YBPublish2Option alloc] init];
+    NSString *alert = KHClubString(@"IM_Push_ANewMessage");
+    NSNumber *badge = [NSNumber numberWithInt:1];
+    NSString *sound = @"bingbong.aiff";
+    YBApnOption *apnOption = [YBApnOption optionWithAlert:alert badge:badge sound:sound contentAvailable:nil extra:@{@"1":@"一个消息extra"}];
+    [option setApnOption:apnOption];
+    
+    [YunBaService publish2:targetID data:data option:option resultBlock:^(BOOL succ, NSError *error) {
+        if (succ) {
+            if (success) {
+                success();
+            }
+        }else{
+            if (fail) {
+                fail();
+            }
+        }
+    }];
+}
 
 @end

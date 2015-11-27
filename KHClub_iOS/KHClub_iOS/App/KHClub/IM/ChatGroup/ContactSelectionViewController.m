@@ -18,16 +18,13 @@
 
 @interface ContactSelectionViewController ()
 
-@property (strong, nonatomic) NSMutableArray *contactsSource;
-@property (strong, nonatomic) NSMutableArray *selectedContacts;
-@property (strong, nonatomic) NSMutableArray *blockSelectedUsernames;
+@property (strong, nonatomic) NSMutableArray * contactsSource;
+@property (strong, nonatomic) NSMutableArray * selectedContacts;
+@property (strong, nonatomic) NSMutableArray * blockSelectedUsernames;
 
-//@property (strong, nonatomic) EMSearchBar *searchBar;
-//@property (strong, nonatomic) EMSearchDisplayController *searchController;
+@property (strong, nonatomic) UIScrollView   * footerScrollView;
 
-//@property (strong, nonatomic) UIView *footerView;
-@property (strong, nonatomic) UIScrollView *footerScrollView;
-//@property (strong, nonatomic) UIButton *doneButton;
+@property (nonatomic, strong) NSIndexPath    * lastIndexPath;
 
 @end
 
@@ -38,7 +35,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        _contactsSource = [NSMutableArray array];
+        _contactsSource   = [NSMutableArray array];
         _selectedContacts = [NSMutableArray array];
         
         [self setObjectComparisonStringBlock:^NSString *(id object) {
@@ -249,10 +246,10 @@
         cell = [[BaseTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    EMBuddy *buddy = [[_dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
+    EMBuddy *buddy       = [[_dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     cell.imageView.image = [UIImage imageNamed:@"chatListCellHead.png"];
-    cell.textLabel.text = buddy.username;
-    cell.username = buddy.username;
+    cell.textLabel.text  = buddy.username;
+    cell.username        = buddy.username;
     
     return cell;
 }
@@ -272,11 +269,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.isInvite) {
+        if (indexPath == self.lastIndexPath) {
+            return;
+        }
+        if (self.lastIndexPath) {
+            [tableView deselectRowAtIndexPath:self.lastIndexPath animated:NO];
+            EMBuddy *buddy = [[_dataSource objectAtIndex:self.lastIndexPath.section] objectAtIndex:self.lastIndexPath.row];
+            if ([self.selectedContacts containsObject:buddy]) {
+                [self.selectedContacts removeObject:buddy];
+            }
+        }
+        self.lastIndexPath = indexPath;
+    }
+    
     id object = [[_dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
     if (![self.selectedContacts containsObject:object])
     {
         [self.selectedContacts addObject:object];
-        
         [self reloadFooterView];
     }
 }
@@ -370,12 +380,12 @@
     [self.footerScrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     CGFloat imageSize = self.footerScrollView.frame.size.height;
-    NSInteger count = [self.selectedContacts count];
+    NSInteger count   = [self.selectedContacts count];
     self.footerScrollView.contentSize = CGSizeMake(imageSize * count, imageSize);
     for (int i = 0; i < count; i++) {
-        EMBuddy *buddy = [self.selectedContacts objectAtIndex:i];
+        EMBuddy *buddy                = [self.selectedContacts objectAtIndex:i];
         EMRemarkImageView *remarkView = [[EMRemarkImageView alloc] initWithFrame:CGRectMake(i * imageSize, 0, imageSize, imageSize)];
-        remarkView.image = [UIImage imageNamed:@"chatListCellHead.png"];
+        remarkView.image  = [UIImage imageNamed:@"chatListCellHead.png"];
         remarkView.remark = buddy.username;
         [self.footerScrollView addSubview:remarkView];
     }

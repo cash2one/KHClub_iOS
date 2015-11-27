@@ -395,9 +395,19 @@
         groupTag = group.groupId;
     }
     
-    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"group.agreedAndJoined", @"agreed and joined the group of \'%@\'"), groupTag];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
-    [alertView show];
+//    NSString *message = [NSString stringWithFormat:NSLocalizedString(@"group.agreedAndJoined", @"agreed and joined the group of \'%@\'"), groupTag];
+//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"prompt", @"Prompt") message:message delegate:nil cancelButtonTitle:NSLocalizedString(@"ok", @"OK") otherButtonTitles:nil, nil];
+//    [alertView show];
+    
+    //提示
+    EMChatText *text          = [[EMChatText alloc] initWithText:NSLocalizedString(@"group.agreedAndJoined", @"agreed to join the group")];
+    EMTextMessageBody *body   = [[EMTextMessageBody alloc] initWithChatObject:text];
+    EMMessage *retureMsg      = [[EMMessage alloc] initWithReceiver:group.groupId bodies:@[body]];
+    retureMsg.messageType     = eMessageTypeGroupChat;
+    retureMsg.deliveryState   = eMessageDeliveryState_Delivered;
+    retureMsg.groupSenderName = [ToolsManager getCommonTargetId:[UserService sharedService].user.uid];
+    [[EaseMob sharedInstance].chatManager insertMessageToDB:retureMsg append2Chat:YES];
+    
 }
 
 
