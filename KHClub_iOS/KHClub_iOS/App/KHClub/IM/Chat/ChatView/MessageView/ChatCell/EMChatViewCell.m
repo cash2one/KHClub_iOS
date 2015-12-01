@@ -184,6 +184,9 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     switch (messageModel.type) {
         case eMessageBodyType_Text:
         {
+            if ([[IMUtils shareInstance] isCardMessage:messageModel.content]) {
+                return [[KHChatCardBubbleView alloc] init];;
+            }
             return [[EMChatTextBubbleView alloc] init];
         }
             break;
@@ -219,6 +222,9 @@ NSString *const kShouldResendCell = @"kShouldResendCell";
     switch (messageModel.type) {
         case eMessageBodyType_Text:
         {
+            if ([[IMUtils shareInstance] isCardMessage:messageModel.content]) {
+                return [KHChatCardBubbleView heightForBubbleWithObject:messageModel];
+            }
             return [EMChatTextBubbleView heightForBubbleWithObject:messageModel];
         }
             break;

@@ -386,7 +386,9 @@
                 // 表情映射。
                 NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
                                             convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
-                if ([[RobotManager sharedInstance] isRobotMenuMessage:lastMessage]) {
+                if ([[IMUtils shareInstance] isCardMessage:didReceiveText]) {
+                    ret = KHClubString(@"IM_ChatList_ACard");
+                }else if ([[RobotManager sharedInstance] isRobotMenuMessage:lastMessage]) {
                     ret = [[RobotManager sharedInstance] getRobotMenuMessageDigest:lastMessage];
                 } else {
                     ret = didReceiveText;

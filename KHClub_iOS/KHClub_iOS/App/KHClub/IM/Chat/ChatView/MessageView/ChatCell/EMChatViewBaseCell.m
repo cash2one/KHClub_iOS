@@ -122,6 +122,11 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     switch (model.type) {
         case eMessageBodyType_Text:
         {
+            if ([[IMUtils shareInstance] isCardMessage:model.content]) {
+                //名片特殊处理
+                identifier = [identifier stringByAppendingString:@"Card"];
+                break;
+            }
             identifier = [identifier stringByAppendingString:@"Text"];
         }
             break;

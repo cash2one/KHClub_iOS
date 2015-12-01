@@ -14,7 +14,7 @@
 
 #import "MessageModel.h"
 #import "EMChatBaseBubbleView.h"
-
+#import "IMUtils.h"
 #import "UIResponder+Router.h"
 
 #define HEAD_SIZE 40 // 头像大小

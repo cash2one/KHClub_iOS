@@ -139,14 +139,6 @@ static CusTabBarViewController * instance = nil;
     [[[EaseMob sharedInstance] chatManager] asyncFetchBuddyListWithCompletion:^(NSArray *buddyList, EMError *error) {
     } onQueue:nil];
     
-//    //提示
-//    EMChatText *text        = [[EMChatText alloc] initWithText:NSLocalizedString(@"friend.isFriend", @"you have become friends")];
-//    EMTextMessageBody *body = [[EMTextMessageBody alloc] initWithChatObject:text];
-//    EMMessage *retureMsg    = [[EMMessage alloc] initWithReceiver:@"kh2" bodies:@[body]];
-//    retureMsg.messageType   = eMessageTypeChat;
-//    retureMsg.deliveryState = eMessageDeliveryState_Delivered;
-//    [[EaseMob sharedInstance].chatManager insertMessageToDB:retureMsg append2Chat:YES];
-    
 }
 
 - (void)setUnread
@@ -157,6 +149,7 @@ static CusTabBarViewController * instance = nil;
 //通知刷新徽标
 - (void)badgeNotify:(NSNotification *)notify
 {
+    
     //清空徽标
     for (TabBarBtn * barBtn in _btnArr) {
         [barBtn refreshBadgeWith:0];
@@ -184,7 +177,7 @@ static CusTabBarViewController * instance = nil;
     
     //Con部分
     NSInteger newUnreadCount = [[InvitationManager sharedInstance] getUnread];
-    TabBarBtn * conBtn = _btnArr[TabContact];
+    TabBarBtn * conBtn       = _btnArr[TabContact];
     [conBtn refreshBadgeWith:newUnreadCount];
     [_contactsVC reloadApplyView];
     
@@ -239,7 +232,7 @@ static CusTabBarViewController * instance = nil;
     }
     
     NSInteger count = _vcArr.count;
-    space = [DeviceManager getDeviceWidth]/count;
+    space           = [DeviceManager getDeviceWidth]/count;
     
     for (int i=0; i<count; i++) {
         TabBarBtn * item = [[TabBarBtn alloc] initWithFrame:CGRectMake(space*i, 0, space, kTabBarHeight)];
@@ -249,7 +242,7 @@ static CusTabBarViewController * instance = nil;
         [item setImage:[UIImage imageNamed:_selectedArr[i]] forState:UIControlStateSelected];
         [item setImageEdgeInsets:UIEdgeInsetsMake(5, 0, 16, 0)];
         if (i == 0) {
-            item.selected = YES;
+            item.selected        = YES;
             self.coverView.frame = item.frame;
         }
         
@@ -436,7 +429,7 @@ static CusTabBarViewController * instance = nil;
 
 - (BOOL)needShowNotification:(NSString *)fromChatter
 {
-    BOOL ret = YES;
+    BOOL ret            = YES;
     NSArray *igGroupIds = [[EaseMob sharedInstance].chatManager ignoredGroupIds];
     for (NSString *str in igGroupIds) {
         if ([str isEqualToString:fromChatter]) {
@@ -507,8 +500,8 @@ static CusTabBarViewController * instance = nil;
 {
     EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
     //发送本地推送
-    UILocalNotification *notification = [[UILocalNotification alloc] init];
-    notification.fireDate = [NSDate date]; //触发通知的时间
+    UILocalNotification *notification  = [[UILocalNotification alloc] init];
+    notification.fireDate              = [NSDate date];//触发通知的时间
     
     if (options.displayStyle == ePushNotificationDisplayStyle_messageSummary) {
         id<IEMMessageBody> messageBody = [message.messageBodies firstObject];
@@ -571,26 +564,26 @@ static CusTabBarViewController * instance = nil;
         notification.alertBody = NSLocalizedString(@"receiveMessage", @"you have a new message");
     }
     
-#warning 去掉注释会显示[本地]开头, 方便在开发中区分是否为本地推送
-    //notification.alertBody = [[NSString alloc] initWithFormat:@"[本地]%@", notification.alertBody];
-    
-    notification.alertAction = NSLocalizedString(@"open", @"Open");
-    notification.timeZone = [NSTimeZone defaultTimeZone];
-    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:self.lastPlaySoundDate];
-    if (timeInterval < kDefaultPlaySoundInterval) {
-        NSLog(@"skip ringing & vibration %@, %@", [NSDate date], self.lastPlaySoundDate);
-    } else {
-        notification.soundName = UILocalNotificationDefaultSoundName;
-        self.lastPlaySoundDate = [NSDate date];
-    }
-    
-    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-    [userInfo setObject:[NSNumber numberWithInt:message.messageType] forKey:kMessageType];
-    [userInfo setObject:message.conversationChatter forKey:kConversationChatter];
-    notification.userInfo = userInfo;
-    
-    //发送通知
-    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+//#warning 去掉注释会显示[本地]开头, 方便在开发中区分是否为本地推送
+//    //notification.alertBody = [[NSString alloc] initWithFormat:@"[本地]%@", notification.alertBody];
+//    
+//    notification.alertAction = NSLocalizedString(@"open", @"Open");
+//    notification.timeZone = [NSTimeZone defaultTimeZone];
+//    NSTimeInterval timeInterval = [[NSDate date] timeIntervalSinceDate:self.lastPlaySoundDate];
+//    if (timeInterval < kDefaultPlaySoundInterval) {
+//        NSLog(@"skip ringing & vibration %@, %@", [NSDate date], self.lastPlaySoundDate);
+//    } else {
+//        notification.soundName = UILocalNotificationDefaultSoundName;
+//        self.lastPlaySoundDate = [NSDate date];
+//    }
+//    
+//    NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+//    [userInfo setObject:[NSNumber numberWithInt:message.messageType] forKey:kMessageType];
+//    [userInfo setObject:message.conversationChatter forKey:kConversationChatter];
+//    notification.userInfo = userInfo;
+//    
+//    //发送通知
+//    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
     //    UIApplication *application = [UIApplication sharedApplication];
     //    application.applicationIconBadgeNumber += 1;
 }
@@ -649,7 +642,7 @@ static CusTabBarViewController * instance = nil;
     [[EaseMob sharedInstance].chatManager removeConversationsByChatters:userNames deleteMessages:YES append2Chat:YES];
     [_chatListVC refreshDataSource];
     
-    NSMutableArray *viewControllers = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
+    NSMutableArray *viewControllers       = [NSMutableArray arrayWithArray:self.navigationController.viewControllers];
     ChatViewController *chatViewContrller = nil;
     for (id viewController in viewControllers)
     {
@@ -671,54 +664,53 @@ static CusTabBarViewController * instance = nil;
             changedBuddies:(NSArray *)changedBuddies
                      isAdd:(BOOL)isAdd
 {
-    
-    if (!isAdd)
-    {
-        NSMutableArray *deletedBuddies = [NSMutableArray array];
-        for (EMBuddy *buddy in changedBuddies)
-        {
-            if ([buddy.username length])
-            {
-                [deletedBuddies addObject:buddy.username];
-            }
-        }
-        if (![deletedBuddies count])
-        {
-            return;
-        }
-        
-        [self _removeBuddies:deletedBuddies];
-    } else {
-        // clear conversation
-        NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
-        NSMutableArray *deleteConversations = [NSMutableArray arrayWithArray:conversations];
-        NSMutableDictionary *buddyDic = [NSMutableDictionary dictionary];
-        for (EMBuddy *buddy in buddyList) {
-            if ([buddy.username length]) {
-                [buddyDic setObject:buddy forKey:buddy.username];
-            }
-        }
-        for (EMConversation *conversation in conversations) {
-            if (conversation.conversationType == eConversationTypeChat) {
-                if ([buddyDic objectForKey:conversation.chatter]) {
-                    [deleteConversations removeObject:conversation];
-                }
-            } else {
-                [deleteConversations removeObject:conversation];
-            }
-        }
-        if ([deleteConversations count] > 0) {
-            NSMutableArray *deletedBuddies = [NSMutableArray array];
-            for (EMConversation *conversation in deleteConversations) {
-                if (![[RobotManager sharedInstance] isRobotWithUsername:conversation.chatter]) {
-                    [deletedBuddies addObject:conversation.chatter];
-                }
-            }
-            if ([deletedBuddies count] > 0) {
-                [self _removeBuddies:deletedBuddies];
-            }
-        }
-    }
+//    if (!isAdd)
+//    {
+//        NSMutableArray *deletedBuddies = [NSMutableArray array];
+//        for (EMBuddy *buddy in changedBuddies)
+//        {
+//            if ([buddy.username length])
+//            {
+//                [deletedBuddies addObject:buddy.username];
+//            }
+//        }
+//        if (![deletedBuddies count])
+//        {
+//            return;
+//        }
+//        
+//        [self _removeBuddies:deletedBuddies];
+//    } else {
+//        // clear conversation
+//        NSArray *conversations              = [[EaseMob sharedInstance].chatManager conversations];
+//        NSMutableArray *deleteConversations = [NSMutableArray arrayWithArray:conversations];
+//        NSMutableDictionary *buddyDic       = [NSMutableDictionary dictionary];
+//        for (EMBuddy *buddy in buddyList) {
+//            if ([buddy.username length]) {
+//                [buddyDic setObject:buddy forKey:buddy.username];
+//            }
+//        }
+//        for (EMConversation *conversation in conversations) {
+//            if (conversation.conversationType == eConversationTypeChat) {
+//                if ([buddyDic objectForKey:conversation.chatter]) {
+//                    [deleteConversations removeObject:conversation];
+//                }
+//            } else {
+//                [deleteConversations removeObject:conversation];
+//            }
+//        }
+//        if ([deleteConversations count] > 0) {
+//            NSMutableArray *deletedBuddies = [NSMutableArray array];
+//            for (EMConversation *conversation in deleteConversations) {
+//                if (![[RobotManager sharedInstance] isRobotWithUsername:conversation.chatter]) {
+//                    [deletedBuddies addObject:conversation.chatter];
+//                }
+//            }
+//            if ([deletedBuddies count] > 0) {
+//                [self _removeBuddies:deletedBuddies];
+//            }
+//        }
+//    }
 
     //缓存
     [[IMUtils shareInstance] cacheBuddysToDisk];

@@ -65,6 +65,24 @@
 - (void)setUserNickWith:(NSString *)username and:(UILabel *)nameLabel;
 
 /**
+ *  设置用户名字
+ *
+ *  @param username
+ *  @param nameLabel 填写内容的label
+ *  @param holer     预置名
+ */
+- (void)setUserNickWith:(NSString *)username and:(UILabel *)nameLabel andPlaceHolder:(NSString *)holer;
+
+/**
+ *  设置用户头像
+ *
+ *  @param username
+ *  @param imageView 需要设置头像的imageView
+ *  @param holer     预置图片
+ */
+- (void)setUserAvatarWith:(NSString *)username and:(UIImageView *)imageView andPlaceHolder:(NSString *)holer;
+
+/**
  *  设置自己的名字
  *
  *  @param nameLabel 填写内容的label
@@ -112,15 +130,22 @@
 - (void)saveQrCode:(NSString *)qrCode groupName:(NSString *)groupName;
 
 /**
- *  设置用户头像
+ *  设置群组头像
  *
  *  @param groupId
  *  @param imageView 需要设置头像的imageView
  */
 - (void)setGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView;
-
 /**
- *  设置用户名字
+ *  设置群组头像
+ *
+ *  @param groupId
+ *  @param imageView 需要设置头像的imageView
+ *  @param holer     预置名字
+ */
+- (void)setGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView andPlaceHolder:(NSString *)holer;
+/**
+ *  设置群组名字
  *
  *  @param groupId
  *  @param nameLabel 填写内容的label
@@ -135,6 +160,32 @@
  */
 - (void)setGroupQrCodeWith:(NSString *)groupId and:(UIImageView *)imageView;
 
+/**
+ *  是否是一个名片
+ *
+ *  @param messageCotent 要判断的内容
+ *
+ *  @return bool
+ */
+- (BOOL)isCardMessage:(NSString *)messageCotent;
+
+/**
+ *  生成一个名片用的消息格式
+ *
+ *  @param username IM用户名
+ *
+ *  @return 名片内容
+ */
+- (NSString *)generateCardMesssageWithUsername:(NSString *)username;
+
+/**
+ *  解析Card信息
+ *
+ *  @param messageContent 消息内容
+ *
+ *  @return Hash
+ */
+- (NSDictionary *)cardMessageDecode:(NSString *)messageContent;
 
 @end
 

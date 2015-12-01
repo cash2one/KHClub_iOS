@@ -22,4 +22,5 @@
  */
 @property (nonatomic, assign) BOOL isInvite;
 
+
 @end

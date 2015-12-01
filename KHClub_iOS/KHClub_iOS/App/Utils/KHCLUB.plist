@@ -6,7 +6,7 @@
 		<key>title</key>
 		<string>Common_Main_Home</string>
 		<key>controller</key>
-		<string>NewsListViewController</string>
+		<string>NewsMainViewController</string>
 		<key>selectedPic</key>
 		<string>home_btn_homepage_normal</string>
 		<key>normalPic</key>

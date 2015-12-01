@@ -33,7 +33,9 @@
 #import "ChatViewController+Category.h"
 #import "EMCDDeviceManager.h"
 #import "EMCDDeviceManagerDelegate.h"
+#import "CardChooseUserViewController.h"
 #import "IMUtils.h"
+#import "PublicGroupDetailViewController.h"
 
 #define KPageCount 20
 #define KHintAdjustY    50
@@ -627,6 +629,7 @@
 
 - (void)routerEventWithName:(NSString *)eventName userInfo:(NSDictionary *)userInfo
 {
+    //环信这个地方用response做的实在是太蠢了 无力吐槽 有时间再改吧
     MessageModel *model = [userInfo objectForKey:KMESSAGEKEY];
     if ([eventName isEqualToString:kRouterEventTextURLTapEventName]) {
         [self chatTextCellUrlPressed:[userInfo objectForKey:@"url"]];
@@ -660,6 +663,8 @@
         [self sendTextMessage:[userInfo objectForKey:@"text"]];
     }else if ([eventName isEqualToString:kRouterEventChatHeadImageTapEventName]) {
         [self chatHeadImagePressed:model];
+    }else if ([eventName isEqualToString:kRouterEventCardBubbleTapEventName]){
+        [self cardMessageClick:model];
     }
 }
 #pragma mark- 头像点击
@@ -674,6 +679,25 @@
     opvc.uid                           = [[model.username stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
     [self pushVC:opvc];
     
+}
+
+#pragma mark- 消息点击
+- (void)cardMessageClick:(MessageModel *)model
+{
+    
+    NSDictionary * cardDic = [[IMUtils shareInstance] cardMessageDecode:model.content];
+    if (cardDic.count > 0) {
+        if ([cardDic[@"type"] integerValue] == eConversationTypeChat) {
+            //个人
+            OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
+            opvc.uid                           = [[cardDic[@"id"] stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
+            [self pushVC:opvc];
+        }else{
+            //群组
+            PublicGroupDetailViewController * pgdv = [[PublicGroupDetailViewController alloc] initWithGroupId:cardDic[@"id"]];
+            [self pushVC:pgdv];
+        }
+    }
 }
 
 //链接被点击
@@ -1132,14 +1156,20 @@
 #endif
 }
 
+//名片发送
 - (void)moreViewLocationAction:(DXChatBarMoreView *)moreView
 {
     // 隐藏键盘
     [self keyBoardHidden];
     
-    LocationViewController *locationController = [[LocationViewController alloc] initWithNibName:nil bundle:nil];
-    locationController.delegate = self;
-    [self.navigationController pushViewController:locationController animated:YES];
+//    LocationViewController *locationController = [[LocationViewController alloc] initWithNibName:nil bundle:nil];
+//    locationController.delegate = self;
+//    [self.navigationController pushViewController:locationController animated:YES];
+    CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
+    [ccuvc setCardBlock:^(NSString *cardStr) {
+        [self sendTextMessage:cardStr];
+    }];
+    [self pushVC:ccuvc];
 }
 
 - (void)moreViewAudioCallAction:(DXChatBarMoreView *)moreView

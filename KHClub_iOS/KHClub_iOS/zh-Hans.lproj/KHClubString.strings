@@ -20,7 +20,7 @@
 "Common_Prompt"                               = "提示";
 "Common_Copy"                                 = "复制";
 "Common_Delete"                               = "删除";
-"Common_DownloadData"                         = "数据获取中...";
+"Common_DownloadData"                         = "加载中...";
 "Common_UploadData"                           = "数据保存中...";
 "Common_UploadDataFail"                       = "保存失败";
 "Common_DownloadDataFail"                     = "数据获取失败";
@@ -31,6 +31,7 @@
 "Common_Refresh_Release"                      = "下拉刷新";
 "Common_Refresh_Pull"                         = "松手刷新";
 "Common_Refresh_Loading"                      = "加载中...";
+"Common_Refresh_Last"                         = "已经到最后了";
 //date
 "Common_Date_Yestoday"                        = "昨天";
 "Common_Date_Monday"                          = "星期一";
@@ -41,10 +42,10 @@
 "Common_Date_Saturday"                        = "星期六";
 "Common_Date_Sunday"                          = "星期日";
 //Main
-"Common_Main_Home"                            = "广场";
+"Common_Main_Home"                            = "商务圈";
 "Common_Main_Msg"                             = "消息";
-"Common_Main_Contact"                         = "通讯录";
-"Common_Main_Me"                              = "名片";
+"Common_Main_Contact"                         = "云名片";
+"Common_Main_Me"                              = "个人";
 
 //Login
 "Login_Login_EnterPrompt"                     = "请输入手机号码";
@@ -119,6 +120,10 @@
 "Personal_Personal_ExchangeCard"              = "（交换名片）";
 
 //News
+"News_NewsList_MomentsTitle"                  = "动态·话题";
+"News_CircleList_CircleTitle"                 = "圈层·门户";
+"News_CircleDetail_Title"                     = "圈层介绍";
+"News_CircleDetail_IntroTitle"                = "圈层详情";
 "News_Publish_EnterContent"                   = "请输入内容";
 "News_Publish_Where"                          = "所在位置";
 "News_Publish_ContentEmpty"                   = "图片和内容不能都为空";
@@ -165,4 +170,9 @@
 "IM_Push_ANewMessage"                         = "一条新消息";
 "IM_Push_InviteSuccess"                       = "邀请成功，等待群主验证";
 "IM_Push_PushInvite"                          = "邀请加入";
+"IM_Card_Card"                                = "名片";
+"IM_Card_GroupCard"                           = "群名片";
+"IM_ChatList_ACard"                           = "一张名片";
+
+
 

@@ -97,6 +97,16 @@
 }
 
 /**
+ *  设置自己的头像
+ *
+ *  @param imageView 需要设置头像的imageView
+ */
+- (void)setCurrentUserAvatar:(UIImageView *)imageView
+{
+    [imageView sd_setImageWithURL:[NSURL URLWithString:[UserService sharedService].user.head_sub_image] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
+}
+
+/**
  *  设置用户头像
  *
  *  @param username
@@ -111,10 +121,29 @@
     
     //获取
     UserIMEntity * user = [self getUserInfoWithUsername:username];
-    if (user) {
+    //如果本地有的话
+    [imageView sd_setImageWithURL:[NSURL URLWithString:user.imageUrl] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
+    
+    [self loadNewAvatarWith:username and:imageView];
+}
+
+- (void)setUserAvatarWith:(NSString *)username and:(UIImageView *)imageView andPlaceHolder:(NSString *)holer
+{
+    
+    //获取
+    UserIMEntity * user = [self getUserInfoWithUsername:username];
+    if (user.imageUrl.length > 0) {
         //如果本地有的话
         [imageView sd_setImageWithURL:[NSURL URLWithString:user.imageUrl] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
+    }else{
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:holer]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
     }
+ 
+    [self loadNewAvatarWith:username and:imageView];
+}
+
+- (void)loadNewAvatarWith:(NSString *)username and:(UIImageView *)imageView
+{
     //网络请求获取新的
     NSString * url = [NSString stringWithFormat:@"%@?user_id=%@&self_id=%ld",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""], [UserService sharedService].user.uid];
     //获取图片 姓名
@@ -138,22 +167,6 @@
     }];
 }
 
-/**
- *  设置自己的头像
- *
- *  @param imageView 需要设置头像的imageView
- */
-- (void)setCurrentUserAvatar:(UIImageView *)imageView
-{
-    [imageView sd_setImageWithURL:[NSURL URLWithString:[UserService sharedService].user.head_sub_image] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
-}
-
-/**
- *  设置用户名字
- *
- *  @param username
- *  @param nameLabel 填写内容的label
- */
 - (void)setUserNickWith:(NSString *)username and:(UILabel *)nameLabel
 {
     if ([username isEqualToString:KH_ROBOT]) {
@@ -163,11 +176,29 @@
     
     //获取
     UserIMEntity * user = [self getUserInfoWithUsername:username];
+    //如果本地有的话
+    [nameLabel setText:[ToolsManager emptyReturnNone:user.nickname]];
     
-    if (user) {
+    [self loadNewUserNickWith:username and:nameLabel];
+}
+
+- (void)setUserNickWith:(NSString *)username and:(UILabel *)nameLabel andPlaceHolder:(NSString *)holer
+{
+    //获取
+    UserIMEntity * user = [self getUserInfoWithUsername:username];
+    
+    if (user.nickname.length > 0) {
         //如果本地有的话
         [nameLabel setText:[ToolsManager emptyReturnNone:user.nickname]];
+    }else{
+        [nameLabel setText:[ToolsManager emptyReturnNone:holer]];
     }
+    
+    [self loadNewUserNickWith:username and:nameLabel];
+}
+//加载
+- (void)loadNewUserNickWith:(NSString *)username and:(UILabel *)nameLabel
+{
     //网络请求获取新的
     NSString * url = [NSString stringWithFormat:@"%@?user_id=%@&self_id=%ld",kGetImageAndNamePath, [username stringByReplacingOccurrencesOfString:KH withString:@""], [UserService sharedService].user.uid];
     //获取图片 姓名
@@ -186,18 +217,12 @@
             [_defaults setObject:headImage forKey:[username stringByAppendingString:AVATARKEY]];
             [_defaults synchronize];
             [nameLabel setText:[ToolsManager emptyReturnNone:name]];
-            
         }
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
 }
 
-/**
- *  设置自己的名字
- *
- *  @param nameLabel 填写内容的label
- */
 - (void)setCurrentUserNick:(UILabel *)nameLabel
 {
     [nameLabel setText:[ToolsManager emptyReturnNone:[UserService sharedService].user.name]];
@@ -266,6 +291,25 @@
     NSString * path = [_defaults objectForKey:[groupId stringByAppendingString:GROUP_AVATARKEY]];
     //如果本地有的话
     [imageView sd_setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"groups_icon"]];
+    [self loadNewGroupImageWith:groupId and:imageView andPath:path];
+}
+
+- (void)setGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView andPlaceHolder:(NSString *)holer
+{
+    //获取
+    NSString * path = [_defaults objectForKey:[groupId stringByAppendingString:GROUP_AVATARKEY]];
+    if (path.length > 0) {
+        //如果本地有的话
+        [imageView sd_setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"groups_icon"]];
+    }else{
+        [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:holer]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
+    }
+    
+    [self loadNewGroupImageWith:groupId and:imageView andPath:path];
+}
+
+- (void)loadNewGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView andPath:(NSString *)path
+{
     //网络请求获取新的
     NSString * url = [NSString stringWithFormat:@"%@?group_id=%@",kGetGroupImageAndNameAndQrcodePath, groupId];
     //获取图片 名字
@@ -342,6 +386,35 @@
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
     }];
+}
+
+- (BOOL)isCardMessage:(NSString *)messageCotent
+{
+    if ([messageCotent hasPrefix:@"###card"] && [messageCotent hasSuffix:@"card###"]) {
+        return YES;
+    }
+    return NO;
+}
+
+- (NSString *)generateCardMesssageWithUsername:(NSString *)username
+{
+    UserIMEntity * imUser  = [[IMUtils shareInstance] getUserInfoWithUsername:username];
+    NSDictionary * cardDic = @{@"type":[@(eConversationTypeChat) stringValue],
+                               @"id":username,
+                               @"title":imUser.nickname,
+                               @"avatar":imUser.imageUrl};
+    NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+    return [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
+}
+
+- (NSDictionary *)cardMessageDecode:(NSString *)messageContent
+{
+    if ([[IMUtils shareInstance] isCardMessage:messageContent]) {
+        NSString * decodeContent = [[messageContent stringByReplacingOccurrencesOfString:@"###card" withString:@""] stringByReplacingOccurrencesOfString:@"card###" withString:@""];
+        NSDictionary * dic       = [NSJSONSerialization JSONObjectWithData:[decodeContent dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
+        return dic;
+    }
+    return nil;
 }
 
 @end

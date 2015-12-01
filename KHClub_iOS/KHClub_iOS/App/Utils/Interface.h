@@ -9,7 +9,7 @@
 #ifndef JLXCSNS_iOS_Interface_h
 #define JLXCSNS_iOS_Interface_h
 
-//192.168.1.108 192.168.1.101
+//192.168.1.108 120.25.213.171
 //附件
 #define kAttachmentAddr @"http://112.74.199.145/khclub_php/Uploads/"
 //IP
@@ -55,6 +55,9 @@
 
 //新闻详情
 #define kNewsDetailPath [kHomeAddr stringByAppendingString:@"/newsDetail"]
+////////////////////////////////////////////////首页'圈子'部分////////////////////////////////////////////////
+// 圈子列表
+#define kGetCircleListPath [kHomeAddr stringByAppendingString:@"/getCircleList"]
 
 ////////////////////////////////////////////////个人信息////////////////////////////////////////////////
 //修改个人信息

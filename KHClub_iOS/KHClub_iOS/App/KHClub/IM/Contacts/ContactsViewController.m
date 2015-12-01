@@ -457,9 +457,9 @@
     NSMutableArray * existTitles = [NSMutableArray array];
     //section数组为空的title过滤掉，不显示
     for (int i = 0; i < [self.sectionTitles count]; i++) {
-        if ([[self.dataSource objectAtIndex:i] count] > 0) {
-            [existTitles addObject:[self.sectionTitles objectAtIndex:i]];
-        }
+//        if ([[self.dataSource objectAtIndex:i] count] > 0) {
+        [existTitles addObject:[self.sectionTitles objectAtIndex:i]];
+//        }
     }
     return existTitles;
 }

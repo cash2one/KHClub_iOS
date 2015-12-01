@@ -15,8 +15,8 @@
     self = [super initWithFrame:frame style:style];
     if (self) {
         
-        self.bottomLoading = @"努力加载中...>_<";
-        self.notLoading    = @"对不起 没了...T_T";
+        self.bottomLoading = KHClubString(@"Common_Refresh_Loading");
+        self.notLoading    = KHClubString(@"Common_Refresh_Last");
         [self createHeaderView];
         [self createFootView];
         [self performSelector:@selector(refreshFinishedLoadData) withObject:nil afterDelay:0.0f];

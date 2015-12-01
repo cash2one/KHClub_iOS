@@ -31,6 +31,7 @@
 "Common_Refresh_Release"                      = "Release to refresh...";
 "Common_Refresh_Pull"                         = "Pull down to refresh...";
 "Common_Refresh_Loading"                      = "Loading...";
+"Common_Refresh_Last"                         = "No Content";
 //date
 "Common_Date_Yestoday"                        = "Yestoday";
 "Common_Date_Monday"                          = "MON";
@@ -119,6 +120,10 @@
 "Personal_Personal_ExchangeCard"              = "（Exchange card）";
 
 //News
+"News_NewsList_MomentsTitle"                  = "Moments";
+"News_CircleList_CircleTitle"                 = "Circle";
+"News_CircleDetail_Title"                     = "Circle Detail";
+"News_CircleDetail_IntroTitle"                = "Circle Intro";
 "News_Publish_EnterContent"                   = "Please enter content";
 "News_Publish_Where"                          = "Where";
 "News_Publish_ContentEmpty"                   = "Pictures and content both empty!";
@@ -143,6 +148,7 @@
 "News_NotifyNews_Title"                       = "Notification";
 "News_NotifyNews_LikeTitle"                   = "A Like for you";
 
+
 //Message
 "Message_Message_ScanQrcode"                  = "Scan QR code";
 "Message_Message_Add"                         = "Search";
@@ -164,6 +170,7 @@
 "IM_Push_ANewMessage"                         = "A new message";
 "IM_Push_InviteSuccess"                       = "Invite success";
 "IM_Push_PushInvite"                          = " invite to join";
-
-
+"IM_Card_Card"                                = "Card";
+"IM_Card_GroupCard"                           = "Group Card";
+"IM_ChatList_ACard"                           = "A Card";
 
