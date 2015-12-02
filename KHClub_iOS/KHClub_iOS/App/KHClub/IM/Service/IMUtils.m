@@ -124,7 +124,7 @@
     //如果本地有的话
     [imageView sd_setImageWithURL:[NSURL URLWithString:user.imageUrl] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
     
-    [self loadNewAvatarWith:username and:imageView];
+//    [self loadNewAvatarWith:username and:imageView];
 }
 
 - (void)setUserAvatarWith:(NSString *)username and:(UIImageView *)imageView andPlaceHolder:(NSString *)holer
@@ -294,20 +294,6 @@
     [self loadNewGroupImageWith:groupId and:imageView andPath:path];
 }
 
-- (void)setGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView andPlaceHolder:(NSString *)holer
-{
-    //获取
-    NSString * path = [_defaults objectForKey:[groupId stringByAppendingString:GROUP_AVATARKEY]];
-    if (path.length > 0) {
-        //如果本地有的话
-        [imageView sd_setImageWithURL:[NSURL URLWithString:path] placeholderImage:[UIImage imageNamed:@"groups_icon"]];
-    }else{
-        [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:holer]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
-    }
-    
-    [self loadNewGroupImageWith:groupId and:imageView andPath:path];
-}
-
 - (void)loadNewGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView andPath:(NSString *)path
 {
     //网络请求获取新的
@@ -403,6 +389,16 @@
                                @"id":username,
                                @"title":imUser.nickname,
                                @"avatar":imUser.imageUrl};
+    NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+    return [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
+}
+
+- (NSString *)generateCardMesssageWithUserModel:(UserModel *)user
+{
+    NSDictionary * cardDic = @{@"type":[@(eConversationTypeChat) stringValue],
+                               @"id":[ToolsManager getCommonTargetId:user.uid],
+                               @"title":user.name,
+                               @"avatar":user.head_sub_image};
     NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
     return [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
 }

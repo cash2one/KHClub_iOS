@@ -141,12 +141,10 @@
 #define DEFAULT_AVATAR @"default_avatar"
 
 //友盟AppKey
-#define UMENG_AppKey @"55d17f9ae0f55a1ddf003b08"
+#define UMENG_AppKey @"565ee3d9e0f55af385003f1d"
 //高德AppKey
-#define GAODE_AppKey @"85ce4620d649aa688513efb0d2f227b2"
-//融云AppKey lmxuhwagx83id
-#define Rong_AppKey @"8brlm7ufr4fw3"
-//云巴AppKey 55c499f19477ebf5246955f3
+#define GAODE_AppKey @"7a00c288cbfd37f25fec5621e0368d4f"
+//云巴AppKey 正式562de0fa85f5aa6c14e24d1f
 #define YunBa_AppKey @"5616180ae6b2257059049482"
 //SMS AppKey
 #define SMS_AppKey @"b87c4ca25bcb"

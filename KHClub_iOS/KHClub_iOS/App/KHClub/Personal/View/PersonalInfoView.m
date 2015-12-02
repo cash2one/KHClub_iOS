@@ -92,11 +92,12 @@
     [self addSubview:self.secondNameLabel];
     [self addSubview:self.collectBtn];
 //    [self addSubview:self.jobLabel];
+    [self addSubview:self.qrcodeImageView];
     [self addSubview:self.companyLabel];
     [self addSubview:self.phoneLabel];
     [self addSubview:self.emailLabel];
     [self addSubview:self.addressLabel];
-    [self addSubview:self.qrcodeImageView];
+
     
     [self.collectBtn addTarget:self action:@selector(collectClick:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -130,12 +131,12 @@
     CustomImageView * phoneImageView   = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"icon_phone"]];
     CustomImageView * emailImageView   = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"icon_email"]];
     CustomImageView * addressImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"icon_address"]];
-    companyImageView.frame             = CGRectMake(10, self.nameLabel.bottom, 25, 25);
-    phoneImageView.frame               = CGRectMake(10, companyImageView.bottom-5, 25, 25);
-    emailImageView.frame               = CGRectMake(10, phoneImageView.bottom-5, 25, 25);
-    addressImageView.frame             = CGRectMake(10, emailImageView.bottom-5, 25, 25);
+    companyImageView.frame             = CGRectMake(5, self.nameLabel.bottom, 25, 25);
+    phoneImageView.frame               = CGRectMake(5, companyImageView.bottom-5, 25, 25);
+    emailImageView.frame               = CGRectMake(5, phoneImageView.bottom-5, 25, 25);
+    addressImageView.frame             = CGRectMake(5, emailImageView.bottom-5, 25, 25);
     
-    self.companyLabel.frame     = CGRectMake(phoneImageView.right, companyImageView.y+3, self.width-135, 20);
+    self.companyLabel.frame     = CGRectMake(phoneImageView.right, companyImageView.y+3, self.width-125, 20);
     self.phoneLabel.frame       = CGRectMake(phoneImageView.right, phoneImageView.y+3, self.companyLabel.width, 20);
     self.emailLabel.frame       = CGRectMake(phoneImageView.right, emailImageView.y+3, self.companyLabel.width, 20);
     self.addressLabel.frame     = CGRectMake(phoneImageView.right, addressImageView.y+3, self.companyLabel.width, 20);
@@ -182,7 +183,7 @@
     
     self.nameLabel.text    = [ToolsManager emptyReturnNone:user.name];
     if (user.job.length > 0) {
-        self.nameLabel.text    = [NSString stringWithFormat:@"%@ / %@", self.nameLabel.text, user.job];
+    self.nameLabel.text    = [NSString stringWithFormat:@"%@ / %@", self.nameLabel.text, user.job];
     }
     self.companyLabel.text = [ToolsManager emptyReturnNone:user.company_name];
 //    self.jobLabel.text     = [ToolsManager emptyReturnNone:user.job];
@@ -190,7 +191,7 @@
     self.emailLabel.text   = [ToolsManager emptyReturnNone:user.e_mail];
     //地址长度可变
     self.addressLabel.text = [ToolsManager emptyReturnNone:user.address];
-    CGSize addressSize = [ToolsManager getSizeWithContent:user.address andFontSize:13 andFrame:CGRectMake(0, 0, self.width-135, 60)];
+    CGSize addressSize     = [ToolsManager getSizeWithContent:user.address andFontSize:13 andFrame:CGRectMake(0, 0, self.addressLabel.width, 60)];
     if (addressSize.height > 20) {
         self.addressLabel.height   = addressSize.height;
         self.height                = OriginHeight+addressSize.height-20;

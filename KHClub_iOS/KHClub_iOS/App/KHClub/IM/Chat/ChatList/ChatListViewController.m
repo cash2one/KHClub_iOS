@@ -398,7 +398,7 @@
                 ret = NSLocalizedString(@"message.voice1", @"[voice]");
             } break;
             case eMessageBodyType_Location: {
-                ret = NSLocalizedString(@"message.location1", @"[location]");
+                ret = NSLocalizedString(@"message.location1", @"[ location]");
             } break;
             case eMessageBodyType_Video: {
                 ret = NSLocalizedString(@"message.video1", @"[video]");

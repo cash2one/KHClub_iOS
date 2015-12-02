@@ -7,6 +7,7 @@
 //
 
 #import "OtherPersonalViewController.h"
+#import "CardChooseUserViewController.h"
 #import "UIImageView+WebCache.h"
 #import "PersonalInfoView.h"
 #import "ImageModel.h"
@@ -53,7 +54,6 @@
     [super viewDidLoad];
 
     self.isFriend = [self didBuddyExist:[ToolsManager getCommonTargetId:self.uid]];
-    debugLog(@"%d", self.isFriend);
     if (self.newFriend) {
         //新好友
         self.isFriend = YES;
@@ -88,7 +88,9 @@
     [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
         switch (type) {
             case ShareAlertFriend:
-            {}
+            {
+                [sself sendToFriend];            
+            }
             break;
             case ShareAlertWechat:
             {
@@ -233,6 +235,13 @@
 }
 
 #pragma mark- method response
+- (void)sendToFriend
+{
+    CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
+    ccuvc.cardMessage                    = [[IMUtils shareInstance] generateCardMesssageWithUserModel:self.otherUser];
+    [self presentViewController:ccuvc animated:YES completion:nil];
+}
+
 - (void)myImageClick:(id)sender
 {
     MyNewsListViewController * mnlvc = [[MyNewsListViewController alloc] init];

@@ -72,7 +72,7 @@
     //placeHolder处理
     UIFont * placeHolderFont                  = [UIFont systemFontOfSize:FontLoginTextField];
     UIColor * placeHolderWhite                = [UIColor colorWithHexString:ColorGary];
-    NSAttributedString * placeHolderString    = [[NSAttributedString alloc] initWithString:KHClubString(@"Login_Login_EnterPrompt") attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
+    NSAttributedString * placeHolderString    = [[NSAttributedString alloc] initWithString:KHClubString(@"Login_SecondLogin_EnterPassword") attributes:@{NSFontAttributeName:placeHolderFont,NSForegroundColorAttributeName:placeHolderWhite}];
     //loginTextFiled样式处理
     self.passwordTextField.frame                 = CGRectMake(kCenterOriginX(250), 150, 250, 30);
     self.passwordTextField.delegate              = self;

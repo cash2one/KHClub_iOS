@@ -15,6 +15,9 @@ typedef void(^SelecCardBlock) (NSString * cardStr);
  */
 @interface CardChooseUserViewController : BaseViewController
 
+//当名片消息存在的时候 视为分享到某一个选择的目标
+@property (nonatomic, copy) NSString * cardMessage;
+
 - (void)setCardBlock:(SelecCardBlock)block;
 
 @end

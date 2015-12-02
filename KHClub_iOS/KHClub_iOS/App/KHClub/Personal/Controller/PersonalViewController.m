@@ -9,12 +9,15 @@
 #import "PersonalViewController.h"
 #import "MyNewsListViewController.h"
 #import "ImageModel.h"
+#import "IMUtils.h"
 #import "PersonalInfoView.h"
 #import "UIImageView+WebCache.h"
 #import "PersonalSettingViewController.h"
 #import "ChatViewController.h"
 #import "ShareAlertPopView.h"
 #import "ShareUtils.h"
+#import "CardChooseUserViewController.h"
+
 @interface PersonalViewController ()
 
 //背景滚动视图
@@ -101,7 +104,9 @@
     [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
         switch (type) {
             case ShareAlertFriend:
-            {}
+            {
+                [sself sendToFriend];
+            }
                 break;
             case ShareAlertWechat:
             {
@@ -251,6 +256,13 @@
 {
     ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:KH_ROBOT isGroup:NO];
     [self pushVC:chatVC];
+}
+
+- (void)sendToFriend
+{
+    CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
+    ccuvc.cardMessage = [[IMUtils shareInstance] generateCardMesssageWithUserModel:[UserService sharedService].user];
+    [self presentViewController:ccuvc animated:YES completion:nil];
 }
 
 #pragma mark- private method

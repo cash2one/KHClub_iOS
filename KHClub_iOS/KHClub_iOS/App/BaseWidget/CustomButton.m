@@ -15,7 +15,7 @@
     self = [super init];
     if (self) {
         // Initialization code
-        _fontSize = 16;
+        _fontSize            = 16;
         self.titleLabel.font = [UIFont systemFontOfSize:_fontSize];
     }
     return self;
@@ -26,7 +26,7 @@
     self       = [super init];
     if (self) {
         // Initialization code
-        _fontSize       = fontSize;
+        _fontSize            = fontSize;
         self.titleLabel.font = [UIFont systemFontOfSize:_fontSize];
         
     }

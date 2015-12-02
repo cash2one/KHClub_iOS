@@ -218,6 +218,11 @@
     {
         [self joinChatroom:_chatter];
     }
+    
+    //如果有名片消息
+    if ([[IMUtils shareInstance] isCardMessage:self.cardMessage]) {
+        [self sendTextMessage:self.cardMessage];
+    }
 }
 
 - (void)handleCallNotification:(NSNotification *)notification
@@ -519,7 +524,9 @@
         }
         else{
             MessageModel *model      = (MessageModel *)obj;
-            NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
+            //不能重用 这种重用会有问题 加载速度慢 会出现上一个cell的消息残留 处理会不及时
+//            NSString *cellIdentifier = [[EMChatViewCell cellIdentifierForMessageModel:model] stringByAppendingFormat:@"%ld", indexPath.row];
+            NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];            
             EMChatViewCell *cell     = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {
                 cell                 = [[EMChatViewCell alloc] initWithMessageModel:model reuseIdentifier:cellIdentifier];

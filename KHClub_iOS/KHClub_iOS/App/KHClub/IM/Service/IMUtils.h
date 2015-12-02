@@ -137,14 +137,6 @@
  */
 - (void)setGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView;
 /**
- *  设置群组头像
- *
- *  @param groupId
- *  @param imageView 需要设置头像的imageView
- *  @param holer     预置名字
- */
-- (void)setGroupImageWith:(NSString *)groupId and:(UIImageView *)imageView andPlaceHolder:(NSString *)holer;
-/**
  *  设置群组名字
  *
  *  @param groupId
@@ -177,6 +169,15 @@
  *  @return 名片内容
  */
 - (NSString *)generateCardMesssageWithUsername:(NSString *)username;
+
+/**
+ *  生成一个名片用的消息格式
+ *
+ *  @param user 用户模型
+ *
+ *  @return 名片内容
+ */
+- (NSString *)generateCardMesssageWithUserModel:(UserModel *)user;
 
 /**
  *  解析Card信息

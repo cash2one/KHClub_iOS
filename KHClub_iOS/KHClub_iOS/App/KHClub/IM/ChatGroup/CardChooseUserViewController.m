@@ -11,6 +11,7 @@
 #import "InvitationManager.h"
 #import "BaseTableViewCell.h"
 #import "ChineseToPinyin.h"
+#import "ChatViewController.h"
 #import "IMUtils.h"
 
 @interface CardChooseUserViewController ()<UITableViewDataSource, UITableViewDelegate>
@@ -20,6 +21,8 @@
 @property (strong, nonatomic) NSMutableArray *sectionTitles;
 
 @property (strong, nonatomic) UITableView *tableView;
+//当.h中的cardMessage 存在的时候为YES
+@property (assign, nonatomic) BOOL isShare;
 
 @end
 
@@ -46,11 +49,20 @@
     self.tableView.frame = CGRectMake(0, kNavBarAndStatusHeight, self.view.frame.size.width, self.view.frame.size.height - kNavBarAndStatusHeight);
     [self.view addSubview:self.tableView];
     
+    if (self.cardMessage.length > 0) {
+        self.isShare = YES;
+        __weak typeof(self) sself = self;
+        [self.navBar setLeftBtnWithContent:@"" andBlock:^{
+            [sself dismissViewControllerAnimated:YES completion:nil];
+        }];
+    }
+    
     [self setNavBarTitle:KHClubString(@"Common_Main_Contact")];
     
     [self initUI];
     
     [self reloadDataSource];
+    
 }
 
 
@@ -165,14 +177,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
     EMBuddy *buddy = [[self.dataSource objectAtIndex:(indexPath.section)] objectAtIndex:indexPath.row];
-    if (_block) {
-        //发送名片
-        _block([[IMUtils shareInstance] generateCardMesssageWithUsername:buddy.username]);
-        [self.navigationController popViewControllerAnimated:YES];
-    }
     
+    if (self.isShare) {
+        //进入聊天页面并发送名片
+        ChatViewController *chatVC = [[ChatViewController alloc] initWithChatter:buddy.username isGroup:NO];
+        chatVC.cardMessage         = self.cardMessage;
+        [(UINavigationController *)self.presentingViewController pushViewController:chatVC animated:YES];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }else{
+        if (_block) {
+            //发送名片
+            _block([[IMUtils shareInstance] generateCardMesssageWithUsername:buddy.username]);
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+    }
 }
 
 #pragma mark - private
@@ -217,7 +236,6 @@
             
             return [firstLetter1 caseInsensitiveCompare:firstLetter2];
         }];
-        
         
         [sortedArray replaceObjectAtIndex:i withObject:[NSMutableArray arrayWithArray:array]];
     }

@@ -23,6 +23,7 @@
 #import "ShareAlertPopView.h"
 #import "ShareUtils.h"
 #import "PushService.h"
+#import "CardChooseUserViewController.h"
 
 #pragma mark - ChatGroupDetailViewController
 
@@ -147,7 +148,9 @@
     [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
         switch (type) {
             case ShareAlertFriend:
-            {}
+            {
+                [sself sendToFriend];
+            }
                 break;
             case ShareAlertWechat:
             {
@@ -664,6 +667,18 @@
 }
 
 #pragma mark - action
+- (void)sendToFriend
+{
+    CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
+    
+    NSDictionary * cardDic = @{@"type":[@(eConversationTypeGroupChat) stringValue],
+                               @"id":self.chatGroup.groupId,
+                               @"title":self.chatGroup.groupSubject,
+                               @"avatar":@""};
+    NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+    ccuvc.cardMessage   = [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
+    [self presentViewController:ccuvc animated:YES completion:nil];
+}
 
 - (void)headPress:(UITapGestureRecognizer *)tap
 {

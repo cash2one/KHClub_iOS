@@ -79,7 +79,6 @@ NSString *const kRouterEventCardBubbleTapEventName = @"kRouterEventCardBubbleTap
     self.titleLabel.frame      = CGRectMake(frame.origin.x+3, 5, 100, 25);
     self.lineView.frame        = CGRectMake(frame.origin.x+3, 32, frame.size.width-6, 1);
     self.avatarImageView.frame = CGRectMake(frame.origin.x+3, 40, 45, 45);
-    self.avatarImageView.image = [UIImage imageNamed:DEFAULT_AVATAR];
     self.nameLabel.frame       = CGRectMake(self.avatarImageView.right+5, 38, frame.size.width-self.avatarImageView.right-15, 30);
     
 }
@@ -88,6 +87,7 @@ NSString *const kRouterEventCardBubbleTapEventName = @"kRouterEventCardBubbleTap
 
 - (void)setModel:(MessageModel *)model
 {
+    
     [super setModel:model];
     
     NSDictionary * cardDic = [[IMUtils shareInstance] cardMessageDecode:model.content];
@@ -101,7 +101,7 @@ NSString *const kRouterEventCardBubbleTapEventName = @"kRouterEventCardBubbleTap
             self.titleLabel.text = KHClubString(@"IM_Card_GroupCard");
             //设置内容
             [[IMUtils shareInstance] setGroupNameWith:cardDic[@"id"] and:self.nameLabel andGroupTitle:cardDic[@"title"]];
-            [[IMUtils shareInstance] setGroupImageWith:cardDic[@"id"] and:self.avatarImageView andPlaceHolder:cardDic[@"avatar"]];
+            [[IMUtils shareInstance] setGroupImageWith:cardDic[@"id"] and:self.avatarImageView];
         }
     }
     
