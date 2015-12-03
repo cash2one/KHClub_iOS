@@ -118,6 +118,9 @@
 "Personal_AppSetting_Clear"                   = "Clear Cache";
 "Personal_AppSetting_Logout"                  = "Log out";
 "Personal_Personal_ExchangeCard"              = "（Exchange card）";
+"Personal_Report_Title"                       = "Report";
+"Personal_Report_EnterReport"                 = "Please enter report";
+"Personal_Report_Success"                     = "Success";
 
 //News
 "News_NewsList_MomentsTitle"                  = "Moments";
@@ -164,6 +167,9 @@
 "Contact_Search_InputPrompt"                  = "Input phone number or group id";
 "Contact_Search_SearchFail"                   = "No result";
 "Contact_Search_Contacts"                     = "Contacts";
+"Contact_SearchContactAdd"                    = "Add";
+"Contact_SearchContactAdded"                  = "Added";
+
 
 //IM
 "IM_Group_Cover"                              = "Cover";

@@ -138,7 +138,14 @@ static CusTabBarViewController * instance = nil;
     //获取好友列表
     [[[EaseMob sharedInstance] chatManager] asyncFetchBuddyListWithCompletion:^(NSArray *buddyList, EMError *error) {
     } onQueue:nil];
-    
+ 
+    //推送
+    [[EaseMob sharedInstance].chatManager setApnsNickname:[UserService sharedService].user.name];
+    EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
+    options.displayStyle               = ePushNotificationDisplayStyle_simpleBanner;
+    options.noDisturbStatus            = ePushNotificationNoDisturbStatusClose;
+    [[EaseMob sharedInstance].chatManager asyncUpdatePushOptions:options];
+ 
 }
 
 - (void)setUnread
@@ -182,8 +189,8 @@ static CusTabBarViewController * instance = nil;
     [_contactsVC reloadApplyView];
     
     //外界Badge 设置为IM的UnreadCount
-    UIApplication *application = [UIApplication sharedApplication];
-    [application setApplicationIconBadgeNumber:unreadCount];
+//    UIApplication *application = [UIApplication sharedApplication];
+//    [application setApplicationIconBadgeNumber:unreadCount];
 }
 
 /*!
@@ -199,8 +206,9 @@ static CusTabBarViewController * instance = nil;
         }
     }
     
-    TabBarBtn * tbb = _btnArr[index];
-    tbb.selected = YES;
+    TabBarBtn * tbb      = _btnArr[index];
+    tbb.selected         = YES;
+    self.coverView.frame = tbb.frame;
 }
 
 
@@ -251,6 +259,16 @@ static CusTabBarViewController * instance = nil;
     
     self.viewControllers = _vcArr;
     
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        //点击推送进来的
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPush"] intValue] == 1) {
+            [self customSelectedIndex:TabMessage];
+            //修改一下
+            [[NSUserDefaults standardUserDefaults] setObject:@"0" forKey:@"IMPush"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+    });
 }
 
 - (void)initCoverView
@@ -565,7 +583,7 @@ static CusTabBarViewController * instance = nil;
     }
     
 //#warning 去掉注释会显示[本地]开头, 方便在开发中区分是否为本地推送
-//    //notification.alertBody = [[NSString alloc] initWithFormat:@"[本地]%@", notification.alertBody];
+//    notification.alertBody = [[NSString alloc] initWithFormat:@"[本地]%@", notification.alertBody];
 //    
 //    notification.alertAction = NSLocalizedString(@"open", @"Open");
 //    notification.timeZone = [NSTimeZone defaultTimeZone];
@@ -584,8 +602,9 @@ static CusTabBarViewController * instance = nil;
 //    
 //    //发送通知
 //    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
-    //    UIApplication *application = [UIApplication sharedApplication];
-    //    application.applicationIconBadgeNumber += 1;
+    
+//        UIApplication *application = [UIApplication sharedApplication];
+//        application.applicationIconBadgeNumber += 1;
 }
 
 #pragma mark - IChatManagerDelegate 登陆回调（主要用于监听自动登录是否成功）

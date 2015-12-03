@@ -46,7 +46,7 @@
     cacheBackView.backgroundColor = [UIColor whiteColor];
     //标题
     CustomLabel * cacheTitleLabel = [[CustomLabel alloc] initWithFontSize:15];
-    cacheTitleLabel.frame         = CGRectMake(15, 10, 70, 30);
+    cacheTitleLabel.frame         = CGRectMake(15, 10, 170, 30);
     cacheTitleLabel.textColor     = [UIColor colorWithHexString:ColorCharGary];
     cacheTitleLabel.text          = KHClubString(@"Personal_AppSetting_Clear");
     UIView * lineView             = [[UIView alloc] initWithFrame:CGRectMake(0, cacheBackView.height-1, cacheBackView.width, 1)];

@@ -7,7 +7,7 @@
 //
 
 #import "ReportOffenceViewController.h"
-
+#import <objc/runtime.h>
 @interface ReportOffenceViewController ()
 
 @property (nonatomic, strong) PlaceHolderTextView * placeHolderTextView;
@@ -35,7 +35,7 @@
 #pragma mark- layout
 - (void)initWidget
 {
-    self.placeHolderTextView = [[PlaceHolderTextView alloc] initWithFrame:CGRectMake(kCenterOriginX(300), kNavBarAndStatusHeight+40, 300, 150) andPlaceHolder:@"请输入愤怒的举报内容！"];
+    self.placeHolderTextView = [[PlaceHolderTextView alloc] initWithFrame:CGRectMake(kCenterOriginX(300), kNavBarAndStatusHeight+40, 300, 150) andPlaceHolder:KHClubString(@"Personal_Report_EnterReport")];
     self.confirmBtn          = [[CustomButton alloc] init];
     
     [self.view addSubview:self.placeHolderTextView];
@@ -45,15 +45,15 @@
 
 - (void)configUI
 {
-    [self setNavBarTitle:@"举报"];
+    [self setNavBarTitle:KHClubString(@"Personal_Report_Title")];
     
     self.confirmBtn.frame              = CGRectMake(kCenterOriginX(200), self.placeHolderTextView.bottom+30, 200, 30);
     self.confirmBtn.backgroundColor    = [UIColor darkGrayColor];
     self.confirmBtn.layer.cornerRadius = 3;
     self.confirmBtn.fontSize           = FontLoginButton;
-    self.confirmBtn.backgroundColor    = [UIColor colorWithHexString:ColorYellow];
-    [self.confirmBtn setTitle:@"提交" forState:UIControlStateNormal];
-    [self.confirmBtn setTitleColor:[UIColor colorWithHexString:ColorBrown] forState:UIControlStateNormal];
+    self.confirmBtn.backgroundColor    = [UIColor colorWithHexString:ColorGold];
+    [self.confirmBtn setTitle:StringCommonConfirm forState:UIControlStateNormal];
+    [self.confirmBtn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
     [self.confirmBtn addTarget:self action:@selector(confirmReport:) forControlEvents:UIControlEventTouchUpInside];
     
 }
@@ -72,19 +72,23 @@
 #pragma mark- private method
 - (void)uploadReport
 {
-    NSString * report = self.placeHolderTextView.text;
+    NSString * report     = self.placeHolderTextView.text;
+    if (report.length < 1) {
+        [self showHint:KHClubString(@"News_NewsDetail_ContentEmpty")];
+        return;
+    }
     
     NSDictionary * params = @{@"uid":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
                               @"report_uid":[NSString stringWithFormat:@"%ld", self.reportUid],
                               @"report_content":report};
     
-    [self showLoading:@"举报中..."];
+    [self showLoading:StringCommonUploadData];
     
     [HttpService postWithUrlString:kReportOffencePath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
 
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
-            [self showComplete:responseData[HttpMessage]];
+            [self showComplete:KHClubString(@"Personal_Report_Success")];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
             [self showWarn:responseData[HttpMessage]];

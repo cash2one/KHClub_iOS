@@ -107,6 +107,15 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    
+//    NSError *parseError = nil;
+//    NSData  *jsonData = [NSJSONSerialization dataWithJSONObject:userInfo
+//                                                        options:NSJSONWritingPrettyPrinted error:&parseError];
+//    NSString *str =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //如果是IM
+    if ([userInfo.allKeys containsObject:@"m"]) {
+        [[CusTabBarViewController sharedService] customSelectedIndex:1];
+    }
 }
 
 

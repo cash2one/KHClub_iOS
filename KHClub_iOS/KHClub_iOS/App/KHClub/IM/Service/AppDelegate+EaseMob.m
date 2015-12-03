@@ -37,9 +37,9 @@
 #warning SDK注册 APNS文件的名字, 需要与后台上传证书时的名字一一对应
     NSString *apnsCertName = nil;
 #if DEBUG
-    apnsCertName = @"";
+    apnsCertName = @"push";
 #else
-    apnsCertName = @"";
+    apnsCertName = @"push";
 #endif
 
 //    if (![self isSpecifyServer]) {
@@ -172,14 +172,14 @@
         }
     }];
     
-    NSString * deviceTokenStr = deviceToken.description;
-    if ([deviceTokenStr hasPrefix:@"<"]) {
-        deviceTokenStr = [deviceTokenStr substringFromIndex:1];
-    }
-    if ([deviceTokenStr hasSuffix:@">"]) {
-        deviceTokenStr = [deviceTokenStr substringToIndex:deviceTokenStr.length-1];
-    }
-    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
+//    NSString * deviceTokenStr = deviceToken.description;
+//    if ([deviceTokenStr hasPrefix:@"<"]) {
+//        deviceTokenStr = [deviceTokenStr substringFromIndex:1];
+//    }
+//    if ([deviceTokenStr hasSuffix:@">"]) {
+//        deviceTokenStr = [deviceTokenStr substringToIndex:deviceTokenStr.length-1];
+//    }
+//    deviceTokenStr = [deviceTokenStr stringByReplacingOccurrencesOfString:@" " withString:@""];
 }
 
 // 注册deviceToken失败，此处失败，与环信SDK无关，一般是您的环境配置或者证书配置有误
@@ -430,17 +430,19 @@
 // 打印收到的apns信息
 -(void)didReceiveRemoteNotification:(NSDictionary *)userInfo
 {
-    NSError *parseError = nil;
-    NSData  *jsonData = [NSJSONSerialization dataWithJSONObject:userInfo
-                                                        options:NSJSONWritingPrettyPrinted error:&parseError];
-    NSString *str =  [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"apns.content", @"Apns content")
-                                                    message:str
-                                                   delegate:nil
-                                          cancelButtonTitle:NSLocalizedString(@"ok", @"OK")
-                                          otherButtonTitles:nil];
-    [alert show];
+
+    if ([userInfo.allKeys containsObject:@"m"]) {
+        //先存一下
+        [[NSUserDefaults standardUserDefaults] setObject:@"1" forKey:@"IMPush"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+//
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"apns.content", @"Apns content")
+//                                                    message:str
+//                                                   delegate:nil
+//                                          cancelButtonTitle:NSLocalizedString(@"ok", @"OK")
+//                                          otherButtonTitles:nil];
+//    [alert show];
 
 }
 

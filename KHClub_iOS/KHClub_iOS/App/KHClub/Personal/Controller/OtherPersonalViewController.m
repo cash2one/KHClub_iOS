@@ -15,8 +15,9 @@
 #import "IMUtils.h"
 #import "ChatViewController.h"
 #import "ShareAlertPopView.h"
+#import "ReportOffenceViewController.h"
 #import "ShareUtils.h"
-
+#import <objc/runtime.h>
 @interface OtherPersonalViewController ()
 
 //背景滚动视图
@@ -45,6 +46,8 @@
 @property (nonatomic, strong) CustomButton      * imageBackView;
 //备注
 @property (nonatomic, copy  ) NSString          * remark;
+//举报按钮
+@property (nonatomic, strong) CustomButton      * reportBtn;
 
 @end
 
@@ -79,10 +82,11 @@
     
     __weak typeof(self) sself = self;
     [self.navBar setRightBtnWithContent:@"" andBlock:^{
+        if (!sself.otherUser) {
+            return;
+        }
         [sself.shareAlertPopView show];
     }];
-    //先隐藏
-    self.navBar.rightBtn.hidden = YES;
     
     self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:self.isFriend];
     [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
@@ -149,6 +153,8 @@
     self.signLabel         = [[CustomLabel alloc] init];
     //添加发送按钮
     self.sendOrAddBtn      = [[CustomButton alloc] init];
+    //举报按钮
+    self.reportBtn         = [[CustomButton alloc] init];
     
     [self.view addSubview:self.backScrollView];
     [self.backScrollView addSubview:self.infoView];
@@ -156,6 +162,7 @@
     [self.backScrollView addSubview:self.signBackView];
     [self.signBackView addSubview:self.signLabel];
     [self.backScrollView addSubview:self.sendOrAddBtn];
+    [self.navBar addSubview:self.reportBtn];
     
     [self.sendOrAddBtn addTarget:self action:@selector(sendOrAddClick:) forControlEvents:UIControlEventTouchUpInside];
     //设置页面UI刷新
@@ -163,15 +170,24 @@
         sself.imageBackView.y = self.infoView.bottom+10;
         sself.signBackView.y  = self.imageBackView.bottom+1;
     }];
+    
+    [self.reportBtn addTarget:self action:@selector(reportClick:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 - (void)configUI
 {
     [self.navBar setNavTitle:KHClubString(@"Personal_PersonalSetting_Title")];
 
-    self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(3, 15, 0, 0);
-    self.navBar.rightBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
+    self.navBar.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(3, 5, 0, 0);
+    self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
+    self.navBar.rightBtn.frame                 = CGRectMake([DeviceManager getDeviceWidth]-45, 20, 40, 44);
+
+    self.reportBtn.frame                       = CGRectMake(self.navBar.rightBtn.x - 32, self.navBar.rightBtn.y+9, 30, 30);
+    self.reportBtn.imageEdgeInsets             = UIEdgeInsetsMake(0, 5, 0, 0);
+    self.reportBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
+    [self.reportBtn setImage:[UIImage imageNamed:@"report"] forState:UIControlStateNormal];
     
     //背景滚动视图
     self.backScrollView.frame                        = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
@@ -261,6 +277,15 @@
     
 }
 
+- (void)reportClick:(id)sender
+{
+    if (self.otherUser) {
+        ReportOffenceViewController * rovc = [[ReportOffenceViewController alloc] init];
+        rovc.reportUid                     = self.otherUser.uid;
+        [self pushVC:rovc];
+    }
+}
+
 #pragma mark- private method
 //获取用户信息
 - (void)getData
@@ -272,8 +297,6 @@
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
             [self handleDataWithDic:responseData];
-            //显示
-            self.navBar.rightBtn.hidden = NO;
         }else{
             [self showWarn:responseData[HttpMessage]];
         }

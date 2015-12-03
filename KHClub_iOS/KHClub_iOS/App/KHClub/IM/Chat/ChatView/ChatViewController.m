@@ -524,7 +524,7 @@
         }
         else{
             MessageModel *model      = (MessageModel *)obj;
-            //不能重用 这种重用会有问题 加载速度慢 会出现上一个cell的消息残留 处理会不及时
+            //不能重用 这种重用会有问题 加载速度慢 会出现上一个cell的消息残留 处理会不及时 算了还是用吧。。。。。。
 //            NSString *cellIdentifier = [[EMChatViewCell cellIdentifierForMessageModel:model] stringByAppendingFormat:@"%ld", indexPath.row];
             NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];            
             EMChatViewCell *cell     = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -1197,7 +1197,7 @@
 
 -(void)sendLocationLatitude:(double)latitude longitude:(double)longitude andAddress:(NSString *)address
 {
-    NSDictionary *ext = nil;
+    NSDictionary *ext          = nil;
     EMMessage *locationMessage = [ChatSendHelper sendLocationLatitude:latitude longitude:longitude address:address toUsername:_conversation.chatter messageType:[self messageType] requireEncryption:NO ext:ext];
     [self addMessage:locationMessage];
 }

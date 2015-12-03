@@ -21,7 +21,7 @@
 "Common_Copy"                                 = "复制";
 "Common_Delete"                               = "删除";
 "Common_DownloadData"                         = "加载中...";
-"Common_UploadData"                           = "数据保存中...";
+"Common_UploadData"                           = "数据上传中...";
 "Common_UploadDataFail"                       = "保存失败";
 "Common_DownloadDataFail"                     = "数据获取失败";
 "Common_Camera"                               = "相机";
@@ -118,6 +118,9 @@
 "Personal_AppSetting_Clear"                   = "清空缓存";
 "Personal_AppSetting_Logout"                  = "退出";
 "Personal_Personal_ExchangeCard"              = "（交换名片）";
+"Personal_Report_Title"                       = "举报";
+"Personal_Report_EnterReport"                 = "请输入举报内容";
+"Personal_Report_Success"                     = "举报成功";
 
 //News
 "News_NewsList_MomentsTitle"                  = "动态·话题";
@@ -164,6 +167,8 @@
 "Contact_Search_InputPrompt"                  = "输入手机号、群ID号";
 "Contact_Search_SearchFail"                   = "未查询到相关信息";
 "Contact_Search_Contacts"                     = "添加通讯录好友";
+"Contact_SearchContactAdd"                    = "添加";
+"Contact_SearchContactAdded"                  = "已添加";
 
 //IM
 "IM_Group_Cover"                              = "封面";
