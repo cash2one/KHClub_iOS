@@ -52,7 +52,7 @@
 
         if (![[SDImageCache sharedImageCache] diskImageExistsWithKey:self.urlStr]) {
             //需要加载
-            [self showLoading:@"加载中"];
+            [self showLoading:StringCommonDownloadData];
         }
         
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:self.urlStr] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
@@ -200,7 +200,7 @@
 - (void) image: (UIImage *) image didFinishSavingWithError: (NSError *) error
    contextInfo: (void *) contextInfo
 {
-    [self showComplete:@"保存完成╮(╯_╰)╭"];
+    [self showComplete:KHClubString(@"News_BrowseImage_SaveOk")];
 }
 
 //显示完成

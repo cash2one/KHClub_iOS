@@ -9,7 +9,7 @@
 #import "BrowseImageViewController.h"
 #import "UIImageView+WebCache.h"
 #import "BrowseImageView.h"
-#import "BrowseImageView.h"
+
 @interface BrowseImageViewController ()
 
 //@property (nonatomic, strong) UIScrollView * backScrollView;
@@ -19,6 +19,15 @@
 @implementation BrowseImageViewController
 {
     DeleteImageBlock _deleteBlock;
+}
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    }
+    return self;
 }
 
 - (void)viewDidLoad {
@@ -52,7 +61,7 @@
 
     if (self.canDelete) {
         __weak typeof(self) sself = self;
-        [self.navBar setRightBtnWithContent:@"删除" andBlock:^{
+        [self.navBar setRightBtnWithContent:KHClubString(@"Common_Delete") andBlock:^{
             [sself deleteImage];
         }];
     }
@@ -74,6 +83,8 @@
 {
     _deleteBlock = [block copy];
 }
+
+
 
 /*
 #pragma mark - Navigation

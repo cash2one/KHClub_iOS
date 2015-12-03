@@ -46,6 +46,8 @@
 		428767971BEB55D6007400B7 /* home_btn_msg_normal@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 428767931BEB55D6007400B7 /* home_btn_msg_normal@2x.png */; };
 		4287679A1BEB7595007400B7 /* NewsDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 428767991BEB7595007400B7 /* NewsDetailViewController.m */; };
 		4287679D1BEB9AEF007400B7 /* LikeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4287679C1BEB9AEF007400B7 /* LikeListCell.m */; };
+		428C97C71C1066700058405F /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 428C97C61C1066700058405F /* Info.plist */; };
+		428C97CA1C10673A0058405F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 428C97C81C10673A0058405F /* InfoPlist.strings */; };
 		429D802F1BE8AC9B004FAF81 /* NewsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429D802E1BE8AC9B004FAF81 /* NewsListViewController.m */; };
 		42B588EB1C0BE11A003434E1 /* NewsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B588EA1C0BE11A003434E1 /* NewsMainViewController.m */; };
 		42B588EE1C0BE35C003434E1 /* CircleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B588ED1C0BE35C003434E1 /* CircleListViewController.m */; };
@@ -634,6 +636,9 @@
 		428767991BEB7595007400B7 /* NewsDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsDetailViewController.m; sourceTree = "<group>"; };
 		4287679B1BEB9AEF007400B7 /* LikeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LikeListCell.h; sourceTree = "<group>"; };
 		4287679C1BEB9AEF007400B7 /* LikeListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LikeListCell.m; sourceTree = "<group>"; };
+		428C97C61C1066700058405F /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		428C97C91C10673A0058405F /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		428C97CB1C1067410058405F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		429D802D1BE8AC9B004FAF81 /* NewsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListViewController.h; sourceTree = "<group>"; };
 		429D802E1BE8AC9B004FAF81 /* NewsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListViewController.m; sourceTree = "<group>"; };
 		42B588E91C0BE11A003434E1 /* NewsMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsMainViewController.h; sourceTree = "<group>"; };
@@ -647,7 +652,6 @@
 		42B588F51C0C0568003434E1 /* CircleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleDetailViewController.h; sourceTree = "<group>"; };
 		42B588F61C0C0568003434E1 /* CircleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleDetailViewController.m; sourceTree = "<group>"; };
 		42C22E831BE6FDC0002A185B /* KHClub_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KHClub_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		42C22E871BE6FDC0002A185B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		42C22E881BE6FDC0002A185B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		42C22E8A1BE6FDC0002A185B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		42C22E8B1BE6FDC0002A185B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -1842,9 +1846,10 @@
 		42C22E861BE6FDC0002A185B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				428C97C81C10673A0058405F /* InfoPlist.strings */,
+				428C97C61C1066700058405F /* Info.plist */,
 				42C230591BE700BD002A185B /* KHClubPCH.pch */,
 				42EF839D1BF0C80300DA16C3 /* Localizable.strings */,
-				42C22E871BE6FDC0002A185B /* Info.plist */,
 				42C22E881BE6FDC0002A185B /* main.m */,
 				42C2305E1BE70105002A185B /* KHClubString.strings */,
 			);
@@ -4036,6 +4041,7 @@
 				42EF83931BF03F5C00DA16C3 /* sr_refresh@2X.png in Resources */,
 				42ED92A61BF1DB9400E59147 /* VoiceSearchFeedback004@2x.png in Resources */,
 				42ED933A1BF1DB9400E59147 /* nav_createGroup@2x.png in Resources */,
+				428C97C71C1066700058405F /* Info.plist in Resources */,
 				42ED92A31BF1DB9400E59147 /* VoiceSearchFeedback003.png in Resources */,
 				42ED92EA1BF1DB9400E59147 /* chatBar_faceSelected@2x.png in Resources */,
 				422DC0251BE8DFB20021FB78 /* default_avatar@2x.png in Resources */,
@@ -4071,6 +4077,7 @@
 				42E84C571C04698100D92319 /* iconfont_pengyouquan@2x.png in Resources */,
 				42ED92C41BF1DB9400E59147 /* VoiceSearchFeedback019@2x.png in Resources */,
 				42ED932C1BF1DB9400E59147 /* add@2x.png in Resources */,
+				428C97CA1C10673A0058405F /* InfoPlist.strings in Resources */,
 				42C230301BE70054002A185B /* unicode_to_hanyu_pinyin.txt in Resources */,
 				42ED92DC1BF1DB9400E59147 /* chat_location_annotation_someone@2x.png in Resources */,
 				42ED93071BF1DB9400E59147 /* chatBar_more_camera.png in Resources */,
@@ -4363,6 +4370,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		428C97C81C10673A0058405F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				428C97C91C10673A0058405F /* Base */,
+				428C97CB1C1067410058405F /* zh-Hans */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		42C22E901BE6FDC0002A185B /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

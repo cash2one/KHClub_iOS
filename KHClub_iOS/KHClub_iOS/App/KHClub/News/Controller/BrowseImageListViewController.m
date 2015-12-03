@@ -22,6 +22,15 @@
 
 @implementation BrowseImageListViewController
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -42,10 +51,11 @@
 #pragma mark- layout
 - (void)configUI
 {
-    __weak typeof(self) sself = self;
-    [self.navBar setLeftBtnWithContent:nil andBlock:^{
-        [sself dismissViewControllerAnimated:YES completion:nil];
-    }];
+//    __weak typeof(self) sself = self;
+//    [self.navBar setLeftBtnWithContent:nil andBlock:^{
+//        [sself dismissViewControllerAnimated:YES completion:nil];
+//    }];
+    self.navBar.leftBtn.hidden = YES;
 }
 
 #define CellIdetifier @"browseCell"
@@ -102,9 +112,14 @@
     UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdetifier forIndexPath:indexPath];
     if (cell) {
 
-        ImageModel * image                = self.dataSource[indexPath.row];
-        BrowseImageView * browseImageView = [[BrowseImageView alloc] initWithFrame:self.view.bounds];
-        browseImageView.urlStr            = [ToolsManager completeUrlStr:image.url];
+        ImageModel * image                     = self.dataSource[indexPath.row];
+        BrowseImageView * browseImageView      = [[BrowseImageView alloc] initWithFrame:self.view.bounds];
+        browseImageView.userInteractionEnabled = YES;
+        browseImageView.urlStr                 = [ToolsManager completeUrlStr:image.url];
+
+        UITapGestureRecognizer * tap           = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissVC:)];
+        [browseImageView addGestureRecognizer:tap];
+        
         [cell.contentView addSubview:browseImageView];
     }
     
@@ -125,7 +140,10 @@
 }
 
 #pragma mark- method reponse
-
+- (void)dismissVC:(UITapGestureRecognizer *)ges
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
 /*

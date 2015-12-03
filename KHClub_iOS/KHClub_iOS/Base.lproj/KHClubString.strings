@@ -150,7 +150,7 @@
 "News_NewsDetail_ContentEmpty"                = "Content can't be empty";
 "News_NotifyNews_Title"                       = "Notification";
 "News_NotifyNews_LikeTitle"                   = "A Like for you";
-
+"News_BrowseImage_SaveOk"                     = "Save OK";
 
 //Message
 "Message_Message_ScanQrcode"                  = "Scan QR code";

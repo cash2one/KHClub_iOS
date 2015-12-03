@@ -271,7 +271,7 @@
     //内容
     CGSize contentSize       = [ToolsManager getSizeWithContent:self.news.content_text andFontSize:15 andFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth]-30, MAXFLOAT)];
     if (self.news.content_text == nil || self.news.content_text.length < 1) {
-        contentSize.height = 0;
+        contentSize.height   = 0;
     }
     self.contentLabel.height = contentSize.height;
     self.contentLabel.text   = self.news.content_text;
@@ -281,42 +281,41 @@
     //图片处理
     if (self.news.image_arr.count == 1) {
         //一张图片放大
-        ImageModel * imageModel = self.news.image_arr[0];
-        CGRect rect             = [NewsUtils getRectWithSize:CGSizeMake(imageModel.width, imageModel.height)];
-        rect.origin.x           = self.headImageView.x;
-        rect.origin.y           = self.contentLabel.bottom+5;
-        CustomButton * imageBtn = [[CustomButton alloc] init];
+        ImageModel * imageModel      = self.news.image_arr[0];
+        CGRect rect                  = [NewsUtils getRectWithSize:CGSizeMake(imageModel.width, imageModel.height)];
+        rect.origin.x                = self.headImageView.x;
+        rect.origin.y                = self.contentLabel.bottom+5;
+        CustomButton * imageBtn      = [[CustomButton alloc] init];
         //加载单张
-        NSURL * imageUrl        = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
+        NSURL * imageUrl             = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDetailClick:)];
-        [imageBtn addGestureRecognizer:tap];
-        [imageBtn sd_setBackgroundImageWithURL:imageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
-        imageBtn.frame          = rect;
-        [backView addSubview:imageBtn];
+        imageBtn.frame               = rect;
         //底部位置
-        bottomPosition          = imageBtn.bottom;
+        bottomPosition               = imageBtn.bottom;
+        
+        [imageBtn addGestureRecognizer:tap];
+        [imageBtn sd_setBackgroundImageWithURL:imageUrl forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"loading_default"]];
+        [backView addSubview:imageBtn];
     }else{
         //多张图片九宫格
         NSArray * btnArr        = self.news.image_arr;
         for (int i=0; i<btnArr.count; i++) {
-            ImageModel * imageModel = self.news.image_arr[i];
-            NSInteger columnNum     = i%3;
-            NSInteger lineNum       = i/3;
-            CustomImageView * imageView = [[CustomImageView alloc] init];
-            imageView.tag            = i;
+            ImageModel * imageModel          = self.news.image_arr[i];
+            NSInteger columnNum              = i%3;
+            NSInteger lineNum                = i/3;
+            CustomImageView * imageView      = [[CustomImageView alloc] init];
+            imageView.tag                    = i;
             imageView.userInteractionEnabled = YES;
-            imageView.contentMode    = UIViewContentModeScaleAspectFill;
-            imageView.layer.masksToBounds = YES;
-            CGFloat itemWidth = [DeviceManager getDeviceWidth]/5.0;
-            imageView.frame          = CGRectMake(self.headImageView.x+(itemWidth+10)*columnNum, self.contentLabel.bottom+5+(itemWidth+10)*lineNum, itemWidth, itemWidth);
-            
+            imageView.contentMode            = UIViewContentModeScaleAspectFill;
+            imageView.layer.masksToBounds    = YES;
+            CGFloat itemWidth                = [DeviceManager getDeviceWidth]/5.0;
+            imageView.frame                  = CGRectMake(self.headImageView.x+(itemWidth+10)*columnNum, self.contentLabel.bottom+5+(itemWidth+10)*lineNum, itemWidth, itemWidth);
             //加载缩略图
-            NSURL * imageUrl        = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
+            NSURL * imageUrl                 = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
+            UITapGestureRecognizer * tap     = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDetailClick:)];
             
-            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDetailClick:)];
             [imageView addGestureRecognizer:tap];
-            [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
-            
+            [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"loading_default"]];
             [backView addSubview:imageView];
             //底部位置
             if (btnArr.count == i+1) {

@@ -17,7 +17,7 @@
 //home
 #define kHomeAddr @"http://112.74.199.145/khclub_php/index.php/Home/MobileApi"//115.28.4.154 Zwkxd0515
 
-#define kUserProtocolPath @"http://www.90newtec.com/license.html"
+#define kUserProtocolPath @"http://www.pinweihuanqiu.com/license.html"
 
 //分享名片地址
 #define kShareCardWeb [kRootAddr stringByAppendingString:@"index.php/Home/WX/cardDetail"]
