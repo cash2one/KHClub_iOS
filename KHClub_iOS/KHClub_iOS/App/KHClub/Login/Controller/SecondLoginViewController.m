@@ -157,32 +157,33 @@
                  }
                  else
                  {
-                     switch (error.errorCode)
-                     {
-                         case EMErrorNotFound:
-                             TTAlertNoTitle(error.description);
-                             break;
-                         case EMErrorNetworkNotConnected:
-                             TTAlertNoTitle(NSLocalizedString(@"error.connectNetworkFail", @"No network connection!"));
-                             break;
-                         case EMErrorServerNotReachable:
-                             TTAlertNoTitle(NSLocalizedString(@"error.connectServerFail", @"Connect to the server failed!"));
-                             break;
-                         case EMErrorServerAuthenticationFailure:
-                             TTAlertNoTitle(error.description);
-                             break;
-                         case EMErrorServerTimeout:
-                             TTAlertNoTitle(NSLocalizedString(@"error.connectServerTimeout", @"Connect to the server timed out!"));
-                             break;
-                         default:
-                             TTAlertNoTitle(NSLocalizedString(@"login.fail", @"Login failure"));
-                             break;
-                     }
+                     [self showWarn:StringCommonNetException];
+//                     switch (error.errorCode)
+//                     {
+//                         case EMErrorNotFound:
+//                             TTAlertNoTitle(error.description);
+//                             break;
+//                         case EMErrorNetworkNotConnected:
+//                             TTAlertNoTitle(NSLocalizedString(@"error.connectNetworkFail", @"No network connection!"));
+//                             break;
+//                         case EMErrorServerNotReachable:
+//                             TTAlertNoTitle(NSLocalizedString(@"error.connectServerFail", @"Connect to the server failed!"));
+//                             break;
+//                         case EMErrorServerAuthenticationFailure:
+//                             TTAlertNoTitle(error.description);
+//                             break;
+//                         case EMErrorServerTimeout:
+//                             TTAlertNoTitle(NSLocalizedString(@"error.connectServerTimeout", @"Connect to the server timed out!"));
+//                             break;
+//                         default:
+//                             TTAlertNoTitle(NSLocalizedString(@"login.fail", @"Login failure"));
+//                             break;
+//                     }
                  }
              } onQueue:nil];
 
         }else{
-            [self showWarn:StringCommonNetException];
+            [self showWarn:KHClubString(@"Login_SecondLogin_UsernameOrPasswordError")];
         }
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {

@@ -9,13 +9,13 @@
 #ifndef JLXCSNS_iOS_Interface_h
 #define JLXCSNS_iOS_Interface_h
 
-//192.168.1.108 120.25.213.171
+//192.168.1.108 120.25.213.171 112.74.199.145
 //附件
-#define kAttachmentAddr @"http://112.74.199.145/khclub_php/Uploads/"
+#define kAttachmentAddr @"http://120.25.213.171/khclub_php/Uploads/"
 //IP
-#define kRootAddr @"http://112.74.199.145/khclub_php/"
+#define kRootAddr @"http://120.25.213.171/khclub_php/"
 //home
-#define kHomeAddr @"http://112.74.199.145/khclub_php/index.php/Home/MobileApi"//115.28.4.154 Zwkxd0515
+#define kHomeAddr @"http://120.25.213.171/khclub_php/index.php/Home/MobileApi"
 
 #define kUserProtocolPath @"http://www.pinweihuanqiu.com/license.html"
 

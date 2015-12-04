@@ -65,7 +65,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.view sendSubviewToBack:self.navigationController.navigationBar];
 }
 
 #pragma mark- layout

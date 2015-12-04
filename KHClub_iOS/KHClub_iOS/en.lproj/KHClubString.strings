@@ -1,0 +1,183 @@
+/*
+  KHClubString.strings
+  KHClub_iOS
+
+  Created by 李晓航 on 15/11/2.
+  Copyright (c) 2015年 JLXC. All rights reserved.
+*/
+//包名_类名_描述
+
+//共用
+"Common_App_Name"                             = "KHClub";
+"Common_NetException"                         = "Net Exception";
+"Common_Confirm"                              = "Confirm";
+"Common_Cancel"                               = "Cancel";
+"Common_Modify"                               = "Modify";
+"Common_Edit"                                 = "Edit";
+"Common_Save"                                 = "Save";
+"Common_Submit"                               = "Submit";
+"Common_Finish"                               = "Finish";
+"Common_Prompt"                               = "Prompt";
+"Common_Copy"                                 = "Copy";
+"Common_Delete"                               = "Delete";
+"Common_DownloadData"                         = "Loading...";
+"Common_UploadData"                           = "Uploading...";
+"Common_UploadDataFail"                       = "Fail";
+"Common_DownloadDataFail"                     = "Loading Fail";
+"Common_Camera"                               = "Camera";
+"Common_Gallery"                              = "Album";
+
+"Common_Refresh_Late"                         = "Last Updated:";
+"Common_Refresh_Release"                      = "Release to refresh...";
+"Common_Refresh_Pull"                         = "Pull down to refresh...";
+"Common_Refresh_Loading"                      = "Loading...";
+"Common_Refresh_Last"                         = "No Content";
+//date
+"Common_Date_Yestoday"                        = "Yestoday";
+"Common_Date_Monday"                          = "MON";
+"Common_Date_Tuesday"                         = "TUE";
+"Common_Date_Wednesday"                       = "WED";
+"Common_Date_Yestoday"                        = "THU";
+"Common_Date_Friday"                          = "FRI";
+"Common_Date_Saturday"                        = "SAT";
+"Common_Date_Sunday"                          = "SUN";
+//Main
+"Common_Main_Home"                            = "Square";
+"Common_Main_Msg"                             = "Message";
+"Common_Main_Contact"                         = "Contact";
+"Common_Main_Me"                              = "Card";
+
+//Login
+"Login_Login_EnterPrompt"                     = "Please enter phone number";
+"Login_Login_LoginOrRegister"                 = "Login/Register";
+"Login_Login_WaitAMinute"                     = "Wait a minute";
+"Login_Login_UsernameNotNull"                 = "Username can't be empty";
+"Login_Login_Protocol"                        = "Login/Register means agree to《Protocol》";
+"Login_SecondLogin_PasswordNotNull"           = "Password can't be empty";
+"Login_SecondLogin_Loginning"                 = "Logining";
+"Login_SecondLogin_Title"                     = "Login";
+"Login_SecondLogin_PasswordError"             = "Username or password error";
+"Login_SecondLogin_BlackList"                 = "You have been banned";
+"Login_SecondLogin_ForgotPassword"            = "forgot password?";
+"Login_SecondLogin_EnterPassword"             = "Please enter password";
+"Login_SecondLogin_UsernameOrPasswordError"   = "Username or password error";
+"Login_SecondLogin_VerificationNotNull"       = "Verification code can't be empty";
+"Login_Register_PasswordLengthSix"            = "Password length of at least six";
+"Login_Register_RegisterSuccessful"           = "Success";
+"Login_Register_PasswordModifySuccessful"     = "Success";
+"Login_Register_ModifyPassword"               = "Password";
+"Login_Register_Title"                        = "Register";
+"Login_Register_VerificationSend"             = "Sent to";
+"Login_Register_Resend"                       = "Resend";
+"Login_Register_VerificationArrivied"         = "Verification code has arrived";
+"Login_Register_VerificationError"            = "Verification code or phone number error";
+"Login_Register_EnterVerification"            = "Please enter verification";
+"Login_Register_PasswordLength"               = "Password length 6-32 characters";
+"Login_Register_AreaCode"                     = "Select area code";
+
+//personal
+"Personal_Personal_Title"                     = "Card";
+"Personal_Personal_Sign"                      = "Signature";
+"Personal_Personal_Moments"                   = "Moments";
+"Personal_Personal_None"                      = "None";
+"Personal_Personal_RobotTitle"                = "Official business manager";
+"Personal_PersonalSetting_Title"              = "Edit";
+"Personal_PersonalSetting_Icon"               = "Icon";
+"Personal_PersonalSetting_Name"               = "Name";
+"Personal_PersonalSetting_Job"                = "Job";
+"Personal_PersonalSetting_Company"            = "Company";
+"Personal_PersonalSetting_Address"            = "Address";
+"Personal_PersonalSetting_Sex"                = "Sex";
+"Personal_PersonalSetting_Email"              = "Email";
+"Personal_PersonalSetting_Phone"              = "Phone";
+"Personal_PersonalSetting_EnterName"          = "Please enter name";
+"Personal_PersonalSetting_EnterJob"           = "Please enter job";
+"Personal_PersonalSetting_EnterSign"          = "Please enter sign";
+"Personal_PersonalSetting_EnterAddress"       = "Please enter address";
+"Personal_PersonalSetting_EnterEmail"         = "Please enter email";
+"Personal_PersonalSetting_EnterPhone"         = "Please enter phone";
+"Personal_PersonalSetting_EnterCompany"       = "Please enter Company";
+"Personal_PersonalSetting_Man"                = "Man";
+"Personal_PersonalSetting_Woman"              = "Woman";
+"Personal_PersonalSetting_NameNotNull"        = "Name can't be empty";
+"Personal_PersonalSetting_NameTooLong"        = "Name too long";
+"Personal_PersonalSetting_FriendsCanSee"      = "Only friends can see";
+"Personal_PersonalSetting_Setting"            = "Setting";
+"Personal_PersonalSetting_TooLong"            = "Content too long";
+"Personal_MyNews_PersonalNews"                = "Personal News";
+"Personal_OtherPersonal_AddFriend"            = "Add";
+"Personal_OtherPersonal_Send"                 = "Send Message";
+"Personal_OtherPersonal_CollectSuccess"       = "Collect success";
+"Personal_OtherPersonal_CollectFail"          = "Collect fail";
+"Personal_OtherPersonal_CancelCollectSuccess" = "Cancel the collection success";
+"Personal_OtherPersonal_CancelCollectFail"    = "Cancel the collection fail";
+"Personal_OtherPersonal_DeleteFriend"         = "Delete Friend";
+"Personal_OtherPersonal_Remark"               = "Edit Remark";
+"Personal_AppSetting_Title"                   = "Setting";
+"Personal_AppSetting_LogoutPrompt"            = "Log out？";
+"Personal_AppSetting_ClearOK"                 = "Clear Success";
+"Personal_AppSetting_Clear"                   = "Clear Cache";
+"Personal_AppSetting_Logout"                  = "Log out";
+"Personal_Personal_ExchangeCard"              = "（Exchange card）";
+"Personal_Report_Title"                       = "Report";
+"Personal_Report_EnterReport"                 = "Please enter report";
+"Personal_Report_Success"                     = "Success";
+
+//News
+"News_NewsList_MomentsTitle"                  = "Moments";
+"News_CircleList_CircleTitle"                 = "Circle";
+"News_CircleDetail_Title"                     = "Circle Detail";
+"News_CircleDetail_IntroTitle"                = "Circle Intro";
+"News_Publish_EnterContent"                   = "Please enter content";
+"News_Publish_Where"                          = "Where";
+"News_Publish_ContentEmpty"                   = "Pictures and content both empty!";
+"News_Publish_CotentTooLong"                  = "Content can't exceed 140 characters";
+"News_Publish_DeleteConfirm"                  = "Confirm delete？";
+"News_Publish_Success"                        = "Success";
+"News_Publish_Fail"                           = "Fail";
+"News_Publish_Send"                           = "Send";
+"News_Publish_PublishNews"                    = "Publish";
+"News_Publish_Pictures"                       = " pictures";
+"News_Publish_NoAllowPictures"                = "This application cannot use your photos or video.";
+"News_Publish_NoAllowPictures2"               = "You can enable access to the privacy settings.";
+"News_Publish_NoPictures"                     = "No photos or videos.";
+"News_NewsDetail_Tilte"                       = "Detail";
+"News_NewsDetail_EnterComment"                = "Please enter content";
+"News_NewsDetail_DeleteSuccess"               = "Delete success";
+"News_NewsDetail_DeleteFail"                  = "Delete fail";
+"News_NewsDetail_Comment"                     = "Comment";
+"News_NewsDetail_Like"                        = "Like";
+"News_NewsDetail_Reply"                       = "Reply";
+"News_NewsDetail_ContentEmpty"                = "Content can't be empty";
+"News_NotifyNews_Title"                       = "Notification";
+"News_NotifyNews_LikeTitle"                   = "A Like for you";
+"News_BrowseImage_SaveOk"                     = "Save OK";
+
+//Message
+"Message_Message_ScanQrcode"                  = "Scan QR code";
+"Message_Message_Add"                         = "Search";
+"Message_Message_Group"                       = "New group";
+"Message_Message_MyQrcode"                    = "My QR code";
+"Message_Create_Cover"                        = "Cover";
+"Message_GroupDetail_QRcode"                  = "Group QRcode";
+"Message_GroupDetail_Share"                   = "Share";
+"Message_GroupDetail_QRcodeCard"              = "QRcode Card";
+"Message_Scan_Scan"                           = "Scan";
+
+//Contact
+"Contact_Search_InputPrompt"                  = "Input phone number or group id";
+"Contact_Search_SearchFail"                   = "No result";
+"Contact_Search_Contacts"                     = "Contacts";
+"Contact_SearchContactAdd"                    = "Add";
+"Contact_SearchContactAdded"                  = "Added";
+
+
+//IM
+"IM_Group_Cover"                              = "Cover";
+"IM_Push_ANewMessage"                         = "A new message";
+"IM_Push_InviteSuccess"                       = "Invite success";
+"IM_Push_PushInvite"                          = " invite to join";
+"IM_Card_Card"                                = "Card";
+"IM_Card_GroupCard"                           = "Group Card";
+"IM_ChatList_ACard"                           = "A Card";
+

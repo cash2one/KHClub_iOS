@@ -203,9 +203,15 @@
     [self.imageBackView addSubview:imageLabel];
     [self.imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.imageView1.frame         = CGRectMake(imageLabel.right+5, 5, 50, 50);
-    self.imageView2.frame         = CGRectMake(self.imageView1.right+5, 5, 50, 50);
-    self.imageView3.frame         = CGRectMake(self.imageView2.right+5, 5, 50, 50);
+    self.imageView1.frame               = CGRectMake(imageLabel.right+5, 5, 50, 50);
+    self.imageView2.frame               = CGRectMake(self.imageView1.right+5, 5, 50, 50);
+    self.imageView3.frame               = CGRectMake(self.imageView2.right+5, 5, 50, 50);
+    self.imageView1.contentMode         = UIViewContentModeScaleAspectFill;
+    self.imageView2.contentMode         = UIViewContentModeScaleAspectFill;
+    self.imageView3.contentMode         = UIViewContentModeScaleAspectFill;
+    self.imageView1.layer.masksToBounds = YES;
+    self.imageView2.layer.masksToBounds = YES;
+    self.imageView3.layer.masksToBounds = YES;
     [self.imageBackView addSubview:self.imageView1];
     [self.imageBackView addSubview:self.imageView2];
     [self.imageBackView addSubview:self.imageView3];

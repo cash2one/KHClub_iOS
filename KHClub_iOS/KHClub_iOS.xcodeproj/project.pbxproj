@@ -56,7 +56,6 @@
 		42B588F71C0C0568003434E1 /* CircleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B588F61C0C0568003434E1 /* CircleDetailViewController.m */; };
 		42C22E891BE6FDC0002A185B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C22E881BE6FDC0002A185B /* main.m */; };
 		42C22E8C1BE6FDC0002A185B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C22E8B1BE6FDC0002A185B /* AppDelegate.m */; };
-		42C22E921BE6FDC0002A185B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 42C22E901BE6FDC0002A185B /* Main.storyboard */; };
 		42C22E941BE6FDC0002A185B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C22E931BE6FDC0002A185B /* Images.xcassets */; };
 		42C22EA31BE6FDC0002A185B /* KHClub_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C22EA21BE6FDC0002A185B /* KHClub_iOSTests.m */; };
 		42C22EAD1BE6FE47002A185B /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 42C22EAC1BE6FE47002A185B /* libicucore.dylib */; };
@@ -651,11 +650,13 @@
 		42B588F31C0BF80A003434E1 /* CircleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCell.m; sourceTree = "<group>"; };
 		42B588F51C0C0568003434E1 /* CircleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleDetailViewController.h; sourceTree = "<group>"; };
 		42B588F61C0C0568003434E1 /* CircleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleDetailViewController.m; sourceTree = "<group>"; };
+		42B9B0281C1147370061A3B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		42B9B0291C1147B10061A3B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		42B9B02A1C1147B70061A3B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/KHClubString.strings; sourceTree = "<group>"; };
 		42C22E831BE6FDC0002A185B /* KHClub_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KHClub_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C22E881BE6FDC0002A185B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		42C22E8A1BE6FDC0002A185B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		42C22E8B1BE6FDC0002A185B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		42C22E911BE6FDC0002A185B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		42C22E931BE6FDC0002A185B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		42C22E9C1BE6FDC0002A185B /* KHClub_iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KHClub_iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		42C22EA11BE6FDC0002A185B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1835,7 +1836,6 @@
 				42C22EE11BE70053002A185B /* App */,
 				42C22E8A1BE6FDC0002A185B /* AppDelegate.h */,
 				42C22E8B1BE6FDC0002A185B /* AppDelegate.m */,
-				42C22E901BE6FDC0002A185B /* Main.storyboard */,
 				42C22E931BE6FDC0002A185B /* Images.xcassets */,
 				42ED933C1BF1F4E900E59147 /* Images-2.xcassets */,
 				42C22E861BE6FDC0002A185B /* Supporting Files */,
@@ -3851,7 +3851,6 @@
 				42DDB8431C06DA2D0086A72F /* ShareSDKUI.bundle in Resources */,
 				42ED93051BF1DB9400E59147 /* chatBar_colorMore_videoCallSelected@2x.png in Resources */,
 				42ED92A71BF1DB9400E59147 /* VoiceSearchFeedback005.png in Resources */,
-				42C22E921BE6FDC0002A185B /* Main.storyboard in Resources */,
 				42ED92F21BF1DB9400E59147 /* chatBar_moreSelected@2x.png in Resources */,
 				42FDE28C1BE7052300825E5E /* Icon-Small.png in Resources */,
 				42ED92E11BF1DB9400E59147 /* chat_location_preview.png in Resources */,
@@ -4375,16 +4374,9 @@
 			children = (
 				428C97C91C10673A0058405F /* Base */,
 				428C97CB1C1067410058405F /* zh-Hans */,
+				42B9B0281C1147370061A3B5 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		42C22E901BE6FDC0002A185B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				42C22E911BE6FDC0002A185B /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		42C22FAC1BE70054002A185B /* SMS_SDKLocalizable.strings */ = {
@@ -4401,6 +4393,7 @@
 			children = (
 				42C2305F1BE70109002A185B /* zh-Hans */,
 				42C230601BE7011E002A185B /* Base */,
+				42B9B02A1C1147B70061A3B5 /* en */,
 			);
 			name = KHClubString.strings;
 			sourceTree = "<group>";
@@ -4410,6 +4403,7 @@
 			children = (
 				42EF839E1BF0C80300DA16C3 /* Base */,
 				42EF83A01BF0C80C00DA16C3 /* zh-Hans */,
+				42B9B0291C1147B10061A3B5 /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";

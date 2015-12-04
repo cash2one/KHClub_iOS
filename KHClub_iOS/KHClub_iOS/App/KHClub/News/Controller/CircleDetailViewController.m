@@ -108,6 +108,7 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
                 //内容
                 CGSize introSize             = [ToolsManager getSizeWithContent:[@"   " stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.intro]] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth-20, MAXFLOAT)];
                 CustomLabel * infoLabel      = [[CustomLabel alloc] initWithFrame:CGRectMake(10, infoTitleLabel.bottom+3, self.viewWidth-20, introSize.height)];
+                infoLabel.lineBreakMode      = NSLineBreakByCharWrapping;
                 infoLabel.numberOfLines      = 0;
                 infoLabel.textColor          = [UIColor colorWithHexString:ColorLightBlack];
                 infoLabel.font               = [UIFont systemFontOfSize:16];
@@ -302,9 +303,9 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
     CustomLabel * label         = [[CustomLabel alloc] initWithFontSize:16];
     label.lineBreakMode         = NSLineBreakByCharWrapping;
     label.numberOfLines         = 0;
-    label.frame                 = CGRectMake(40, 3, self.viewWidth-60, 30);
+    label.frame                 = CGRectMake(40, 3, self.viewWidth-50, 30);
     label.textColor             = [UIColor colorWithHexString:ColorLightBlack];
-    CGSize size                 = [ToolsManager getSizeWithContent:[ToolsManager emptyReturnNone:content] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth, MAXFLOAT)];
+    CGSize size                 = [ToolsManager getSizeWithContent:[ToolsManager emptyReturnNone:content] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth-50, MAXFLOAT)];
     if (size.height > 30) {
         label.height = size.height;
     }
@@ -315,7 +316,7 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 //工厂方法获取 高度
 - (CGFloat)factoryCellGetHeightWithContent:(NSString *)content
 {
-    CGSize size                 = [ToolsManager getSizeWithContent:[ToolsManager emptyReturnNone:content] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth, MAXFLOAT)];
+    CGSize size        = [ToolsManager getSizeWithContent:[ToolsManager emptyReturnNone:content] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth-50, MAXFLOAT)];
     CGFloat cellHeight = 35;
     if (size.height > 30) {
         cellHeight += size.height - 30;

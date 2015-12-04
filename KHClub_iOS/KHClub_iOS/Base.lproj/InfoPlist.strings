@@ -1,3 +1,3 @@
 /* Localized versions of Info.plist keys */
 
-"CFBundleDisplayName" = "KHClub";
+"CFBundleDisplayName" = "商务圈";//${PRODUCT_NAME}

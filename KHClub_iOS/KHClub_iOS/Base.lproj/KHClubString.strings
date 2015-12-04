@@ -1,182 +1,185 @@
 /*
-  KHClubString.strings
-  KHClub_iOS
-
-  Created by 李晓航 on 15/11/2.
-  Copyright (c) 2015年 JLXC. All rights reserved.
-*/
+ KHClubString.strings
+ KHClub_iOS
+ 
+ Created by 李晓航 on 15/11/2.
+ Copyright (c) 2015年 JLXC. All rights reserved.
+ */
 //包名_类名_描述
 
 //共用
-"Common_App_Name"                             = "KHClub";
-"Common_NetException"                         = "Net Exception";
-"Common_Confirm"                              = "Confirm";
-"Common_Cancel"                               = "Cancel";
-"Common_Modify"                               = "Modify";
-"Common_Edit"                                 = "Edit";
-"Common_Save"                                 = "Save";
-"Common_Submit"                               = "Submit";
-"Common_Finish"                               = "Finish";
-"Common_Prompt"                               = "Prompt";
-"Common_Copy"                                 = "Copy";
-"Common_Delete"                               = "Delete";
-"Common_DownloadData"                         = "Loading...";
-"Common_UploadData"                           = "Uploading...";
-"Common_UploadDataFail"                       = "Fail";
-"Common_DownloadDataFail"                     = "Loading Fail";
-"Common_Camera"                               = "Camera";
-"Common_Gallery"                              = "Album";
-
-"Common_Refresh_Late"                         = "Last Updated:";
-"Common_Refresh_Release"                      = "Release to refresh...";
-"Common_Refresh_Pull"                         = "Pull down to refresh...";
-"Common_Refresh_Loading"                      = "Loading...";
-"Common_Refresh_Last"                         = "No Content";
+"Common_App_Name"                             = "商务圈";
+"Common_NetException"                         = "网络异常";
+"Common_Confirm"                              = "确定";
+"Common_Cancel"                               = "取消";
+"Common_Modify"                               = "修改";
+"Common_Edit"                                 = "编辑";
+"Common_Save"                                 = "保存";
+"Common_Submit"                               = "提交";
+"Common_Finish"                               = "完成";
+"Common_Prompt"                               = "提示";
+"Common_Copy"                                 = "复制";
+"Common_Delete"                               = "删除";
+"Common_DownloadData"                         = "加载中...";
+"Common_UploadData"                           = "数据上传中...";
+"Common_UploadDataFail"                       = "保存失败";
+"Common_DownloadDataFail"                     = "数据获取失败";
+"Common_Camera"                               = "相机";
+"Common_Gallery"                              = "相册";
+//Refresh
+"Common_Refresh_Late"                         = "上次刷新时间:";
+"Common_Refresh_Release"                      = "下拉刷新";
+"Common_Refresh_Pull"                         = "松手刷新";
+"Common_Refresh_Loading"                      = "加载中...";
+"Common_Refresh_Last"                         = "已经到最后了";
 //date
-"Common_Date_Yestoday"                        = "Yestoday";
-"Common_Date_Monday"                          = "MON";
-"Common_Date_Tuesday"                         = "TUE";
-"Common_Date_Wednesday"                       = "WED";
-"Common_Date_Yestoday"                        = "THU";
-"Common_Date_Friday"                          = "FRI";
-"Common_Date_Saturday"                        = "SAT";
-"Common_Date_Sunday"                          = "SUN";
+"Common_Date_Yestoday"                        = "昨天";
+"Common_Date_Monday"                          = "星期一";
+"Common_Date_Tuesday"                         = "星期二";
+"Common_Date_Wednesday"                       = "星期三";
+"Common_Date_Yestoday"                        = "星期四";
+"Common_Date_Friday"                          = "星期五";
+"Common_Date_Saturday"                        = "星期六";
+"Common_Date_Sunday"                          = "星期日";
 //Main
-"Common_Main_Home"                            = "Square";
-"Common_Main_Msg"                             = "Message";
-"Common_Main_Contact"                         = "Contact";
-"Common_Main_Me"                              = "Card";
+"Common_Main_Home"                            = "商务圈";
+"Common_Main_Msg"                             = "消息";
+"Common_Main_Contact"                         = "云名片";
+"Common_Main_Me"                              = "个人";
 
 //Login
-"Login_Login_EnterPrompt"                     = "Please enter phone number";
-"Login_Login_LoginOrRegister"                 = "Login/Register";
-"Login_Login_WaitAMinute"                     = "Wait a minute";
-"Login_Login_UsernameNotNull"                 = "Username can't be empty";
-"Login_Login_Protocol"                        = "Login/Register means agree to《Protocol》";
-"Login_SecondLogin_PasswordNotNull"           = "Password can't be empty";
-"Login_SecondLogin_Loginning"                 = "Logining";
-"Login_SecondLogin_Title"                     = "Login";
-"Login_SecondLogin_PasswordError"             = "Username or password error";
-"Login_SecondLogin_BlackList"                 = "You have been banned";
-"Login_SecondLogin_ForgotPassword"            = "forgot password?";
-"Login_SecondLogin_EnterPassword"             = "Please enter password";
-"Login_SecondLogin_VerificationNotNull"       = "Verification code can't be empty";
-"Login_Register_PasswordLengthSix"            = "Password length of at least six";
-"Login_Register_RegisterSuccessful"           = "Success";
-"Login_Register_PasswordModifySuccessful"     = "Success";
-"Login_Register_ModifyPassword"               = "Password";
-"Login_Register_Title"                        = "Register";
-"Login_Register_VerificationSend"             = "Sent to";
-"Login_Register_Resend"                       = "Resend";
-"Login_Register_VerificationArrivied"         = "Verification code has arrived";
-"Login_Register_VerificationError"            = "Verification code or phone number error";
-"Login_Register_EnterVerification"            = "Please enter verification";
-"Login_Register_PasswordLength"               = "Password length 6-32 characters";
-"Login_Register_AreaCode"                     = "Select area code";
+"Login_Login_EnterPrompt"                     = "请输入手机号码";
+"Login_Login_LoginOrRegister"                 = "登录/注册";
+"Login_Login_WaitAMinute"                     = "正在验证，请稍后";
+"Login_Login_UsernameNotNull"                 = "用户名不能为空";
+"Login_Login_Protocol"                        = "登录/注册即表示同意《服务协议》";
+"Login_SecondLogin_PasswordNotNull"           = "密码不能为空";
+"Login_SecondLogin_Loginning"                 = "正在登录，请稍后";
+"Login_SecondLogin_Title"                     = "登录";
+"Login_SecondLogin_PasswordError"             = "用户名或者密码错误";
+"Login_SecondLogin_BlackList"                 = "很遗憾、您已被封禁";
+"Login_SecondLogin_ForgotPassword"            = "忘记密码?";
+"Login_SecondLogin_EnterPassword"             = "请输入密码";
+"Login_SecondLogin_UsernameOrPasswordError"   = "用户名或密码错误";
+"Login_SecondLogin_VerificationNotNull"       = "验证码不能为空";
+"Login_Register_PasswordLengthSix"            = "密码长度至少六位";
+"Login_Register_RegisterSuccessful"           = "注册成功";
+"Login_Register_PasswordModifySuccessful"     = "修改成功";
+"Login_Register_ModifyPassword"               = "修改密码";
+"Login_Register_Title"                        = "注册";
+"Login_Register_VerificationSend"             = "验证码已经发送至";
+"Login_Register_Resend"                       = "重发";
+"Login_Register_VerificationArrivied"         = "验证码已发送至您的手机";
+"Login_Register_VerificationError"            = "验证码错误或者手机号码有误";
+"Login_Register_EnterVerification"            = "请输入验证码";
+"Login_Register_PasswordLength"               = "密码长度只能是6到32位";
+"Login_Register_AreaCode"                     = "选择区号";
 
 //personal
-"Personal_Personal_Title"                     = "Card";
-"Personal_Personal_Sign"                      = "Signature";
-"Personal_Personal_Moments"                   = "Moments";
-"Personal_Personal_None"                      = "None";
-"Personal_Personal_RobotTitle"                = "Official business manager";
-"Personal_PersonalSetting_Title"              = "Edit";
-"Personal_PersonalSetting_Icon"               = "Icon";
-"Personal_PersonalSetting_Name"               = "Name";
-"Personal_PersonalSetting_Job"                = "Job";
-"Personal_PersonalSetting_Company"            = "Company";
-"Personal_PersonalSetting_Address"            = "Address";
-"Personal_PersonalSetting_Sex"                = "Sex";
-"Personal_PersonalSetting_Email"              = "Email";
-"Personal_PersonalSetting_Phone"              = "Phone";
-"Personal_PersonalSetting_EnterName"          = "Please enter name";
-"Personal_PersonalSetting_EnterJob"           = "Please enter job";
-"Personal_PersonalSetting_EnterSign"          = "Please enter sign";
-"Personal_PersonalSetting_EnterAddress"       = "Please enter address";
-"Personal_PersonalSetting_EnterEmail"         = "Please enter email";
-"Personal_PersonalSetting_EnterPhone"         = "Please enter phone";
-"Personal_PersonalSetting_EnterCompany"       = "Please enter Company";
-"Personal_PersonalSetting_Man"                = "Man";
-"Personal_PersonalSetting_Woman"              = "Woman";
-"Personal_PersonalSetting_NameNotNull"        = "Name can't be empty";
-"Personal_PersonalSetting_NameTooLong"        = "Name too long";
-"Personal_PersonalSetting_FriendsCanSee"      = "Only friends can see";
-"Personal_PersonalSetting_Setting"            = "Setting";
-"Personal_PersonalSetting_TooLong"            = "Content too long";
-"Personal_MyNews_PersonalNews"                = "Personal News";
-"Personal_OtherPersonal_AddFriend"            = "Add";
-"Personal_OtherPersonal_Send"                 = "Send Message";
-"Personal_OtherPersonal_CollectSuccess"       = "Collect success";
-"Personal_OtherPersonal_CollectFail"          = "Collect fail";
-"Personal_OtherPersonal_CancelCollectSuccess" = "Cancel the collection success";
-"Personal_OtherPersonal_CancelCollectFail"    = "Cancel the collection fail";
-"Personal_OtherPersonal_DeleteFriend"         = "Delete Friend";
-"Personal_OtherPersonal_Remark"               = "Edit Remark";
-"Personal_AppSetting_Title"                   = "Setting";
-"Personal_AppSetting_LogoutPrompt"            = "Log out？";
-"Personal_AppSetting_ClearOK"                 = "Clear Success";
-"Personal_AppSetting_Clear"                   = "Clear Cache";
-"Personal_AppSetting_Logout"                  = "Log out";
-"Personal_Personal_ExchangeCard"              = "（Exchange card）";
-"Personal_Report_Title"                       = "Report";
-"Personal_Report_EnterReport"                 = "Please enter report";
-"Personal_Report_Success"                     = "Success";
+"Personal_Personal_Title"                     = "我的";
+"Personal_Personal_Sign"                      = "个人说明";
+"Personal_Personal_Moments"                   = "动态列表";
+"Personal_Personal_None"                      = "暂无信息";
+"Personal_Personal_RobotTitle"                = "官方商务管家";
+"Personal_PersonalSetting_Title"              = "编辑";
+"Personal_PersonalSetting_Icon"               = "头像";
+"Personal_PersonalSetting_Name"               = "昵称";
+"Personal_PersonalSetting_Job"                = "职业";
+"Personal_PersonalSetting_Company"            = "公司";
+"Personal_PersonalSetting_Address"            = "地址";
+"Personal_PersonalSetting_Sex"                = "性别";
+"Personal_PersonalSetting_Email"              = "邮箱";
+"Personal_PersonalSetting_Phone"              = "电话";
+"Personal_PersonalSetting_EnterName"          = "请输入昵称";
+"Personal_PersonalSetting_EnterJob"           = "请输入职位";
+"Personal_PersonalSetting_EnterSign"          = "请输入签名";
+"Personal_PersonalSetting_EnterAddress"       = "请输入地址";
+"Personal_PersonalSetting_EnterEmail"         = "请输入邮箱";
+"Personal_PersonalSetting_EnterPhone"         = "请输入电话";
+"Personal_PersonalSetting_EnterCompany"       = "请输入公司";
+"Personal_PersonalSetting_Man"                = "男";
+"Personal_PersonalSetting_Woman"              = "女";
+"Personal_PersonalSetting_NameNotNull"        = "姓名不能为空";
+"Personal_PersonalSetting_NameTooLong"        = "姓名太长";
+"Personal_PersonalSetting_FriendsCanSee"      = "仅好友可见";
+"Personal_PersonalSetting_Setting"            = "设置";
+"Personal_PersonalSetting_TooLong"            = "内容太长";
+"Personal_MyNews_PersonalNews"                = "个人动态";
+"Personal_OtherPersonal_AddFriend"            = "添加为好友";
+"Personal_OtherPersonal_Send"                 = "发送消息";
+"Personal_OtherPersonal_CollectSuccess"       = "名片已收藏";
+"Personal_OtherPersonal_CollectFail"          = "收藏失败";
+"Personal_OtherPersonal_CancelCollectSuccess" = "取消收藏成功";
+"Personal_OtherPersonal_CancelCollectFail"    = "取消收藏失败";
+"Personal_OtherPersonal_DeleteFriend"         = "删除好友";
+"Personal_OtherPersonal_Remark"               = "修改备注";
+"Personal_AppSetting_Title"                   = "设置";
+"Personal_AppSetting_LogoutPrompt"            = "确定退出该账号吗？";
+"Personal_AppSetting_ClearOK"                 = "清除成功";
+"Personal_AppSetting_Clear"                   = "清空缓存";
+"Personal_AppSetting_Logout"                  = "退出";
+"Personal_Personal_ExchangeCard"              = "（交换名片）";
+"Personal_Report_Title"                       = "举报";
+"Personal_Report_EnterReport"                 = "请输入举报内容";
+"Personal_Report_Success"                     = "举报成功";
 
 //News
-"News_NewsList_MomentsTitle"                  = "Moments";
-"News_CircleList_CircleTitle"                 = "Circle";
-"News_CircleDetail_Title"                     = "Circle Detail";
-"News_CircleDetail_IntroTitle"                = "Circle Intro";
-"News_Publish_EnterContent"                   = "Please enter content";
-"News_Publish_Where"                          = "Where";
-"News_Publish_ContentEmpty"                   = "Pictures and content both empty!";
-"News_Publish_CotentTooLong"                  = "Content can't exceed 140 characters";
-"News_Publish_DeleteConfirm"                  = "Confirm delete？";
-"News_Publish_Success"                        = "Success";
-"News_Publish_Fail"                           = "Fail";
-"News_Publish_Send"                           = "Send";
-"News_Publish_PublishNews"                    = "Publish";
-"News_Publish_Pictures"                       = " pictures";
-"News_Publish_NoAllowPictures"                = "This application cannot use your photos or video.";
-"News_Publish_NoAllowPictures2"               = "You can enable access to the privacy settings.";
-"News_Publish_NoPictures"                     = "No photos or videos.";
-"News_NewsDetail_Tilte"                       = "Detail";
-"News_NewsDetail_EnterComment"                = "Please enter content";
-"News_NewsDetail_DeleteSuccess"               = "Delete success";
-"News_NewsDetail_DeleteFail"                  = "Delete fail";
-"News_NewsDetail_Comment"                     = "Comment";
-"News_NewsDetail_Like"                        = "Like";
-"News_NewsDetail_Reply"                       = "Reply";
-"News_NewsDetail_ContentEmpty"                = "Content can't be empty";
-"News_NotifyNews_Title"                       = "Notification";
-"News_NotifyNews_LikeTitle"                   = "A Like for you";
-"News_BrowseImage_SaveOk"                     = "Save OK";
+"News_NewsList_MomentsTitle"                  = "动态·话题";
+"News_CircleList_CircleTitle"                 = "圈层·门户";
+"News_CircleDetail_Title"                     = "圈层介绍";
+"News_CircleDetail_IntroTitle"                = "圈层详情";
+"News_Publish_EnterContent"                   = "请输入内容";
+"News_Publish_Where"                          = "所在位置";
+"News_Publish_ContentEmpty"                   = "图片和内容不能都为空";
+"News_Publish_CotentTooLong"                  = "内容不能超过140字";
+"News_Publish_DeleteConfirm"                  = "确认删除信息？";
+"News_Publish_Success"                        = "发布成功";
+"News_Publish_Fail"                           = "发布失败";
+"News_Publish_Send"                           = "发送";
+"News_Publish_PublishNews"                    = "发布动态";
+"News_Publish_Pictures"                       = "张照片";
+"News_Publish_NoAllowPictures"                = "此应用无法使用您的照片或视频。";
+"News_Publish_NoAllowPictures2"               = "你可以在「隐私设置」中启用存取。";
+"News_Publish_NoPictures"                     = "没有照片或视频。";
+"News_NewsDetail_Tilte"                       = "详情";
+"News_NewsDetail_EnterComment"                = "输入评论内容";
+"News_NewsDetail_DeleteSuccess"               = "删除成功";
+"News_NewsDetail_DeleteFail"                  = "删除失败";
+"News_NewsDetail_Comment"                     = "评论";
+"News_NewsDetail_Like"                        = "赞";
+"News_NewsDetail_Reply"                       = "回复";
+"News_NewsDetail_ContentEmpty"                = "内容不能为空";
+"News_NotifyNews_Title"                       = "通知";
+"News_NotifyNews_LikeTitle"                   = "为你点了赞";
+"News_BrowseImage_SaveOk"                     = "保存成功";
 
 //Message
-"Message_Message_ScanQrcode"                  = "Scan QR code";
-"Message_Message_Add"                         = "Search";
-"Message_Message_Group"                       = "New group";
-"Message_Message_MyQrcode"                    = "My QR code";
-"Message_Create_Cover"                        = "Cover";
-"Message_GroupDetail_QRcode"                  = "Group QRcode";
-"Message_GroupDetail_Share"                   = "Share";
-"Message_GroupDetail_QRcodeCard"              = "QRcode Card";
-"Message_Scan_Scan"                           = "Scan";
+"Message_Message_ScanQrcode"                  = "扫描二维码";
+"Message_Message_Add"                         = "加好友（群）";
+"Message_Message_Group"                       = "新建群聊";
+"Message_Message_MyQrcode"                    = "我的二维码";
+"Message_Create_Cover"                        = "选择封面";
+"Message_GroupDetail_QRcode"                  = "群二维码";
+"Message_GroupDetail_Share"                   = "分享本群";
+"Message_GroupDetail_QRcodeCard"              = "二维码名片";
+"Message_Scan_Scan"                           = "扫描二维码";
+
 
 //Contact
-"Contact_Search_InputPrompt"                  = "Input phone number or group id";
-"Contact_Search_SearchFail"                   = "No result";
-"Contact_Search_Contacts"                     = "Contacts";
-"Contact_SearchContactAdd"                    = "Add";
-"Contact_SearchContactAdded"                  = "Added";
-
+"Contact_Search_InputPrompt"                  = "输入手机号、群ID号";
+"Contact_Search_SearchFail"                   = "未查询到相关信息";
+"Contact_Search_Contacts"                     = "添加通讯录好友";
+"Contact_SearchContactAdd"                    = "添加";
+"Contact_SearchContactAdded"                  = "已添加";
 
 //IM
-"IM_Group_Cover"                              = "Cover";
-"IM_Push_ANewMessage"                         = "A new message";
-"IM_Push_InviteSuccess"                       = "Invite success";
-"IM_Push_PushInvite"                          = " invite to join";
-"IM_Card_Card"                                = "Card";
-"IM_Card_GroupCard"                           = "Group Card";
-"IM_ChatList_ACard"                           = "A Card";
+"IM_Group_Cover"                              = "封面";
+"IM_Push_ANewMessage"                         = "一条新消息";
+"IM_Push_InviteSuccess"                       = "邀请成功，等待群主验证";
+"IM_Push_PushInvite"                          = "邀请加入";
+"IM_Card_Card"                                = "名片";
+"IM_Card_GroupCard"                           = "群名片";
+"IM_ChatList_ACard"                           = "一张名片";
+
+
 

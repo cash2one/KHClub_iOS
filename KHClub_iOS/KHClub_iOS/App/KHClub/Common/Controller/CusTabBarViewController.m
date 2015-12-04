@@ -148,6 +148,13 @@ static CusTabBarViewController * instance = nil;
  
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.view sendSubviewToBack:self.navigationController.navigationBar];    
+}
+
 - (void)setUnread
 {
     [self badgeNotify:nil];

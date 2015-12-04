@@ -198,19 +198,45 @@
         
         int status = [responseData[@"status"] intValue];
         if (status == HttpStatusCodeSuccess) {
-            [self showComplete:KHClubString(@"Login_Register_RegisterSuccessful")];
-            [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
-            //数据本地缓存
-            [[UserService sharedService] saveAndUpdate];
-            //找回密码成功进入主页
-            [CusTabBarViewController reinit];
-            CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
-            UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
             
-            [self presentViewController:nav animated:YES completion:^{
-                //登录成功 出栈
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }];
+            //环信登录
+            //异步登陆账号
+            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[ToolsManager getCommonTargetId:[UserService sharedService].user.uid]
+                                                                password:IM_PWD
+                                                              completion:
+             ^(NSDictionary *loginInfo, EMError *error) {
+                 //隐藏
+                 [self hideLoading];
+                 
+                 if (loginInfo && !error) {
+                     
+                     //设置是否自动登录
+                     [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+                     //获取数据库中数据
+                     [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
+                     //获取群组列表
+                     [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
+                     
+                     [self showComplete:KHClubString(@"Login_Register_RegisterSuccessful")];
+                     [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
+                     //数据本地缓存
+                     [[UserService sharedService] saveAndUpdate];
+                     //找回密码成功进入主页
+                     [CusTabBarViewController reinit];
+                     CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
+                     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
+                     
+                     [self presentViewController:nav animated:YES completion:^{
+                         //登录成功 出栈
+                         [self.navigationController popToRootViewControllerAnimated:YES];
+                     }];
+                     
+                 }
+                 else
+                 {
+                     [self showWarn:StringCommonNetException];
+                 }
+             } onQueue:nil];
             
         }else{
             [self showWarn:StringCommonNetException];
@@ -238,21 +264,43 @@
         int status = [responseData[@"status"] intValue];
         if (status == HttpStatusCodeSuccess) {
             
-            [self showComplete:KHClubString(@"Login_Register_PasswordModifySuccessful")];
-            
-            [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
-            //数据本地缓存
-            [[UserService sharedService] saveAndUpdate];
-            
-            //找回密码成功进入主页
-            [CusTabBarViewController reinit];
-            CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
-            UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
-            
-            [self presentViewController:nav animated:YES completion:^{
-                //登录成功 出栈
-                [self.navigationController popToRootViewControllerAnimated:YES];
-            }];
+            //环信登录
+            //异步登陆账号
+            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[ToolsManager getCommonTargetId:[UserService sharedService].user.uid]
+                                                                password:IM_PWD
+                                                              completion:
+             ^(NSDictionary *loginInfo, EMError *error) {
+                 //隐藏
+                 [self hideLoading];
+                 
+                 if (loginInfo && !error) {
+                     
+                     //设置是否自动登录
+                     [[EaseMob sharedInstance].chatManager setIsAutoLoginEnabled:YES];
+                     //获取数据库中数据
+                     [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
+                     //获取群组列表
+                     [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
+                     
+                     [self showComplete:KHClubString(@"Login_Register_PasswordModifySuccessful")];
+                     [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
+                     //数据本地缓存
+                     [[UserService sharedService] saveAndUpdate];
+                     //找回密码成功进入主页
+                     [CusTabBarViewController reinit];
+                     CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
+                     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
+                     [self presentViewController:nav animated:YES completion:^{
+                         //登录成功 出栈
+                         [self.navigationController popToRootViewControllerAnimated:YES];
+                     }];
+                     
+                 }
+                 else
+                 {
+                     [self showWarn:StringCommonNetException];
+                 }
+             } onQueue:nil];
             
         }else{
             [self showWarn:StringCommonNetException];

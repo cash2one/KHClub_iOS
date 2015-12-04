@@ -51,13 +51,14 @@
 {
     self.headImageView.frame               = CGRectMake(10, 10, 45, 45);
     self.headImageView.layer.cornerRadius  = 1;
+    self.headImageView.contentMode         = UIViewContentModeScaleAspectFill;
     self.headImageView.layer.masksToBounds = YES;
 
     self.nameLabel.frame                   = CGRectMake(self.headImageView.right+5, self.headImageView.y+1, 250, 20);
     self.nameLabel.font                    = [UIFont systemFontOfSize:FontListName];
     self.nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
 
-    self.introLabel.frame                  = CGRectMake(self.headImageView.right+5, self.nameLabel.bottom+3, 250, 20);
+    self.introLabel.frame                  = CGRectMake(self.headImageView.right+5, self.nameLabel.bottom+3, [DeviceManager getDeviceWidth]-70, 20);
     self.introLabel.font                   = [UIFont systemFontOfSize:13];
     self.introLabel.textColor              = [UIColor colorWithHexString:ColorLightBlack];
 

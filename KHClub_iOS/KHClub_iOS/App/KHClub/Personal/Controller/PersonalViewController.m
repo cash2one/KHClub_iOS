@@ -172,18 +172,24 @@
     [self.navBar.leftBtn setImage:[UIImage imageNamed:@"personal_info_edit"] forState:UIControlStateNormal];
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
     
-    self.imageBackView.frame           = CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60);
-    self.imageBackView.backgroundColor = [UIColor whiteColor];
+    self.imageBackView.frame            = CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60);
+    self.imageBackView.backgroundColor  = [UIColor whiteColor];
 
-    CustomLabel * imageLabel           = [[CustomLabel alloc] initWithFontSize:17];
-    imageLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
-    imageLabel.frame                   = CGRectMake(15, 0, 80, 60);
-    imageLabel.text                    = KHClubString(@"Personal_Personal_Moments");
+    CustomLabel * imageLabel            = [[CustomLabel alloc] initWithFontSize:17];
+    imageLabel.textColor                = [UIColor colorWithHexString:ColorDeepBlack];
+    imageLabel.frame                    = CGRectMake(15, 0, 80, 60);
+    imageLabel.text                     = KHClubString(@"Personal_Personal_Moments");
     [self.imageBackView addSubview:imageLabel];
 
-    self.imageView1.frame              = CGRectMake(imageLabel.right+5, 5, 50, 50);
-    self.imageView2.frame              = CGRectMake(self.imageView1.right+5, 5, 50, 50);
-    self.imageView3.frame              = CGRectMake(self.imageView2.right+5, 5, 50, 50);
+    self.imageView1.frame               = CGRectMake(imageLabel.right+5, 5, 50, 50);
+    self.imageView2.frame               = CGRectMake(self.imageView1.right+5, 5, 50, 50);
+    self.imageView3.frame               = CGRectMake(self.imageView2.right+5, 5, 50, 50);
+    self.imageView1.contentMode         = UIViewContentModeScaleAspectFill;
+    self.imageView2.contentMode         = UIViewContentModeScaleAspectFill;
+    self.imageView3.contentMode         = UIViewContentModeScaleAspectFill;
+    self.imageView1.layer.masksToBounds = YES;
+    self.imageView2.layer.masksToBounds = YES;
+    self.imageView3.layer.masksToBounds = YES;
     [self.imageBackView addSubview:self.imageView1];
     [self.imageBackView addSubview:self.imageView2];
     [self.imageBackView addSubview:self.imageView3];

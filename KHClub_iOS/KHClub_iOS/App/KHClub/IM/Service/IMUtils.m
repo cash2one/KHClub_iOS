@@ -124,7 +124,7 @@
     //如果本地有的话
     [imageView sd_setImageWithURL:[NSURL URLWithString:user.imageUrl] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
     
-//    [self loadNewAvatarWith:username and:imageView];
+    [self loadNewAvatarWith:username and:imageView];
 }
 
 - (void)setUserAvatarWith:(NSString *)username and:(UIImageView *)imageView andPlaceHolder:(NSString *)holer
@@ -254,6 +254,7 @@
 
 - (void)cacheBuddysToDiskWithRemoveUsername:(NSString *)username
 {
+    //缓存好友 并删除
     NSMutableArray * arr   = [[NSMutableArray alloc] initWithContentsOfFile:[PATH_OF_DOCUMENT stringByAppendingFormat:@"/friends.plist"]];
     [arr removeObject:username];
     //本地缓存
@@ -263,6 +264,7 @@
 
 - (NSArray *)getBuddys
 {
+    //本地好友列表
     NSString * friendsPath  = [PATH_OF_DOCUMENT stringByAppendingFormat:@"/friends.plist"];
     NSArray * arr           = [NSArray arrayWithContentsOfFile:friendsPath];
     NSMutableArray * buddys = [[NSMutableArray alloc] init];
@@ -306,11 +308,14 @@
             NSDictionary * result  = responseData[HttpResult];
             NSString * groupCover  = result[@"group_cover"];
             NSString * groupQrcode = result[@"group_qr_code"];
+            if (groupCover.length > 0) {
+                groupCover = [kAttachmentAddr stringByAppendingString:groupCover];
+            }
             [self saveQrCode:groupQrcode groupName:groupId];
             [self saveGroupImage:groupCover groupName:groupId];
             if ([[ToolsManager completeUrlStr:groupCover] compare:path] != NSOrderedSame) {
                 //设置
-                [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:groupCover]] placeholderImage:[UIImage imageNamed:@"groups_icon"]];
+                [imageView sd_setImageWithURL:[NSURL URLWithString:groupCover] placeholderImage:[UIImage imageNamed:@"groups_icon"]];
             }
         }
         

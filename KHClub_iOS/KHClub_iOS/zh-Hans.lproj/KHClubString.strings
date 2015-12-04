@@ -60,6 +60,7 @@
 "Login_SecondLogin_BlackList"                 = "很遗憾、您已被封禁";
 "Login_SecondLogin_ForgotPassword"            = "忘记密码?";
 "Login_SecondLogin_EnterPassword"             = "请输入密码";
+"Login_SecondLogin_UsernameOrPasswordError"   = "用户名或密码错误";
 "Login_SecondLogin_VerificationNotNull"       = "验证码不能为空";
 "Login_Register_PasswordLengthSix"            = "密码长度至少六位";
 "Login_Register_RegisterSuccessful"           = "注册成功";
