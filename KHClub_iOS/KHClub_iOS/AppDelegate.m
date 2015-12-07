@@ -61,7 +61,7 @@
     //初始化数据库
     [DatabaseService sharedInstance];
     //这里初始化很多东西
-    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
+    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中 这倒霉的设计神烦 就不能写一个工具类 非要用Catagory
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
     
     //apns

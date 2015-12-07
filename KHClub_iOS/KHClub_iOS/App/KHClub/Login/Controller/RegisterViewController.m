@@ -35,7 +35,7 @@
     //获取验证码
     [self getVerify];
     
-    self.timerNum = 59;
+    self.timerNum = 20;
     
     [self createWidget];
     [self configUI];
@@ -125,7 +125,7 @@
     self.reverifyBtn.layer.cornerRadius        = 2;
     [self.reverifyBtn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
     self.reverifyBtn.enabled                   = NO;
-    [self.reverifyBtn setTitle:@"59s" forState:UIControlStateNormal];
+    [self.reverifyBtn setTitle:@"20s" forState:UIControlStateNormal];
     [self.reverifyBtn setBackgroundImage:[UIImage imageNamed:@"login_btn_bkgrnd"] forState:UIControlStateNormal];
     
     //placeHolder处理
@@ -205,8 +205,7 @@
                                                                 password:IM_PWD
                                                               completion:
              ^(NSDictionary *loginInfo, EMError *error) {
-                 //隐藏
-                 [self hideLoading];
+
                  
                  if (loginInfo && !error) {
                      
@@ -216,7 +215,8 @@
                      [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
                      //获取群组列表
                      [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
-                     
+                     //隐藏
+                     [self hideLoading];
                      [self showComplete:KHClubString(@"Login_Register_RegisterSuccessful")];
                      [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
                      //数据本地缓存
@@ -234,6 +234,8 @@
                  }
                  else
                  {
+                     //隐藏
+                     [self hideLoading];
                      [self showWarn:StringCommonNetException];
                  }
              } onQueue:nil];
@@ -368,7 +370,7 @@
     [self showLoading:StringCommonDownloadData];
     //获取验证码
     [self getVerify];
-    self.timerNum = 59;
+    self.timerNum = 20;
     self.reverifyBtn.enabled = NO;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(timerResend:) userInfo:nil repeats:YES];
     
