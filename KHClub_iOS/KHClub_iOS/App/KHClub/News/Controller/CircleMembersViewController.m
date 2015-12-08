@@ -1,21 +1,21 @@
 //
-//  CardListViewController.m
+//  CircleMembersViewController.m
 //  KHClub_iOS
 //
-//  Created by 李晓航 on 15/11/23.
+//  Created by 李晓航 on 15/12/8.
 //  Copyright © 2015年 JLXC. All rights reserved.
 //
 
-#import "CardListViewController.h"
+#import "CircleMembersViewController.h"
 #import "OtherPersonalViewController.h"
-#import "CardModel.h"
-#import "CardCell.h"
+#import "UserModel.h"
+#import "UIImageView+WebCache.h"
 
-@interface CardListViewController ()
+@interface CircleMembersViewController ()
 
 @end
 
-@implementation CardListViewController
+@implementation CircleMembersViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -36,7 +36,7 @@
 #pragma mark- layout
 - (void)configUI
 {
-    [self setNavBarTitle:NSLocalizedString(@"title.cardlist",@"Card")];
+    [self setNavBarTitle:KHClubString(@"News_CircleList_CircleMember")];
 }
 
 #pragma override
@@ -53,11 +53,42 @@
     [self loadAndhandleData];
 }
 
+- (void)handleTableViewContentWith:(UITableViewCell *)cell andIndexPath:(NSIndexPath *)indexPath
+{
+    UserModel * userModel             = self.dataArr[indexPath.row];
+    //头像
+    CustomImageView * headImageView   = [[CustomImageView alloc] initWithFrame:CGRectMake(10, 10, 45, 45)];
+    headImageView.layer.cornerRadius  = 2;
+    headImageView.layer.masksToBounds = YES;
+    //名字
+    CustomLabel * nameLabel           = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, headImageView.y+3, 0, 20)];
+    nameLabel.font                    = [UIFont systemFontOfSize:FontListName];
+    nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
+    //公司
+    CustomLabel * jobLabel            = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, nameLabel.bottom+1, 220, 20)];
+    jobLabel.font                     = [UIFont systemFontOfSize:13];
+    jobLabel.textColor                = [UIColor colorWithHexString:ColorLightBlack];
+    //底线
+    UIView * lineView                 = [[UIView alloc] initWithFrame:CGRectMake(10, 64, [DeviceManager getDeviceWidth], 1)];
+    lineView.backgroundColor          = [UIColor colorWithHexString:ColorLightGary];
+    
+    [cell.contentView addSubview:headImageView];
+    [cell.contentView addSubview:nameLabel];
+    [cell.contentView addSubview:jobLabel];
+    [cell.contentView addSubview:lineView];
+    
+    //内容
+    [headImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:userModel.head_image]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
+    nameLabel.text = [ToolsManager emptyReturnNone:userModel.name];
+    jobLabel.text  = [ToolsManager emptyReturnNone:userModel.job];
+    
+}
+
 #pragma mark- UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
-    CardModel * model                  = self.dataArr[indexPath.row];
+    UserModel * model                  = self.dataArr[indexPath.row];
     opvc.uid                           = model.uid;
     [self pushVC:opvc];
     
@@ -67,33 +98,6 @@
 {
     return 65;
 }
-
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return KHClubString(@"Common_Delete");
-}
-
-#pragma mark- UITableViewDataSource
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString * cellid = @"cardList";
-    CardCell * cell   = [self.refreshTableView dequeueReusableCellWithIdentifier:cellid];
-    if (!cell) {
-        cell = [[CardCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
-    }
-    [cell setContentWithModel:self.dataArr[indexPath.row]];
-    return cell;
-}
-
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return YES;
-//}
-//
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [self deleteCardModel:self.dataArr[indexPath.row]];
-//}
 
 #pragma mark- method response
 
@@ -116,14 +120,10 @@
             NSArray * list  = responseData[HttpResult][HttpList];
             //数据处理
             for (NSDictionary * cardDic in list) {
-                if ([cardDic[@"is_friend"] boolValue]) {
-                    continue;
-                }
-                CardModel * model    = [[CardModel alloc] init];
+                UserModel * model    = [[UserModel alloc] init];
                 model.uid            = [cardDic[@"user_id"] integerValue];
                 model.name           = cardDic[@"name"];
                 model.head_sub_image = cardDic[@"head_sub_image"];
-                model.company_name   = cardDic[@"company_name"];
                 model.job            = cardDic[@"job"];
                 [self.dataArr addObject:model];
             }
@@ -142,36 +142,6 @@
     }];
     
 }
-
-- (void)deleteCardModel:(CardModel *)model
-{
-//    NSDictionary * params = @{@"uid":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
-//                              @"current_id":[NSString stringWithFormat:@"%ld", model.uid]};
-//    
-//    debugLog(@"%@ %@", kDeleteVisitPath, params);
-//    [self showLoading:@"删除中"];
-//    [HttpService postWithUrlString:kDeleteVisitPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
-//        debugLog(@"%@", responseData);
-//        int status = [responseData[HttpStatus] intValue];
-//        if (status == HttpStatusCodeSuccess) {
-//            
-//            [self showComplete:responseData[HttpMessage]];
-//            [self.dataArr removeObject:model];
-//            [self.refreshTableView reloadData];
-//            
-//        }else{
-//            [self.dataArr removeObject:model];
-//            [self showWarn:responseData[HttpMessage]];
-//            [self.refreshTableView reloadData];
-//        }
-//        
-//    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [self showWarn:StringCommonNetException];
-//    }];
-    
-}
-
-
 /*
 #pragma mark - Navigation
 

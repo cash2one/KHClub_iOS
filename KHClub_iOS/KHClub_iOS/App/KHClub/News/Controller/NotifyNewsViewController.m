@@ -15,17 +15,17 @@
 @interface NotifyNewsViewController ()
 
 //好友列表
-@property (nonatomic, strong) UITableView * pushTableView;
+@property (nonatomic, strong) UITableView    * pushTableView;
 //好友数据源
 @property (nonatomic, strong) NSMutableArray * dataArr;
 //新的朋友请求数组
 @property (nonatomic, strong) NSMutableArray * recentFriendsArr;
 //没有点进添加列表看的新朋友
-@property (nonatomic ,assign) NSInteger unReadNum;
+@property (nonatomic ,assign) NSInteger      unReadNum;
 //页数
-@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, assign) NSInteger      page;
 //尺寸
-@property (nonatomic, assign) NSInteger size;
+@property (nonatomic, assign) NSInteger      size;
 
 @end
 

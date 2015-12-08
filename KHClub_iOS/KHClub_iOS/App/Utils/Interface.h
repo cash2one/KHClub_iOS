@@ -56,8 +56,11 @@
 //新闻详情
 #define kNewsDetailPath [kHomeAddr stringByAppendingString:@"/newsDetail"]
 ////////////////////////////////////////////////首页'圈子'部分////////////////////////////////////////////////
-// 圈子列表
+// 圈子列表 废弃
 #define kGetCircleListPath [kHomeAddr stringByAppendingString:@"/getCircleList"]
+
+// 圈子列表
+#define kGetPersonalCircleListPath [kHomeAddr stringByAppendingString:@"/getPersonalCircleList"]
 
 ////////////////////////////////////////////////个人信息////////////////////////////////////////////////
 //修改个人信息

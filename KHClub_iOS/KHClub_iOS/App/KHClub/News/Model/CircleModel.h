@@ -16,11 +16,13 @@
 //ID
 @property (nonatomic, assign) NSInteger cid;
 //标题
-@property (nonatomic, copy  ) NSString  * title;
+@property (nonatomic, copy  ) NSString  * circle_name;
 //描述
-@property (nonatomic, copy  ) NSString  * intro;
+@property (nonatomic, copy  ) NSString  * circle_detail;
 //图片
-@property (nonatomic, copy  ) NSString  * image;
+@property (nonatomic, copy  ) NSString  * circle_cover_image;
+//图片
+@property (nonatomic, copy  ) NSString  * circle_cover_sub_image;
 //管理员姓名
 @property (nonatomic, copy  ) NSString  * manager_name;
 //联系方式
@@ -29,8 +31,12 @@
 @property (nonatomic, copy  ) NSString  * address;
 //微信号
 @property (nonatomic, copy  ) NSString  * wx_num;
+//微信二维码
+@property (nonatomic, copy  ) NSString  * wx_qrcode;
 //网页
 @property (nonatomic, copy  ) NSString  * web;
+//是否已经关注
+@property (nonatomic, assign) BOOL      isFollow;
 //删除标识
 @property (nonatomic, assign) NSInteger delete_flag;
 

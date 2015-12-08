@@ -123,16 +123,16 @@
     self.backScroll.bounces                        = NO;
     
     //顶部两个滑块按钮
-    self.newsListBtn.frame                        = CGRectMake(self.viewWidth/2-105, 33, 100, 20);
-    self.newsListBtn.titleLabel.font              = [UIFont systemFontOfSize:16];
-    self.newsListBtn.contentHorizontalAlignment   = UIControlContentHorizontalAlignmentRight;
+    self.newsListBtn.frame                        = CGRectMake(self.viewWidth/2+5, 33, 80, 20);
+    self.newsListBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
+    self.newsListBtn.contentHorizontalAlignment   = UIControlContentHorizontalAlignmentCenter;
 
-    self.circleListBtn.frame                      = CGRectMake(self.viewWidth/2+5, 33, 100, 20);
-    self.circleListBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
-    self.circleListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.circleListBtn.frame                      = CGRectMake(self.viewWidth/2-85, 33, 80, 20);
+    self.circleListBtn.titleLabel.font              = [UIFont systemFontOfSize:16];
+    self.circleListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     
-    [self.newsListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.circleListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
+    [self.circleListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.newsListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
     [self.newsListBtn setTitle:KHClubString(@"News_NewsList_MomentsTitle") forState:UIControlStateNormal];
     [self.circleListBtn setTitle:KHClubString(@"News_CircleList_CircleTitle") forState:UIControlStateNormal];
 }
@@ -143,13 +143,13 @@
 {
     //新闻VC
     self.newsListVC            = [[NewsListViewController alloc] init];
-    self.newsListVC.view.frame = CGRectMake(0, 0, self.viewWidth, self.backScroll.height);
+    self.newsListVC.view.frame = CGRectMake(self.viewWidth, 0, self.viewWidth, self.backScroll.height);
     [self addChildViewController:self.newsListVC];
     [self.backScroll addSubview:self.newsListVC.view];
     
     //圈子VC
     self.circleListVC            = [[CircleListViewController alloc] init];
-    self.circleListVC.view.frame = CGRectMake(self.viewWidth, 0, self.viewWidth, self.backScroll.height);
+    self.circleListVC.view.frame = CGRectMake(0, 0, self.viewWidth, self.backScroll.height);
     [self addChildViewController:self.circleListVC];
     [self.backScroll addSubview:self.circleListVC.view];
     
@@ -169,20 +169,20 @@
 #pragma mark- method response
 - (void)newsListClick:(id)sender
 {
-    if (self.backScroll.contentOffset.x >= self.viewWidth) {
-        [self selectBarIndex:1];
+    if (self.backScroll.contentOffset.x < self.viewWidth) {
+        [self selectBarIndex:2];
         [UIView animateWithDuration:0.2 animations:^{
-            self.backScroll.contentOffset = CGPointZero;
+            self.backScroll.contentOffset = CGPointMake(self.viewWidth, 0);
         }];
     }
 }
 
 - (void)circleListClick:(id)sender
 {
-    if (self.backScroll.contentOffset.x < self.viewWidth) {
-        [self selectBarIndex:2];
+    if (self.backScroll.contentOffset.x >= self.viewWidth) {
+        [self selectBarIndex:1];
         [UIView animateWithDuration:0.2 animations:^{
-            self.backScroll.contentOffset = CGPointMake(self.viewWidth, 0);
+            self.backScroll.contentOffset = CGPointZero;
         }];
     }
 }
@@ -210,21 +210,21 @@
     
 }
 
-//顶部更换
+//顶部更换 字体颜色更换
 - (void)selectBarIndex:(NSInteger)index
 {
     if (index == 1) {
+        self.newsListBtn.titleLabel.font   = [UIFont systemFontOfSize:14];
+        self.circleListBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+
+        [self.newsListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
+        [self.circleListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    }else{
         self.newsListBtn.titleLabel.font   = [UIFont systemFontOfSize:16];
         self.circleListBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [self.newsListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.circleListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
-    }else{
-        self.newsListBtn.titleLabel.font   = [UIFont systemFontOfSize:14];
-        self.circleListBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-        
-        [self.newsListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
-        [self.circleListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }
 }
 

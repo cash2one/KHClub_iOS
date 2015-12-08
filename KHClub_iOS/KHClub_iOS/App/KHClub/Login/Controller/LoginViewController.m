@@ -186,17 +186,17 @@
     return YES;
 }
 
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
-{
-    //手机号不超过11位
-    if (range.length == 0) {
-        if ((textField.text.length+string.length)>11) {
-            return NO;
-        }
-    }
-    
-    return YES;
-}
+//- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+//{
+//    //手机号不超过11位
+//    if (range.length == 0) {
+//        if ((textField.text.length+string.length)>11) {
+//            return NO;
+//        }
+//    }
+//    
+//    return YES;
+//}
 #pragma mark- method response
 - (void)userProtocolPress:(id)sender
 {

@@ -72,7 +72,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSString * cellid = [NSString stringWithFormat:@"%@%ld", kCellIdentifier, indexPath.row];
+    NSString * cellid      = kCellIdentifier;
     UITableViewCell * cell = [self.refreshTableView dequeueReusableCellWithIdentifier:cellid];
     if (cell) {
         [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];

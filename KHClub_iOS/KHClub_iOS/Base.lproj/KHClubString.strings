@@ -124,8 +124,14 @@
 "Personal_Report_Success"                     = "举报成功";
 
 //News
-"News_NewsList_MomentsTitle"                  = "动态·话题";
-"News_CircleList_CircleTitle"                 = "圈层·门户";
+"News_NewsList_MomentsTitle"                  = "动态";
+"News_CircleList_CircleTitle"                 = "圈子";
+"News_CircleList_MyCircle"                    = "我的圈子";
+"News_CircleList_RecommendCircle"             = "推荐圈子";
+"News_CircleList_CircleHome"                  = "圈子主页";
+"News_CircleList_CircleMember"                = "圈子达人";
+"News_CircleList_Follow"                      = "关注";
+"News_CircleList_Unfollow"                    = "取消关注";
 "News_CircleDetail_Title"                     = "圈层介绍";
 "News_CircleDetail_IntroTitle"                = "圈层详情";
 "News_Publish_EnterContent"                   = "请输入内容";

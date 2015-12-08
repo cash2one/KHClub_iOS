@@ -126,6 +126,12 @@
 //News
 "News_NewsList_MomentsTitle"                  = "Moments";
 "News_CircleList_CircleTitle"                 = "Circle";
+"News_CircleList_MyCircle"                    = "My Circle";
+"News_CircleList_RecommendCircle"             = "Recommend Circle";
+"News_CircleList_CircleHome"                  = "Circle Home";
+"News_CircleList_CircleMember"                = "Circle Member";
+"News_CircleList_Follow"                      = "Follow";
+"News_CircleList_Unfollow"                    = "Unfollow";
 "News_CircleDetail_Title"                     = "Circle Detail";
 "News_CircleDetail_IntroTitle"                = "Circle Intro";
 "News_Publish_EnterContent"                   = "Please enter content";

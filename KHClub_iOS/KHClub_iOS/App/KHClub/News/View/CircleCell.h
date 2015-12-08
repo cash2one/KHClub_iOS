@@ -8,10 +8,27 @@
 
 #import <UIKit/UIKit.h>
 #import "CircleModel.h"
+
+/**
+ *  事件代理
+ */
+@protocol CircleListDelegate <NSObject>
+
+/**
+ *  关注按钮点击
+ *
+ *  @param model 关注模型
+ */
+- (void)followCirclePress:(CircleModel *)model;
+
+@end
+
 /**
  *  圈子cell
  */
 @interface CircleCell : UITableViewCell
+
+@property (nonatomic, assign) id<CircleListDelegate> delegate;
 
 - (void)setContentWithModel:(CircleModel *)model;
 
