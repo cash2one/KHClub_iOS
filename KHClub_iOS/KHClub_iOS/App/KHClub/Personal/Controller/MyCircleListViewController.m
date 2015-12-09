@@ -1,37 +1,31 @@
 //
-//  CircleListViewController.m
+//  MyCircleListViewController.m
 //  KHClub_iOS
 //
-//  Created by 李晓航 on 15/11/30.
+//  Created by 李晓航 on 15/12/9.
 //  Copyright © 2015年 JLXC. All rights reserved.
 //
 
-#import "CircleListViewController.h"
+#import "MyCircleListViewController.h"
 #import "CircleHomeViewController.h"
 #import "CircleModel.h"
 #import "CircleCell.h"
 
-@interface CircleListViewController ()<CircleListDelegate>
-
-/**
- *  已关注的圈子
- */
-@property (nonatomic, strong) NSMutableArray * followArray;
+@interface MyCircleListViewController ()
 
 @end
 
-@implementation CircleListViewController
+@implementation MyCircleListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //初始化
-    self.followArray = [[NSMutableArray alloc] init];
+    
     //处理继承table
-    self.refreshTableView.frame = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight);
+    self.refreshTableView.frame = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
     [self refreshData];
     self.refreshTableView.footLabel.hidden             = YES;
     self.refreshTableView.showsVerticalScrollIndicator = NO;
-
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -49,8 +43,8 @@
 //加载更多
 - (void)loadingData
 {
-//    [super loadingData];
-//    [self loadAndhandleData];
+    //    [super loadingData];
+    //    [self loadAndhandleData];
 }
 
 #pragma mark- UITableViewDelegate
@@ -58,15 +52,9 @@
 {
     
     CircleHomeViewController * cdvc = [[CircleHomeViewController alloc] init];
-    CircleModel * circle            = nil;
-    
-    if (indexPath.section == 0) {
-        circle = self.followArray[indexPath.row];
-    }else{
-        circle = self.dataArr[indexPath.row];
-    }
+    CircleModel * circle            = self.dataArr[indexPath.row];
     //圈子ID
-    cdvc.circleId = circle.cid;
+    cdvc.circleId                   = circle.cid;
     [self pushVC:cdvc];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -76,43 +64,10 @@
     return 65;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 30;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    UIView * backView        = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 30)];
-    backView.backgroundColor = [UIColor colorWithHexString:ColorLightWhite];
-    
-    CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(15, 5, 200, 20)];
-    titleLabel.font          = [UIFont systemFontOfSize:14];
-    titleLabel.textColor     = [UIColor colorWithHexString:ColorGold];
-    if (section == 0) {
-        titleLabel.text = KHClubString(@"News_CircleList_MyCircle");
-    }else{
-        titleLabel.text = KHClubString(@"News_CircleList_RecommendCircle");
-    }
-    
-    [backView addSubview:titleLabel];
-    return backView;
-}
-
-
 #pragma mark- UITableViewDataSource
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
-    return 2;
-}
-
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return self.followArray.count;
-    }else{
-        return self.dataArr.count;
-    }
+    return self.dataArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,26 +76,11 @@
     CircleCell * cell = [self.refreshTableView dequeueReusableCellWithIdentifier:cellid];
     if (!cell) {
         cell          = [[CircleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
-        cell.delegate = self;
     }
     //关注的
-    if (indexPath.section == 0) {
-        [cell setContentWithModel:self.followArray[indexPath.row]];
-    }else{
-        [cell setContentWithModel:self.dataArr[indexPath.row]];
-    }
+    [cell setContentWithModel:self.dataArr[indexPath.row]];
     
     return cell;
-}
-
-#pragma mark- CircleListDelegate
-//关注点击 布局变换
-- (void)followCirclePress:(CircleModel *)model
-{
-    model.isFollow = YES;
-    [self.followArray insertObject:model atIndex:0];
-    [self.dataArr removeObject:model];
-    [self.refreshTableView reloadData];
 }
 
 #pragma mark- method response
@@ -158,7 +98,6 @@
             //下拉刷新清空数组
             if (self.isReloading) {
                 [self.dataArr removeAllObjects];
-                [self.followArray removeAllObjects];
             }
             
             self.isLastPage = [responseData[HttpResult][@"is_last"] boolValue];
@@ -177,21 +116,7 @@
                 model.address            = circleDic[@"address"];
                 [self.dataArr addObject:model];
                 
-                //测试用
-                CircleModel * followModel      = [[CircleModel alloc] init];
-                followModel.cid                = [circleDic[@"id"] integerValue];
-                followModel.circle_name        = circleDic[@"title"];
-                followModel.circle_detail      = circleDic[@"intro"];
-                followModel.circle_cover_image = circleDic[@"image"];
-                followModel.manager_name       = circleDic[@"manager_name"];
-                followModel.phone_num          = circleDic[@"phone_num"];
-                followModel.web                = circleDic[@"web"];
-                followModel.wx_num             = circleDic[@"wx_num"];
-                followModel.address            = circleDic[@"address"];
-                followModel.isFollow           = YES;
-                [self.followArray addObject:followModel];
             }
-            [self.followArray removeLastObject];
             
             [self reloadTable];
             
@@ -208,7 +133,6 @@
     }];
     
 }
-
 
 /*
 #pragma mark - Navigation

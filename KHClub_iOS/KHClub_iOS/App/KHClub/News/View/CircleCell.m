@@ -91,12 +91,12 @@
     self.circleModel = model;
     //头像
     NSURL * imageUrl = nil;
-    if (model.image.length > 0) {
-        imageUrl = [NSURL URLWithString:[ToolsManager completeUrlStr:[model.image componentsSeparatedByString:@","][0]]];
+    if (model.circle_cover_image.length > 0) {
+        imageUrl = [NSURL URLWithString:[ToolsManager completeUrlStr:[model.circle_cover_image componentsSeparatedByString:@","][0]]];
     }
     [self.headImageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"loading_default"]];
     //名字
-    self.nameLabel.text = model.title;
+    self.nameLabel.text = model.circle_name;
     //公司
     self.likeLabel.text = @"11000";
     

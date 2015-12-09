@@ -11,6 +11,7 @@
 #import "NotifyNewsViewController.h"
 #import "NewsListViewController.h"
 #import "CircleListViewController.h"
+#import "CreateCircleViewController.h"
 
 @interface NewsMainViewController ()
 
@@ -96,8 +97,17 @@
     }];
     //右上角发布
     [self.navBar setRightBtnWithContent:@"" andBlock:^{
-        PublishNewsViewController * pnvc = [[PublishNewsViewController alloc] init];
-        [sself pushVC:pnvc];
+        
+        //发布
+        if (self.backScroll.contentOffset.x >= self.viewWidth) {
+            PublishNewsViewController * pnvc = [[PublishNewsViewController alloc] init];
+            [sself pushVC:pnvc];
+        }else{
+            //创建
+            CreateCircleViewController * ccvc = [[CreateCircleViewController alloc] init];
+            [sself pushVC:ccvc];
+        }
+        
     }];
     
     self.navBar.leftBtn.hidden                 = NO;

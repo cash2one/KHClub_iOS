@@ -30,12 +30,20 @@
 @property (nonatomic, strong) CustomImageView   * imageView2;
 //图片3
 @property (nonatomic, strong) CustomImageView   * imageView3;
+//圈子图片1
+@property (nonatomic, strong) CustomImageView   * circleImageView1;
+//圈子图片2
+@property (nonatomic, strong) CustomImageView   * circleImageView2;
+//圈子图片3
+@property (nonatomic, strong) CustomImageView   * circleImageView3;
 //签名背景
 @property (nonatomic, strong) UIView            * signBackView;
 //签名
 @property (nonatomic, strong) CustomLabel       * signLabel;
 //图像背景
 @property (nonatomic, strong) CustomButton      * imageBackView;
+//图像背景
+@property (nonatomic, strong) CustomButton      * myCircleBackView;
 //小助手
 @property (nonatomic, strong) CustomButton      * robotBackView;
 //右上角点击分享按钮
@@ -75,8 +83,13 @@
     self.imageView1        = [[CustomImageView alloc] init];
     self.imageView2        = [[CustomImageView alloc] init];
     self.imageView3        = [[CustomImageView alloc] init];
+    self.circleImageView1  = [[CustomImageView alloc] init];
+    self.circleImageView2  = [[CustomImageView alloc] init];
+    self.circleImageView3  = [[CustomImageView alloc] init];
     //状态背景
     self.imageBackView     = [[CustomButton alloc] init];
+    //圈子背景
+    self.myCircleBackView  = [[CustomButton alloc] init];
     //签名部分
     self.signBackView      = [[UIView alloc] init];
     self.signLabel         = [[CustomLabel alloc] init];
@@ -85,10 +98,19 @@
     
     [self.view addSubview:self.backScrollView];
     [self.backScrollView addSubview:self.infoView];
-    [self.backScrollView addSubview:self.imageBackView];    
+    [self.backScrollView addSubview:self.imageBackView];
+    [self.backScrollView addSubview:self.myCircleBackView];
     [self.backScrollView addSubview:self.signBackView];
     [self.backScrollView addSubview:self.robotBackView];
     [self.signBackView addSubview:self.signLabel];
+    
+    [self.imageBackView addSubview:self.imageView1];
+    [self.imageBackView addSubview:self.imageView2];
+    [self.imageBackView addSubview:self.imageView3];
+    
+    [self.myCircleBackView addSubview:self.circleImageView1];
+    [self.myCircleBackView addSubview:self.circleImageView2];
+    [self.myCircleBackView addSubview:self.circleImageView3];
  
     __weak typeof(self) sself = self;
     //左上角设置
@@ -144,13 +166,16 @@
     
     //设置页面UI刷新
     [self.infoView setRefreshBlock:^{
-        sself.imageBackView.y = self.infoView.bottom+10;
-        sself.signBackView.y  = self.imageBackView.bottom+1;
-        sself.robotBackView.y = self.signBackView.bottom+10;
+        sself.imageBackView.y    = self.infoView.bottom+10;
+        sself.myCircleBackView.y = self.imageBackView.bottom+1;
+        sself.signBackView.y     = self.myCircleBackView.bottom+1;
+        sself.robotBackView.y    = self.signBackView.bottom+10;
     }];
     
     [self.imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.myCircleBackView addTarget:self action:@selector(myCircleClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.robotBackView addTarget:self action:@selector(robotClick:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 - (void)configUI
@@ -172,6 +197,7 @@
     [self.navBar.leftBtn setImage:[UIImage imageNamed:@"personal_info_edit"] forState:UIControlStateNormal];
     [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
     
+    //状态背景
     self.imageBackView.frame            = CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60);
     self.imageBackView.backgroundColor  = [UIColor whiteColor];
 
@@ -190,35 +216,52 @@
     self.imageView1.layer.masksToBounds = YES;
     self.imageView2.layer.masksToBounds = YES;
     self.imageView3.layer.masksToBounds = YES;
-    [self.imageBackView addSubview:self.imageView1];
-    [self.imageBackView addSubview:self.imageView2];
-    [self.imageBackView addSubview:self.imageView3];
     
-    self.signBackView.frame           = CGRectMake(0, self.imageBackView.bottom+1, self.viewWidth, 60);
-    self.signBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
-
-    CustomLabel * signTitleLabel      = [[CustomLabel alloc] initWithFontSize:17];
-    signTitleLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
-    signTitleLabel.frame              = CGRectMake(15, 0, 100, 40);
-    signTitleLabel.text               = KHClubString(@"Personal_Personal_Sign");
-    [self.signBackView addSubview:signTitleLabel];
-
-    self.signLabel.frame              = CGRectMake(15, signTitleLabel.bottom, self.viewWidth-30, 0);
-    self.signLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
-    self.signLabel.font               = [UIFont systemFontOfSize:15];
-    self.signLabel.numberOfLines      = 0;
-    self.signLabel.lineBreakMode      = NSLineBreakByCharWrapping;
+    //我的圈子
+    self.myCircleBackView.frame               = CGRectMake(0, self.imageBackView.bottom+10, self.viewWidth, 60);
+    self.myCircleBackView.backgroundColor     = [UIColor whiteColor];
+    CustomLabel * circleLabel                 = [[CustomLabel alloc] initWithFontSize:17];
+    circleLabel.textColor                     = [UIColor colorWithHexString:ColorDeepBlack];
+    circleLabel.frame                         = CGRectMake(15, 0, 80, 60);
+    circleLabel.text                          = KHClubString(@"News_CircleList_MyCircle");
+    [self.myCircleBackView addSubview:circleLabel];
     
+    self.circleImageView1.frame               = CGRectMake(circleLabel.right+5, 5, 50, 50);
+    self.circleImageView2.frame               = CGRectMake(self.circleImageView1.right+5, 5, 50, 50);
+    self.circleImageView3.frame               = CGRectMake(self.circleImageView2.right+5, 5, 50, 50);
+    self.circleImageView1.contentMode         = UIViewContentModeScaleAspectFill;
+    self.circleImageView2.contentMode         = UIViewContentModeScaleAspectFill;
+    self.circleImageView3.contentMode         = UIViewContentModeScaleAspectFill;
+    self.circleImageView1.layer.masksToBounds = YES;
+    self.circleImageView2.layer.masksToBounds = YES;
+    self.circleImageView3.layer.masksToBounds = YES;
+    
+    //签名
+    self.signBackView.frame            = CGRectMake(0, self.imageBackView.bottom+1, self.viewWidth, 60);
+    self.signBackView.backgroundColor  = [UIColor colorWithHexString:ColorWhite];
+
+    CustomLabel * signTitleLabel       = [[CustomLabel alloc] initWithFontSize:17];
+    signTitleLabel.textColor           = [UIColor colorWithHexString:ColorDeepBlack];
+    signTitleLabel.frame               = CGRectMake(15, 0, 100, 40);
+    signTitleLabel.text                = KHClubString(@"Personal_Personal_Sign");
+
+    self.signLabel.frame               = CGRectMake(15, signTitleLabel.bottom, self.viewWidth-30, 0);
+    self.signLabel.textColor           = [UIColor colorWithHexString:ColorDeepBlack];
+    self.signLabel.font                = [UIFont systemFontOfSize:15];
+    self.signLabel.numberOfLines       = 0;
+    self.signLabel.lineBreakMode       = NSLineBreakByCharWrapping;
+
     self.robotBackView.frame           = CGRectMake(0, self.signBackView.bottom+10, self.viewWidth, 60);
     self.robotBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
     CustomLabel * robotTitleLabel      = [[CustomLabel alloc] initWithFontSize:16];
     robotTitleLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
     robotTitleLabel.frame              = CGRectMake(65, 10, 200, 40);
     robotTitleLabel.text               = KHClubString(@"Personal_Personal_RobotTitle");
-    
+
     CustomImageView * robotImageView   = [[CustomImageView alloc] initWithFrame:CGRectMake(15, 10, 40, 40)];
     robotImageView.image               = [UIImage imageNamed:@"Icon"];
     
+    [self.signBackView addSubview:signTitleLabel];
     [self.robotBackView addSubview:robotImageView];
     [self.robotBackView addSubview:robotTitleLabel];
     
@@ -269,6 +312,11 @@
     CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
     ccuvc.cardMessage = [[IMUtils shareInstance] generateCardMesssageWithUserModel:[UserService sharedService].user];
     [self presentViewController:ccuvc animated:YES completion:nil];
+}
+
+- (void)myCircleClick:(id)sender
+{
+    
 }
 
 #pragma mark- private method

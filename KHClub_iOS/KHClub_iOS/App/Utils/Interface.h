@@ -59,8 +59,29 @@
 // 圈子列表 废弃
 #define kGetCircleListPath [kHomeAddr stringByAppendingString:@"/getCircleList"]
 
+// 创建圈子
+#define kPostNewCirclePath [kHomeAddr stringByAppendingString:@"/postNewCircle"]
+
+// 修改圈子信息
+#define kModifyCirclePath [kHomeAddr stringByAppendingString:@"/modifyCircle"]
+
 // 圈子列表
 #define kGetPersonalCircleListPath [kHomeAddr stringByAppendingString:@"/getPersonalCircleList"]
+
+// 圈子主页列表
+#define kGetCircleHomeListPath [kHomeAddr stringByAppendingString:@"/getCircleHomeList"]
+
+// 我的圈子封面列表
+#define kGetMyCircleCoverPath [kHomeAddr stringByAppendingString:@"/getMyCircleCover"]
+
+// 我的圈子列表
+#define kGetMyCircleListPath [kHomeAddr stringByAppendingString:@"/getMyCircleList"]
+
+// 关注或者取消关注圈子
+#define kFollowOrUnfollowCirclePath [kHomeAddr stringByAppendingString:@"/followOrUnfollowCircle"]
+
+// 圈达人列表
+#define kGetCircleMembersPath [kHomeAddr stringByAppendingString:@"/getCircleMembers"]
 
 ////////////////////////////////////////////////个人信息////////////////////////////////////////////////
 //修改个人信息

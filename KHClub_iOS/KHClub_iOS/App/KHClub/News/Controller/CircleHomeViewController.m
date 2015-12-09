@@ -19,6 +19,10 @@
 #import "NewsListCell.h"
 #import "NewsUtils.h"
 #import "CircleMembersViewController.h"
+#import "ShareAlertPopView.h"
+#import "IMUtils.h"
+#import "ShareUtils.h"
+#import "CardChooseUserViewController.h"
 
 @interface CircleHomeViewController ()<NewsListDelegate, RefreshDataDelegate>
 
@@ -41,7 +45,8 @@
 @property (nonatomic, strong) CustomButton    * circleFansView;
 //圈子模型
 @property (nonatomic, strong) CircleModel     * circleModel;
-
+//右上角点击分享按钮
+@property (nonatomic, strong) ShareAlertPopView * shareAlertPopView;
 
 @end
 
@@ -105,7 +110,7 @@
     
     self.backView.frame                 = CGRectMake(0, 0, self.viewWidth, 160);
     self.backView.backgroundColor       = [UIColor whiteColor];
-    self.coverImageView.frame           = CGRectMake(10, 10, 80, 80);
+    self.coverImageView.frame           = CGRectMake(10, 10, 57, 57);
     //关注按钮
     self.followBtn.frame                   = CGRectMake([DeviceManager getDeviceWidth]-80, 30, 60, 30);
     self.followBtn.backgroundColor         = [UIColor colorWithHexString:ColorGold];
@@ -113,21 +118,68 @@
     [self.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     //标题
-    self.circleTitleLabel.frame         = CGRectMake(self.coverImageView.right+10, self.coverImageView.y+3, self.viewWidth-self.coverImageView.right-100, 25);
+    self.circleTitleLabel.frame         = CGRectMake(self.coverImageView.right+10, self.coverImageView.y+3, self.viewWidth-self.coverImageView.right-100, 15);
     self.circleTitleLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
     //人名
-    self.circleNameLabel.frame          = CGRectMake(self.coverImageView.right+10, self.circleTitleLabel.bottom+3, self.viewWidth-self.coverImageView.right-30, 20);
+    self.circleNameLabel.frame          = CGRectMake(self.coverImageView.right+10, self.circleTitleLabel.bottom+3, self.viewWidth-self.coverImageView.right-30, 15);
     self.circleNameLabel.textColor      = [UIColor colorWithHexString:ColorDeepBlack];
     //成员数量
-    self.circleFansCountLabel.frame     = CGRectMake(self.coverImageView.right+10, self.circleNameLabel.bottom+3, self.viewWidth-self.coverImageView.right-30, 20);
+    self.circleFansCountLabel.frame     = CGRectMake(self.coverImageView.right+10, self.circleNameLabel.bottom+3, self.viewWidth-self.coverImageView.right-30, 15);
     self.circleFansCountLabel.textColor = [UIColor colorWithHexString:ColorDeepBlack];
     //成员列表
     self.circleFansView.frame           = CGRectMake(0, self.coverImageView.bottom+5, self.viewWidth, 50);
-
+    
     //线
     UIView * lineView                   = [[UIView alloc] initWithFrame:CGRectMake(0, self.circleFansView.bottom, self.viewWidth, 10)];
     lineView.backgroundColor            = [UIColor colorWithHexString:ColorLightGary];
     [self.backView addSubview:lineView];
+    
+    __weak typeof(self) sself = self;
+    [self.navBar setRightBtnWithContent:@"" andBlock:^{
+        [sself.shareAlertPopView show];
+    }];
+    
+    self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:NO];
+    [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
+        switch (type) {
+            case ShareAlertFriend:
+            {
+                [sself sendToFriend];
+            }
+                break;
+            case ShareAlertWechat:
+            {
+//                [ShareUtils shareWechatWithUser:[UserService sharedService].user];
+            }
+                break;
+            case ShareAlertWechatMoment:
+            {
+//                [ShareUtils shareWechatMomentsWithUser:[UserService sharedService].user];
+            }
+                break;
+            case ShareAlertSina:
+            {
+//                [ShareUtils shareSinaWithUser:[UserService sharedService].user];
+            }
+                break;
+            case ShareAlertQQ:
+            {
+//                [ShareUtils shareQQWithUser:[UserService sharedService].user];
+            }
+                break;
+            case ShareAlertQzone:
+            {
+//                [ShareUtils shareQzoneWithUser:[UserService sharedService].user];
+            }
+                break;
+                
+            default:
+                break;
+        }
+        
+        [sself.shareAlertPopView cancelPop];
+    }];
+    
     
 }
 
@@ -298,6 +350,19 @@
     CircleDetailViewController * cdvc = [[CircleDetailViewController alloc] init];
     cdvc.circleModel                  = self.circleModel;
     [self pushVC:cdvc];
+}
+
+- (void)sendToFriend
+{
+//    CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
+//    
+//    NSDictionary * cardDic = @{@"type":[@(eConversationTypeGroupChat) stringValue],
+//                               @"id":[NSString stringWithFormat:@"%ld", self.circleId],
+//                               @"title":self.circleModel.circle_name,
+//                               @"avatar":@""};
+//    NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+//    ccuvc.cardMessage   = [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
+//    [self presentViewController:ccuvc animated:YES completion:nil];
 }
 
 #pragma mark- private method

@@ -171,6 +171,8 @@
 		42C89B181C0D3EB3004765EF /* CardChooseUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C89B171C0D3EB3004765EF /* CardChooseUserViewController.m */; };
 		42C89B5A1C0D73E6004765EF /* KHChatCardBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C89B591C0D73E6004765EF /* KHChatCardBubbleView.m */; };
 		42CD7F741C05A89600BA129C /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CD7F731C05A89600BA129C /* CardViewController.m */; };
+		42D0DAFE1C17D74A00499D83 /* CreateCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0DAFD1C17D74A00499D83 /* CreateCircleViewController.m */; };
+		42D0DB011C182F5700499D83 /* MyCircleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0DB001C182F5700499D83 /* MyCircleListViewController.m */; };
 		42D16EC21BEB27EB00A1C423 /* NewsCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EBF1BEB27EB00A1C423 /* NewsCommentCell.m */; };
 		42D16EC31BEB27EB00A1C423 /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EC11BEB27EB00A1C423 /* NewsListCell.m */; };
 		42D16EC61BEB284A00A1C423 /* OtherPersonalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EC51BEB284A00A1C423 /* OtherPersonalViewController.m */; };
@@ -860,6 +862,10 @@
 		42C89B591C0D73E6004765EF /* KHChatCardBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KHChatCardBubbleView.m; sourceTree = "<group>"; };
 		42CD7F721C05A89600BA129C /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		42CD7F731C05A89600BA129C /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
+		42D0DAFC1C17D74A00499D83 /* CreateCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCircleViewController.h; sourceTree = "<group>"; };
+		42D0DAFD1C17D74A00499D83 /* CreateCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCircleViewController.m; sourceTree = "<group>"; };
+		42D0DAFF1C182F5700499D83 /* MyCircleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCircleListViewController.h; sourceTree = "<group>"; };
+		42D0DB001C182F5700499D83 /* MyCircleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCircleListViewController.m; sourceTree = "<group>"; };
 		42D16EBE1BEB27EB00A1C423 /* NewsCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCommentCell.h; sourceTree = "<group>"; };
 		42D16EBF1BEB27EB00A1C423 /* NewsCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCommentCell.m; sourceTree = "<group>"; };
 		42D16EC01BEB27EB00A1C423 /* NewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsListCell.h; sourceTree = "<group>"; };
@@ -1603,6 +1609,8 @@
 				42E84C491C040DB000D92319 /* AppSettingViewController.m */,
 				42CD7F721C05A89600BA129C /* CardViewController.h */,
 				42CD7F731C05A89600BA129C /* CardViewController.m */,
+				42D0DAFF1C182F5700499D83 /* MyCircleListViewController.h */,
+				42D0DB001C182F5700499D83 /* MyCircleListViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1773,6 +1781,8 @@
 				42B588F61C0C0568003434E1 /* CircleDetailViewController.m */,
 				42D68BFD1C16F0900027DDF3 /* CircleMembersViewController.h */,
 				42D68BFE1C16F0900027DDF3 /* CircleMembersViewController.m */,
+				42D0DAFC1C17D74A00499D83 /* CreateCircleViewController.h */,
+				42D0DAFD1C17D74A00499D83 /* CreateCircleViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4146,6 +4156,7 @@
 				42EF83741BF03F5C00DA16C3 /* EMSDImageCache.m in Sources */,
 				42C22FE81BE70054002A185B /* AFHTTPRequestOperation.m in Sources */,
 				42EF84661BF0C9CC00DA16C3 /* CreateGroupViewController.m in Sources */,
+				42D0DAFE1C17D74A00499D83 /* CreateCircleViewController.m in Sources */,
 				42EF84641BF0C9CC00DA16C3 /* ContactSelectionViewController.m in Sources */,
 				42EF83631BF03F5C00DA16C3 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				42EF84571BF0C9CC00DA16C3 /* EMChatAudioBubbleView.m in Sources */,
@@ -4315,6 +4326,7 @@
 				42EF84771BF0C9CC00DA16C3 /* EMRotbotChatViewCell.m in Sources */,
 				42C22FDB1BE70054002A185B /* CustomLabel.m in Sources */,
 				42430A111BE9DF1000731CA3 /* InformationChangeViewController.m in Sources */,
+				42D0DB011C182F5700499D83 /* MyCircleListViewController.m in Sources */,
 				42E84C441C03F99A00D92319 /* CardModel.m in Sources */,
 				42EF84521BF0C9CC00DA16C3 /* DXMessageToolBar.m in Sources */,
 				42EF83811BF03F5C00DA16C3 /* UIImageView+EMHighlightedWebCache.m in Sources */,
