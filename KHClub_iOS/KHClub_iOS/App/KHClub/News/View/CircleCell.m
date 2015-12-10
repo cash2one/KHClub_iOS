@@ -89,16 +89,12 @@
 - (void)setContentWithModel:(CircleModel *)model
 {
     self.circleModel = model;
-    //头像
-    NSURL * imageUrl = nil;
-    if (model.circle_cover_image.length > 0) {
-        imageUrl = [NSURL URLWithString:[ToolsManager completeUrlStr:[model.circle_cover_image componentsSeparatedByString:@","][0]]];
-    }
-    [self.headImageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"loading_default"]];
+
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:model.circle_cover_sub_image]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
     //名字
     self.nameLabel.text = model.circle_name;
     //公司
-    self.likeLabel.text = @"11000";
+    self.likeLabel.text = [NSString stringWithFormat:@"%ld", model.follow_quantity];
     
     if (model.isFollow) {
         self.followBtn.hidden = YES;

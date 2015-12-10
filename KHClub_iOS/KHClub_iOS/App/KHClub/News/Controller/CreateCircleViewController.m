@@ -7,12 +7,13 @@
 //
 
 #import "CreateCircleViewController.h"
+#import "CircleHomeViewController.h"
 
 @interface CreateCircleViewController ()<UITextFieldDelegate, UITextViewDelegate>
 
 @property (nonatomic, strong) UIScrollView      * backScrollView;
 //封面
-@property (nonatomic, strong) CustomImageView   * topicImageView;
+@property (nonatomic, strong) CustomImageView   * circleImageView;
 //封面上的提示label
 @property (nonatomic, strong) CustomLabel       * coverLabel;
 //圈子昵称
@@ -52,9 +53,9 @@
     
     self.view.backgroundColor = [UIColor colorWithHexString:ColorLightWhite];
     
-//    __weak typeof(self) sself = self;
+    __weak typeof(self) sself = self;
     [self.navBar setRightBtnWithContent:StringCommonSubmit andBlock:^{
-        
+        [sself createCircleVerify];
     }];
     
     [self initWidget];
@@ -72,39 +73,42 @@
 - (void)initWidget
 {
     self.backScrollView     = [[UIScrollView alloc] init];
-    self.topicImageView     = [[CustomImageView alloc] init];
+    self.circleImageView     = [[CustomImageView alloc] init];
     self.coverLabel         = [[CustomLabel alloc] init];
     self.wxQRcodeImageView  = [[CustomImageView alloc] init];
     
     [self.view addSubview:self.backScrollView];
-    [self.topicImageView addSubview:self.coverLabel];
-    [self.backScrollView addSubview:self.topicImageView];
+    [self.circleImageView addSubview:self.coverLabel];
+    [self.backScrollView addSubview:self.circleImageView];
     [self.backScrollView addSubview:self.wxQRcodeImageView];
     
     //选择图片手势
     UITapGestureRecognizer * tap   = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(circleImageTap:)];
-    [self.topicImageView addGestureRecognizer:tap];
+    [self.circleImageView addGestureRecognizer:tap];
 
     //选择图片手势
     UITapGestureRecognizer * qrTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(qrImageTap:)];
     [self.wxQRcodeImageView addGestureRecognizer:qrTap];
     
+    //收键盘
+    UITapGestureRecognizer * scrollTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(scrollTap:)];
+    [self.backScrollView addGestureRecognizer:scrollTap];
 }
 
 - (void)configUI
 {
     
     self.navBar.rightBtn.titleLabel.font             = [UIFont systemFontOfSize:13];
-    [self setNavBarTitle:NSLocalizedString(@"title.createGroup", @"Create a group")];
+    [self setNavBarTitle:KHClubString(@"Circle_CreateCircle_Title")];
     //背景
     self.backScrollView.frame                        = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
     self.backScrollView.showsVerticalScrollIndicator = NO;
     //图片
-    self.topicImageView.frame                        = CGRectMake(kCenterOriginX(100), 40, 100, 100);
-    self.topicImageView.backgroundColor              = [UIColor colorWithHexString:ColorGary];
-    self.topicImageView.userInteractionEnabled       = YES;
-    self.topicImageView.layer.masksToBounds          = YES;
-    self.topicImageView.contentMode                  = UIViewContentModeScaleAspectFill;
+    self.circleImageView.frame                        = CGRectMake(kCenterOriginX(100), 40, 100, 100);
+    self.circleImageView.backgroundColor              = [UIColor colorWithHexString:ColorGary];
+    self.circleImageView.userInteractionEnabled       = YES;
+    self.circleImageView.layer.masksToBounds          = YES;
+    self.circleImageView.contentMode                  = UIViewContentModeScaleAspectFill;
 
     self.coverLabel.backgroundColor                  = [UIColor colorWithWhite:0.3 alpha:0.5];
     self.coverLabel.frame                            = CGRectMake(0, 70, 100, 30);
@@ -126,7 +130,7 @@
     //圈子网址
     self.circleWebTextField                       = [self getCommonTextFieldWithPlaceHolder:@"网址"];
     //布局
-    self.circleNameTextField.y                    = self.topicImageView.bottom+30;
+    self.circleNameTextField.y                    = self.circleImageView.bottom+30;
     self.circleIntroTextField.y                   = self.circleNameTextField.bottom+10;
     self.circleAddressTextField.y                 = self.circleIntroTextField.bottom+10;
     self.circlePhoneTextField.y                   = self.circleAddressTextField.bottom+10;
@@ -139,6 +143,17 @@
     self.wxQRcodeImageView.contentMode            = UIViewContentModeScaleAspectFill;
 
     self.circleWebTextField.y                     = self.wxQRcodeImageView.bottom+10;
+    
+    if (self.circleWebTextField.bottom > self.backScrollView.height) {
+        self.backScrollView.contentSize = CGSizeMake(0, self.circleWebTextField.bottom+30);
+    }else{
+        self.backScrollView.contentSize = CGSizeMake(0, self.backScrollView.height+1);
+    }
+    
+    __weak typeof(self) sself = self;
+    [self.navBar setLeftBtnWithContent:@"" andBlock:^{
+        [sself dismissViewControllerAnimated:YES completion:nil];
+    }];
 }
 
 #pragma mark - UITextFieldDelegate
@@ -190,7 +205,7 @@
     UIImage * image           = [ImageHelper getBigImage:info[UIImagePickerControllerOriginalImage]];
     if (self.currentImageType == 1) {
         self.coverLabel.hidden    = YES;
-        self.topicImageView.image = image;
+        self.circleImageView.image = image;
     }else{
         self.wxQRcodeImageView.image = image;
     }
@@ -218,13 +233,17 @@
     [sheet showInView:self.view];
 }
 
-
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+- (void)scrollTap:(UITapGestureRecognizer *)sender
 {
-//    [self.textField resignFirstResponder];
+    [self.circleNameTextField resignFirstResponder];
+    [self.circleIntroTextField resignFirstResponder];
+    [self.circleAddressTextField resignFirstResponder];
+    [self.circlePhoneTextField resignFirstResponder];
+    [self.wxTextField resignFirstResponder];
+    [self.circleWebTextField resignFirstResponder];
 }
 
-#pragma mark- 
+#pragma mark- private method
 - (UITextField *)getCommonTextFieldWithPlaceHolder:(NSString *)placeHolder
 {
     
@@ -245,6 +264,99 @@
     
     return textField;
 }
+
+/**
+ *  创建圈子验证
+ */
+- (void)createCircleVerify
+{
+    
+    //标题不能为空
+    if (self.circleNameTextField.text.length < 1) {
+        [self showHint:KHClubString(@"Circle_CreateCircle_NameNotNull")];
+        return;
+    }
+    //不能超过7位
+    if (self.circleNameTextField.text.length > 7) {
+        [self showHint:KHClubString(@"Circle_CreateCircle_NameTooLong")];
+        return;
+    }
+    //封面不能为空
+    if (self.circleImageView.image == nil) {
+        [self showHint:KHClubString(@"Circle_CreateCircle_CoverNotNull")];
+        return;
+    }
+    
+    if (self.circleIntroTextField.text.length > 200) {
+        [self showHint:KHClubString(@"Circle_CreateCircle_DetailTooLong")];
+        return;
+    }
+    if (self.circleAddressTextField.text.length > 50) {
+        [self showHint:KHClubString(@"Circle_CreateCircle_AddressTooLong")];
+        return;
+    }
+    if (self.circlePhoneTextField.text.length > 50) {
+        [self showHint:KHClubString(@"Circle_CreateCircle_PhoneTooLong")];
+        return;
+    }
+    if (self.wxTextField.text.length > 50) {
+        [self showHint:KHClubString(@"Circle_CreateCircle_WxTooLong")];
+        return;
+    }
+    if (self.circleWebTextField.text.length > 50) {
+        [self showHint:KHClubString(@"Circle_CreateCircle_WebTooLong")];
+        return;
+    }
+    
+    [self createCircle];
+    
+}
+
+/**
+ *  创建圈子提交
+ */
+- (void)createCircle
+{
+    
+    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                              @"circle_name":self.circleNameTextField.text,
+                              @"circle_detail":self.circleIntroTextField.text,
+                              @"address":self.circleAddressTextField.text,
+                              @"wx_num":self.wxTextField.text,
+                              @"phone_num":self.circlePhoneTextField.text,
+                              @"circle_web":self.circleWebTextField.text};
+    
+    //封面和二维码处理
+    NSString * fileName = [ToolsManager getUploadImageName];
+    NSArray * files     = @[@{FileDataKey:UIImageJPEGRepresentation(self.circleImageView.image,0.9),FileNameKey:fileName}];
+    if (self.wxQRcodeImageView.image != nil) {
+        files = @[@{FileDataKey:UIImageJPEGRepresentation(self.circleImageView.image,0.9),FileNameKey:fileName},
+                @{FileDataKey:UIImageJPEGRepresentation(self.wxQRcodeImageView.image,0.9),FileNameKey:[NSString stringWithFormat:@"qrcode%@", fileName]}];
+    }
+    
+    debugLog(@"%@ %@", kPostNewCirclePath, params);
+    //创建中
+    [self showHudInView:self.view hint:KHClubString(@"Circle_CreateCircle_CreateHUD")];
+    
+    [HttpService postFileWithUrlString:kPostNewCirclePath params:params files:files andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        int status = [responseData[@"status"] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            [self showSuccess:KHClubString(@"Circle_CreateCircle_CreateSuccess")];
+            //创建成功 进入圈子
+            CircleHomeViewController * chvc = [[CircleHomeViewController alloc] init];
+            chvc.circleId                   = [responseData[HttpResult][@"id"] integerValue];
+            chvc.isCreate                   = YES;
+            [(UINavigationController *)[self presentingViewController] pushViewController:chvc animated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            [self showFail:KHClubString(@"Circle_CreateCircle_CreateFail")];
+        }
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self showFail:StringCommonNetException];
+    }];
+    
+}
+
 
 /*
 #pragma mark - Navigation

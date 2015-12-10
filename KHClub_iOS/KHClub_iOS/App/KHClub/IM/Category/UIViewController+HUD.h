@@ -23,4 +23,8 @@
 // 从默认(showHint:)显示的位置再往上(下)yOffset
 - (void)showHint:(NSString *)hint yOffset:(float)yOffset;
 
+- (void)showSuccess:(NSString *)hint;
+
+- (void)showFail:(NSString *)hint;
+
 @end

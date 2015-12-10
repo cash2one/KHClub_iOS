@@ -149,7 +149,7 @@
 - (void)loadAndhandleData
 {
     
-    NSString * url = [NSString stringWithFormat:@"%@?page=%d&user_id=%ld", kGetCircleListPath, self.currentPage, [UserService sharedService].user.uid];
+    NSString * url = [NSString stringWithFormat:@"%@?page=%d&user_id=%ld", kGetPersonalCircleListPath, self.currentPage, [UserService sharedService].user.uid];
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         int status = [responseData[HttpStatus] intValue];
@@ -162,36 +162,28 @@
             }
             
             self.isLastPage = [responseData[HttpResult][@"is_last"] boolValue];
-            NSArray * list  = responseData[HttpResult][HttpList];
-            //数据处理
-            for (NSDictionary * circleDic in list) {
-                CircleModel * model      = [[CircleModel alloc] init];
-                model.cid                = [circleDic[@"id"] integerValue];
-                model.circle_name        = circleDic[@"title"];
-                model.circle_detail      = circleDic[@"intro"];
-                model.circle_cover_image = circleDic[@"image"];
-                model.manager_name       = circleDic[@"manager_name"];
-                model.phone_num          = circleDic[@"phone_num"];
-                model.web                = circleDic[@"web"];
-                model.wx_num             = circleDic[@"wx_num"];
-                model.address            = circleDic[@"address"];
+            NSArray * unfollowList  = responseData[HttpResult][@"unfollowList"];
+            NSArray * followList  = responseData[HttpResult][@"followList"];
+            //数据处理 已关注
+            for (NSDictionary * circleDic in unfollowList) {
+                CircleModel * model          = [[CircleModel alloc] init];
+                model.cid                    = [circleDic[@"id"] integerValue];
+                model.circle_name            = circleDic[@"circle_name"];
+                model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
+                model.follow_quantity        = [circleDic[@"follow_quantity"] integerValue];
                 [self.dataArr addObject:model];
                 
-                //测试用
-                CircleModel * followModel      = [[CircleModel alloc] init];
-                followModel.cid                = [circleDic[@"id"] integerValue];
-                followModel.circle_name        = circleDic[@"title"];
-                followModel.circle_detail      = circleDic[@"intro"];
-                followModel.circle_cover_image = circleDic[@"image"];
-                followModel.manager_name       = circleDic[@"manager_name"];
-                followModel.phone_num          = circleDic[@"phone_num"];
-                followModel.web                = circleDic[@"web"];
-                followModel.wx_num             = circleDic[@"wx_num"];
-                followModel.address            = circleDic[@"address"];
-                followModel.isFollow           = YES;
-                [self.followArray addObject:followModel];
             }
-            [self.followArray removeLastObject];
+            //数据处理 未关注
+            for (NSDictionary * circleDic in followList) {
+                CircleModel * model          = [[CircleModel alloc] init];
+                model.cid                    = [circleDic[@"id"] integerValue];
+                model.circle_name            = circleDic[@"circle_name"];
+                model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
+                model.follow_quantity        = [circleDic[@"follow_quantity"] integerValue];
+                model.isFollow               = YES;
+                [self.followArray addObject:model];
+            }
             
             [self reloadTable];
             

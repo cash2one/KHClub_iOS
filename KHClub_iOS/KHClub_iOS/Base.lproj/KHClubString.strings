@@ -159,6 +159,20 @@
 "News_NotifyNews_LikeTitle"                   = "为你点了赞";
 "News_BrowseImage_SaveOk"                     = "保存成功";
 
+//Circle 圈子 暂时在News包下 不过用Circle开头
+"Circle_CreateCircle_Title"                   = "创建";
+"Circle_CreateCircle_CreateHUD"               = "圈子创建中..";
+"Circle_CreateCircle_CreateSuccess"           = "圈子创建成功";
+"Circle_CreateCircle_CreateFail"              = "圈子创建失败";
+"Circle_CreateCircle_CoverNotNull"            = "圈子封面不能为空";
+"Circle_CreateCircle_NameNotNull"             = "圈子名不能为空";
+"Circle_CreateCircle_NameTooLong"             = "圈子名太长";
+"Circle_CreateCircle_DetailTooLong"           = "圈子介绍太长";
+"Circle_CreateCircle_AddressTooLong"          = "圈子地址太长";
+"Circle_CreateCircle_PhoneTooLong"            = "圈子电话太长";
+"Circle_CreateCircle_WxTooLong"               = "圈子微信太长";
+"Circle_CreateCircle_WebTooLong"              = "圈子网站太长";
+
 //Message
 "Message_Message_ScanQrcode"                  = "扫描二维码";
 "Message_Message_Add"                         = "加好友（群）";

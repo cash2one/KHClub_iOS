@@ -180,7 +180,12 @@
         [sself.shareAlertPopView cancelPop];
     }];
     
-    
+    if (self.isCreate) {
+        //从创建页面进来的
+        [self.navBar setLeftBtnWithContent:@"" andBlock:^{
+            [sself popToTabBarViewController];
+        }];
+    }
 }
 
 #pragma mark- override

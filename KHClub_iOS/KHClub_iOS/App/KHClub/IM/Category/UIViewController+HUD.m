@@ -68,4 +68,30 @@ static const void *HttpRequestHUDKey = &HttpRequestHUDKey;
     [[self HUD] hide:YES];
 }
 
+- (void)showSuccess:(NSString *)hint
+{
+    //显示提示信息
+    UIView *view       = [[UIApplication sharedApplication].delegate window];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.customView     = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ToastFinish"]];
+    // Set custom view mode
+    hud.mode           = MBProgressHUDModeCustomView;
+    hud.labelText      = hint;
+    [hud show:YES];
+    [hud hide:YES afterDelay:1];
+}
+
+- (void)showFail:(NSString *)hint
+{
+    //显示提示信息
+    UIView *view       = [[UIApplication sharedApplication].delegate window];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.customView     = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ToastWarn"]];
+    // Set custom view mode
+    hud.mode           = MBProgressHUDModeCustomView;
+    hud.labelText      = hint;
+    [hud show:YES];
+    [hud hide:YES afterDelay:1];
+}
+
 @end

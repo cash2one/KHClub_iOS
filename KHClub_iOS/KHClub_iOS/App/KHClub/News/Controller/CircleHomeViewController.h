@@ -14,5 +14,7 @@
 
 //圈子ID
 @property (nonatomic, assign) NSInteger circleId;
+//刚创建完毕
+@property (nonatomic, assign) BOOL isCreate;
 
 @end

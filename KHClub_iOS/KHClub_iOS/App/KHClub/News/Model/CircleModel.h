@@ -35,6 +35,8 @@
 @property (nonatomic, copy  ) NSString  * wx_qrcode;
 //网页
 @property (nonatomic, copy  ) NSString  * web;
+//关注数量
+@property (nonatomic, assign) NSInteger follow_quantity;
 //是否已经关注
 @property (nonatomic, assign) BOOL      isFollow;
 //删除标识

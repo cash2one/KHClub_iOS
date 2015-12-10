@@ -9,7 +9,7 @@
 #ifndef JLXCSNS_iOS_Interface_h
 #define JLXCSNS_iOS_Interface_h
 
-//192.168.1.108 120.25.213.171 114.215.95.23
+//192.168.1.108 120.25.213.171 114.215.95.23 127.0.0.1
 //附件
 #define kAttachmentAddr @"http://114.215.95.23/khclub_php/Uploads/"
 //IP
