@@ -80,8 +80,11 @@
 // 关注或者取消关注圈子
 #define kFollowOrUnfollowCirclePath [kHomeAddr stringByAppendingString:@"/followOrUnfollowCircle"]
 
-// 圈达人列表
+// 圈达人列表 http://114.215.95.23/khclub_php/index.php/Home/MobileApi/getCircleMembers?circle_id=2
 #define kGetCircleMembersPath [kHomeAddr stringByAppendingString:@"/getCircleMembers"]
+
+// 我关注的圈子列表
+#define kGetMyFollowCircleListPath [kHomeAddr stringByAppendingString:@"/getMyFollowCircleList"]
 
 ////////////////////////////////////////////////个人信息////////////////////////////////////////////////
 //修改个人信息

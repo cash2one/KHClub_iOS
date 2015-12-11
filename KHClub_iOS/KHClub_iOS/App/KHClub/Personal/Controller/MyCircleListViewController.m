@@ -111,7 +111,7 @@
                 model.circle_cover_image = circleDic[@"image"];
                 model.manager_name       = circleDic[@"manager_name"];
                 model.phone_num          = circleDic[@"phone_num"];
-                model.web                = circleDic[@"web"];
+                model.circle_web         = circleDic[@"circle_web"];
                 model.wx_num             = circleDic[@"wx_num"];
                 model.address            = circleDic[@"address"];
                 [self.dataArr addObject:model];

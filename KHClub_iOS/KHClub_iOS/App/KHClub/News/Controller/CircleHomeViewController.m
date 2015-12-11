@@ -22,6 +22,7 @@
 #import "ShareAlertPopView.h"
 #import "IMUtils.h"
 #import "ShareUtils.h"
+#import "UIImageView+WebCache.h"
 #import "CardChooseUserViewController.h"
 
 @interface CircleHomeViewController ()<NewsListDelegate, RefreshDataDelegate>
@@ -45,6 +46,8 @@
 @property (nonatomic, strong) CustomButton    * circleFansView;
 //圈子模型
 @property (nonatomic, strong) CircleModel     * circleModel;
+//成员列表
+@property (nonatomic, strong) NSMutableArray  * membersArray;
 //右上角点击分享按钮
 @property (nonatomic, strong) ShareAlertPopView * shareAlertPopView;
 
@@ -69,6 +72,8 @@
 #pragma mark- layout
 - (void)initWidget
 {
+    self.membersArray         = [[NSMutableArray alloc] init];
+    self.circleModel          = [[CircleModel alloc] init];
     self.backView             = [[UIView alloc] init];
 
     self.coverImageView       = [[CustomImageView alloc] init];
@@ -88,6 +93,9 @@
     //关注事件
     [self.followBtn addTarget:self action:@selector(followPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.circleFansView addTarget:self action:@selector(fansListPress:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headBackClick)];
+    [self.backView addGestureRecognizer:tap];
 }
 
 //重写tableView
@@ -111,11 +119,6 @@
     self.backView.frame                 = CGRectMake(0, 0, self.viewWidth, 160);
     self.backView.backgroundColor       = [UIColor whiteColor];
     self.coverImageView.frame           = CGRectMake(10, 10, 57, 57);
-    //关注按钮
-    self.followBtn.frame                   = CGRectMake([DeviceManager getDeviceWidth]-80, 30, 60, 30);
-    self.followBtn.backgroundColor         = [UIColor colorWithHexString:ColorGold];
-    [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
-    [self.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     
     //标题
     self.circleTitleLabel.frame         = CGRectMake(self.coverImageView.right+10, self.coverImageView.y+3, self.viewWidth-self.coverImageView.right-100, 15);
@@ -129,8 +132,14 @@
     //成员列表
     self.circleFansView.frame           = CGRectMake(0, self.coverImageView.bottom+5, self.viewWidth, 50);
     
+    //关注按钮
+    self.followBtn.frame                = CGRectMake(kCenterOriginX(100), self.circleFansView.bottom+10, 100, 30);
+    self.followBtn.backgroundColor      = [UIColor colorWithHexString:ColorGold];
+    [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
+    [self.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.followBtn.hidden               = YES;
     //线
-    UIView * lineView                   = [[UIView alloc] initWithFrame:CGRectMake(0, self.circleFansView.bottom, self.viewWidth, 10)];
+    UIView * lineView                   = [[UIView alloc] initWithFrame:CGRectMake(0, self.followBtn.bottom+8, self.viewWidth, 5)];
     lineView.backgroundColor            = [UIColor colorWithHexString:ColorLightGary];
     [self.backView addSubview:lineView];
     
@@ -242,7 +251,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 155;
+    return 175;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -251,18 +260,49 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    self.coverImageView.image      = [UIImage imageNamed:DEFAULT_AVATAR];
-    self.circleTitleLabel.text     = @"标题";
-    self.circleNameLabel.text      = @"人名";
-    self.circleFansCountLabel.text = @"10000";
+    //顶部UI刷新
+    [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.circle_cover_sub_image]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
+    self.circleTitleLabel.text     = self.circleModel.circle_name;
+    self.circleNameLabel.text      = self.circleModel.manager_name;
+    //圈子存在
+    if (self.circleModel.cid > 0) {
+        self.circleFansCountLabel.text = [NSString stringWithFormat:@"%ld", self.circleModel.follow_quantity];
+    }
 
     [self.circleFansView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    for (int i=1; i<6; i++) {
-        CustomImageView * fansImageView   = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-i*50, 5, 40, 40)];
-        fansImageView.layer.cornerRadius  = 20;
-        fansImageView.layer.masksToBounds = YES;
-        fansImageView.image               = [UIImage imageNamed:DEFAULT_AVATAR];
+    
+    NSInteger membersCount = self.membersArray.count;
+    if (membersCount > 4) {
+        membersCount = 4;
+    }
+    
+    for (int i=0; i<membersCount; i++) {
+        UserModel * model = self.membersArray[i];
+        CustomImageView * fansImageView      = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-(i+1)*50-10, 5, 40, 40)];
+        fansImageView.layer.cornerRadius     = 20;
+        fansImageView.layer.masksToBounds    = YES;
+        fansImageView.userInteractionEnabled = YES;
+        fansImageView.tag                    = model.uid;
+        //点击事件
+        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fansAvatarClick:)];
+        [fansImageView addGestureRecognizer:tap];
+        
+        [fansImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:model.head_sub_image]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
         [self.circleFansView addSubview:fansImageView];
+    }
+    
+    //关注按钮处理
+    if (self.circleModel.managerId != 0) {
+        if (self.circleModel.managerId == [UserService sharedService].user.uid) {
+            self.followBtn.hidden = YES;
+        }else{
+            self.followBtn.hidden = NO;
+            if (self.circleModel.isFollow) {
+                [self.followBtn setTitle:KHClubString(@"News_CircleList_Unfollow") forState:UIControlStateNormal];
+            }else{
+                [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
+            }
+        }
     }
     
     return self.backView;
@@ -331,7 +371,32 @@
 
 - (void)followPress:(id)sender
 {
-    debugLog(@"111");
+    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                              @"circle_id":[NSString stringWithFormat:@"%ld", self.circleId],
+                              @"isFollow":[NSString stringWithFormat:@"%d", !self.circleModel.isFollow]};
+    debugLog(@"%@ %@", kFollowOrUnfollowCirclePath, params);
+    [self showLoading:StringCommonUploadData];
+    //成功失败都没反应
+    [HttpService postWithUrlString:kFollowOrUnfollowCirclePath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            [self hideLoading];
+            //修改
+            if (self.circleModel.isFollow) {
+                [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
+                self.circleModel.isFollow = NO;
+            }else{
+                [self.followBtn setTitle:KHClubString(@"News_CircleList_Unfollow") forState:UIControlStateNormal];
+                self.circleModel.isFollow = YES;
+            }
+            
+        }else{
+            [self showWarn:StringCommonUploadDataFail];
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self showWarn:StringCommonNetException];
+    }];
 }
 
 - (void)fansListPress:(id)sender
@@ -341,12 +406,11 @@
     [self pushVC:cmvc];
 }
 
-
 //顶部成员头像点击
-- (void)fansAvatarClick:(CustomButton *)sender
+- (void)fansAvatarClick:(UITapGestureRecognizer *)sender
 {
     OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
-    opvc.uid                           = sender.tag;
+    opvc.uid                           = sender.view.tag;
     [self pushVC:opvc];
 }
 //顶部背景点击 进入圈子详情
@@ -381,12 +445,41 @@
         first_time        = news.publish_time;
     }
     
-    NSString * url = [NSString stringWithFormat:@"%@?page=%d&user_id=%ld&frist_time=%@", kNewsListPath, self.currentPage, [UserService sharedService].user.uid, first_time];
+    NSString * url = [NSString stringWithFormat:@"%@?page=%d&circle_id=%ld&user_id=%ld&frist_time=%@", kGetCircleHomeListPath, self.currentPage, self.circleId, [UserService sharedService].user.uid, first_time];
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
 
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
+            
+            if (self.currentPage <= 1) {
+                //获取内容
+                [self.membersArray removeAllObjects];
+                NSArray * circleMembers = responseData[HttpResult][@"circleMembers"];
+                //成员列表
+                for (NSDictionary * member in circleMembers) {
+                    UserModel * memberUser    = [[UserModel alloc] init];
+                    memberUser.uid            = [member[@"id"] integerValue];
+                    memberUser.head_sub_image = member[@"head_sub_image"];
+                    [self.membersArray addObject:memberUser];
+                }
+                //圈子模型注入
+                NSDictionary * cicleDic                 = responseData[HttpResult][@"circle"];
+                self.circleModel.cid                    = [cicleDic[@"id"] integerValue];
+                self.circleModel.address                = cicleDic[@"address"];
+                self.circleModel.circle_cover_image     = cicleDic[@"circle_cover_image"];
+                self.circleModel.circle_cover_sub_image = cicleDic[@"circle_cover_sub_image"];
+                self.circleModel.circle_detail          = cicleDic[@"circle_detail"];
+                self.circleModel.circle_name            = cicleDic[@"circle_name"];
+                self.circleModel.circle_web             = cicleDic[@"circle_web"];
+                self.circleModel.isFollow               = [cicleDic[@"is_follow"] boolValue];
+                self.circleModel.wx_num                 = cicleDic[@"wx_num"];
+                self.circleModel.wx_qrcode              = cicleDic[@"wx_qrcode"];
+                self.circleModel.manager_name           = cicleDic[@"name"];
+                self.circleModel.phone_num              = cicleDic[@"phone_num"];
+                self.circleModel.managerId              = [cicleDic[@"user_id"] integerValue];
+                self.circleModel.follow_quantity        = [cicleDic[@"follow_quantity"] integerValue];
+            }
             
             //下拉刷新清空数组
             if (self.isReloading) {

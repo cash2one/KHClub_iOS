@@ -200,6 +200,8 @@
 		42DDB8441C06DA2D0086A72F /* ShareSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DDB8381C06DA2D0086A72F /* ShareSDKUI.framework */; };
 		42DDB8481C06E7FB0086A72F /* ShareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DDB8471C06E7FB0086A72F /* ShareUtils.m */; };
 		42DDB84A1C06F6AE0086A72F /* personal_info_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DDB8491C06F6AE0086A72F /* personal_info_edit@2x.png */; };
+		42E3204C1C1A807000758E49 /* ChoiceCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E3204B1C1A807000758E49 /* ChoiceCircleViewController.m */; };
+		42E3204F1C1AFA4C00758E49 /* ModifyCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E3204E1C1AFA4C00758E49 /* ModifyCircleViewController.m */; };
 		42E84C441C03F99A00D92319 /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C431C03F99A00D92319 /* CardModel.m */; };
 		42E84C471C03F9A600D92319 /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C461C03F9A600D92319 /* CardCell.m */; };
 		42E84C4A1C040DB000D92319 /* AppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C491C040DB000D92319 /* AppSettingViewController.m */; };
@@ -902,6 +904,10 @@
 		42DDB8461C06E7FB0086A72F /* ShareUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareUtils.h; sourceTree = "<group>"; };
 		42DDB8471C06E7FB0086A72F /* ShareUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareUtils.m; sourceTree = "<group>"; };
 		42DDB8491C06F6AE0086A72F /* personal_info_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personal_info_edit@2x.png"; sourceTree = "<group>"; };
+		42E3204A1C1A807000758E49 /* ChoiceCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoiceCircleViewController.h; sourceTree = "<group>"; };
+		42E3204B1C1A807000758E49 /* ChoiceCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoiceCircleViewController.m; sourceTree = "<group>"; };
+		42E3204D1C1AFA4C00758E49 /* ModifyCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyCircleViewController.h; sourceTree = "<group>"; };
+		42E3204E1C1AFA4C00758E49 /* ModifyCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyCircleViewController.m; sourceTree = "<group>"; };
 		42E84C421C03F99A00D92319 /* CardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
 		42E84C431C03F99A00D92319 /* CardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
 		42E84C451C03F9A600D92319 /* CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
@@ -1783,6 +1789,10 @@
 				42D68BFE1C16F0900027DDF3 /* CircleMembersViewController.m */,
 				42D0DAFC1C17D74A00499D83 /* CreateCircleViewController.h */,
 				42D0DAFD1C17D74A00499D83 /* CreateCircleViewController.m */,
+				42E3204D1C1AFA4C00758E49 /* ModifyCircleViewController.h */,
+				42E3204E1C1AFA4C00758E49 /* ModifyCircleViewController.m */,
+				42E3204A1C1A807000758E49 /* ChoiceCircleViewController.h */,
+				42E3204B1C1A807000758E49 /* ChoiceCircleViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4311,7 +4321,9 @@
 				42C22FEF1BE70054002A185B /* AFURLResponseSerialization.m in Sources */,
 				42EF83B81BF0C8B700DA16C3 /* EMTextView.m in Sources */,
 				42FDE1EF1BE7037C00825E5E /* TestListViewController.m in Sources */,
+				42E3204C1C1A807000758E49 /* ChoiceCircleViewController.m in Sources */,
 				42EF84651BF0C9CC00DA16C3 /* ContactView.m in Sources */,
+				42E3204F1C1AFA4C00758E49 /* ModifyCircleViewController.m in Sources */,
 				42FDE1ED1BE7037C00825E5E /* RefreshTableView.m in Sources */,
 				42EF83791BF03F5C00DA16C3 /* EMSDWebImageManager.m in Sources */,
 				42E84C4A1C040DB000D92319 /* AppSettingViewController.m in Sources */,

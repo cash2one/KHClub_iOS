@@ -23,6 +23,8 @@
 @property (nonatomic, copy  ) NSString  * circle_cover_image;
 //图片
 @property (nonatomic, copy  ) NSString  * circle_cover_sub_image;
+//管理员ID
+@property (nonatomic, assign) NSInteger managerId;
 //管理员姓名
 @property (nonatomic, copy  ) NSString  * manager_name;
 //联系方式
@@ -33,13 +35,11 @@
 @property (nonatomic, copy  ) NSString  * wx_num;
 //微信二维码
 @property (nonatomic, copy  ) NSString  * wx_qrcode;
-//网页
-@property (nonatomic, copy  ) NSString  * web;
 //关注数量
 @property (nonatomic, assign) NSInteger follow_quantity;
 //是否已经关注
 @property (nonatomic, assign) BOOL      isFollow;
-//删除标识
-@property (nonatomic, assign) NSInteger delete_flag;
+//网页
+@property (nonatomic, copy  ) NSString  * circle_web;
 
 @end

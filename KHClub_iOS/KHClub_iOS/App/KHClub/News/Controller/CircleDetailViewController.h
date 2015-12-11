@@ -11,7 +11,7 @@
 /**
  *  圈层详情
  */
-@interface CircleDetailViewController : BaseViewController
+@interface CircleDetailViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 /**
  *  圈层模型

@@ -26,6 +26,7 @@
 #import "CreateGroupViewController.h"
 #import "QRcodeCardView.h"
 #import "UIImageView+WebCache.h"
+#import "QRcodeCardView.h"
 
 //@implementation EMConversation (search)
 //
@@ -260,7 +261,7 @@
         case 4:
         {
             QRcodeCardView * qcv = [[QRcodeCardView alloc] init];
-            [self getQRCodeWithImageView:qcv.imageView];
+            qcv.imageView;
             [qcv show];
         }
             break;

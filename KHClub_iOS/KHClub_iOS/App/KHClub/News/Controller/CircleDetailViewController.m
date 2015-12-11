@@ -8,6 +8,7 @@
 
 #import "CircleDetailViewController.h"
 #import "UIImageView+WebCache.h"
+#import "QRcodeCardView.h"
 
 typedef NS_ENUM(NSInteger, CircleDetailEnum) {
     CircleCover       = 0,
@@ -20,7 +21,7 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
     CircleWeb         = 7
 };
 
-@interface CircleDetailViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface CircleDetailViewController ()
 
 @property (nonatomic, strong) UITableView      * tableView;
 //循环滚动集合
@@ -78,8 +79,10 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
         switch (indexPath.row) {
             case CircleCover:
             {
-                CustomImageView * coverImage = [[CustomImageView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 150)];
-                NSURL * url                  = [NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.circle_cover_image]];
+                CustomImageView * coverImage   = [[CustomImageView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 150)];
+                coverImage.contentMode         = UIViewContentModeScaleAspectFill;
+                coverImage.layer.masksToBounds = YES;
+                NSURL * url                    = [NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.circle_cover_image]];
                 [coverImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"loading_default"]];
                 [cell.contentView addSubview:coverImage];
             }
@@ -135,10 +138,16 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
                 [self factoryCellWithContent:self.circleModel.phone_num andBackView:cell.contentView andImageName:@"icon_phone"];
                 break;
             case CircleWechat:
+            {
                 [self factoryCellWithContent:self.circleModel.wx_num andBackView:cell.contentView andImageName:@"icon_weixin"];
+                CustomImageView * qrcodeImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-40, 5, 25, 25)];
+                [qrcodeImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.wx_qrcode]]];
+                [cell.contentView addSubview:qrcodeImageView];
+                
+            }
                 break;
             case CircleWeb:
-                [self factoryCellWithContent:self.circleModel.web andBackView:cell.contentView andImageName:@"icon_web"];
+                [self factoryCellWithContent:self.circleModel.circle_web andBackView:cell.contentView andImageName:@"icon_web"];
                 break;
             default:
                 break;
@@ -147,6 +156,38 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    switch (indexPath.row) {
+        case CirclePhone:
+        {
+            UIAlertView * alert = [[UIAlertView alloc] initWithTitle:KHClubString(@"Circle_CircleDetail_FirePhoneAlert") message:self.circleModel.phone_num delegate:self cancelButtonTitle:StringCommonCancel otherButtonTitles:StringCommonConfirm, nil];
+            [alert show];
+        }
+            
+            break;
+        case CircleWechat:
+        {
+            QRcodeCardView * qcv = [[QRcodeCardView alloc] init];
+            [qcv.imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.wx_qrcode]]];
+            [qcv show];
+        }
+            break;
+        case CircleWeb:
+        {
+            NSString * webUrl = self.circleModel.circle_web;
+            if (![webUrl hasPrefix:@"http"]) {
+                webUrl = [@"http://" stringByAppendingString:webUrl];
+            }
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:webUrl]];
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark- UITableViewDelegate
@@ -179,7 +220,7 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
             cellHeight = [self factoryCellGetHeightWithContent:self.circleModel.wx_num];
             break;
         case CircleWeb:
-            cellHeight = [self factoryCellGetHeightWithContent:self.circleModel.web] + 30;
+            cellHeight = [self factoryCellGetHeightWithContent:self.circleModel.circle_web] + 30;
             break;
         default:
             break;
@@ -187,6 +228,14 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
     
     
     return cellHeight;
+}
+
+#pragma mark- UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://15810710447"]];        
+    }
 }
 
 //#pragma mark- UICollectionViewDataSource, UICollectionViewDelegate

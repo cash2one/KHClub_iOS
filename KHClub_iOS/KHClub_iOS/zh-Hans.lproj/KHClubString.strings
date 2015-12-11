@@ -172,6 +172,7 @@
 "Circle_CreateCircle_PhoneTooLong"            = "圈子电话太长";
 "Circle_CreateCircle_WxTooLong"               = "圈子微信太长";
 "Circle_CreateCircle_WebTooLong"              = "圈子网站太长";
+"Circle_CircleDetail_FirePhoneAlert"          = "是否拨打客服电话:";
 
 //Message
 "Message_Message_ScanQrcode"                  = "扫描二维码";

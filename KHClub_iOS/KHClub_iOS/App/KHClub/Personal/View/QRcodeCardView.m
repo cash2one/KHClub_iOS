@@ -31,7 +31,7 @@
         UIView * backView        = [[UIView alloc] initWithFrame:CGRectMake(kCenterOriginX(200), kNavBarAndStatusHeight+100, 200, 200)];
         backView.backgroundColor = [UIColor whiteColor];
 
-        self.imageView           = [[CustomImageView alloc] initWithFrame:CGRectMake(15, 15, 170, 170)];
+        self.imageView           = [[CustomImageView alloc] initWithFrame:CGRectMake(25, 25, 150, 150)];
         
         CustomLabel * titleLabel = [[CustomLabel alloc] initWithFontSize:15];
         titleLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];

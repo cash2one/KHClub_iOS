@@ -8,6 +8,7 @@
 
 #import "RefreshViewController.h"
 
+//我的圈子列表
 @interface MyCircleListViewController : RefreshViewController
 
 @end

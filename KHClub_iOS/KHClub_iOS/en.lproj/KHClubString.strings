@@ -172,6 +172,7 @@
 "Circle_CreateCircle_PhoneTooLong"            = "Phone can't be empty";
 "Circle_CreateCircle_WxTooLong"               = "Wechat can't be empty";
 "Circle_CreateCircle_WebTooLong"              = "Web can't be empty";
+"Circle_CircleDetail_FirePhoneAlert"          = "Call phone:";
 
 //Message
 "Message_Message_ScanQrcode"                  = "Scan QR code";

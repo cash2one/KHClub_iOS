@@ -36,10 +36,10 @@
         self.titleLabel.textAlignment = NSTextAlignmentCenter;
         self.titleLabel.textColor = [UIColor colorWithHexString:ColorWhite];
         
-        self.leftBtn = [[CustomButton alloc] initWithFontSize:FontNavBarTitle];
+        self.leftBtn = [[CustomButton alloc] initWithFontSize:15];
         [self.leftBtn addTarget:self action:@selector(leftBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
-        self.rightBtn = [[CustomButton alloc] initWithFontSize:FontNavBarTitle];
+        self.rightBtn = [[CustomButton alloc] initWithFontSize:15];
         [self.rightBtn addTarget:self action:@selector(rightBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:self.leftBtn];

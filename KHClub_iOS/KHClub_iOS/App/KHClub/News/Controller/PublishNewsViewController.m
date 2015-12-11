@@ -12,6 +12,8 @@
 #import "UIImageView+WebCache.h"
 #import "ZYQAssetPickerController.h"
 #import <CoreFoundation/CoreFoundation.h>
+#import "ChoiceCircleViewController.h"
+
 @interface PublishNewsViewController ()<ZYQAssetPickerControllerDelegate>
 
 //图片按钮数组
@@ -217,6 +219,7 @@
 //发表状态
 - (void)publishNewClick
 {
+
     if (self.textView.text.length < 1 && self.imageArr.count < 1) {
         ALERT_SHOW(StringCommonPrompt, KHClubString(@"News_Publish_ContentEmpty"));
         return;

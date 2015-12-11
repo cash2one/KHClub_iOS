@@ -61,7 +61,7 @@
     headImageView.layer.cornerRadius  = 2;
     headImageView.layer.masksToBounds = YES;
     //名字
-    CustomLabel * nameLabel           = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, headImageView.y+3, 0, 20)];
+    CustomLabel * nameLabel           = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, headImageView.y+3, 200, 20)];
     nameLabel.font                    = [UIFont systemFontOfSize:FontListName];
     nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
     //公司
@@ -76,9 +76,8 @@
     [cell.contentView addSubview:nameLabel];
     [cell.contentView addSubview:jobLabel];
     [cell.contentView addSubview:lineView];
-    
     //内容
-    [headImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:userModel.head_image]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
+    [headImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:userModel.head_sub_image]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
     nameLabel.text = [ToolsManager emptyReturnNone:userModel.name];
     jobLabel.text  = [ToolsManager emptyReturnNone:userModel.job];
     
@@ -92,6 +91,7 @@
     opvc.uid                           = model.uid;
     [self pushVC:opvc];
     
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -105,7 +105,7 @@
 - (void)loadAndhandleData
 {
     
-    NSString * url = [NSString stringWithFormat:@"%@?page=%d&user_id=%ld", kGetCardListPath, self.currentPage, [UserService sharedService].user.uid];
+    NSString * url = [NSString stringWithFormat:@"%@?page=%d&circle_id=%ld", kGetCircleMembersPath, self.currentPage, self.circleId];
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         int status = [responseData[HttpStatus] intValue];

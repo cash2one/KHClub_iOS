@@ -90,8 +90,18 @@
     titleLabel.font          = [UIFont systemFontOfSize:14];
     titleLabel.textColor     = [UIColor colorWithHexString:ColorGold];
     if (section == 0) {
+        if (self.followArray.count < 1) {
+            titleLabel.hidden = YES;
+        }else{
+            titleLabel.hidden = NO;
+        }
         titleLabel.text = KHClubString(@"News_CircleList_MyCircle");
     }else{
+        if (self.dataArr.count < 1) {
+            titleLabel.hidden = YES;
+        }else{
+            titleLabel.hidden = NO;
+        }
         titleLabel.text = KHClubString(@"News_CircleList_RecommendCircle");
     }
     
@@ -117,7 +127,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * cellid = @"circleList";
+    NSString * cellid = [@"circleList" stringByAppendingFormat:@"%ld", indexPath.row];
     CircleCell * cell = [self.refreshTableView dequeueReusableCellWithIdentifier:cellid];
     if (!cell) {
         cell          = [[CircleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
@@ -137,10 +147,36 @@
 //关注点击 布局变换
 - (void)followCirclePress:(CircleModel *)model
 {
-    model.isFollow = YES;
-    [self.followArray insertObject:model atIndex:0];
-    [self.dataArr removeObject:model];
-    [self.refreshTableView reloadData];
+    
+    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                              @"circle_id":[NSString stringWithFormat:@"%ld", model.cid],
+                              @"isFollow":[NSString stringWithFormat:@"%d", !model.isFollow]};
+    debugLog(@"%@ %@", kFollowOrUnfollowCirclePath, params);
+    [self showLoading:StringCommonUploadData];
+    //成功失败都没反应
+    [HttpService postWithUrlString:kFollowOrUnfollowCirclePath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            [self hideLoading];
+            //修改
+            if (model.isFollow) {
+                //这个页面不提供取消关注功能
+                model.isFollow = NO;
+            }else{
+                model.isFollow = YES;
+                [self.followArray insertObject:model atIndex:0];
+                [self.dataArr removeObject:model];
+                [self.refreshTableView reloadData];
+            }
+            
+        }else{
+            [self showWarn:StringCommonUploadDataFail];
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self showWarn:StringCommonNetException];
+    }];
+    
 }
 
 #pragma mark- method response
@@ -149,7 +185,7 @@
 - (void)loadAndhandleData
 {
     
-    NSString * url = [NSString stringWithFormat:@"%@?page=%d&user_id=%ld", kGetPersonalCircleListPath, self.currentPage, [UserService sharedService].user.uid];
+    NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetPersonalCircleListPath, [UserService sharedService].user.uid];
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         int status = [responseData[HttpStatus] intValue];
