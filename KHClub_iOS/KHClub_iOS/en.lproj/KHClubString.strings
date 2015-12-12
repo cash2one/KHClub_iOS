@@ -133,6 +133,7 @@
 "News_CircleList_Follow"                      = "Follow";
 "News_CircleList_Unfollow"                    = "Unfollow";
 "News_CircleDetail_Title"                     = "Circle Detail";
+"News_CircleDetail_ModifyCircle"              = "Modify Circle";
 "News_CircleDetail_IntroTitle"                = "Circle Intro";
 "News_Publish_EnterContent"                   = "Please enter content";
 "News_Publish_Where"                          = "Where";

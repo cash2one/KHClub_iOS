@@ -17,6 +17,7 @@
 #import "ShareAlertPopView.h"
 #import "ShareUtils.h"
 #import "CardChooseUserViewController.h"
+#import "MyCircleListViewController.h"
 
 @interface PersonalViewController ()
 
@@ -316,7 +317,8 @@
 
 - (void)myCircleClick:(id)sender
 {
-    
+    MyCircleListViewController * mclvc = [[MyCircleListViewController alloc] init];
+    [self pushVC:mclvc];
 }
 
 #pragma mark- private method

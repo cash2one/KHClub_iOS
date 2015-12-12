@@ -72,7 +72,7 @@
 #define kGetCircleHomeListPath [kHomeAddr stringByAppendingString:@"/getCircleHomeList"]
 
 // 我的圈子封面列表
-#define kGetMyCircleCoverPath [kHomeAddr stringByAppendingString:@"/getMyCircleCover"]
+//#define kGetMyCircleCoverPath [kHomeAddr stringByAppendingString:@"/getMyCircleCover"]
 
 // 我的圈子列表
 #define kGetMyCircleListPath [kHomeAddr stringByAppendingString:@"/getMyCircleList"]

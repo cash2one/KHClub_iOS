@@ -13,49 +13,51 @@
 
 @interface MyCircleListViewController ()
 
+@property (nonatomic, strong) NSMutableArray * dataArr;
+
+@property (nonatomic, strong) UITableView * tableView;
+
 @end
 
 @implementation MyCircleListViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
-    //处理继承table
-    self.refreshTableView.frame = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
-    [self refreshData];
-    self.refreshTableView.footLabel.hidden             = YES;
-    self.refreshTableView.showsVerticalScrollIndicator = NO;
-    
+    //配置ui
+    [self configUI];
+    [self loadAndhandleData];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+#pragma mark- layout
+- (void)configUI
+{
+    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.delegate                     = self;
+    self.tableView.dataSource                   = self;
+    [self.view addSubview:self.tableView];
+    
+    self.dataArr     = [[NSMutableArray alloc] init];
+
+}
 
 #pragma override
-//下拉刷新
-- (void)refreshData
-{
-    [super refreshData];
-    [self loadAndhandleData];
-}
-//加载更多
-- (void)loadingData
-{
-    //    [super loadingData];
-    //    [self loadAndhandleData];
-}
 
 #pragma mark- UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    CircleHomeViewController * cdvc = [[CircleHomeViewController alloc] init];
     CircleModel * circle            = self.dataArr[indexPath.row];
-    //圈子ID
-    cdvc.circleId                   = circle.cid;
-    [self pushVC:cdvc];
+    //点击
+    CircleHomeViewController * chvc = [[CircleHomeViewController alloc] init];
+    chvc.circleId                   = circle.cid;
+    [self pushVC:chvc];
+    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -73,7 +75,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString * cellid = @"circleList";
-    CircleCell * cell = [self.refreshTableView dequeueReusableCellWithIdentifier:cellid];
+    CircleCell * cell = [self.tableView dequeueReusableCellWithIdentifier:cellid];
     if (!cell) {
         cell          = [[CircleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
@@ -85,50 +87,46 @@
 
 #pragma mark- method response
 
+
 #pragma mark- private method
 - (void)loadAndhandleData
 {
     
-    NSString * url = [NSString stringWithFormat:@"%@?page=%d&user_id=%ld", kGetCircleListPath, self.currentPage, [UserService sharedService].user.uid];
+    //下拉刷新清空数组
+    //数据处理
+    for (int i=0; i<10; i++) {
+        CircleModel * model      = [[CircleModel alloc] init];
+        model.cid                = i;
+        model.circle_name        = [NSString stringWithFormat:@"%d", i];
+        model.isFollow           = YES;
+        [self.dataArr addObject:model];
+    }
+    
+    [self.tableView reloadData];
+    
+    NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyCircleListPath, [UserService sharedService].user.uid];
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
-            
-            //下拉刷新清空数组
-            if (self.isReloading) {
-                [self.dataArr removeAllObjects];
-            }
-            
-            self.isLastPage = [responseData[HttpResult][@"is_last"] boolValue];
+
             NSArray * list  = responseData[HttpResult][HttpList];
             //数据处理
             for (NSDictionary * circleDic in list) {
-                CircleModel * model      = [[CircleModel alloc] init];
-                model.cid                = [circleDic[@"id"] integerValue];
-                model.circle_name        = circleDic[@"title"];
-                model.circle_detail      = circleDic[@"intro"];
-                model.circle_cover_image = circleDic[@"image"];
-                model.manager_name       = circleDic[@"manager_name"];
-                model.phone_num          = circleDic[@"phone_num"];
-                model.circle_web         = circleDic[@"circle_web"];
-                model.wx_num             = circleDic[@"wx_num"];
-                model.address            = circleDic[@"address"];
+                CircleModel * model          = [[CircleModel alloc] init];
+                model.cid                    = [circleDic[@"id"] integerValue];
+                model.circle_name            = circleDic[@"circle_name"];
+                model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
                 [self.dataArr addObject:model];
-                
             }
-            
-            [self reloadTable];
-            
+
+            [self.tableView reloadData];
+
         }else{
             [self showWarn:responseData[HttpMessage]];
-            self.isReloading = NO;
-            [self.refreshTableView refreshFinish];
         }
-        
+
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-        self.isReloading = NO;
-        [self.refreshTableView refreshFinish];
         [self showWarn:StringCommonNetException];
     }];
     

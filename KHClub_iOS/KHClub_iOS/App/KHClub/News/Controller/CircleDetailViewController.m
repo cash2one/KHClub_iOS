@@ -7,6 +7,7 @@
 //
 
 #import "CircleDetailViewController.h"
+#import "ModifyCircleViewController.h"
 #import "UIImageView+WebCache.h"
 #import "QRcodeCardView.h"
 
@@ -23,7 +24,9 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 
 @interface CircleDetailViewController ()
 
-@property (nonatomic, strong) UITableView      * tableView;
+@property (nonatomic, strong) UITableView  * tableView;
+//修改按钮
+@property (nonatomic, strong) CustomButton * modifyBtn;
 //循环滚动集合
 //@property (nonatomic, strong) UICollectionView * collectionView;
 //page
@@ -48,12 +51,18 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 #pragma mark- layout
 - (void)initWidget
 {
-    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
+    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-30) style:UITableViewStylePlain];
     self.tableView.delegate                     = self;
     self.tableView.dataSource                   = self;
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.separatorStyle               = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
+    
+    //修改圈子详情按钮
+    self.modifyBtn = [[CustomButton alloc] init];
+    [self.view addSubview:self.modifyBtn];
+    
+    [self.modifyBtn addTarget:self action:@selector(modifyCircle) forControlEvents:UIControlEventTouchUpInside];
     
 }
 
@@ -61,6 +70,16 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 {
     [self setNavBarTitle:KHClubString(@"News_CircleDetail_Title")];
    
+    self.modifyBtn.frame           = CGRectMake(0, self.viewHeight-30, self.viewWidth, 30);
+    self.modifyBtn.backgroundColor = [UIColor colorWithHexString:ColorGold];
+    
+    [self.modifyBtn setTitle:KHClubString(@"News_CircleDetail_ModifyCircle") forState:UIControlStateNormal];
+    [self.modifyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    //如果不是自己 隐藏
+    if (self.circleModel.managerId != [UserService sharedService].user.uid) {
+        self.modifyBtn.hidden  = YES;
+    }
 }
 
 #pragma mark- UITableViewDataSource
@@ -287,6 +306,14 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 //        }
 //    }
 //}
+
+#pragma mark- method response
+- (void)modifyCircle
+{
+    ModifyCircleViewController * mcvc = [[ModifyCircleViewController alloc] init];
+    mcvc.circleModel                  = self.circleModel;
+    [self pushVC:mcvc];
+}
 
 #pragma mark- private method
 
