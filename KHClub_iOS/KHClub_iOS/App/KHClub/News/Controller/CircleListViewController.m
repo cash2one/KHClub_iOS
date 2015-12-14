@@ -73,7 +73,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 65;
+    return 69;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -84,9 +84,9 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * backView        = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 30)];
-    backView.backgroundColor = [UIColor colorWithHexString:ColorLightWhite];
+    backView.backgroundColor = [UIColor colorWithHexString:ColorLightGary];
     
-    CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(15, 5, 200, 20)];
+    CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(10, 5, 200, 20)];
     titleLabel.font          = [UIFont systemFontOfSize:14];
     titleLabel.textColor     = [UIColor colorWithHexString:ColorGold];
     if (section == 0) {

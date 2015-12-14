@@ -133,13 +133,13 @@
     self.backScroll.bounces                        = NO;
     
     //顶部两个滑块按钮
-    self.newsListBtn.frame                        = CGRectMake(self.viewWidth/2+5, 33, 80, 20);
-    self.newsListBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
-    self.newsListBtn.contentHorizontalAlignment   = UIControlContentHorizontalAlignmentCenter;
+    self.newsListBtn.frame                        = CGRectMake(self.viewWidth/2+10, 33, 80, 20);
+    self.newsListBtn.titleLabel.font              = [UIFont systemFontOfSize:FontNavBarTitle];
+    self.newsListBtn.contentHorizontalAlignment   = UIControlContentHorizontalAlignmentLeft;
 
-    self.circleListBtn.frame                      = CGRectMake(self.viewWidth/2-85, 33, 80, 20);
-    self.circleListBtn.titleLabel.font              = [UIFont systemFontOfSize:16];
-    self.circleListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    self.circleListBtn.frame                      = CGRectMake(self.viewWidth/2-90, 33, 80, 20);
+    self.circleListBtn.titleLabel.font            = [UIFont systemFontOfSize:FontNavBarTitle];
+    self.circleListBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     
     [self.circleListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.newsListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
@@ -224,14 +224,10 @@
 - (void)selectBarIndex:(NSInteger)index
 {
     if (index == 1) {
-        self.newsListBtn.titleLabel.font   = [UIFont systemFontOfSize:14];
-        self.circleListBtn.titleLabel.font = [UIFont systemFontOfSize:16];
 
         [self.newsListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
         [self.circleListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     }else{
-        self.newsListBtn.titleLabel.font   = [UIFont systemFontOfSize:16];
-        self.circleListBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
         [self.newsListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.circleListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];

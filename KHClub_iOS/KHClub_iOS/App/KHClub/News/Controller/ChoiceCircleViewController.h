@@ -24,4 +24,20 @@ typedef void (^ChoiceCircleBlock) (NSArray * circles);
  */
 - (void)setCircleBlock:(ChoiceCircleBlock)block;
 
+/**
+ *  提交成功退出
+ */
+- (void)popToTab;
+
+/**
+ *  提示失败
+ */
+- (void)showFail;
+
+/**
+ *  提示异常
+ */
+
+- (void)showException;
+
 @end

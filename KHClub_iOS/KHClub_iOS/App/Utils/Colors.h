@@ -26,7 +26,7 @@
 //浅白色
 #define ColorLightWhite @"ebebeb"
 //主深黑
-#define ColorDeepBlack @"4d4d4d"
+#define ColorDeepBlack @"000000"
 //主浅黑
 #define ColorLightBlack @"7c7c7c"
 
@@ -50,8 +50,6 @@
 #define ColorDeepGary @"999999"
 //辅粉色
 #define ColorPink @"f898c7"
-//辅浅蓝色
-#define ColorLightBlue @"4bcbfa"
 //辅名片绿色
 #define ColorCardGreen @"2ddd84"
 //字用灰色

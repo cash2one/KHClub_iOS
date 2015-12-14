@@ -357,7 +357,6 @@
 		42ED93291BF1DB9400E59147 /* chat_sender_audio_playing_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED92881BF1DB9400E59147 /* chat_sender_audio_playing_full@2x.png */; };
 		42ED932A1BF1DB9400E59147 /* chat_sender_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED92891BF1DB9400E59147 /* chat_sender_bg.png */; };
 		42ED932B1BF1DB9400E59147 /* chat_sender_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED928A1BF1DB9400E59147 /* chat_sender_bg@2x.png */; };
-		42ED932C1BF1DB9400E59147 /* add@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED928C1BF1DB9400E59147 /* add@2x.png */; };
 		42ED932D1BF1DB9400E59147 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED928D1BF1DB9400E59147 /* back@2x.png */; };
 		42ED932E1BF1DB9400E59147 /* delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED928E1BF1DB9400E59147 /* delete@2x.png */; };
 		42ED932F1BF1DB9400E59147 /* group_detail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED928F1BF1DB9400E59147 /* group_detail@2x.png */; };
@@ -1068,7 +1067,6 @@
 		42ED92881BF1DB9400E59147 /* chat_sender_audio_playing_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_sender_audio_playing_full@2x.png"; sourceTree = "<group>"; };
 		42ED92891BF1DB9400E59147 /* chat_sender_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chat_sender_bg.png; sourceTree = "<group>"; };
 		42ED928A1BF1DB9400E59147 /* chat_sender_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_sender_bg@2x.png"; sourceTree = "<group>"; };
-		42ED928C1BF1DB9400E59147 /* add@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add@2x.png"; sourceTree = "<group>"; };
 		42ED928D1BF1DB9400E59147 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		42ED928E1BF1DB9400E59147 /* delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete@2x.png"; sourceTree = "<group>"; };
 		42ED928F1BF1DB9400E59147 /* group_detail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group_detail@2x.png"; sourceTree = "<group>"; };
@@ -2664,7 +2662,6 @@
 		42ED928B1BF1DB9400E59147 /* NavigationBar */ = {
 			isa = PBXGroup;
 			children = (
-				42ED928C1BF1DB9400E59147 /* add@2x.png */,
 				42ED928D1BF1DB9400E59147 /* back@2x.png */,
 				42ED928E1BF1DB9400E59147 /* delete@2x.png */,
 				42ED928F1BF1DB9400E59147 /* group_detail@2x.png */,
@@ -4105,7 +4102,6 @@
 				42ED93281BF1DB9400E59147 /* chat_sender_audio_playing_full.png in Resources */,
 				42E84C571C04698100D92319 /* iconfont_pengyouquan@2x.png in Resources */,
 				42ED92C41BF1DB9400E59147 /* VoiceSearchFeedback019@2x.png in Resources */,
-				42ED932C1BF1DB9400E59147 /* add@2x.png in Resources */,
 				428C97CA1C10673A0058405F /* InfoPlist.strings in Resources */,
 				42C230301BE70054002A185B /* unicode_to_hanyu_pinyin.txt in Resources */,
 				42ED92DC1BF1DB9400E59147 /* chat_location_annotation_someone@2x.png in Resources */,

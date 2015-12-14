@@ -58,30 +58,34 @@
 - (void)configUI
 {
     //头像
-    self.headImageView.frame               = CGRectMake(10, 10, 45, 45);
+    self.headImageView.frame               = CGRectMake(10, 6, 57, 57);
     self.headImageView.layer.cornerRadius  = 1;
     self.headImageView.contentMode         = UIViewContentModeScaleAspectFill;
+    self.headImageView.layer.cornerRadius  = 5;
     self.headImageView.layer.masksToBounds = YES;
     //名字
-    self.nameLabel.frame                   = CGRectMake(self.headImageView.right+5, self.headImageView.y+1, 250, 20);
-    self.nameLabel.font                    = [UIFont systemFontOfSize:FontListName];
+    self.nameLabel.frame                   = CGRectMake(self.headImageView.right+10, self.headImageView.y+5, 250, 14);
+    self.nameLabel.font                    = [UIFont systemFontOfSize:14];
     self.nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
     //关注人数图片
-    CustomImageView * likeImageView        = [[CustomImageView alloc] initWithFrame:CGRectMake(self.headImageView.right+5, self.nameLabel.bottom+3, 20, 18)];
+    CustomImageView * likeImageView        = [[CustomImageView alloc] initWithFrame:CGRectMake(self.headImageView.right+10, self.nameLabel.bottom+12, 20, 18)];
     likeImageView.contentMode              = UIViewContentModeScaleAspectFit;
     likeImageView.image                    = [UIImage imageNamed:@"iconfont_friend"];
     [self.contentView addSubview:likeImageView];
     //关注人数
-    self.likeLabel.frame                   = CGRectMake(likeImageView.right+5, self.nameLabel.bottom+3, 200, 20);
-    self.likeLabel.font                    = [UIFont systemFontOfSize:13];
-    self.likeLabel.textColor               = [UIColor colorWithHexString:ColorLightBlack];
+    self.likeLabel.frame                   = CGRectMake(likeImageView.right+7, self.nameLabel.bottom+12, 200, 18);
+    self.likeLabel.font                    = [UIFont systemFontOfSize:12];
+    self.likeLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
     //关注按钮
-    self.followBtn.frame                   = CGRectMake([DeviceManager getDeviceWidth]-80, 17, 60, 30);
-    self.followBtn.backgroundColor         = [UIColor colorWithHexString:ColorGold];
-    [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
-    [self.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.followBtn.frame                   = CGRectMake([DeviceManager getDeviceWidth]-65, 23, 49, 22);
 
-    self.lineView.frame                    = CGRectMake(10, 64, [DeviceManager getDeviceWidth], 1);
+    [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
+    [self.followBtn setTitleColor:[UIColor colorWithHexString:ColorGold] forState:UIControlStateNormal];
+    self.followBtn.layer.cornerRadius      = 3;
+    self.followBtn.layer.borderColor       = [UIColor colorWithHexString:ColorGold].CGColor;
+    self.followBtn.titleLabel.font         = [UIFont systemFontOfSize:13];
+    self.followBtn.layer.borderWidth       = 1;
+    self.lineView.frame                    = CGRectMake(self.headImageView.right+10, 68, [DeviceManager getDeviceWidth], 1);
     self.lineView.backgroundColor          = [UIColor colorWithHexString:ColorLightGary];
     
 }

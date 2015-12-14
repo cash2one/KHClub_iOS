@@ -58,9 +58,9 @@
         [sself choiceOK];
     }];
     
-    [self.navBar setLeftBtnWithContent:@"" andBlock:^{
-        [sself dismissViewControllerAnimated:YES completion:nil];
-    }];
+//    [self.navBar setLeftBtnWithContent:@"" andBlock:^{
+//        [sself dismissViewControllerAnimated:YES completion:nil];
+//    }];
 }
 
 #pragma override
@@ -109,16 +109,21 @@
 #pragma mark- method response
 - (void)choiceOK
 {
+    if (self.choiceArray.count < 1) {
+        [self showHint:KHClubString(@"News_ChoiceCircle_ChoiceNone")];
+        return;
+    }
+    
     //数据处理
     NSMutableArray * tmpCircles = [[NSMutableArray alloc] init];
     for (NSString * location in self.choiceArray) {
-        [tmpCircles addObject:self.dataArr[location.integerValue]];
+        CircleModel * circle = self.dataArr[location.integerValue];
+        [tmpCircles addObject:[NSString stringWithFormat:@"%ld", circle.cid]];
     }
     
     if (_block) {
         _block(tmpCircles);
     }
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark- private method
@@ -129,46 +134,62 @@
 
 - (void)loadAndhandleData
 {
-
-    //下拉刷新清空数组
-    //数据处理
-    for (int i=0; i<10; i++) {
-        CircleModel * model      = [[CircleModel alloc] init];
-        model.cid                = i;
-        model.circle_name        = [NSString stringWithFormat:@"%d", i];
-        model.isFollow           = YES;
-        [self.dataArr addObject:model];
-    }
     
-    [self.tableView reloadData];
-    
-//    NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyFollowCircleListPath, [UserService sharedService].user.uid];
-//    debugLog(@"%@", url);
-//    [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
-//        int status = [responseData[HttpStatus] intValue];
-//        if (status == HttpStatusCodeSuccess) {
-//            
-//            NSArray * list  = responseData[HttpResult][HttpList];
-//            //数据处理
-//            for (NSDictionary * circleDic in list) {
-//                CircleModel * model          = [[CircleModel alloc] init];
-//                model.cid                    = [circleDic[@"id"] integerValue];
-//                model.circle_name            = circleDic[@"circle_name"];
-//                model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
-//                [self.dataArr addObject:model];
-//            }
-//            
-//            [self.tableView reloadData];
-//            
-//        }else{
-//            [self showWarn:responseData[HttpMessage]];
-//        }
-//        
-//    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [self showWarn:StringCommonNetException];
-//    }];
+    NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyFollowCircleListPath, [UserService sharedService].user.uid];
+    debugLog(@"%@", url);
+    [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            
+            NSArray * list  = responseData[HttpResult][HttpList];
+            //数据处理
+            for (NSDictionary * circleDic in list) {
+                CircleModel * model          = [[CircleModel alloc] init];
+                model.cid                    = [circleDic[@"id"] integerValue];
+                model.circle_name            = circleDic[@"circle_name"];
+                model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
+                model.isFollow               = YES;
+                [self.dataArr addObject:model];
+            }
+            
+            [self.tableView reloadData];
+            
+        }else{
+            [self showWarn:responseData[HttpMessage]];
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self showWarn:StringCommonNetException];
+    }];
     
 }
+
+/**
+ *  提交成功退出
+ */
+- (void)popToTab
+{
+    [self popToTabBarViewController];
+    [self showComplete:KHClubString(@"News_Publish_Success")];
+}
+
+/**
+ *  提示失败
+ */
+- (void)showFail
+{
+    [self showWarn:KHClubString(@"News_Publish_Fail")];
+}
+
+/**
+ *  提示异常
+ */
+
+- (void)showException
+{
+    [self showWarn:StringCommonNetException];
+}
+
 /*
 #pragma mark - Navigation
 

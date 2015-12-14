@@ -304,7 +304,7 @@
     [[EMCDDeviceManager sharedInstance] stopPlaying];
     [EMCDDeviceManager sharedInstance].delegate = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-#warning 以下第一行代码必须写，将self从ChatManager的代理中移除
+//#warning 以下第一行代码必须写，将self从ChatManager的代理中移除
     [[EaseMob sharedInstance].chatManager removeDelegate:self];
     [[EaseMob sharedInstance].callManager removeDelegate:self];
     if (_conversation.conversationType == eConversationTypeChatRoom && !_isKicked)

@@ -221,50 +221,61 @@
 {
 
     if (self.textView.text.length < 1 && self.imageArr.count < 1) {
-        ALERT_SHOW(StringCommonPrompt, KHClubString(@"News_Publish_ContentEmpty"));
+        [self showHint:KHClubString(@"News_Publish_ContentEmpty")];
         return;
     }
     
     if (self.textView.text.length > 140) {
-        ALERT_SHOW(StringCommonPrompt, KHClubString(@"News_Publish_CotentTooLong"));
+        [self showHint:KHClubString(@"News_Publish_CotentTooLong")];
         return;
     }
     
-    NSDictionary * params = @{@"uid":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
-                              @"content_text":self.textView.text,
-                              @"location":self.location};
+    ChoiceCircleViewController * ccvc = [[ChoiceCircleViewController alloc] init];
     
-    NSMutableArray * files = [[NSMutableArray alloc] init];
-    
-    //头像处理
-    int timeInterval = [NSDate date].timeIntervalSince1970;
-    //图片数组处理
-    if (self.imageArr.count > 0) {
-        for (CustomImageView * imageView in self.imageArr) {
-            NSString * fileName = [NSString stringWithFormat:@"%ld%d.png", [UserService sharedService].user.uid, timeInterval++];
-            UIImage * image = [ImageHelper getBigImage:imageView.image];
-            [files addObject:@{FileDataKey:UIImageJPEGRepresentation(image, 0.9),FileNameKey:fileName}];
+    __weak ChoiceCircleViewController * weakC = ccvc;
+    [ccvc setCircleBlock:^(NSArray *circles) {
+
+        //确定后进行网络上传
+        NSDictionary * params = @{@"uid":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                                  @"content_text":self.textView.text,
+                                  @"location":self.location,
+                                  @"circles":[circles componentsJoinedByString:@","]};
+        
+        NSMutableArray * files = [[NSMutableArray alloc] init];
+        
+        //头像处理
+        int timeInterval = [NSDate date].timeIntervalSince1970;
+        //图片数组处理
+        if (self.imageArr.count > 0) {
+            for (CustomImageView * imageView in self.imageArr) {
+                NSString * fileName = [NSString stringWithFormat:@"%ld%d.png", [UserService sharedService].user.uid, timeInterval++];
+                UIImage * image = [ImageHelper getBigImage:imageView.image];
+                [files addObject:@{FileDataKey:UIImageJPEGRepresentation(image, 0.9),FileNameKey:fileName}];
+            }
         }
-    }
-    
-    debugLog(@"%@", kPublishNewsPath);
-    [self showLoading:nil];
-    [HttpService postFileWithUrlString:kPublishNewsPath params:params files:files andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
-        debugLog(@"%@", responseData);
-        int status = [responseData[HttpStatus] intValue];
-        if (status == HttpStatusCodeSuccess) {
-            
-            [self hideLoading];
-            [self.navigationController popViewControllerAnimated:YES];
-            //发送发送成功通知
-            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_PUBLISH_NEWS object:nil];
-            
-        }else{
-            [self showWarn:KHClubString(@"News_Publish_Success")];
-        }
-    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showWarn:StringCommonNetException];
+        
+        debugLog(@"%@", kPublishNewsPath);
+        [self showLoading:nil];
+        [HttpService postFileWithUrlString:kPublishNewsPath params:params files:files andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+            debugLog(@"%@", responseData);
+            int status = [responseData[HttpStatus] intValue];
+            if (status == HttpStatusCodeSuccess) {
+                
+                [self hideLoading];
+                //发送发送成功通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_PUBLISH_NEWS object:nil];
+                [weakC popToTab];
+            }else{
+                [weakC showFail];
+            }
+        } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+            [weakC showException];
+        }];
+        
     }];
+    [self pushVC:ccvc];
+
+
 }
 
 #pragma mark- private Method
