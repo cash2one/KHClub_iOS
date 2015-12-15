@@ -36,6 +36,7 @@
 #import "CardChooseUserViewController.h"
 #import "IMUtils.h"
 #import "PublicGroupDetailViewController.h"
+#import "CircleHomeViewController.h"
 
 #define KPageCount 20
 #define KHintAdjustY    50
@@ -699,10 +700,15 @@
             OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
             opvc.uid                           = [[cardDic[@"id"] stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
             [self pushVC:opvc];
-        }else{
+        }else if([cardDic[@"type"] integerValue] == eConversationTypeGroupChat){
             //群组
             PublicGroupDetailViewController * pgdv = [[PublicGroupDetailViewController alloc] initWithGroupId:cardDic[@"id"]];
             [self pushVC:pgdv];
+        }else{
+            CircleHomeViewController * cdvc = [[CircleHomeViewController alloc] init];
+            //圈子ID
+            cdvc.circleId                   = [cardDic[@"id"] integerValue];
+            [self pushVC:cdvc];
         }
     }
 }

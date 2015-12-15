@@ -21,7 +21,8 @@
     [super viewDidLoad];
     
     [self configUI];
-    self.refreshTableView.frame = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
+    self.refreshTableView.frame           = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
+    self.refreshTableView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,19 +58,19 @@
 {
     UserModel * userModel             = self.dataArr[indexPath.row];
     //头像
-    CustomImageView * headImageView   = [[CustomImageView alloc] initWithFrame:CGRectMake(10, 10, 45, 45)];
-    headImageView.layer.cornerRadius  = 2;
+    CustomImageView * headImageView   = [[CustomImageView alloc] initWithFrame:CGRectMake(10, 7, 57, 57)];
+    headImageView.layer.cornerRadius  = 3;
     headImageView.layer.masksToBounds = YES;
     //名字
-    CustomLabel * nameLabel           = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, headImageView.y+3, 200, 20)];
-    nameLabel.font                    = [UIFont systemFontOfSize:FontListName];
+    CustomLabel * nameLabel           = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, headImageView.y+7, 200, 14)];
+    nameLabel.font                    = [UIFont systemFontOfSize:14];
     nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
     //公司
-    CustomLabel * jobLabel            = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, nameLabel.bottom+1, 220, 20)];
+    CustomLabel * jobLabel            = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, nameLabel.bottom+5, 220, 13)];
     jobLabel.font                     = [UIFont systemFontOfSize:13];
     jobLabel.textColor                = [UIColor colorWithHexString:ColorLightBlack];
     //底线
-    UIView * lineView                 = [[UIView alloc] initWithFrame:CGRectMake(10, 64, [DeviceManager getDeviceWidth], 1)];
+    UIView * lineView                 = [[UIView alloc] initWithFrame:CGRectMake(headImageView.right+10, 64, [DeviceManager getDeviceWidth], 1)];
     lineView.backgroundColor          = [UIColor colorWithHexString:ColorLightGary];
     
     [cell.contentView addSubview:headImageView];
@@ -96,7 +97,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 65;
+    return 72;
 }
 
 #pragma mark- method response

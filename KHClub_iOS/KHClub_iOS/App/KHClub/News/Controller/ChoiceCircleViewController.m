@@ -146,6 +146,7 @@
             for (NSDictionary * circleDic in list) {
                 CircleModel * model          = [[CircleModel alloc] init];
                 model.cid                    = [circleDic[@"id"] integerValue];
+                model.follow_quantity        = [circleDic[@"follow_quantity"] integerValue];                
                 model.circle_name            = circleDic[@"circle_name"];
                 model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
                 model.isFollow               = YES;
@@ -171,6 +172,12 @@
 {
     [self popToTabBarViewController];
     [self showComplete:KHClubString(@"News_Publish_Success")];
+}
+
+- (void)popTo:(UIViewController *)vc
+{
+    [self.navigationController popToViewController:vc animated:YES];
+    [self showComplete:KHClubString(@"News_Publish_Success")];    
 }
 
 /**

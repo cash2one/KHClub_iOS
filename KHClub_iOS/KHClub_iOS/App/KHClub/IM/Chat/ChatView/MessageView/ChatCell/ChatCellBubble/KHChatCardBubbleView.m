@@ -7,6 +7,7 @@
 //
 
 #import "KHChatCardBubbleView.h"
+#import "UIImageView+WebCache.h"
 #import "IMUtils.h"
 
 NSString *const kRouterEventCardBubbleTapEventName = @"kRouterEventCardBubbleTapEventName";
@@ -97,11 +98,15 @@ NSString *const kRouterEventCardBubbleTapEventName = @"kRouterEventCardBubbleTap
             //设置内容
             [[IMUtils shareInstance] setUserNickWith:cardDic[@"id"] and:self.nameLabel andPlaceHolder:cardDic[@"title"]];
             [[IMUtils shareInstance] setUserAvatarWith:cardDic[@"id"] and:self.avatarImageView andPlaceHolder:cardDic[@"avatar"]];
-        }else{
+        }else if([cardDic[@"type"] integerValue] == eConversationTypeGroupChat){
             self.titleLabel.text = KHClubString(@"IM_Card_GroupCard");
             //设置内容
             [[IMUtils shareInstance] setGroupNameWith:cardDic[@"id"] and:self.nameLabel andGroupTitle:cardDic[@"title"]];
             [[IMUtils shareInstance] setGroupImageWith:cardDic[@"id"] and:self.avatarImageView];
+        }else{
+            self.titleLabel.text = KHClubString(@"IM_Card_CircleCard");
+            self.nameLabel.text = cardDic[@"title"];
+            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:cardDic[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
         }
     }
     

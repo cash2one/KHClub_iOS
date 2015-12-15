@@ -42,7 +42,6 @@
     UILongPressGestureRecognizer * longP = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressImage:)];
     [self.imageView addGestureRecognizer:longP];
     
-    
     [self.backScrollView addSubview:self.imageView];
     
     self.hudProgress = [[MBProgressHUD alloc] initWithView:self];
@@ -64,7 +63,6 @@
             }
         
         }];
-        
         
     }else{
         //不需要
@@ -126,7 +124,6 @@
     scrollView.contentSize = contentSize;
 }
 
-
 - (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(CGFloat)scale
 {
 //    debugLog(@"%@ size :%@", NSStringFromUIEdgeInsets(scrollView.contentInset),NSStringFromCGSize(scrollView.contentSize));
@@ -148,7 +145,7 @@
 {
     
     if (ges.state == UIGestureRecognizerStateBegan) {
-        UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:StringCommonCancel destructiveButtonTitle:nil otherButtonTitles:StringCommonSave, nil];
+        UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:StringCommonCancel destructiveButtonTitle:nil otherButtonTitles:StringCommonSave, nil];
         [sheet showInView:self];
     }
     
@@ -208,9 +205,9 @@
 {
     _hudProgress.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ToastFinish"]];
     // Set custom view mode
-    _hudProgress.mode = MBProgressHUDModeCustomView;
-    _hudProgress.delegate = self;
-    _hudProgress.labelText = text;
+    _hudProgress.mode       = MBProgressHUDModeCustomView;
+    _hudProgress.delegate   = self;
+    _hudProgress.labelText  = text;
     [_hudProgress show:YES];
     [_hudProgress hide:YES afterDelay:1];
 }
@@ -220,9 +217,9 @@
 {
     _hudProgress.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ToastWarn"]];
     // Set custom view mode
-    _hudProgress.mode = MBProgressHUDModeCustomView;
-    _hudProgress.delegate = self;
-    _hudProgress.labelText = text;
+    _hudProgress.mode       = MBProgressHUDModeCustomView;
+    _hudProgress.delegate   = self;
+    _hudProgress.labelText  = text;
     [_hudProgress show:YES];
     [_hudProgress hide:YES afterDelay:1.5];
 }
@@ -230,8 +227,8 @@
 //显示Loading动画
 - (void)showLoading:(NSString *)text
 {
-    _hudProgress.mode = MBProgressHUDModeIndeterminate;
-    _hudProgress.delegate = self;
+    _hudProgress.mode      = MBProgressHUDModeIndeterminate;
+    _hudProgress.delegate  = self;
     _hudProgress.labelText = text;
     [_hudProgress show:YES];
 }

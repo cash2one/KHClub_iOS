@@ -70,7 +70,7 @@
     //关注人数图片
     CustomImageView * likeImageView        = [[CustomImageView alloc] initWithFrame:CGRectMake(self.headImageView.right+10, self.nameLabel.bottom+12, 20, 18)];
     likeImageView.contentMode              = UIViewContentModeScaleAspectFit;
-    likeImageView.image                    = [UIImage imageNamed:@"iconfont_friend"];
+    likeImageView.image                    = [UIImage imageNamed:@"member"];
     [self.contentView addSubview:likeImageView];
     //关注人数
     self.likeLabel.frame                   = CGRectMake(likeImageView.right+7, self.nameLabel.bottom+12, 200, 18);
@@ -78,7 +78,6 @@
     self.likeLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
     //关注按钮
     self.followBtn.frame                   = CGRectMake([DeviceManager getDeviceWidth]-65, 23, 49, 22);
-
     [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
     [self.followBtn setTitleColor:[UIColor colorWithHexString:ColorGold] forState:UIControlStateNormal];
     self.followBtn.layer.cornerRadius      = 3;

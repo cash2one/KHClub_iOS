@@ -117,7 +117,7 @@
     self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     
     [self.navBar.leftBtn setImage:[UIImage imageNamed:@"news_notice_normal"] forState:UIControlStateNormal];
-    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"news_publish_normal"] forState:UIControlStateNormal];
+    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"create_circle"] forState:UIControlStateNormal];
     
     //未读
     self.unreadView.frame              = CGRectMake(30, 29, 6, 6);
@@ -227,8 +227,10 @@
 
         [self.newsListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
         [self.circleListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    }else{
+        [self.navBar.rightBtn setImage:[UIImage imageNamed:@"create_circle"] forState:UIControlStateNormal];
         
+    }else{
+        [self.navBar.rightBtn setImage:[UIImage imageNamed:@"news_publish_normal"] forState:UIControlStateNormal];
         [self.newsListBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         [self.circleListBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
     }

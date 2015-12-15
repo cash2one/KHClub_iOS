@@ -86,6 +86,9 @@ enum {
 /*! 点赞数组*/
 @property (nonatomic, strong) NSMutableArray * like_arr;
 
+/*! 圈子数组*/
+@property (nonatomic, strong) NSMutableArray * circle_arr;
+
 /*! 是否点过赞*/
 @property (nonatomic, assign) BOOL is_like;
 

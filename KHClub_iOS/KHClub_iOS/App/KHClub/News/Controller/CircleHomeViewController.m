@@ -7,6 +7,7 @@
 //
 
 #import "CircleHomeViewController.h"
+#import "PublishNewsViewController.h"
 #import "CircleModel.h"
 #import "CircleDetailViewController.h"
 #import "NewsDetailViewController.h"
@@ -116,37 +117,51 @@
 {
     [self setNavBarTitle:KHClubString(@"News_CircleList_CircleHome")];
     
-    self.backView.frame                 = CGRectMake(0, 0, self.viewWidth, 160);
-    self.backView.backgroundColor       = [UIColor whiteColor];
-    self.coverImageView.frame           = CGRectMake(10, 10, 57, 57);
-    
+    self.backView.frame                     = CGRectMake(0, 0, self.viewWidth, 135);
+    self.backView.backgroundColor           = [UIColor whiteColor];
+    self.coverImageView.frame               = CGRectMake(10, 20, 57, 57);
+    self.coverImageView.layer.cornerRadius  = 3;
+    self.coverImageView.layer.masksToBounds = YES;
+
     //标题
-    self.circleTitleLabel.frame         = CGRectMake(self.coverImageView.right+10, self.coverImageView.y+3, self.viewWidth-self.coverImageView.right-100, 15);
-    self.circleTitleLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
+    self.circleTitleLabel.frame             = CGRectMake(self.coverImageView.right+10, self.coverImageView.y, self.viewWidth-self.coverImageView.right-100, 13);
+    self.circleTitleLabel.font              = [UIFont systemFontOfSize:13];
     //人名
-    self.circleNameLabel.frame          = CGRectMake(self.coverImageView.right+10, self.circleTitleLabel.bottom+3, self.viewWidth-self.coverImageView.right-30, 15);
-    self.circleNameLabel.textColor      = [UIColor colorWithHexString:ColorDeepBlack];
-    //成员数量
-    self.circleFansCountLabel.frame     = CGRectMake(self.coverImageView.right+10, self.circleNameLabel.bottom+3, self.viewWidth-self.coverImageView.right-30, 15);
-    self.circleFansCountLabel.textColor = [UIColor colorWithHexString:ColorDeepBlack];
+    self.circleNameLabel.frame              = CGRectMake(self.coverImageView.right+10, self.circleTitleLabel.bottom+6, self.viewWidth-self.coverImageView.right-30, 13);
+    self.circleNameLabel.font               = [UIFont systemFontOfSize:13];
+    //成员数量图片
+    CustomImageView * countImageView        = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"member"]];
+    countImageView.frame                    = CGRectMake(self.coverImageView.right+10, self.circleNameLabel.bottom+6, 15, 15);
     //成员列表
-    self.circleFansView.frame           = CGRectMake(0, self.coverImageView.bottom+5, self.viewWidth, 50);
-    
+    self.circleFansView.frame               = CGRectMake(0, self.coverImageView.bottom+5, self.viewWidth, 40);
+    //成员数量
+    self.circleFansCountLabel.frame         = CGRectMake(countImageView.right+5, self.circleNameLabel.bottom+7, self.viewWidth-self.coverImageView.right-30, 13);
+    self.circleFansCountLabel.font          = [UIFont systemFontOfSize:13];
+
     //关注按钮
-    self.followBtn.frame                = CGRectMake(kCenterOriginX(100), self.circleFansView.bottom+10, 100, 30);
-    self.followBtn.backgroundColor      = [UIColor colorWithHexString:ColorGold];
+    self.followBtn.frame                    = CGRectMake([DeviceManager getDeviceWidth]-75, 39, 60, 22);
     [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
-    [self.followBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.followBtn.hidden               = YES;
+    [self.followBtn setTitleColor:[UIColor colorWithHexString:ColorGold] forState:UIControlStateNormal];
+    self.followBtn.layer.cornerRadius       = 3;
+    self.followBtn.layer.borderColor        = [UIColor colorWithHexString:ColorGold].CGColor;
+    self.followBtn.titleLabel.font          = [UIFont systemFontOfSize:13];
+    self.followBtn.layer.borderWidth        = 1;
+    self.followBtn.hidden                   = YES;
     //线
-    UIView * lineView                   = [[UIView alloc] initWithFrame:CGRectMake(0, self.followBtn.bottom+8, self.viewWidth, 5)];
-    lineView.backgroundColor            = [UIColor colorWithHexString:ColorLightGary];
+    UIView * lineView                       = [[UIView alloc] initWithFrame:CGRectMake(0, self.circleFansView.bottom+8, self.viewWidth, 5)];
+    lineView.backgroundColor                = [UIColor colorWithHexString:ColorLightGary];
     [self.backView addSubview:lineView];
+    [self.backView addSubview:countImageView];
     
     __weak typeof(self) sself = self;
     [self.navBar setRightBtnWithContent:@"" andBlock:^{
         [sself.shareAlertPopView show];
     }];
+    
+    self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.navBar.rightBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
+    //名片和设置
+    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
     
     self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:NO];
     [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
@@ -195,6 +210,12 @@
             [sself popToTabBarViewController];
         }];
     }
+    
+    //发布按钮
+    CustomButton * publishBtn = [[CustomButton alloc] initWithFrame:CGRectMake(self.viewWidth-60, self.viewHeight-60, 30, 30)];
+    [publishBtn setImage:[UIImage imageNamed:@"publish_news_big"] forState:UIControlStateNormal];
+    [publishBtn addTarget:self action:@selector(publishClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:publishBtn];
 }
 
 #pragma mark- override
@@ -251,7 +272,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 175;
+    return 135;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -260,10 +281,11 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
     //顶部UI刷新
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.circle_cover_sub_image]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
-    self.circleTitleLabel.text     = self.circleModel.circle_name;
-    self.circleNameLabel.text      = self.circleModel.manager_name;
+    self.circleTitleLabel.text     = [KHClubString(@"Circle_Circle_CircleName") stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.circle_name]];
+    self.circleNameLabel.text      = [KHClubString(@"Circle_Circle_CircleManager") stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.manager_name]];
     //圈子存在
     if (self.circleModel.cid > 0) {
         self.circleFansCountLabel.text = [NSString stringWithFormat:@"%ld", self.circleModel.follow_quantity];
@@ -271,15 +293,26 @@
 
     [self.circleFansView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
+    //圈达人图标
+    CustomImageView * memberImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"members_cover"]];
+    memberImageView.frame             = CGRectMake(self.coverImageView.x, 10, 20, 20);
+    //圈达人标题
+    CustomLabel * memberTitleLabel    = [[CustomLabel alloc] initWithFontSize:12];
+    memberTitleLabel.textColor        = [UIColor colorWithHexString:ColorDeepBlack];
+    memberTitleLabel.frame            = CGRectMake(memberImageView.right+5, 14, 50, 12);
+    memberTitleLabel.text             = KHClubString(@"Circle_Circle_CircleMember");
+    [self.circleFansView addSubview:memberImageView];
+    [self.circleFansView addSubview:memberTitleLabel];
+    
     NSInteger membersCount = self.membersArray.count;
-    if (membersCount > 4) {
-        membersCount = 4;
+    if (membersCount > 5) {
+        membersCount = 5;
     }
     
     for (int i=0; i<membersCount; i++) {
         UserModel * model = self.membersArray[i];
-        CustomImageView * fansImageView      = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-(i+1)*50-10, 5, 40, 40)];
-        fansImageView.layer.cornerRadius     = 20;
+        CustomImageView * fansImageView      = [[CustomImageView alloc] initWithFrame:CGRectMake(85+i*35, 5, 30, 30)];
+        fansImageView.layer.cornerRadius     = 15;
         fansImageView.layer.masksToBounds    = YES;
         fansImageView.userInteractionEnabled = YES;
         fansImageView.tag                    = model.uid;
@@ -423,18 +456,24 @@
 
 - (void)sendToFriend
 {
-//    CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
-//    
-//    NSDictionary * cardDic = @{@"type":[@(eConversationTypeGroupChat) stringValue],
-//                               @"id":[NSString stringWithFormat:@"%ld", self.circleId],
-//                               @"title":self.circleModel.circle_name,
-//                               @"avatar":@""};
-//    NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
-//    ccuvc.cardMessage   = [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
-//    [self presentViewController:ccuvc animated:YES completion:nil];
+    CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
+    
+    NSDictionary * cardDic = @{@"type":[@(100) stringValue],
+                               @"id":[NSString stringWithFormat:@"%ld", self.circleId],
+                               @"title":self.circleModel.circle_name,
+                               @"avatar":self.circleModel.circle_cover_sub_image};
+    NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
+    ccuvc.cardMessage   = [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
+    [self presentViewController:ccuvc animated:YES completion:nil];
 }
 
 #pragma mark- private method
+- (void)publishClick:(id)sender
+{
+    PublishNewsViewController * pnvc = [[PublishNewsViewController alloc] init];
+    pnvc.returnVC                    = self;
+    [self pushVC:pnvc];
+}
 - (void)loadAndhandleData
 {
     

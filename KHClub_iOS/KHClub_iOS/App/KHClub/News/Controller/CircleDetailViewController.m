@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 #pragma mark- layout
 - (void)initWidget
 {
-    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-30) style:UITableViewStylePlain];
+    self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
     self.tableView.delegate                     = self;
     self.tableView.dataSource                   = self;
     self.tableView.showsVerticalScrollIndicator = NO;
@@ -94,84 +94,93 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
     if (!cell) {
         cell                = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld", indexPath.row]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        switch (indexPath.row) {
-            case CircleCover:
-            {
-                CustomImageView * coverImage   = [[CustomImageView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 150)];
-                coverImage.contentMode         = UIViewContentModeScaleAspectFill;
-                coverImage.layer.masksToBounds = YES;
-                NSURL * url                    = [NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.circle_cover_image]];
-                [coverImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"loading_default"]];
-                [cell.contentView addSubview:coverImage];
-            }
-                break;
-            case CircleTitle:
-            {
-                CustomLabel * titleLabel = [[CustomLabel alloc] init];
-                titleLabel.frame         = CGRectMake(0, 10, self.viewWidth, 30);
-                titleLabel.textAlignment = NSTextAlignmentCenter;
-                titleLabel.font          = [UIFont systemFontOfSize:18];
-                titleLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
-                [cell.contentView addSubview:titleLabel];
-                titleLabel.text          = self.circleModel.circle_name;
-                //底线
-                UIView * line            = [[UIView alloc] initWithFrame:CGRectMake(0, titleLabel.bottom, self.viewWidth, 1)];
-                line.backgroundColor     = [UIColor colorWithHexString:ColorLightGary];
-                [cell.contentView addSubview:line];
-                
-            }
-                break;
-            case CircleInfo:
-            {
-                //详情
-                CustomLabel * infoTitleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(10, 5, 200, 20)];
-                infoTitleLabel.text          = KHClubString(@"News_CircleDetail_IntroTitle");
-                infoTitleLabel.textColor     = [UIColor colorWithHexString:ColorLightBlue];
-                
-                //内容
-                CGSize introSize             = [ToolsManager getSizeWithContent:[@"   " stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.circle_detail]] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth-20, MAXFLOAT)];
-                CustomLabel * infoLabel      = [[CustomLabel alloc] initWithFrame:CGRectMake(10, infoTitleLabel.bottom+3, self.viewWidth-20, introSize.height)];
-                infoLabel.lineBreakMode      = NSLineBreakByCharWrapping;
-                infoLabel.numberOfLines      = 0;
-                infoLabel.textColor          = [UIColor colorWithHexString:ColorLightBlack];
-                infoLabel.font               = [UIFont systemFontOfSize:16];
-                infoLabel.text               = [@"   " stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.circle_detail]];
-                
-                UIView * line                = [[UIView alloc] initWithFrame:CGRectMake(0, infoLabel.bottom+7, self.viewWidth, 1)];
-                line.backgroundColor         = [UIColor colorWithHexString:ColorLightGary];
-                
-                [cell.contentView addSubview:infoLabel];
-                [cell.contentView addSubview:infoTitleLabel];
-                [cell.contentView addSubview:line];
-                
-            }
-                break;
-            case CircleAddress:
-                [self factoryCellWithContent:self.circleModel.address andBackView:cell.contentView andImageName:@"icon_address"];
-                break;
-            case CircleManagerName:
-                [self factoryCellWithContent:self.circleModel.manager_name andBackView:cell.contentView andImageName:@"icon_manager_name"];
-                break;
-            case CirclePhone:
-                [self factoryCellWithContent:self.circleModel.phone_num andBackView:cell.contentView andImageName:@"icon_phone"];
-                break;
-            case CircleWechat:
-            {
-                [self factoryCellWithContent:self.circleModel.wx_num andBackView:cell.contentView andImageName:@"icon_weixin"];
-                CustomImageView * qrcodeImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-40, 5, 25, 25)];
-                [qrcodeImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.wx_qrcode]]];
-                [cell.contentView addSubview:qrcodeImageView];
-                
-            }
-                break;
-            case CircleWeb:
-                [self factoryCellWithContent:self.circleModel.circle_web andBackView:cell.contentView andImageName:@"icon_web"];
-                break;
-            default:
-                break;
+    }
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    switch (indexPath.row) {
+        case CircleCover:
+        {
+            CustomImageView * coverImage   = [[CustomImageView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 150)];
+            coverImage.contentMode         = UIViewContentModeScaleAspectFill;
+            coverImage.layer.masksToBounds = YES;
+            NSURL * url                    = [NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.circle_cover_image]];
+            [coverImage sd_setImageWithURL:url placeholderImage:[UIImage imageNamed:@"loading_default"]];
+            [cell.contentView addSubview:coverImage];
         }
-        
+            break;
+        case CircleTitle:
+        {
+            CustomLabel * titleLabel = [[CustomLabel alloc] init];
+            titleLabel.frame         = CGRectMake(10, 10, 200, 15);
+            titleLabel.textAlignment = NSTextAlignmentLeft;
+            titleLabel.font          = [UIFont systemFontOfSize:15];
+            titleLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
+            
+            titleLabel.text          = self.circleModel.circle_name;
+            //底线
+            UIView * line            = [[UIView alloc] initWithFrame:CGRectMake(0, 34, self.viewWidth, 1)];
+            line.backgroundColor     = [UIColor colorWithHexString:ColorLightGary];
+            [cell.contentView addSubview:line];
+            //关注人数
+            CustomImageView * likeImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-50, 11, 13, 13)];
+            likeImageView.image             = [UIImage imageNamed:@"like_btn_normal"];
+            CustomLabel * likeLabel         = [[CustomLabel alloc] initWithFrame:CGRectMake(self.viewWidth-30, 11, 28, 12)];
+            likeLabel.font                  = [UIFont systemFontOfSize:12];
+            likeLabel.text                  = [NSString stringWithFormat:@"%ld", self.circleModel.follow_quantity];
+            
+            [cell.contentView addSubview:titleLabel];
+            [cell.contentView addSubview:likeImageView];
+            [cell.contentView addSubview:likeLabel];
+        }
+            break;
+        case CircleInfo:
+        {
+            //详情
+            CustomLabel * infoTitleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(10, 10, 200, 15)];
+            infoTitleLabel.text          = KHClubString(@"News_CircleDetail_IntroTitle");
+            infoTitleLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
+            infoTitleLabel.font          = [UIFont systemFontOfSize:15];
+            //内容
+            CGSize introSize             = [ToolsManager getSizeWithContent:[@"   " stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.circle_detail]] andFontSize:13 andFrame:CGRectMake(0, 0, self.viewWidth-20, MAXFLOAT)];
+            CustomLabel * infoLabel      = [[CustomLabel alloc] initWithFrame:CGRectMake(10, infoTitleLabel.bottom+10, self.viewWidth-20, introSize.height)];
+            infoLabel.lineBreakMode      = NSLineBreakByCharWrapping;
+            infoLabel.numberOfLines      = 0;
+            infoLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
+            infoLabel.font               = [UIFont systemFontOfSize:13];
+            infoLabel.text               = [@"   " stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.circle_detail]];
+            
+            UIView * line                = [[UIView alloc] initWithFrame:CGRectMake(0, infoLabel.bottom+5, self.viewWidth, 1)];
+            line.backgroundColor         = [UIColor colorWithHexString:ColorLightGary];
+            
+            [cell.contentView addSubview:infoLabel];
+            [cell.contentView addSubview:infoTitleLabel];
+            [cell.contentView addSubview:line];
+            
+        }
+            break;
+        case CircleAddress:
+            [self factoryCellWithContent:self.circleModel.address andBackView:cell.contentView andImageName:@"icon_address"];
+            break;
+        case CircleManagerName:
+            [self factoryCellWithContent:self.circleModel.manager_name andBackView:cell.contentView andImageName:@"icon_manager_name"];
+            break;
+        case CirclePhone:
+            [self factoryCellWithContent:self.circleModel.phone_num andBackView:cell.contentView andImageName:@"icon_phone"];
+            break;
+        case CircleWechat:
+        {
+            [self factoryCellWithContent:self.circleModel.wx_num andBackView:cell.contentView andImageName:@"icon_weixin"];
+            CustomImageView * qrcodeImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(self.viewWidth-40, 5, 25, 25)];
+            [qrcodeImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.wx_qrcode]]];
+            [cell.contentView addSubview:qrcodeImageView];
+            
+        }
+            break;
+        case CircleWeb:
+            [self factoryCellWithContent:self.circleModel.circle_web andBackView:cell.contentView andImageName:@"icon_web"];
+            break;
+        default:
+            break;
     }
     
     return cell;
@@ -218,12 +227,11 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
             cellHeight = 150;
             break;
         case CircleTitle:
-            cellHeight = 41;
             break;
         case CircleInfo:
         {
-            CGSize introSize = [ToolsManager getSizeWithContent:[@"   " stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.circle_detail]] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth-20, MAXFLOAT)];
-            cellHeight       = introSize.height + 45;
+            CGSize introSize = [ToolsManager getSizeWithContent:[@"   " stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.circle_detail]] andFontSize:13 andFrame:CGRectMake(0, 0, self.viewWidth-20, MAXFLOAT)];
+            cellHeight       = introSize.height + 41;
         }
             break;
         case CircleAddress:
@@ -312,6 +320,9 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 {
     ModifyCircleViewController * mcvc = [[ModifyCircleViewController alloc] init];
     mcvc.circleModel                  = self.circleModel;
+    [mcvc setModifyBlock:^{
+        [self.tableView reloadData];
+    }];
     [self pushVC:mcvc];
 }
 
@@ -376,30 +387,35 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 - (void)factoryCellWithContent:(NSString *)content andBackView:(UIView *)backView andImageName:(NSString *)imageName
 {
     
-    CustomImageView * imageView = [[CustomImageView alloc] initWithFrame:CGRectMake(10, 3, 30, 30)];
+    CustomImageView * imageView = [[CustomImageView alloc] initWithFrame:CGRectMake(5, 8, 30, 20)];
     imageView.contentMode       = UIViewContentModeCenter;
     imageView.image             = [UIImage imageNamed:imageName];
 
-    CustomLabel * label         = [[CustomLabel alloc] initWithFontSize:16];
+    CustomLabel * label         = [[CustomLabel alloc] initWithFontSize:13];
     label.lineBreakMode         = NSLineBreakByCharWrapping;
     label.numberOfLines         = 0;
-    label.frame                 = CGRectMake(40, 3, self.viewWidth-50, 30);
-    label.textColor             = [UIColor colorWithHexString:ColorLightBlack];
-    CGSize size                 = [ToolsManager getSizeWithContent:[ToolsManager emptyReturnNone:content] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth-50, MAXFLOAT)];
-    if (size.height > 30) {
+    label.frame                 = CGRectMake(40, 7, self.viewWidth-50, 20);
+    label.textColor             = [UIColor colorWithHexString:ColorDeepBlack];
+    CGSize size                 = [ToolsManager getSizeWithContent:[ToolsManager emptyReturnNone:content] andFontSize:13 andFrame:CGRectMake(0, 0, self.viewWidth-50, MAXFLOAT)];
+    if (size.height > 20) {
         label.height = size.height;
     }
-    label.text                  = [ToolsManager emptyReturnNone:content];
+    label.text               = [ToolsManager emptyReturnNone:content];
+    //线
+    UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(40, label.bottom+7, self.viewWidth-40, 1)];
+    lineView.backgroundColor = [UIColor colorWithHexString:ColorLightGary];
+    
     [backView addSubview:imageView];
     [backView addSubview:label];
+    [backView addSubview:lineView];
 }
 //工厂方法获取 高度
 - (CGFloat)factoryCellGetHeightWithContent:(NSString *)content
 {
-    CGSize size        = [ToolsManager getSizeWithContent:[ToolsManager emptyReturnNone:content] andFontSize:16 andFrame:CGRectMake(0, 0, self.viewWidth-50, MAXFLOAT)];
+    CGSize size        = [ToolsManager getSizeWithContent:[ToolsManager emptyReturnNone:content] andFontSize:13 andFrame:CGRectMake(0, 0, self.viewWidth-50, MAXFLOAT)];
     CGFloat cellHeight = 35;
-    if (size.height > 30) {
-        cellHeight += size.height - 30;
+    if (size.height > 20) {
+        cellHeight += size.height - 20;
     }
     
     return cellHeight;

@@ -31,6 +31,8 @@
 @property (nonatomic, strong) CustomLabel * contentLabel;
 //线view
 @property (nonatomic, strong) UIView * lineView;
+//圈子名称
+@property (nonatomic, strong) CustomButton * circleBtn;
 //地址按钮
 @property (nonatomic, strong) CustomButton * locationBtn;
 //评论按钮
@@ -67,6 +69,7 @@
         self.locationBtn                   = [[CustomButton alloc] init];
         //评论
         self.commentBtn                    = [[CustomButton alloc] init];
+        self.circleBtn                     = [[CustomButton alloc] init];
         //点赞
         self.likeBtn                       = [[CustomButton alloc] init];
         //线
@@ -78,6 +81,7 @@
         [self.contentView addSubview:self.jobBtn];
         [self.contentView addSubview:self.contentLabel];
         [self.contentView addSubview:self.locationBtn];
+        [self.contentView addSubview:self.circleBtn];
         [self.contentView addSubview:self.commentBtn];
         [self.contentView addSubview:self.likeBtn];
         [self.contentView addSubview:self.lineView];
@@ -124,10 +128,16 @@
     self.contentLabel.font                   = [UIFont systemFontOfSize:15];
     self.contentLabel.textColor              = [UIColor colorWithHexString:ColorDeepBlack];
     
+    //圈子
+    [self.circleBtn setTitleColor:[UIColor colorWithHexString:@"323232"] forState:UIControlStateNormal];
+    self.circleBtn.titleLabel.font            = [UIFont systemFontOfSize:11];
+    self.circleBtn.frame                      = CGRectMake(self.headImageBtn.x, 0, 190, 20);
+    self.circleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    
     //地理位置
     [self.locationBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlue] forState:UIControlStateNormal];
     [self.locationBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
-    self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
+    self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:11];
     self.locationBtn.frame                      = CGRectMake(self.headImageBtn.x, 0, 190, 20);
     self.locationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     //时间
@@ -236,8 +246,19 @@
     }
     
     //地址按钮 没有不显示
+    if (news.circle_arr.count > 0) {
+        NSString * circleTitle = [NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsList_CircleFrom"), [news.circle_arr componentsJoinedByString:@","]];
+        self.circleBtn.y       = bottomPosition+5;
+        bottomPosition         = self.circleBtn.bottom;
+        self.circleBtn.hidden  = NO;
+        [self.circleBtn setTitle:circleTitle forState:UIControlStateNormal];
+    }else{
+        self.circleBtn.hidden = YES;
+    }
+    
+    //地址按钮 没有不显示
     if (news.location.length > 0) {
-        NSString * locationTitle                  = [NSString stringWithFormat:@" %@", news.location];
+        NSString * locationTitle                  = [NSString stringWithFormat:@"%@", news.location];
         [self.locationBtn setTitle:locationTitle forState:UIControlStateNormal];
         self.locationBtn.y                        = bottomPosition+5;
         bottomPosition                            = self.locationBtn.bottom;

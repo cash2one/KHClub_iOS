@@ -125,6 +125,7 @@
 
 //News
 "News_NewsList_MomentsTitle"                  = "动态";
+"News_NewsList_CircleFrom"                    = "来自";
 "News_CircleList_CircleTitle"                 = "圈子";
 "News_CircleList_MyCircle"                    = "我的圈子";
 "News_CircleList_RecommendCircle"             = "推荐圈子";
@@ -157,6 +158,7 @@
 "News_NewsDetail_Like"                        = "赞";
 "News_NewsDetail_Reply"                       = "回复";
 "News_NewsDetail_ContentEmpty"                = "内容不能为空";
+"News_NewsDetail_CircleNoFollow"              = "您没有关注该动态发布的圈子，不能评论";
 "News_NotifyNews_Title"                       = "通知";
 "News_NotifyNews_LikeTitle"                   = "为你点了赞";
 "News_BrowseImage_SaveOk"                     = "保存成功";
@@ -175,6 +177,19 @@
 "Circle_CreateCircle_WxTooLong"               = "圈子微信太长";
 "Circle_CreateCircle_WebTooLong"              = "圈子网站太长";
 "Circle_CircleDetail_FirePhoneAlert"          = "是否拨打客服电话:";
+
+"Circle_Circle_NamePlaceholder"               = "(7个字以内)";
+"Circle_Circle_NameTitle"                     = "昵称";
+"Circle_Circle_IntroPlaceholder"              = "(200个字以内)";
+"Circle_Circle_IntroTitle"                    = "介绍";
+"Circle_Circle_AddressTitle"                  = "地址";
+"Circle_Circle_PhoneTitle"                    = "电话";
+"Circle_Circle_WechatTitle"                   = "公众号名称";
+"Circle_Circle_WechatQrcodeTitle"             = "公众号二维码";
+"Circle_Circle_WebTitle"                      = "圈子网址";
+"Circle_Circle_CircleName"                    = "圈主名称：";
+"Circle_Circle_CircleManager"                 = "圈主：";
+"Circle_Circle_CircleMember"                  = "圈达人";
 
 //Message
 "Message_Message_ScanQrcode"                  = "扫描二维码";
@@ -202,6 +217,7 @@
 "IM_Push_PushInvite"                          = "邀请加入";
 "IM_Card_Card"                                = "名片";
 "IM_Card_GroupCard"                           = "群名片";
+"IM_Card_CircleCard"                          = "圈子名片";
 "IM_ChatList_ACard"                           = "一张名片";
 
 

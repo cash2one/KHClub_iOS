@@ -7,7 +7,7 @@
 //
 
 #import "QRcodeCardView.h"
-
+#import "MBProgressHUD.h"
 @implementation QRcodeCardView
 
 /*
@@ -22,16 +22,19 @@
 {
     self = [super init];
     if (self) {
-        self.frame               = CGRectMake(0, 0, [DeviceManager getDeviceWidth], [DeviceManager getDeviceHeight]);
-        self.backgroundColor     = [UIColor colorWithWhite:0.5 alpha:0.5];
-        
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
-        [self addGestureRecognizer:tap];
-        
-        UIView * backView        = [[UIView alloc] initWithFrame:CGRectMake(kCenterOriginX(200), kNavBarAndStatusHeight+100, 200, 200)];
-        backView.backgroundColor = [UIColor whiteColor];
+        self.frame                             = CGRectMake(0, 0, [DeviceManager getDeviceWidth], [DeviceManager getDeviceHeight]);
+        self.backgroundColor                   = [UIColor colorWithWhite:0.5 alpha:0.5];
 
-        self.imageView           = [[CustomImageView alloc] initWithFrame:CGRectMake(25, 25, 150, 150)];
+        UITapGestureRecognizer * tap           = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss:)];
+        [self addGestureRecognizer:tap];
+
+        UIView * backView                      = [[UIView alloc] initWithFrame:CGRectMake(kCenterOriginX(200), kNavBarAndStatusHeight+100, 200, 200)];
+        backView.backgroundColor               = [UIColor whiteColor];
+
+        self.imageView                         = [[CustomImageView alloc] initWithFrame:CGRectMake(25, 25, 150, 150)];
+        self.imageView.userInteractionEnabled  = YES;
+        UILongPressGestureRecognizer * longGes = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressImage:)];
+        [self.imageView addGestureRecognizer:longGes];
         
         CustomLabel * titleLabel = [[CustomLabel alloc] initWithFontSize:15];
         titleLabel.textColor     = [UIColor colorWithHexString:ColorDeepBlack];
@@ -60,5 +63,43 @@
 {
     [self removeFromSuperview];
 }
+
+
+#pragma mark- UIActionSheetDelegate
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        if (self.imageView.image) {
+            UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, @selector(image:didFinishSavingWithError:contextInfo:), nil);
+        }
+    }
+}
+
+#pragma mark- method response
+- (void)longPressImage:(UILongPressGestureRecognizer *)ges
+{
+    
+    if (ges.state == UIGestureRecognizerStateBegan) {
+        UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:StringCommonCancel destructiveButtonTitle:nil otherButtonTitles:StringCommonSave, nil];
+        [sheet showInView:self];
+    }
+    
+}
+
+- (void)image: (UIImage *) image didFinishSavingWithError: (NSError *) error
+   contextInfo: (void *) contextInfo
+{
+    //显示提示信息
+    UIView *view       = [[UIApplication sharedApplication].delegate window];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
+    hud.customView     = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ToastFinish"]];
+    // Set custom view mode
+    hud.mode           = MBProgressHUDModeCustomView;
+    hud.labelText      = KHClubString(@"News_BrowseImage_SaveOk");
+    [hud show:YES];
+    [hud hide:YES afterDelay:1];
+    
+}
+
 
 @end

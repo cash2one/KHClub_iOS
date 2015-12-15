@@ -273,6 +273,7 @@
     [self.infoView setSelfData];
     //状态更新
     [self getNewsImages];
+    [self getCircles];
     //签名
     NSString * signStr       = [ToolsManager emptyReturnNone:[UserService sharedService].user.signature];
     CGSize size              = [ToolsManager getSizeWithContent:signStr andFontSize:15 andFrame:CGRectMake(0, 0, self.viewWidth-30, MAXFLOAT)];
@@ -353,6 +354,43 @@
                 [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:image.sub_url]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
             }
 
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
+//获取我创建的圈子
+- (void)getCircles
+{
+    //getMyCircleList
+    NSString * path = [kGetMyCircleListPath stringByAppendingFormat:@"?user_id=%ld", [UserService sharedService].user.uid];
+    [HttpService getWithUrlString:path andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            NSArray * imageList = responseData[HttpResult];
+            
+            NSMutableArray * imageModelList = [[NSMutableArray alloc] init];
+            //遍历设置图片
+            for (int i=0; i<imageList.count; i++) {
+                NSDictionary * dic = imageList[i];
+                ImageModel * image = [[ImageModel alloc] init];
+                image.sub_url      = dic[@"circle_cover_sub_image"];
+                [imageModelList addObject:image];
+            }
+            self.circleImageView1.hidden = YES;
+            self.circleImageView2.hidden = YES;
+            self.circleImageView3.hidden = YES;
+            NSArray * imageArr = @[self.circleImageView1, self.circleImageView2, self.circleImageView3];
+            for (int i=0; i<imageModelList.count; i++) {
+                ImageModel * image      = imageModelList[i];
+                UIImageView * imageView = imageArr[i];
+                imageView.hidden        = NO;
+                [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:image.sub_url]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
+            }
+            
         }
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {

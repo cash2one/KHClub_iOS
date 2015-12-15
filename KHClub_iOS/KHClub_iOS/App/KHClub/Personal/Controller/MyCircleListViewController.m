@@ -41,6 +41,7 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.delegate                     = self;
     self.tableView.dataSource                   = self;
+    self.tableView.separatorStyle               = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     self.dataArr     = [[NSMutableArray alloc] init];
@@ -63,7 +64,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 65;
+    return 69;
 }
 
 #pragma mark- UITableViewDataSource
@@ -92,31 +93,21 @@
 - (void)loadAndhandleData
 {
     
-    //下拉刷新清空数组
-    //数据处理
-    for (int i=0; i<10; i++) {
-        CircleModel * model      = [[CircleModel alloc] init];
-        model.cid                = i;
-        model.circle_name        = [NSString stringWithFormat:@"%d", i];
-        model.isFollow           = YES;
-        [self.dataArr addObject:model];
-    }
-    
-    [self.tableView reloadData];
-    
     NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyCircleListPath, [UserService sharedService].user.uid];
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
 
-            NSArray * list  = responseData[HttpResult][HttpList];
+            NSArray * list  = responseData[HttpResult];
             //数据处理
             for (NSDictionary * circleDic in list) {
                 CircleModel * model          = [[CircleModel alloc] init];
                 model.cid                    = [circleDic[@"id"] integerValue];
+                model.follow_quantity        = [circleDic[@"follow_quantity"] integerValue];
                 model.circle_name            = circleDic[@"circle_name"];
                 model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
+                model.isFollow               = YES;
                 [self.dataArr addObject:model];
             }
 

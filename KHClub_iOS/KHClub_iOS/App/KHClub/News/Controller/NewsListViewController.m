@@ -331,6 +331,11 @@
     if (news.location.length > 0) {
         height += 25;
     }
+    //圈子
+    if (news.circle_arr.count > 0) {
+        height += 25;
+    }
+    
     //点赞列表
     if (news.like_arr.count > 0) {
         CGFloat width = ([DeviceManager getDeviceWidth]-53-27)/8;

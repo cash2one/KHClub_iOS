@@ -185,6 +185,10 @@
 		42D68BFF1C16F0900027DDF3 /* CircleMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D68BFE1C16F0900027DDF3 /* CircleMembersViewController.m */; };
 		42DB9C4F1BFEF90400631721 /* groups_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */; };
 		42DB9C521BFF40AD00631721 /* QRcodeCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DB9C511BFF40AD00631721 /* QRcodeCardView.m */; };
+		42DC163F1C1FB382004CA2C4 /* create_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DC163E1C1FB382004CA2C4 /* create_circle@2x.png */; };
+		42DC16421C1FEB25004CA2C4 /* member@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DC16401C1FEB25004CA2C4 /* member@2x.png */; };
+		42DC16431C1FEB25004CA2C4 /* members_cover@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DC16411C1FEB25004CA2C4 /* members_cover@2x.png */; };
+		42DC16451C201A13004CA2C4 /* publish_news_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DC16441C201A13004CA2C4 /* publish_news_big@2x.png */; };
 		42DDB7301C069F670086A72F /* add_contacts_friend_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DDB72F1C069F670086A72F /* add_contacts_friend_icon@2x.png */; };
 		42DDB8391C06DA2D0086A72F /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DDB82A1C06DA2D0086A72F /* TencentOpenAPI.framework */; };
 		42DDB83A1C06DA2D0086A72F /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 42DDB82B1C06DA2D0086A72F /* TencentOpenApi_IOS_Bundle.bundle */; };
@@ -885,6 +889,10 @@
 		42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "groups_icon@2x.png"; sourceTree = "<group>"; };
 		42DB9C501BFF40AD00631721 /* QRcodeCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRcodeCardView.h; sourceTree = "<group>"; };
 		42DB9C511BFF40AD00631721 /* QRcodeCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRcodeCardView.m; sourceTree = "<group>"; };
+		42DC163E1C1FB382004CA2C4 /* create_circle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "create_circle@2x.png"; sourceTree = "<group>"; };
+		42DC16401C1FEB25004CA2C4 /* member@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "member@2x.png"; sourceTree = "<group>"; };
+		42DC16411C1FEB25004CA2C4 /* members_cover@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "members_cover@2x.png"; sourceTree = "<group>"; };
+		42DC16441C201A13004CA2C4 /* publish_news_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "publish_news_big@2x.png"; sourceTree = "<group>"; };
 		42DDB72F1C069F670086A72F /* add_contacts_friend_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_contacts_friend_icon@2x.png"; sourceTree = "<group>"; };
 		42DDB82A1C06DA2D0086A72F /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		42DDB82B1C06DA2D0086A72F /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
@@ -3736,6 +3744,10 @@
 		42FDE2381BE7052300825E5E /* news */ = {
 			isa = PBXGroup;
 			children = (
+				42DC16441C201A13004CA2C4 /* publish_news_big@2x.png */,
+				42DC16401C1FEB25004CA2C4 /* member@2x.png */,
+				42DC16411C1FEB25004CA2C4 /* members_cover@2x.png */,
+				42DC163E1C1FB382004CA2C4 /* create_circle@2x.png */,
 				42F274D81BEC549800A63012 /* delete_btn_normal@2x.png */,
 				4287678A1BEB4326007400B7 /* comment_btn_normal@2x.png */,
 				4287678B1BEB4326007400B7 /* like_btn_normal@2x.png */,
@@ -3871,6 +3883,7 @@
 				42ED92BC1BF1DB9400E59147 /* VoiceSearchFeedback015@2x.png in Resources */,
 				42EF84491BF0C9CC00DA16C3 /* callRing.mp3 in Resources */,
 				42FDE2A11BE7052300825E5E /* small_unread@2x.png in Resources */,
+				42DC16431C1FEB25004CA2C4 /* members_cover@2x.png in Resources */,
 				42ED92B01BF1DB9400E59147 /* VoiceSearchFeedback009@2x.png in Resources */,
 				42ED93271BF1DB9400E59147 /* chat_sender_audio_playing_003@2x.png in Resources */,
 				42ED930B1BF1DB9400E59147 /* chatBar_more_location.png in Resources */,
@@ -3953,6 +3966,7 @@
 				42EBB18B1C0FF441008FA90F /* report@2x.png in Resources */,
 				42ED93091BF1DB9400E59147 /* chatBar_more_cameraSelected.png in Resources */,
 				42ED93141BF1DB9400E59147 /* chat_receiver_audio_playing000.png in Resources */,
+				42DC163F1C1FB382004CA2C4 /* create_circle@2x.png in Resources */,
 				42FDE28E1BE7052300825E5E /* Icon-Small@3x.png in Resources */,
 				42ED92C21BF1DB9400E59147 /* VoiceSearchFeedback018@2x.png in Resources */,
 				42DDB83A1C06DA2D0086A72F /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -4022,6 +4036,7 @@
 				42D1D60E1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png in Resources */,
 				42430A2D1BEA3F8F00731CA3 /* add_picture@2x.png in Resources */,
 				42ED92F31BF1DB9400E59147 /* chatBar_record.png in Resources */,
+				42DC16421C1FEB25004CA2C4 /* member@2x.png in Resources */,
 				42ED93321BF1DB9400E59147 /* group_creategroup@2x.png in Resources */,
 				42E84C561C04698100D92319 /* iconfont_friend@2x.png in Resources */,
 				42ED932D1BF1DB9400E59147 /* back@2x.png in Resources */,
@@ -4074,6 +4089,7 @@
 				42ED93361BF1DB9400E59147 /* group_participant_add@2x.png in Resources */,
 				42ED92E71BF1DB9400E59147 /* chatBar_face.png in Resources */,
 				42ED92DE1BF1DB9400E59147 /* chat_location_detail_disclosure@2x.png in Resources */,
+				42DC16451C201A13004CA2C4 /* publish_news_big@2x.png in Resources */,
 				42ED933B1BF1DB9400E59147 /* newFriends@2x.png in Resources */,
 				42DDB7301C069F670086A72F /* add_contacts_friend_icon@2x.png in Resources */,
 				42ED93151BF1DB9400E59147 /* chat_receiver_audio_playing000@2x.png in Resources */,

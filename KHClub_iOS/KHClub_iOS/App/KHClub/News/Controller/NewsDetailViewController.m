@@ -771,7 +771,13 @@
             [self.newsTable scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionNone animated:YES];
             
         }else{
-            [self showWarn:KHClubString(@"News_Publish_Fail")];
+            if ([responseData[HttpResult] integerValue] == 1) {
+                [self hideLoading];
+                [self showHint:KHClubString(@"News_NewsDetail_CircleNoFollow")];
+            }else{
+                [self showWarn:KHClubString(@"News_Publish_Fail")];
+            }
+
         }
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showWarn:StringCommonNetException];
@@ -804,7 +810,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_PUBLISH_NEWS object:nil];
             [self.navigationController popViewControllerAnimated:YES];
         }else{
-            [self showComplete:KHClubString(@"News_NewsDetail_DeleteFail")];
+
+            [self showWarn:KHClubString(@"News_NewsDetail_DeleteFail")];
         }
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -846,6 +853,11 @@
     if (self.news.location.length > 0) {
         height += 25;
     }
+    
+//    //圈子
+//    if (self.news.circle_arr.count > 0) {
+//        height += 25;
+//    }
     
     return height;
 }

@@ -93,6 +93,8 @@
     __weak typeof(self) sself = self;
     //返回按钮
     [self.navBar.leftBtn setImage:[UIImage imageNamed:@"back_btn"] forState:UIControlStateNormal];
+    [self.navBar.leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 20)];
+    self.navBar.leftBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     //高亮
 //    [self.navBar.leftBtn setImage:[UIImage imageNamed:@"back_white_btn_selected"] forState:UIControlStateHighlighted];
     if ([DeviceManager getDeviceSystem] >= 7.0) {

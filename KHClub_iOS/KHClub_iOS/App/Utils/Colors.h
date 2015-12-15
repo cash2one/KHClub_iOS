@@ -28,7 +28,7 @@
 //主深黑
 #define ColorDeepBlack @"000000"
 //主浅黑
-#define ColorLightBlack @"7c7c7c"
+#define ColorLightBlack @"646464"
 
 //辅灰色
 #define ColorGary @"cccccc"

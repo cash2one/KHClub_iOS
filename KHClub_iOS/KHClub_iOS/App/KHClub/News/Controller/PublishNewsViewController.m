@@ -17,22 +17,22 @@
 @interface PublishNewsViewController ()<ZYQAssetPickerControllerDelegate>
 
 //图片按钮数组
-@property (nonatomic, strong) NSMutableArray * imageArr;
+@property (nonatomic, strong) NSMutableArray      * imageArr;
 /**
  *  顶部背景视图
  */
-@property (strong, nonatomic) UIView * topBackView;
+@property (strong, nonatomic) UIView              * topBackView;
 
 @property (strong, nonatomic) PlaceHolderTextView *textView;
 
-@property (strong, nonatomic) CustomButton *addImageBtn;
+@property (strong, nonatomic) CustomButton        *addImageBtn;
 
-@property (strong, nonatomic)  CustomButton *locationBtn;
+@property (strong, nonatomic) CustomButton        *locationBtn;
 
-@property (nonatomic ,copy) NSString * location;
+@property (nonatomic ,copy  ) NSString            * location;
 
 //图片宽度
-@property (nonatomic, assign) CGFloat itemWidth;
+@property (nonatomic, assign) CGFloat             itemWidth;
 
 @end
 
@@ -264,7 +264,11 @@
                 [self hideLoading];
                 //发送发送成功通知
                 [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_PUBLISH_NEWS object:nil];
-                [weakC popToTab];
+                if (self.returnVC != nil) {
+                    [weakC popTo:self.returnVC];
+                }else{
+                    [weakC popToTab];
+                }
             }else{
                 [weakC showFail];
             }

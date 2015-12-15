@@ -11,7 +11,7 @@
 /**
  *  定制名片显示
  */
-@interface QRcodeCardView : UIView
+@interface QRcodeCardView : UIView<UIActionSheetDelegate>
 
 /**
  *  二维码图片

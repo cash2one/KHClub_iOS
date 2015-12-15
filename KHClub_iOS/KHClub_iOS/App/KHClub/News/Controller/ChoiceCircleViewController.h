@@ -28,7 +28,10 @@ typedef void (^ChoiceCircleBlock) (NSArray * circles);
  *  提交成功退出
  */
 - (void)popToTab;
-
+/**
+ *  退出到某一个vc
+ */
+- (void)popTo:(UIViewController *)vc;
 /**
  *  提示失败
  */

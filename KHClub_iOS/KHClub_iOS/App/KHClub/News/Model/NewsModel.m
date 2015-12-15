@@ -17,9 +17,10 @@
 {
     self = [super init];
     if (self) {
-        self.image_arr  = [[NSMutableArray alloc] init];
+        self.image_arr   = [[NSMutableArray alloc] init];
         self.comment_arr = [[NSMutableArray alloc] init];
-        self.like_arr   = [[NSMutableArray alloc] init];
+        self.like_arr    = [[NSMutableArray alloc] init];
+        self.circle_arr  = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -45,6 +46,7 @@
     NSArray * images      = newsDic[@"images"];
     NSArray * comments    = newsDic[@"comments"];
     NSArray * likes       = newsDic[@"likes"];
+    NSArray * circles     = newsDic[@"circles"];
     //图片数组
     for (NSDictionary * imageDic in images) {
         ImageModel * imageModel = [[ImageModel alloc] init];
@@ -71,6 +73,10 @@
         like.name           = likeDic[@"name"];
         like.job            = likeDic[@"job"];
         [self.like_arr addObject:like];
+    }
+    //点赞数组
+    for (NSString * circleName in circles) {
+        [self.circle_arr addObject:circleName];
     }
 }
 

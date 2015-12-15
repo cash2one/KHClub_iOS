@@ -9,7 +9,7 @@
 #import "BaseViewController.h"
 #import "CircleModel.h"
 
-typedef void (^ModifyCircle) (CircleModel * newCircle);
+typedef void (^ModifyCircleBlock) (void);
 
 /**
  *  修改圈子页面
@@ -18,5 +18,8 @@ typedef void (^ModifyCircle) (CircleModel * newCircle);
 
 //圈子模型
 @property (nonatomic, strong) CircleModel * circleModel;
+
+
+- (void)setModifyBlock:(ModifyCircleBlock)block;
 
 @end

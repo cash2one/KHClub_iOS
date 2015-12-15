@@ -125,6 +125,7 @@
 
 //News
 "News_NewsList_MomentsTitle"                  = "Moments";
+"News_NewsList_CircleFrom"                    = "From";
 "News_CircleList_CircleTitle"                 = "Circle";
 "News_CircleList_MyCircle"                    = "My Circle";
 "News_CircleList_RecommendCircle"             = "Recommend Circle";
@@ -157,6 +158,7 @@
 "News_NewsDetail_Like"                        = "Like";
 "News_NewsDetail_Reply"                       = "Reply";
 "News_NewsDetail_ContentEmpty"                = "Content can't be empty";
+"News_NewsDetail_CircleNoFollow"              = "you are not following this circle, can't comment";
 "News_NotifyNews_Title"                       = "Notification";
 "News_NotifyNews_LikeTitle"                   = "A Like for you";
 "News_BrowseImage_SaveOk"                     = "Save OK";
@@ -175,6 +177,19 @@
 "Circle_CreateCircle_WxTooLong"               = "Wechat can't be empty";
 "Circle_CreateCircle_WebTooLong"              = "Web can't be empty";
 "Circle_CircleDetail_FirePhoneAlert"          = "Call phone:";
+
+"Circle_Circle_NamePlaceholder"               = "(7 character at most)";
+"Circle_Circle_NameTitle"                     = "Nick";
+"Circle_Circle_IntroPlaceholder"              = "(200 character at most)";
+"Circle_Circle_IntroTitle"                    = "Intro";
+"Circle_Circle_AddressTitle"                  = "Addr";
+"Circle_Circle_PhoneTitle"                    = "Mob";
+"Circle_Circle_WechatTitle"                   = "Wechat";
+"Circle_Circle_WechatQrcodeTitle"             = "Qrcode";
+"Circle_Circle_WebTitle"                      = "Web";
+"Circle_Circle_CircleName"                    = "Name：";
+"Circle_Circle_CircleManager"                 = "Master：";
+"Circle_Circle_CircleMember"                  = "Member";
 
 //Message
 "Message_Message_ScanQrcode"                  = "Scan QR code";
@@ -202,5 +217,6 @@
 "IM_Push_PushInvite"                          = " invite to join";
 "IM_Card_Card"                                = "Card";
 "IM_Card_GroupCard"                           = "Group Card";
+"IM_Card_CircleCard"                          = "Circle Card";
 "IM_ChatList_ACard"                           = "A Card";
 
