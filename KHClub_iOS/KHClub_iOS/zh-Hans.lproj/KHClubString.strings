@@ -187,7 +187,7 @@
 "Circle_Circle_WechatTitle"                   = "公众号名称";
 "Circle_Circle_WechatQrcodeTitle"             = "公众号二维码";
 "Circle_Circle_WebTitle"                      = "圈子网址";
-"Circle_Circle_CircleName"                    = "圈主名称：";
+"Circle_Circle_CircleName"                    = "圈子名称：";
 "Circle_Circle_CircleManager"                 = "圈主：";
 "Circle_Circle_CircleMember"                  = "圈达人";
 

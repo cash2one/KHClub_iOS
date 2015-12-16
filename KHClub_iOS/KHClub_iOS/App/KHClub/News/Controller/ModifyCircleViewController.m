@@ -155,11 +155,6 @@
         self.backScrollView.contentSize = CGSizeMake(0, self.backScrollView.height+1);
     }
     
-    __weak typeof(self) sself = self;
-    [self.navBar setLeftBtnWithContent:@"" andBlock:^{
-        [sself dismissViewControllerAnimated:YES completion:nil];
-    }];
-
 }
 
 - (void)setData

@@ -173,27 +173,26 @@
                 break;
             case ShareAlertWechat:
             {
-//                [ShareUtils shareWechatWithUser:[UserService sharedService].user];
+                [ShareUtils shareWechatWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleId];
             }
                 break;
             case ShareAlertWechatMoment:
             {
-//                [ShareUtils shareWechatMomentsWithUser:[UserService sharedService].user];
+                [ShareUtils shareWechatMomentsWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleId];
             }
                 break;
             case ShareAlertSina:
             {
-//                [ShareUtils shareSinaWithUser:[UserService sharedService].user];
             }
                 break;
             case ShareAlertQQ:
             {
-//                [ShareUtils shareQQWithUser:[UserService sharedService].user];
+                [ShareUtils shareQQWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleId];
             }
                 break;
             case ShareAlertQzone:
             {
-//                [ShareUtils shareQzoneWithUser:[UserService sharedService].user];
+                [ShareUtils shareQzoneWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleId];
             }
                 break;
                 

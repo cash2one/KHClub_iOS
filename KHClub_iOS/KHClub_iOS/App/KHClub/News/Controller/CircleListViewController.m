@@ -78,6 +78,16 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section == 0) {
+        if (self.followArray.count < 1) {
+            return 0;
+        }
+    }else{
+        if (self.dataArr.count < 1) {
+            return 0;
+        }
+    }
+    
     return 30;
 }
 

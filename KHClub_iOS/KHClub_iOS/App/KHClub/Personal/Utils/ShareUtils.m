@@ -283,5 +283,112 @@
     }];
 }
 
++ (void)shareWechatWithTitle:(NSString *)circleName andManagerName:(NSString *)name andImage:(NSString *)imagePath andCircleID:(NSInteger)circleID
+{
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    id image;
+    if (imagePath.length > 0) {
+        image                        = [NSURL URLWithString:[ToolsManager completeUrlStr:imagePath]];
+    }else{
+        image                        = [UIImage imageNamed:@"Icon"];
+    }
+    NSArray * imageArray             = @[image];
+    
+    NSURL * url                      = [NSURL URLWithString:kShareWeb];
+    NSString * title                 = circleName;
+    NSString * content               = name.length > 0 ? name : @"KHClub";
+    
+    [shareParams SSDKSetupShareParamsByText:content
+                                     images:imageArray
+                                        url:url
+                                      title:title
+                                       type:SSDKContentTypeAuto];
+    
+    [shareParams SSDKSetupWeChatParamsByText:content title:title url:url thumbImage:nil image:image musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatSession];
+    
+    [ShareSDK share:SSDKPlatformSubTypeWechatSession parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+    }];
+}
+//微信朋友圈
++ (void)shareWechatMomentsWithTitle:(NSString *)circleName andManagerName:(NSString *)name andImage:(NSString *)imagePath andCircleID:(NSInteger)circleID
+{
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    id image;
+    if (imagePath.length > 0) {
+        image                        = [NSURL URLWithString:[ToolsManager completeUrlStr:imagePath]];
+    }else{
+        image                        = [UIImage imageNamed:@"Icon"];
+    }
+    NSArray * imageArray             = @[image];
+
+    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@""]];
+    NSString * title                 = circleName;
+    NSString * content               = name.length > 0 ? name : @"KHClub";
+    
+    [shareParams SSDKSetupShareParamsByText:content
+                                     images:imageArray
+                                        url:url
+                                      title:title
+                                       type:SSDKContentTypeAuto];
+    
+    [shareParams SSDKSetupWeChatParamsByText:content title:title url:url thumbImage:nil image:image musicFileURL:nil extInfo:nil fileData:nil emoticonData:nil type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeWechatTimeline];
+    
+    [ShareSDK share:SSDKPlatformSubTypeWechatTimeline parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+    }];
+}
+//QQ
++ (void)shareQQWithTitle:(NSString *)circleName andManagerName:(NSString *)name andImage:(NSString *)imagePath andCircleID:(NSInteger)circleID
+{
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    id image;
+    if (imagePath.length > 0) {
+        image                        = [NSURL URLWithString:[ToolsManager completeUrlStr:imagePath]];
+    }else{
+        image                        = [UIImage imageNamed:@"Icon"];
+    }
+    NSArray * imageArray             = @[image];
+    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@""]];
+
+    NSString * title                 = circleName;
+    NSString * content               = name.length > 0 ? name : @"KHClub";
+    
+    [shareParams SSDKSetupShareParamsByText:content
+                                     images:imageArray
+                                        url:url
+                                      title:title
+                                       type:SSDKContentTypeAuto];
+    
+    [shareParams SSDKSetupQQParamsByText:content title:title url:url thumbImage:nil image:image type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQQFriend];
+    
+    [ShareSDK share:SSDKPlatformSubTypeQQFriend parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+    }];
+}
+//QQ空间
++ (void)shareQzoneWithTitle:(NSString *)circleName andManagerName:(NSString *)name andImage:(NSString *)imagePath andCircleID:(NSInteger)circleID
+{
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    id image;
+    if (imagePath.length > 0) {
+        image                            = [NSURL URLWithString:[ToolsManager completeUrlStr:imagePath]];
+    }else{
+        image                            = [UIImage imageNamed:@"Icon"];
+    }
+    NSArray * imageArray             = @[image];
+    
+    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@""]];
+    NSString * title                 = circleName;
+    NSString * content               = name.length > 0 ? name : @"KHClub";
+    
+    [shareParams SSDKSetupShareParamsByText:content
+                                     images:imageArray
+                                        url:url
+                                      title:title
+                                       type:SSDKContentTypeAuto];
+    
+    [shareParams SSDKSetupQQParamsByText:content title:title url:url thumbImage:nil image:image type:SSDKContentTypeWebPage forPlatformSubType:SSDKPlatformSubTypeQZone];
+    
+    [ShareSDK share:SSDKPlatformSubTypeQZone parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+    }];
+}
 
 @end

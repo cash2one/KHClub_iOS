@@ -97,6 +97,9 @@
         self.deleteBtn.tag            = ShareAlertDelete;
         self.remarkBtn.tag            = ShareAlertRemark;
 
+        //新浪微博删除
+        self.shareSinaBtn.hidden = YES;
+        
         [self.shareFriendBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.shareWechatBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.shareWechatMomentBtn addTarget:self action:@selector(functionClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -123,9 +126,9 @@
     self.shareFriendBtn.frame       = CGRectMake(space, 10, width, width);
     self.shareWechatBtn.frame       = CGRectMake(space*2+60, 10, width, width);
     self.shareWechatMomentBtn.frame = CGRectMake(space*3+120, 10, width, width);
-    self.shareSinaBtn.frame         = CGRectMake(space, width+20, width, width);
-    self.shareQzoneBtn.frame        = CGRectMake(space*2+60, width+20, width, width);
-    self.shareQQBtn.frame           = CGRectMake(space*3+120, width+20, width, width);
+//    self.shareSinaBtn.frame         = CGRectMake(space, width+20, width, width);
+    self.shareQzoneBtn.frame        = CGRectMake(space, width+20, width, width);
+    self.shareQQBtn.frame           = CGRectMake(space*2+60, width+20, width, width);
     
     [self.shareFriendBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_friend"] forState:UIControlStateNormal];
     [self.shareWechatBtn setBackgroundImage:[UIImage imageNamed:@"iconfont_weixin"] forState:UIControlStateNormal];

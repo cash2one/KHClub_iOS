@@ -40,6 +40,8 @@
 @property (nonatomic, strong) CustomButton * likeCountBtn;
 //评论数量按钮
 @property (nonatomic, strong) CustomButton * commentCountBtn;
+//圈子名称
+@property (nonatomic, strong) CustomButton * circleBtn;
 //评论table
 @property (nonatomic, strong) UITableView * newsTable;
 //装载HPTextView的容器
@@ -99,8 +101,9 @@
     self.likeCountBtn               = [[CustomButton alloc] init];
     //评论数量
     self.commentCountBtn            = [[CustomButton alloc] init];
+    self.circleBtn                  = [[CustomButton alloc] init];
     
-    UITapGestureRecognizer * tap              = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(newsHeadClick:)];
+    UITapGestureRecognizer * tap    = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(newsHeadClick:)];
     [self.headImageView addGestureRecognizer:tap];
     
     [self.likeBtn addTarget:self action:@selector(sendLikeClick) forControlEvents:UIControlEventTouchUpInside];
@@ -129,11 +132,16 @@
     self.contentLabel.font                = [UIFont systemFontOfSize:15];
     self.contentLabel.textColor           = [UIColor colorWithHexString:ColorDeepBlack];
     
+    //圈子
+    [self.circleBtn setTitleColor:[UIColor colorWithHexString:@"323232"] forState:UIControlStateNormal];
+    self.circleBtn.titleLabel.font            = [UIFont systemFontOfSize:11];
+    self.circleBtn.frame                      = CGRectMake(self.headImageView.x, 0, 190, 20);
+    self.circleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     //地理位置
     [self.locationBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlue] forState:UIControlStateNormal];
     [self.locationBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
-    self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
-    self.locationBtn.frame                      = CGRectMake(self.nameLabel.x+10, 0, 190, 20);
+    self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:11];
+    self.locationBtn.frame                      = CGRectMake(self.headImageView.x, 0, 190, 20);
     self.locationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     //时间
     self.timeLabel.frame                        = CGRectMake(self.headImageView.x, 0, 250, 25);
@@ -251,6 +259,7 @@
     [backView addSubview:self.jobLabel];
     [backView addSubview:self.contentLabel];
     [backView addSubview:self.locationBtn];
+    [backView addSubview:self.circleBtn];
     [backView addSubview:self.likeBtn];
     [backView addSubview:self.commentCountBtn];
     [backView addSubview:self.likeCountBtn];
@@ -324,6 +333,16 @@
         }
     }
     
+    //地址按钮 没有不显示
+    if (self.news.circle_arr.count > 0) {
+        NSString * circleTitle = [NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsList_CircleFrom"), [self.news.circle_arr componentsJoinedByString:@","]];
+        self.circleBtn.y       = bottomPosition+5;
+        bottomPosition         = self.circleBtn.bottom;
+        self.circleBtn.hidden  = NO;
+        [self.circleBtn setTitle:circleTitle forState:UIControlStateNormal];
+    }else{
+        self.circleBtn.hidden = YES;
+    }
     //地址按钮 没有不显示
     if (self.news.location.length > 0) {
         NSString * locationTitle                  = [NSString stringWithFormat:@" %@", self.news.location];
@@ -847,6 +866,11 @@
         }
         CGFloat itemWidth = [DeviceManager getDeviceWidth]/5.0;
         height            = cellOtherHeight+contentSize.height+lineNum*(itemWidth+10);
+    }
+
+    //圈子
+    if (self.news.circle_arr.count > 0) {
+        height += 25;
     }
     
     //地址

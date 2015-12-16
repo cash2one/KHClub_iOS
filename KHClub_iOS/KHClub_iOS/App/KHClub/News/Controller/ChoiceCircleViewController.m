@@ -49,6 +49,7 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.delegate                     = self;
     self.tableView.dataSource                   = self;
+    self.tableView.separatorStyle               = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:self.tableView];
     
     self.choiceArray = [[NSMutableArray alloc] init];

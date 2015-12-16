@@ -114,7 +114,7 @@
             [self.tableView reloadData];
 
         }else{
-            [self showWarn:responseData[HttpMessage]];
+
         }
 
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
