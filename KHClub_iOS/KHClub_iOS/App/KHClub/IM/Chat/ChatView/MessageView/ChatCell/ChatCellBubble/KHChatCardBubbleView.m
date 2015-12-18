@@ -106,7 +106,7 @@ NSString *const kRouterEventCardBubbleTapEventName = @"kRouterEventCardBubbleTap
         }else{
             self.titleLabel.text = KHClubString(@"IM_Card_CircleCard");
             self.nameLabel.text = cardDic[@"title"];
-            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:cardDic[@"avatar"]]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
+            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:cardDic[@"avatar"]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
         }
     }
     

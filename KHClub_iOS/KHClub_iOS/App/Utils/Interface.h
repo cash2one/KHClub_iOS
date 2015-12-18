@@ -21,6 +21,9 @@
 
 //分享名片地址
 #define kShareCardWeb [kRootAddr stringByAppendingString:@"index.php/Home/WX/cardDetail"]
+//分享圈子地址
+#define kShareCircleWeb [kRootAddr stringByAppendingString:@"index.php/Home/WX/details"]
+
 //分享网站地址
 #define kShareWeb @"http://www.khclub.sg/"
 

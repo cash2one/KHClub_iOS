@@ -32,25 +32,27 @@
 @property (nonatomic, copy) NSString * pasteStr;
 
 //圈子图片
-@property (nonatomic, strong) CustomImageView * coverImageView;
+@property (nonatomic, strong) CustomImageView   * coverImageView;
 //背景图
-@property (nonatomic, strong) UIView          * backView;
+@property (nonatomic, strong) UIView            * backView;
 //圈子标题
-@property (nonatomic, strong) CustomLabel     * circleTitleLabel;
+@property (nonatomic, strong) CustomLabel       * circleTitleLabel;
 //圈主
-@property (nonatomic, strong) CustomLabel     * circleNameLabel;
+@property (nonatomic, strong) CustomLabel       * circleNameLabel;
 //圈友数量
-@property (nonatomic, strong) CustomLabel     * circleFansCountLabel;
+@property (nonatomic, strong) CustomLabel       * circleFansCountLabel;
 //关注按钮
-@property (nonatomic, strong) CustomButton    * followBtn;
+@property (nonatomic, strong) CustomButton      * followBtn;
 //圈友背景
-@property (nonatomic, strong) CustomButton    * circleFansView;
+@property (nonatomic, strong) CustomButton      * circleFansView;
 //圈子模型
-@property (nonatomic, strong) CircleModel     * circleModel;
+@property (nonatomic, strong) CircleModel       * circleModel;
 //成员列表
-@property (nonatomic, strong) NSMutableArray  * membersArray;
+@property (nonatomic, strong) NSMutableArray    * membersArray;
 //右上角点击分享按钮
 @property (nonatomic, strong) ShareAlertPopView * shareAlertPopView;
+//发布按钮
+@property (nonatomic, strong) CustomButton      * publishBtn;
 
 @end
 
@@ -83,13 +85,15 @@
     self.circleFansCountLabel = [[CustomLabel alloc] init];
     self.followBtn            = [[CustomButton alloc] init];
     self.circleFansView       = [[CustomButton alloc] init];
-
+    self.publishBtn           = [[CustomButton alloc] init];
+    
     [self.backView addSubview:self.coverImageView];
     [self.backView addSubview:self.circleTitleLabel];
     [self.backView addSubview:self.circleNameLabel];
     [self.backView addSubview:self.circleFansCountLabel];
     [self.backView addSubview:self.followBtn];
     [self.backView addSubview:self.circleFansView];
+    [self.view addSubview:self.publishBtn];
     
     //关注事件
     [self.followBtn addTarget:self action:@selector(followPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -211,10 +215,11 @@
     }
     
     //发布按钮
-    CustomButton * publishBtn = [[CustomButton alloc] initWithFrame:CGRectMake(self.viewWidth-60, self.viewHeight-60, 30, 30)];
-    [publishBtn setImage:[UIImage imageNamed:@"publish_news_big"] forState:UIControlStateNormal];
-    [publishBtn addTarget:self action:@selector(publishClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:publishBtn];
+    self.publishBtn.frame  = CGRectMake(self.viewWidth-60, self.viewHeight-60, 30, 30);
+    self.publishBtn.hidden = YES;
+    [self.publishBtn setImage:[UIImage imageNamed:@"publish_news_big"] forState:UIControlStateNormal];
+    [self.publishBtn addTarget:self action:@selector(publishClick:) forControlEvents:UIControlEventTouchUpInside];
+
 }
 
 #pragma mark- override
@@ -417,9 +422,11 @@
             if (self.circleModel.isFollow) {
                 [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
                 self.circleModel.isFollow = NO;
+                self.publishBtn.hidden    = YES;
             }else{
                 [self.followBtn setTitle:KHClubString(@"News_CircleList_Unfollow") forState:UIControlStateNormal];
                 self.circleModel.isFollow = YES;
+                self.publishBtn.hidden     = NO;
             }
             
         }else{
@@ -460,7 +467,7 @@
     NSDictionary * cardDic = @{@"type":[@(100) stringValue],
                                @"id":[NSString stringWithFormat:@"%ld", self.circleId],
                                @"title":self.circleModel.circle_name,
-                               @"avatar":self.circleModel.circle_cover_sub_image};
+                               @"avatar":[ToolsManager completeUrlStr:self.circleModel.circle_cover_sub_image]};
     NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
     ccuvc.cardMessage   = [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
     [self presentViewController:ccuvc animated:YES completion:nil];
@@ -517,6 +524,12 @@
                 self.circleModel.phone_num              = cicleDic[@"phone_num"];
                 self.circleModel.managerId              = [cicleDic[@"user_id"] integerValue];
                 self.circleModel.follow_quantity        = [cicleDic[@"follow_quantity"] integerValue];
+            }
+            
+            if (self.circleModel.isFollow) {
+                self.publishBtn.hidden = NO;
+            }else{
+                self.publishBtn.hidden = YES;
             }
             
             //下拉刷新清空数组

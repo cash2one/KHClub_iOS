@@ -386,7 +386,7 @@
     }
     return NO;
 }
-
+//头像统一完整路径
 - (NSString *)generateCardMesssageWithUsername:(NSString *)username
 {
     UserIMEntity * imUser  = [[IMUtils shareInstance] getUserInfoWithUsername:username];
@@ -403,7 +403,7 @@
     NSDictionary * cardDic = @{@"type":[@(eConversationTypeChat) stringValue],
                                @"id":[ToolsManager getCommonTargetId:user.uid],
                                @"title":user.name,
-                               @"avatar":user.head_sub_image};
+                               @"avatar":[ToolsManager completeUrlStr:user.head_sub_image]};
     NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
     return [@"###card^card###" stringByReplacingOccurrencesOfString:@"^" withString:cardJson];
 }

@@ -133,8 +133,8 @@
 "News_CircleList_CircleMember"                = "圈子达人";
 "News_CircleList_Follow"                      = "关注";
 "News_CircleList_Unfollow"                    = "取消关注";
-"News_CircleDetail_Title"                     = "圈层介绍";
-"News_CircleDetail_IntroTitle"                = "圈层详情";
+"News_CircleDetail_Title"                     = "圈子介绍";
+"News_CircleDetail_IntroTitle"                = "圈子详情";
 "News_CircleDetail_ModifyCircle"              = "修改资料";
 "News_Publish_EnterContent"                   = "请输入内容";
 "News_Publish_Where"                          = "所在位置";

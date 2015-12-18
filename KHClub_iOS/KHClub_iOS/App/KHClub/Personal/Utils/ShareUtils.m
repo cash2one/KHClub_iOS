@@ -282,7 +282,7 @@
     [ShareSDK share:SSDKPlatformTypeSinaWeibo parameters:shareParams onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
     }];
 }
-
+//分享圈子信息
 + (void)shareWechatWithTitle:(NSString *)circleName andManagerName:(NSString *)name andImage:(NSString *)imagePath andCircleID:(NSInteger)circleID
 {
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -294,7 +294,7 @@
     }
     NSArray * imageArray             = @[image];
     
-    NSURL * url                      = [NSURL URLWithString:kShareWeb];
+    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@"%@?circle_id=%ld", kShareCircleWeb, circleID]];
     NSString * title                 = circleName;
     NSString * content               = name.length > 0 ? name : @"KHClub";
     
@@ -321,7 +321,7 @@
     }
     NSArray * imageArray             = @[image];
 
-    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@""]];
+    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@"%@?circle_id=%ld", kShareCircleWeb, circleID]];
     NSString * title                 = circleName;
     NSString * content               = name.length > 0 ? name : @"KHClub";
     
@@ -347,7 +347,7 @@
         image                        = [UIImage imageNamed:@"Icon"];
     }
     NSArray * imageArray             = @[image];
-    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@""]];
+    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@"%@?circle_id=%ld", kShareCircleWeb, circleID]];
 
     NSString * title                 = circleName;
     NSString * content               = name.length > 0 ? name : @"KHClub";
@@ -375,7 +375,7 @@
     }
     NSArray * imageArray             = @[image];
     
-    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@""]];
+    NSURL * url                      = [NSURL URLWithString:[NSString stringWithFormat:@"%@?circle_id=%ld", kShareCircleWeb, circleID]];
     NSString * title                 = circleName;
     NSString * content               = name.length > 0 ? name : @"KHClub";
     

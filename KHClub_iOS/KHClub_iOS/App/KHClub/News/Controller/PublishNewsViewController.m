@@ -184,6 +184,7 @@
 #pragma mark- method response
 - (void)addImageClick:(id)sender {
     
+    [self.textView resignFirstResponder];
     UIActionSheet * sheet = [[UIActionSheet alloc] initWithTitle:KHClubString(@"Personal_PersonalSetting_Icon") delegate:self cancelButtonTitle:StringCommonCancel destructiveButtonTitle:nil otherButtonTitles:KHClubString(@"Common_Camera"), KHClubString(@"Common_Gallery"), nil];
     [sheet showInView:self.view];
 }

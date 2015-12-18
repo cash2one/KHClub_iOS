@@ -190,7 +190,7 @@
 
     //顶部栏设置部分
     self.navBar.leftBtn.hidden                       = NO;
-    self.navBar.leftBtn.imageEdgeInsets              = UIEdgeInsetsMake(4, 3, 0, 10);
+    self.navBar.leftBtn.imageEdgeInsets              = UIEdgeInsetsMake(0, 3, 0, 10);
     self.navBar.leftBtn.imageView.contentMode        = UIViewContentModeScaleAspectFit;
     self.navBar.rightBtn.imageEdgeInsets             = UIEdgeInsetsMake(0, 15, 0, 0);
     self.navBar.rightBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
@@ -286,7 +286,7 @@
     if (self.robotBackView.bottom < self.backScrollView.height) {
         self.backScrollView.contentSize = CGSizeMake(0, self.backScrollView.height+1);
     }else{
-        self.backScrollView.contentSize = CGSizeMake(0, self.robotBackView.height+10);
+        self.backScrollView.contentSize = CGSizeMake(0, self.robotBackView.bottom+10);
     }
     
 }
