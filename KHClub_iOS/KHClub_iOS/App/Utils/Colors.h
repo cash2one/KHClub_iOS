@@ -9,7 +9,7 @@
 #ifndef JLXCSNS_iOS_Colors_h
 #define JLXCSNS_iOS_Colors_h
 
-//主黑色
+//主黑色 4d4d4d
 #define ColorBlack @"3b3b3b"
 //主金色
 #define ColorGold @"dfb574"

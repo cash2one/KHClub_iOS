@@ -45,6 +45,7 @@
 #pragma mark- layout
 - (void)configUI
 {
+    [self setNavBarTitle:KHClubString(@"News_ChoiceCircle_ChoiceTitle")];
     self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.delegate                     = self;
@@ -135,11 +136,12 @@
 
 - (void)loadAndhandleData
 {
-    
+    [self showLoading:StringCommonDownloadData];
     NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyFollowCircleListPath, [UserService sharedService].user.uid];
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         int status = [responseData[HttpStatus] intValue];
+        [self hideLoading];
         if (status == HttpStatusCodeSuccess) {
             
             NSArray * list  = responseData[HttpResult][HttpList];

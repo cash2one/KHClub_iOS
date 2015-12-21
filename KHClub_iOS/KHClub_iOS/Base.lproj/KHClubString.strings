@@ -149,6 +149,7 @@
 "News_Publish_NoAllowPictures"                = "此应用无法使用您的照片或视频。";
 "News_Publish_NoAllowPictures2"               = "你可以在「隐私设置」中启用存取。";
 "News_Publish_NoPictures"                     = "没有照片或视频。";
+"News_ChoiceCircle_ChoiceTitle"               = "选择圈子";
 "News_ChoiceCircle_ChoiceNone"                = "您需要选择一个圈子";
 "News_NewsDetail_Tilte"                       = "详情";
 "News_NewsDetail_EnterComment"                = "输入评论内容";

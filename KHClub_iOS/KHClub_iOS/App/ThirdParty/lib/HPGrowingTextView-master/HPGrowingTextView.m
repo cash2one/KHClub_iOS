@@ -333,7 +333,6 @@
         [internalTextView setNeedsDisplay];
     }
     
-    
     // scroll to caret (needed on iOS7)
     if ([self respondsToSelector:@selector(snapshotViewAfterScreenUpdates:)])
     {

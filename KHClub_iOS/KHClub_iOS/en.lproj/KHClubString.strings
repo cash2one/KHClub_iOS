@@ -149,6 +149,7 @@
 "News_Publish_NoAllowPictures"                = "This application cannot use your photos or video.";
 "News_Publish_NoAllowPictures2"               = "You can enable access to the privacy settings.";
 "News_Publish_NoPictures"                     = "No photos or videos.";
+"News_ChoiceCircle_ChoiceTitle"               = "Choice Circle";
 "News_ChoiceCircle_ChoiceNone"                = "You need to choice a circle";
 "News_NewsDetail_Tilte"                       = "Detail";
 "News_NewsDetail_EnterComment"                = "Please enter content";

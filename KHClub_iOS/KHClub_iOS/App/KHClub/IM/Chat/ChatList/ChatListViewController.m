@@ -173,7 +173,7 @@
     [self.screenCoverView addGestureRecognizer:dissmissTap];
     
     //右上角PopView
-    self.popBackView.backgroundColor     = [UIColor colorWithHexString:ColorDeepBlack];
+    self.popBackView.backgroundColor     = [UIColor colorWithHexString:@"4d4d4d"];
     self.popBackView.layer.masksToBounds = YES;
     self.screenCoverView.frame           = self.view.bounds;
     self.screenCoverView.hidden          = YES;
