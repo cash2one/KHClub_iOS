@@ -261,7 +261,7 @@
         case 4:
         {
             QRcodeCardView * qcv = [[QRcodeCardView alloc] init];
-            qcv.imageView;
+            [self getQRCodeWithImageView:qcv.imageView];
             [qcv show];
         }
             break;

@@ -299,56 +299,70 @@
 
 - (CGFloat)getCellHeightWith:(NewsModel *)news
 {
-    CGSize contentSize        = [ToolsManager getSizeWithContent:news.content_text andFontSize:15 andFrame:CGRectMake(0, 0, self.viewWidth-30, MAXFLOAT)];
+    //总长
+    CGFloat height;
+    //头像65
+    NSInteger imageHeight = 65;
+    height                = imageHeight;
+
+    CGSize contentSize    = [ToolsManager getSizeWithContent:news.content_text andFontSize:15 andFrame:CGRectMake(0, 0, self.viewWidth-150, MAXFLOAT)];
     if (news.content_text == nil || news.content_text.length < 1) {
         contentSize.height = 0;
+    }else if (contentSize.height <= 20) {
+        contentSize.height = 18;
+    }else if (contentSize.height > 20) {
+        contentSize.height = 36;
     }
-    //头像55 评论按钮30 还有10的底线
-    NSInteger cellOtherHeight = 55+30+10;
+    //有内容
+    if (contentSize.height > 0) {
+        height += contentSize.height+20;
+    }
     
-    CGFloat height;
-    if (news.image_arr.count < 1) {
-        //没有图片
-        height = cellOtherHeight+contentSize.height+5;
-    }else if (news.image_arr.count == 1) {
+    if (news.image_arr.count == 1) {
         //一张图片 大图
         ImageModel * imageModel = news.image_arr[0];
         CGSize size             = CGSizeMake(imageModel.width, imageModel.height);
         CGRect rect             = [NewsUtils getRectWithSize:size];
-        height                  = cellOtherHeight+contentSize.height+rect.size.height+10;
-    }else{
+        height                  += rect.size.height+15;
+    }else if(news.image_arr.count > 1){
         //多张图片九宫格
         NSInteger lineNum   = news.image_arr.count/3;
         NSInteger columnNum = news.image_arr.count%3;
         if (columnNum > 0) {
             lineNum++;
         }
-        CGFloat itemWidth = [DeviceManager getDeviceWidth]/5.0;
-        height            = cellOtherHeight+contentSize.height+lineNum*(itemWidth+10);
+        CGFloat itemWidth = ([DeviceManager getDeviceWidth]-100) / 3;
+        height            += lineNum*(itemWidth+10)+15;
     }
+    
+    //时间
+    height += 27;
     
     //地址
     if (news.location.length > 0) {
-        height += 25;
+        height += 22;
     }
     //圈子
     if (news.circle_arr.count > 0) {
-        height += 25;
+        height += 22;
     }
     
-    //点赞列表
-    if (news.like_arr.count > 0) {
-        CGFloat width = ([DeviceManager getDeviceWidth]-53-27)/8;
-        height += width+5;
-    }
+    //底部操作栏
+    height += 45;
     
-    //评论
-    for (int i=0; i<news.comment_arr.count; i++) {
-        CommentModel * comment = news.comment_arr[i];
-        NSString * commentStr  = [NSString stringWithFormat:@"%@:%@", comment.name, comment.comment_content];
-        CGSize nameSize        = [ToolsManager getSizeWithContent:commentStr andFontSize:14 andFrame:CGRectMake(0, 0, self.viewWidth-30, MAXFLOAT)];
-        height                 = height + nameSize.height+5;
-    }
+//    //点赞列表
+//    if (news.like_arr.count > 0) {
+//        CGFloat width = ([DeviceManager getDeviceWidth]-53-27)/8;
+//        height += width+5;
+//    }
+//    
+//    //评论
+//    for (int i=0; i<news.comment_arr.count; i++) {
+//        CommentModel * comment = news.comment_arr[i];
+//        NSString * commentStr  = [NSString stringWithFormat:@"%@:%@", comment.name, comment.comment_content];
+//        CGSize nameSize        = [ToolsManager getSizeWithContent:commentStr andFontSize:14 andFrame:CGRectMake(0, 0, self.viewWidth-30, MAXFLOAT)];
+//        height                 = height + nameSize.height+5;
+//    }
     
     return height;
 }

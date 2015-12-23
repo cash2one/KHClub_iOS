@@ -25,9 +25,9 @@
 #define FontPersonalTitle 14
 
 //部分列表姓名字体
-#define FontListName 15
+#define FontListName 16
 //部分列表内容字体
-#define FontListContent 12
+#define FontListContent 14
 //部分列表时间字体
 #define FontListTime 12
 

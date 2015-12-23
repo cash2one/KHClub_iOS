@@ -48,7 +48,7 @@
 "saySomething" = "Say somthing";
 "searchResults" = "The search results";
 "doneWithCount" = "Done(%i)";
-"sureToDelete" = "please make sure to delete";
+"sureToDelete" = "clear chat history";
 "receiveCmd" = "receive cmd message";
 "receiveMessage" = "you have a new message";
 "loginAtOtherDevice" = "your login account has been logged in other places";

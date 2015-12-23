@@ -17,10 +17,18 @@
  *  选择的数组
  */
 @property (nonatomic, strong) NSMutableArray * choiceArray;
-
+/**
+ *  数据源
+ */
 @property (nonatomic, strong) NSMutableArray * dataArr;
-
-@property (nonatomic, strong) UITableView * tableView;
+/**
+ *  列表
+ */
+@property (nonatomic, strong) UITableView    * tableView;
+/**
+ *  没有选择圈子时的提示
+ */
+@property (nonatomic, strong) UIView         * noneCircleBackView;
 
 @end
 
@@ -34,6 +42,7 @@
     [super viewDidLoad];
     
     //配置ui
+    [self initWidget];
     [self configUI];
     [self loadAndhandleData];
 }
@@ -43,9 +52,18 @@
 }
 
 #pragma mark- layout
+- (void)initWidget
+{
+    self.noneCircleBackView = [[UIView alloc] init];
+    [self.view addSubview:self.noneCircleBackView];
+}
+
 - (void)configUI
 {
     [self setNavBarTitle:KHClubString(@"News_ChoiceCircle_ChoiceTitle")];
+    
+    self.view.backgroundColor                   = [UIColor colorWithHexString:ColorWhite];
+    
     self.tableView                              = [[UITableView alloc] initWithFrame:CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight) style:UITableViewStylePlain];
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.delegate                     = self;
@@ -60,9 +78,24 @@
         [sself choiceOK];
     }];
     
-//    [self.navBar setLeftBtnWithContent:@"" andBlock:^{
-//        [sself dismissViewControllerAnimated:YES completion:nil];
-//    }];
+    //无圈子时候的显示
+    self.noneCircleBackView.frame    = CGRectMake(0, kNavBarAndStatusHeight+130, self.viewWidth, 86);
+    self.noneCircleBackView.hidden   = YES;
+    CustomLabel * nonePromptLabel    = [[CustomLabel alloc] initWithFrame:CGRectMake(kCenterOriginX(300), 0, 300, 16)];
+    nonePromptLabel.textAlignment    = NSTextAlignmentCenter;
+    nonePromptLabel.font             = [UIFont systemFontOfSize:16];
+    nonePromptLabel.text             = KHClubString(@"News_ChoiceCircle_ChoiceNone");
+    [self.noneCircleBackView addSubview:nonePromptLabel];
+
+    CustomButton * nonePromptBtn     = [[CustomButton alloc] initWithFrame:CGRectMake(20, nonePromptLabel.bottom+30, self.viewWidth-40, 40)];
+    nonePromptBtn.titleLabel.font    = [UIFont systemFontOfSize:16];
+    [nonePromptBtn setTitle:KHClubString(@"News_ChoiceCircle_ToFollow") forState:UIControlStateNormal];
+    nonePromptBtn.layer.cornerRadius = 3;
+    nonePromptBtn.backgroundColor    = [UIColor colorWithHexString:ColorGold];
+    [self.noneCircleBackView addSubview:nonePromptBtn];
+    
+    [nonePromptBtn addTarget:self action:@selector(toFollow:) forControlEvents:UIControlEventTouchUpInside];
+    
 }
 
 #pragma override
@@ -86,7 +119,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 65;
+    return 69;
 }
 
 #pragma mark- UITableViewDataSource
@@ -104,6 +137,11 @@
     }
     //关注的
     [cell setContentWithModel:self.dataArr[indexPath.row]];
+    
+    //样式转变
+    if ([self.choiceArray containsObject:[NSString stringWithFormat:@"%ld", indexPath.row]]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
     
     return cell;
 }
@@ -126,6 +164,11 @@
     if (_block) {
         _block(tmpCircles);
     }
+}
+
+- (void)toFollow:(id)sender
+{
+    [self popToTabBarViewController];
 }
 
 #pragma mark- private method
@@ -154,6 +197,14 @@
                 model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
                 model.isFollow               = YES;
                 [self.dataArr addObject:model];
+            }
+            
+            if (self.dataArr.count > 0) {
+                self.noneCircleBackView.hidden = YES;
+                self.tableView.hidden          = NO;
+            }else{
+                self.noneCircleBackView.hidden = NO;
+                self.tableView.hidden          = YES;
             }
             
             [self.tableView reloadData];

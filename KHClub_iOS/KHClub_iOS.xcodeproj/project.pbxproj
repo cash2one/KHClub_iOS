@@ -219,6 +219,12 @@
 		42E84C5B1C04698100D92319 /* iconfont_weixin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42E84C551C04698100D92319 /* iconfont_weixin@2x.png */; };
 		42EBB1891C0FE241008FA90F /* SearchContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EBB1881C0FE241008FA90F /* SearchContactViewController.m */; };
 		42EBB18B1C0FF441008FA90F /* report@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EBB18A1C0FF441008FA90F /* report@2x.png */; };
+		42EC0C551C2A4EF900A1BD5C /* people@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EC0C541C2A4EF900A1BD5C /* people@2x.png */; };
+		42EC0C5A1C2A803E00A1BD5C /* clear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EC0C561C2A803E00A1BD5C /* clear@2x.png */; };
+		42EC0C5B1C2A803E00A1BD5C /* delete_friend@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EC0C571C2A803E00A1BD5C /* delete_friend@2x.png */; };
+		42EC0C5C1C2A803E00A1BD5C /* edit_remark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EC0C581C2A803E00A1BD5C /* edit_remark@2x.png */; };
+		42EC0C5D1C2A803E00A1BD5C /* more@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42EC0C591C2A803E00A1BD5C /* more@2x.png */; };
+		42EC0C601C2A954200A1BD5C /* AddRemarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42EC0C5F1C2A954200A1BD5C /* AddRemarkViewController.m */; };
 		42ED929E1BF1DB9400E59147 /* chatListCellHead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F31BF1DB9400E59147 /* chatListCellHead@2x.png */; };
 		42ED929F1BF1DB9400E59147 /* VoiceSearchFeedback001.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F61BF1DB9400E59147 /* VoiceSearchFeedback001.png */; };
 		42ED92A01BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42ED91F71BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png */; };
@@ -933,6 +939,13 @@
 		42EBB1871C0FE241008FA90F /* SearchContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchContactViewController.h; sourceTree = "<group>"; };
 		42EBB1881C0FE241008FA90F /* SearchContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchContactViewController.m; sourceTree = "<group>"; };
 		42EBB18A1C0FF441008FA90F /* report@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "report@2x.png"; sourceTree = "<group>"; };
+		42EC0C541C2A4EF900A1BD5C /* people@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "people@2x.png"; sourceTree = "<group>"; };
+		42EC0C561C2A803E00A1BD5C /* clear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "clear@2x.png"; sourceTree = "<group>"; };
+		42EC0C571C2A803E00A1BD5C /* delete_friend@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "delete_friend@2x.png"; sourceTree = "<group>"; };
+		42EC0C581C2A803E00A1BD5C /* edit_remark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "edit_remark@2x.png"; sourceTree = "<group>"; };
+		42EC0C591C2A803E00A1BD5C /* more@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "more@2x.png"; sourceTree = "<group>"; };
+		42EC0C5E1C2A954200A1BD5C /* AddRemarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemarkViewController.h; sourceTree = "<group>"; };
+		42EC0C5F1C2A954200A1BD5C /* AddRemarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemarkViewController.m; sourceTree = "<group>"; };
 		42ED91F31BF1DB9400E59147 /* chatListCellHead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chatListCellHead@2x.png"; sourceTree = "<group>"; };
 		42ED91F61BF1DB9400E59147 /* VoiceSearchFeedback001.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = VoiceSearchFeedback001.png; sourceTree = "<group>"; };
 		42ED91F71BF1DB9400E59147 /* VoiceSearchFeedback001@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VoiceSearchFeedback001@2x.png"; sourceTree = "<group>"; };
@@ -1605,6 +1618,8 @@
 		422DBFBE1BE8BBE70021FB78 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				42EC0C5E1C2A954200A1BD5C /* AddRemarkViewController.h */,
+				42EC0C5F1C2A954200A1BD5C /* AddRemarkViewController.m */,
 				42F274E31BECB52900A63012 /* MyNewsListViewController.h */,
 				42F274E41BECB52900A63012 /* MyNewsListViewController.m */,
 				42430A0F1BE9DF1000731CA3 /* InformationChangeViewController.h */,
@@ -1654,6 +1669,11 @@
 		422DC01D1BE8DFB20021FB78 /* personal */ = {
 			isa = PBXGroup;
 			children = (
+				42EC0C561C2A803E00A1BD5C /* clear@2x.png */,
+				42EC0C571C2A803E00A1BD5C /* delete_friend@2x.png */,
+				42EC0C581C2A803E00A1BD5C /* edit_remark@2x.png */,
+				42EC0C591C2A803E00A1BD5C /* more@2x.png */,
+				42EC0C541C2A4EF900A1BD5C /* people@2x.png */,
 				42EBB18A1C0FF441008FA90F /* report@2x.png */,
 				42DDB8491C06F6AE0086A72F /* personal_info_edit@2x.png */,
 				42E84C501C04698100D92319 /* iconfont_friend@2x.png */,
@@ -3875,6 +3895,7 @@
 				42ED92EB1BF1DB9400E59147 /* chatBar_keyboard.png in Resources */,
 				42ED92C81BF1DB9400E59147 /* call_out@2x.png in Resources */,
 				42ED92AE1BF1DB9400E59147 /* VoiceSearchFeedback008@2x.png in Resources */,
+				42EC0C5A1C2A803E00A1BD5C /* clear@2x.png in Resources */,
 				42ED92AF1BF1DB9400E59147 /* VoiceSearchFeedback009.png in Resources */,
 				42D1D60D1BFC8D9E005FCDC3 /* icon_menu_add_friend@2x.png in Resources */,
 				42430A241BEA37F600731CA3 /* news_notice_normal@2x.png in Resources */,
@@ -3901,6 +3922,7 @@
 				42FDE2831BE7052300825E5E /* Icon-72.png in Resources */,
 				42ED93041BF1DB9400E59147 /* chatBar_colorMore_videoCall@2x.png in Resources */,
 				42ED92F51BF1DB9400E59147 /* chatBar_recordBg.png in Resources */,
+				42EC0C551C2A4EF900A1BD5C /* people@2x.png in Resources */,
 				42ED92C51BF1DB9400E59147 /* VoiceSearchFeedback020.png in Resources */,
 				42ED92FA1BF1DB9400E59147 /* chatBar_recordSelectedBg@2x.png in Resources */,
 				42ED92FB1BF1DB9400E59147 /* chatBar_colorMore_audioCall@2x.png in Resources */,
@@ -3908,6 +3930,7 @@
 				42ED92AD1BF1DB9400E59147 /* VoiceSearchFeedback008.png in Resources */,
 				42ED93341BF1DB9400E59147 /* group_invitee_delete@2x.png in Resources */,
 				42F1503D1C02E41C00D1A8E4 /* icon_email@2x.png in Resources */,
+				42EC0C5B1C2A803E00A1BD5C /* delete_friend@2x.png in Resources */,
 				42ED932A1BF1DB9400E59147 /* chat_sender_bg.png in Resources */,
 				42FDE2BC1BE7052300825E5E /* ScanQR1@2x.png in Resources */,
 				42ED93081BF1DB9400E59147 /* chatBar_more_camera@2x.png in Resources */,
@@ -4072,6 +4095,7 @@
 				42ED93371BF1DB9400E59147 /* group_participant_addHL@2x.png in Resources */,
 				42ED92B31BF1DB9400E59147 /* VoiceSearchFeedback011.png in Resources */,
 				42ED92D01BF1DB9400E59147 /* chat_video_play.png in Resources */,
+				42EC0C5C1C2A803E00A1BD5C /* edit_remark@2x.png in Resources */,
 				42C22FF91BE70054002A185B /* grayArrow.png in Resources */,
 				42ED92F01BF1DB9400E59147 /* chatBar_more@2x.png in Resources */,
 				42ED93381BF1DB9400E59147 /* groupPrivateHeader@2x.png in Resources */,
@@ -4087,6 +4111,7 @@
 				42ED92EA1BF1DB9400E59147 /* chatBar_faceSelected@2x.png in Resources */,
 				422DC0251BE8DFB20021FB78 /* default_avatar@2x.png in Resources */,
 				42ED93361BF1DB9400E59147 /* group_participant_add@2x.png in Resources */,
+				42EC0C5D1C2A803E00A1BD5C /* more@2x.png in Resources */,
 				42ED92E71BF1DB9400E59147 /* chatBar_face.png in Resources */,
 				42ED92DE1BF1DB9400E59147 /* chat_location_detail_disclosure@2x.png in Resources */,
 				42DC16451C201A13004CA2C4 /* publish_news_big@2x.png in Resources */,
@@ -4286,6 +4311,7 @@
 				42EF838B1BF03F5C00DA16C3 /* PSTCollectionViewLayout.m in Sources */,
 				42FDE1EC1BE7037C00825E5E /* NavBar.m in Sources */,
 				42F150321C02E00E00D1A8E4 /* CardListViewController.m in Sources */,
+				42EC0C601C2A954200A1BD5C /* AddRemarkViewController.m in Sources */,
 				42C22FEA1BE70054002A185B /* AFHTTPSessionManager.m in Sources */,
 				42B588EE1C0BE35C003434E1 /* CircleListViewController.m in Sources */,
 				4287679A1BEB7595007400B7 /* NewsDetailViewController.m in Sources */,

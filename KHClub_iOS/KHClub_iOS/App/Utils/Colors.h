@@ -29,6 +29,10 @@
 #define ColorDeepBlack @"000000"
 //主浅黑
 #define ColorLightBlack @"646464"
+//主输入框预置颜色
+#define ColorPlaceHolder @"949494"
+//主分割线颜色
+#define ColorSeparator @"e9e9e9"
 
 //辅灰色
 #define ColorGary @"cccccc"

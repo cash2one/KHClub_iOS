@@ -207,9 +207,9 @@
                 [self.followArray removeAllObjects];
             }
             
-            self.isLastPage = [responseData[HttpResult][@"is_last"] boolValue];
-            NSArray * unfollowList  = responseData[HttpResult][@"unfollowList"];
-            NSArray * followList  = responseData[HttpResult][@"followList"];
+            self.isLastPage        = [responseData[HttpResult][@"is_last"] boolValue];
+            NSArray * unfollowList = responseData[HttpResult][@"unfollowList"];
+            NSArray * followList   = responseData[HttpResult][@"followList"];
             //数据处理 已关注
             for (NSDictionary * circleDic in unfollowList) {
                 CircleModel * model          = [[CircleModel alloc] init];

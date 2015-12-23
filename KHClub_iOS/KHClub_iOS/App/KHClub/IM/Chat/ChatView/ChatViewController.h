@@ -22,13 +22,13 @@
 
 @interface ChatViewController : BaseViewController
 
-@property (strong, nonatomic, readonly) NSString *chatter;
-@property (strong, nonatomic) NSMutableArray *dataSource;//tableView数据源
-@property (assign, nonatomic) BOOL isInvisible;
+@property (strong, nonatomic) NSString                   *chatter;
+@property (strong, nonatomic) NSMutableArray             *dataSource;//tableView数据源
+@property (assign, nonatomic) BOOL                       isInvisible;
 @property (assign, nonatomic) id <ChatViewControllerDelegate> delelgate;
-@property (strong, nonatomic) EMConversation *conversation;//会话管理者
-@property (strong, nonatomic) NSString * groupName;
-@property (strong, nonatomic) NSString * cardMessage;//发送名片进来的
+@property (strong, nonatomic) EMConversation             *conversation;//会话管理者
+@property (strong, nonatomic) NSString                   * groupName;
+@property (strong, nonatomic) NSString                   * cardMessage;//发送名片进来的
 
 - (instancetype)initWithChatter:(NSString *)chatter isGroup:(BOOL)isGroup;
 - (instancetype)initWithChatter:(NSString *)chatter conversationType:(EMConversationType)type;

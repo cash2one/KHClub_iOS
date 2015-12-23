@@ -251,11 +251,14 @@
         }];
         [self.navBar.rightBtn setImage:[UIImage imageNamed:@"group_detail"] forState:UIControlStateNormal];
     } else{
+
+        self.navBar.rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
         
         [self.navBar setRightBtnWithContent:nil andBlock:^{
-            [sself removeAllMessages:nil];
+            [sself userDetail:nil];
+//            [sself removeAllMessages:nil];
         }];
-        [self.navBar.rightBtn setImage:[UIImage imageNamed:@"delete"] forState:UIControlStateNormal];
+        [self.navBar.rightBtn setImage:[UIImage imageNamed:@"people"] forState:UIControlStateNormal];
     }
 }
 
@@ -277,6 +280,14 @@
         _isScrollToBottom = YES;
     }
     self.isInvisible = NO;
+    
+    //没有消息清空列表
+    if ([self.conversation latestMessage] == nil) {
+        [self.messages removeAllObjects];
+        self.chatTagDate = nil;
+        [self.dataSource removeAllObjects];
+        [self.tableView reloadData];
+    }
 }
 
 
@@ -1635,6 +1646,13 @@
 //        ChatroomDetailViewController *detailController = [[ChatroomDetailViewController alloc] initWithChatroomId:_chatter];
 //        [self.navigationController pushViewController:detailController animated:YES];
     }
+}
+
+- (void)userDetail:(id)sender
+{
+    OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
+    opvc.uid                           = [[self.chatter stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
+    [self pushVC:opvc];
 }
 
 - (void)removeAllMessages:(id)sender

@@ -79,6 +79,9 @@
 "Personal_Personal_Title"                     = "我的";
 "Personal_Personal_Sign"                      = "个人说明";
 "Personal_Personal_Moments"                   = "动态列表";
+"Personal_Personal_HisNews"                   = "TA的动态";
+"Personal_Personal_HisCircle"                 = "TA的圈子";
+"Personal_Personal_MyCircle"                  = "我的圈子";
 "Personal_Personal_None"                      = "暂无信息";
 "Personal_Personal_RobotTitle"                = "官方商务管家";
 "Personal_PersonalSetting_Title"              = "编辑";
@@ -107,12 +110,17 @@
 "Personal_MyNews_PersonalNews"                = "个人动态";
 "Personal_OtherPersonal_AddFriend"            = "添加为好友";
 "Personal_OtherPersonal_Send"                 = "发送消息";
+"Personal_OtherPersonal_ShareCard"            = "分享名片";
 "Personal_OtherPersonal_CollectSuccess"       = "名片已收藏";
 "Personal_OtherPersonal_CollectFail"          = "收藏失败";
 "Personal_OtherPersonal_CancelCollectSuccess" = "取消收藏成功";
 "Personal_OtherPersonal_CancelCollectFail"    = "取消收藏失败";
 "Personal_OtherPersonal_DeleteFriend"         = "删除好友";
 "Personal_OtherPersonal_Remark"               = "修改备注";
+"Personal_OtherPersonal_RemarkName"           = "备注名";
+"Personal_OtherPersonal_AddRemark"            = "添加备注名";
+"Personal_OtherPersonal_ClearMessage"         = "清空记录";
+"Personal_OtherPersonal_Report"               = "举报对方";
 "Personal_AppSetting_Title"                   = "设置";
 "Personal_AppSetting_LogoutPrompt"            = "确定退出该账号吗？";
 "Personal_AppSetting_ClearOK"                 = "清除成功";
@@ -151,6 +159,8 @@
 "News_Publish_NoPictures"                     = "没有照片或视频。";
 "News_ChoiceCircle_ChoiceTitle"               = "选择圈子";
 "News_ChoiceCircle_ChoiceNone"                = "您需要选择一个圈子";
+"News_ChoiceCircle_PleaseChoiceCirlce"        = "请选择圈子,进行关注";
+"News_ChoiceCircle_ToFollow"                  = "去关注";
 "News_NewsDetail_Tilte"                       = "详情";
 "News_NewsDetail_EnterComment"                = "输入评论内容";
 "News_NewsDetail_DeleteSuccess"               = "删除成功";

@@ -23,43 +23,43 @@
 @interface NewsDetailViewController ()<NewsCommentDelegate,HPGrowingTextViewDelegate>
 
 //头像
-@property (nonatomic, strong) CustomImageView * headImageView;
+@property (nonatomic, strong) CustomImageView   * headImageView;
 //姓名
-@property (nonatomic, strong) CustomLabel * nameLabel;
+@property (nonatomic, strong) CustomLabel       * nameLabel;
 //时间
-@property (nonatomic, strong) CustomLabel * timeLabel;
+@property (nonatomic, strong) CustomLabel       * timeLabel;
 //职位 | 公司
-@property (nonatomic, strong) CustomLabel * jobLabel;
+@property (nonatomic, strong) CustomLabel       * jobLabel;
 //内容
-@property (nonatomic, strong) CustomLabel * contentLabel;
+@property (nonatomic, strong) CustomLabel       * contentLabel;
 //地址按钮
-@property (nonatomic, strong) CustomButton * locationBtn;
+@property (nonatomic, strong) CustomButton      * locationBtn;
 //点赞按钮
-@property (nonatomic, strong) CustomButton * likeBtn;
+@property (nonatomic, strong) CustomButton      * likeBtn;
 //点赞数量按钮
-@property (nonatomic, strong) CustomButton * likeCountBtn;
+@property (nonatomic, strong) CustomButton      * likeCountBtn;
 //评论数量按钮
-@property (nonatomic, strong) CustomButton * commentCountBtn;
+@property (nonatomic, strong) CustomButton      * commentCountBtn;
 //圈子名称
-@property (nonatomic, strong) CustomButton * circleBtn;
+@property (nonatomic, strong) CustomButton      * circleBtn;
 //评论table
-@property (nonatomic, strong) UITableView * newsTable;
+@property (nonatomic, strong) UITableView       * newsTable;
 //装载HPTextView的容器
-@property (nonatomic, strong) UIView * containerView;
+@property (nonatomic, strong) UIView            * containerView;
 //HPTextView 回复评论时弹出
 @property (nonatomic, strong) HPGrowingTextView * commentTextView;
 //当前点击的最上级评论
-@property (nonatomic, strong) CommentModel * currentTopComment;
+@property (nonatomic, strong) CommentModel      * currentTopComment;
 //评论遮罩View
-@property (nonatomic, strong) UIView * commentCoverView;
+@property (nonatomic, strong) UIView            * commentCoverView;
 //发送评论按钮
-@property (nonatomic, strong) CustomButton * sendCommentBtn;
+@property (nonatomic, strong) CustomButton      * sendCommentBtn;
 
 //新闻模型
-@property (nonatomic, strong) NewsModel * news;
+@property (nonatomic, strong) NewsModel         * news;
 
 //当前是点赞列表 还是 评论列表
-@property (nonatomic, assign) BOOL isLikeOrComment;
+@property (nonatomic, assign) BOOL              isLikeOrComment;
 
 @end
 
@@ -270,7 +270,7 @@
 
     //姓名
     NSString * name              = [ToolsManager emptyReturnNone:self.news.name];
-    CGSize nameSize              = [ToolsManager getSizeWithContent:name andFontSize:15 andFrame:CGRectMake(0, 0, 200, 20)];
+    CGSize nameSize              = [ToolsManager getSizeWithContent:name andFontSize:FontListName andFrame:CGRectMake(0, 0, 200, 20)];
     self.nameLabel.frame         = CGRectMake(self.headImageView.right+10, self.headImageView.y, nameSize.width, 20);
     self.nameLabel.text          = name;
     

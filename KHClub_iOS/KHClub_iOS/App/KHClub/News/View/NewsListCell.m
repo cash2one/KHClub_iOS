@@ -18,23 +18,25 @@
 @interface NewsListCell()
 
 //新闻模型
-@property (nonatomic, strong) NewsModel * news;
+@property (nonatomic, strong) NewsModel    * news;
 //头像
 @property (nonatomic, strong) CustomButton * headImageBtn;
 //姓名
-@property (nonatomic, strong) CustomLabel * nameLabel;
+@property (nonatomic, strong) CustomLabel  * nameLabel;
 //时间
-@property (nonatomic, strong) CustomLabel * timeLabel;
+@property (nonatomic, strong) CustomLabel  * timeLabel;
 //职位 | 公司
 @property (nonatomic, strong) CustomButton * jobBtn;
 //内容
-@property (nonatomic, strong) CustomLabel * contentLabel;
+@property (nonatomic, strong) CustomLabel  * contentLabel;
 //线view
-@property (nonatomic, strong) UIView * lineView;
+@property (nonatomic, strong) UIView       * lineView;
 //圈子名称
 @property (nonatomic, strong) CustomButton * circleBtn;
 //地址按钮
 @property (nonatomic, strong) CustomButton * locationBtn;
+//操作板view
+@property (nonatomic, strong) UIView       * operateView;
 //评论按钮
 @property (nonatomic, strong) CustomButton * commentBtn;
 //点赞按钮
@@ -53,7 +55,6 @@
     
     if (self) {
         
-        
         self.viewArr                       = [[NSMutableArray alloc] init];
         //头像
         self.headImageBtn                  = [[CustomButton alloc] init];
@@ -67,11 +68,13 @@
         self.contentLabel                  = [[CustomLabel alloc] init];
         //地址
         self.locationBtn                   = [[CustomButton alloc] init];
+        //点赞评论背景
+        self.operateView                   = [[UIView alloc] init];
         //评论
         self.commentBtn                    = [[CustomButton alloc] init];
-        self.circleBtn                     = [[CustomButton alloc] init];
         //点赞
         self.likeBtn                       = [[CustomButton alloc] init];
+        self.circleBtn                     = [[CustomButton alloc] init];
         //线
         self.lineView                      = [[UIView alloc] init];
         
@@ -82,9 +85,10 @@
         [self.contentView addSubview:self.contentLabel];
         [self.contentView addSubview:self.locationBtn];
         [self.contentView addSubview:self.circleBtn];
-        [self.contentView addSubview:self.commentBtn];
-        [self.contentView addSubview:self.likeBtn];
-        [self.contentView addSubview:self.lineView];
+        [self.contentView addSubview:self.operateView];
+        [self.operateView addSubview:self.commentBtn];
+        [self.operateView addSubview:self.likeBtn];
+        [self.operateView addSubview:self.lineView];
         
         //头像点击
         [self.headImageBtn addTarget:self action:@selector(headClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -108,56 +112,75 @@
     self.selectionStyle                      = UITableViewCellSelectionStyleNone;
     
     //头像
-    self.headImageBtn.frame                  = CGRectMake(12, 10, 45, 45);
+    self.headImageBtn.frame                  = CGRectMake(10, 20, 45, 45);
     self.headImageBtn.layer.cornerRadius     = 2;
     self.headImageBtn.layer.masksToBounds    = YES;
     //姓名
-    self.nameLabel.frame                     = CGRectMake(self.headImageBtn.right+10, self.headImageBtn.y, 0, 20);
+    self.nameLabel.frame                     = CGRectMake(self.headImageBtn.right+15, self.headImageBtn.y+2.5, 200, 16);
     self.nameLabel.font                      = [UIFont systemFontOfSize:FontListName];
     self.nameLabel.textColor                 = [UIColor colorWithHexString:ColorDeepBlack];
-
     //职位
-    self.jobBtn.frame                      = CGRectMake(self.nameLabel.x, self.nameLabel.bottom, 250, 20);
-    self.jobBtn.titleLabel.font            = [UIFont systemFontOfSize:13];
+    self.jobBtn.frame                      = CGRectMake(self.nameLabel.x, self.nameLabel.bottom+10, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 14);
+    self.jobBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
     self.jobBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     [self.jobBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlack] forState:UIControlStateNormal];
     //内容
-    self.contentLabel.frame                  = CGRectMake(self.headImageBtn.x, self.headImageBtn.bottom+5, [DeviceManager getDeviceWidth]-30, 0);
+    self.contentLabel.frame                  = CGRectMake(self.nameLabel.x, self.headImageBtn.bottom+20, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 0);
     self.contentLabel.userInteractionEnabled = YES;
-    self.contentLabel.numberOfLines          = 0;
-    self.contentLabel.font                   = [UIFont systemFontOfSize:15];
+    self.contentLabel.numberOfLines          = 2;
+    self.contentLabel.font                   = [UIFont systemFontOfSize:FontListContent];
     self.contentLabel.textColor              = [UIColor colorWithHexString:ColorDeepBlack];
+    //时间
+    self.timeLabel.frame                  = CGRectMake(self.nameLabel.x, 0, 100, 12);
+    self.timeLabel.font                   = [UIFont systemFontOfSize:12];
+    self.timeLabel.textColor              = [UIColor colorWithHexString:ColorLightBlack];
     
     //圈子
     [self.circleBtn setTitleColor:[UIColor colorWithHexString:@"323232"] forState:UIControlStateNormal];
-    self.circleBtn.titleLabel.font            = [UIFont systemFontOfSize:11];
-    self.circleBtn.frame                      = CGRectMake(self.headImageBtn.x, 0, 190, 20);
+    self.circleBtn.titleLabel.font            = [UIFont systemFontOfSize:12];
+    self.circleBtn.frame                      = CGRectMake(self.nameLabel.x, 0, 190, 12);
     self.circleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     
     //地理位置
     [self.locationBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlue] forState:UIControlStateNormal];
     [self.locationBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
-    self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:11];
-    self.locationBtn.frame                      = CGRectMake(self.headImageBtn.x, 0, 190, 20);
+    self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:12];
+    self.locationBtn.frame                      = CGRectMake(self.nameLabel.x, 0, 190, 12);
     self.locationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    //时间
-    self.timeLabel.frame                  = CGRectMake(self.headImageBtn.x, 0, 100, 25);
-    self.timeLabel.font                   = [UIFont systemFontOfSize:13];
-    self.timeLabel.textColor              = [UIColor colorWithHexString:ColorLightBlack];
+
     
+    //操作背景
+    self.operateView.frame          = CGRectMake(0, 0, [DeviceManager getDeviceWidth], 30);
+    self.commentBtn.frame           = CGRectMake(0, 0, [DeviceManager getDeviceWidth]/2, 30);
+    self.likeBtn.frame              = CGRectMake([DeviceManager getDeviceWidth]/2, 0, [DeviceManager getDeviceWidth]/2, 30);
+
     //评论按钮
-    self.commentBtn.titleLabel.font     = [UIFont systemFontOfSize:14];
-    self.commentBtn.titleEdgeInsets     = UIEdgeInsetsMake(0, 15, 0, 0);
+    self.commentBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    self.commentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+
+    //点赞
+    self.likeBtn.titleLabel.font    = [UIFont systemFontOfSize:12];
+    self.likeBtn.titleEdgeInsets    = UIEdgeInsetsMake(0, 15, 0, 0);
+    
     [self.commentBtn setBackgroundImage:[UIImage imageNamed:@"btn_comment_normal"] forState:UIControlStateNormal];
     [self.commentBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
-    
-    //点赞
-    self.likeBtn.titleLabel.font        = [UIFont systemFontOfSize:14];
-    self.likeBtn.titleEdgeInsets        = UIEdgeInsetsMake(0, 15, 0, 0);
     [self.likeBtn setBackgroundImage:[UIImage imageNamed:@"btn_like_normal"] forState:UIControlStateNormal];
     [self.likeBtn setTitleColor:[UIColor colorWithHexString:ColorDeepBlack] forState:UIControlStateNormal];
     
-    self.lineView.backgroundColor       = [UIColor colorWithHexString:ColorLightWhite];
+    //顶部
+    UIView * topLineView        = [[UIView alloc] init];
+    topLineView.backgroundColor = [UIColor colorWithHexString:ColorSeparator];
+    topLineView.frame           = CGRectMake(0, 0, [DeviceManager getDeviceWidth], 1);
+    [self.operateView addSubview:topLineView];
+    //中间
+    UIView * midLineView        = [[UIView alloc] init];
+    midLineView.backgroundColor = [UIColor colorWithHexString:ColorSeparator];
+    midLineView.frame           = CGRectMake([DeviceManager getDeviceWidth]/2-1, 5, 1, 20);
+    [self.operateView addSubview:midLineView];
+    //底部线
+    self.lineView.backgroundColor = [UIColor colorWithHexString:ColorSeparator];
+    self.lineView.frame           = CGRectMake(0, 29, [DeviceManager getDeviceWidth], 1);
+
 }
 
 /*! 内容填充*/
@@ -176,30 +199,40 @@
     
     //姓名
     NSString * name          = [ToolsManager emptyReturnNone:news.name];
-    CGSize nameSize          = [ToolsManager getSizeWithContent:name andFontSize:15 andFrame:CGRectMake(0, 0, 200, 20)];
-    self.nameLabel.width     = nameSize.width;
     self.nameLabel.text      = name;
 
     //学校
-    [self.jobBtn setTitle:[NSString stringWithFormat:@"%@ | %@", news.job, news.company] forState:UIControlStateNormal];
+    [self.jobBtn setTitle:[NSString stringWithFormat:@"%@ | %@", [ToolsManager emptyReturnNone:news.job], [ToolsManager emptyReturnNone:news.company]] forState:UIControlStateNormal];
 
     //内容
-    CGSize contentSize       = [ToolsManager getSizeWithContent:news.content_text andFontSize:15 andFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth]-30, MAXFLOAT)];
+    CGSize contentSize       = [ToolsManager getSizeWithContent:news.content_text andFontSize:FontListContent andFrame:CGRectMake(0, 0, self.contentLabel.width, MAXFLOAT)];
+    //内容长度计算
     if (news.content_text == nil || news.content_text.length < 1) {
-        contentSize.height = 0;
+        self.contentLabel.height = 0;
+    }else if (contentSize.height < 20) {
+        //单行
+        self.contentLabel.height = 18;
+    }else if (contentSize.height > 20) {
+        //双行
+        self.contentLabel.height = 36;
     }
-    self.contentLabel.height = contentSize.height;
     self.contentLabel.text   = news.content_text;
 
     //底部位置
-    CGFloat bottomPosition = self.contentLabel.bottom ;
+    CGFloat bottomPosition = self.headImageBtn.bottom;
+    //内容有的时候
+    if (self.contentLabel.height > 0) {
+        //底部位置
+        bottomPosition = self.contentLabel.bottom;
+    }
+
     //图片处理
     if (news.image_arr.count == 1) {
         //一张图片放大
         ImageModel * imageModel          = news.image_arr[0];
         CGRect rect                      = [NewsUtils getRectWithSize:CGSizeMake(imageModel.width, imageModel.height)];
-        rect.origin.x                    = self.headImageBtn.x;
-        rect.origin.y                    = self.contentLabel.bottom+5;
+        rect.origin.x                    = self.nameLabel.x;
+        rect.origin.y                    = bottomPosition + 15;
         CustomImageView * imageView      = [[CustomImageView alloc] init];
         //加载单张
         NSURL * imageUrl                 = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
@@ -217,21 +250,19 @@
         //多张图片九宫格
         NSArray * btnArr        = news.image_arr;
         for (int i=0; i<btnArr.count; i++) {
-            ImageModel * imageModel = news.image_arr[i];
-            NSInteger columnNum     = i%3;
-            NSInteger lineNum       = i/3;
-            CustomImageView * imageView = [[CustomImageView alloc] init];
-            imageView.tag            = i;
+            ImageModel * imageModel          = news.image_arr[i];
+            NSInteger columnNum              = i%3;
+            NSInteger lineNum                = i/3;
+            CustomImageView * imageView      = [[CustomImageView alloc] init];
+            imageView.tag                    = i;
             imageView.userInteractionEnabled = YES;
-            imageView.contentMode    = UIViewContentModeScaleAspectFill;
-            imageView.layer.masksToBounds = YES;
-            CGFloat itemWidth = [DeviceManager getDeviceWidth]/5.0;
-            imageView.frame          = CGRectMake(self.headImageBtn.x+(itemWidth+10)*columnNum, self.contentLabel.bottom+5+(itemWidth+10)*lineNum, itemWidth, itemWidth);
-            
+            imageView.contentMode            = UIViewContentModeScaleAspectFill;
+            imageView.layer.masksToBounds    = YES;
+            CGFloat itemWidth                = ([DeviceManager getDeviceWidth]-self.nameLabel.x-30) / 3;
+            imageView.frame                  = CGRectMake(self.nameLabel.x+(itemWidth+10)*columnNum, bottomPosition+(itemWidth+10)*lineNum+15, itemWidth, itemWidth);
             //加载缩略图
-            NSURL * imageUrl        = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
-            
-            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDetailClick:)];
+            NSURL * imageUrl                 = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", kAttachmentAddr, imageModel.sub_url]];
+            UITapGestureRecognizer * tap     = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageDetailClick:)];
             [imageView addGestureRecognizer:tap];
             [imageView sd_setImageWithURL:imageUrl placeholderImage:[UIImage imageNamed:@"loading_default"]];
             
@@ -245,13 +276,24 @@
         }
     }
     
-    //地址按钮 没有不显示
+    //时间
+    NSString * timeStr       = [ToolsManager compareCurrentTime:news.publish_date];
+    //算长度
+    CGSize lengthSize        = [ToolsManager getSizeWithContent:timeStr andFontSize:13 andFrame:CGRectMake(0, 0, 200, 30)];
+    self.timeLabel.width     = lengthSize.width;
+    self.timeLabel.y         = bottomPosition+15;
+    self.timeLabel.text      = timeStr;
+    bottomPosition           = self.timeLabel.bottom;
+    
+    //圈子按钮 没有不显示
     if (news.circle_arr.count > 0) {
-        NSString * circleTitle = [NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsList_CircleFrom"), [news.circle_arr componentsJoinedByString:@","]];
-        self.circleBtn.y       = bottomPosition+5;
+        NSMutableAttributedString * circleTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsList_CircleFrom"), [news.circle_arr componentsJoinedByString:@","]]];
+        self.circleBtn.y       = bottomPosition+10;
         bottomPosition         = self.circleBtn.bottom;
         self.circleBtn.hidden  = NO;
-        [self.circleBtn setTitle:circleTitle forState:UIControlStateNormal];
+        [circleTitle addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"dfb574"] range:NSMakeRange([KHClubString(@"News_NewsList_CircleFrom") length], circleTitle.length)];
+        [self.circleBtn setAttributedTitle:circleTitle forState:UIControlStateNormal];
+        
     }else{
         self.circleBtn.hidden = YES;
     }
@@ -260,39 +302,27 @@
     if (news.location.length > 0) {
         NSString * locationTitle                  = [NSString stringWithFormat:@"%@", news.location];
         [self.locationBtn setTitle:locationTitle forState:UIControlStateNormal];
-        self.locationBtn.y                        = bottomPosition+5;
+        self.locationBtn.y                        = bottomPosition+10;
         bottomPosition                            = self.locationBtn.bottom;
         self.locationBtn.hidden = NO;
     }else{
         self.locationBtn.hidden = YES;
     }
     
-    //时间
-    NSString * timeStr       = [ToolsManager compareCurrentTime:news.publish_date];
-    //算长度
-    CGSize lengthSize        = [ToolsManager getSizeWithContent:timeStr andFontSize:13 andFrame:CGRectMake(0, 0, 200, 30)];
-    self.timeLabel.width     = lengthSize.width;
-    self.timeLabel.y         = bottomPosition+5;
-    self.timeLabel.text      = timeStr;
-    
     //评论按钮
-    self.commentBtn.frame    = CGRectMake([DeviceManager getDeviceWidth]-140, bottomPosition+5, 60, 25);
     [self.commentBtn setTitle:[NSString stringWithFormat:@"%ld", news.comment_quantity] forState:UIControlStateNormal];
     [self.commentBtn setImage:[UIImage imageNamed:@"comment_btn_normal"] forState:UIControlStateNormal];
     
     //点赞按钮
-    self.likeBtn.frame      = CGRectMake([DeviceManager getDeviceWidth]-80, bottomPosition+5, 60, 25);
     if (self.news.is_like) {
         [self.likeBtn setImage:[UIImage imageNamed:@"like_btn_press"] forState:UIControlStateNormal];
     }else{
         [self.likeBtn setImage:[UIImage imageNamed:@"like_btn_normal"] forState:UIControlStateNormal];
     }
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%ld", news.like_quantity] forState:UIControlStateNormal];
-    //游标
-    bottomPosition      = self.commentBtn.bottom+9;
-
-    //线
-    self.lineView.frame = CGRectMake(0, bottomPosition, [DeviceManager getDeviceWidth], 1);
+    
+    //操作板位置
+    self.operateView.y = bottomPosition+15;
 }
 
 #pragma mark- method response

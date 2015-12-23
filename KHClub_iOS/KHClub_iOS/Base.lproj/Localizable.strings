@@ -48,7 +48,7 @@
 "saySomething" = "说点啥子吧";
 "searchResults" = "搜索结果";
 "doneWithCount" = "确定(%i)";
-"sureToDelete" = "请确定删除";
+"sureToDelete" = "清空聊天记录";
 "receiveCmd" = "有透传消息";
 "receiveMessage" = "您有一条新消息";
 "loginAtOtherDevice" = "你的账号已在其他地方登录";

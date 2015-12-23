@@ -8,6 +8,7 @@
 
 #import "OtherPersonalViewController.h"
 #import "CardChooseUserViewController.h"
+#import "AddRemarkViewController.h"
 #import "UIImageView+WebCache.h"
 #import "PersonalInfoView.h"
 #import "ImageModel.h"
@@ -17,7 +18,8 @@
 #import "ShareAlertPopView.h"
 #import "ReportOffenceViewController.h"
 #import "ShareUtils.h"
-#import <objc/runtime.h>
+#import "MyCircleListViewController.h"
+
 @interface OtherPersonalViewController ()
 
 //背景滚动视图
@@ -30,6 +32,12 @@
 @property (nonatomic, strong) CustomImageView   * imageView2;
 //图片3
 @property (nonatomic, strong) CustomImageView   * imageView3;
+//圈子图片1
+@property (nonatomic, strong) CustomImageView   * circleImageView1;
+//圈子图片2
+@property (nonatomic, strong) CustomImageView   * circleImageView2;
+//圈子图片3
+@property (nonatomic, strong) CustomImageView   * circleImageView3;
 //签名背景
 @property (nonatomic, strong) UIView            * signBackView;
 //签名
@@ -40,14 +48,20 @@
 @property (nonatomic, assign) BOOL              isFriend;
 //添加或者发送消息 按钮
 @property (nonatomic, strong) CustomButton      * sendOrAddBtn;
+//分享按钮
+@property (nonatomic, strong) CustomButton      * shareBtn;
 //右上角点击分享按钮
 @property (nonatomic, strong) ShareAlertPopView * shareAlertPopView;
 //图像背景
 @property (nonatomic, strong) CustomButton      * imageBackView;
+//圈子背景
+@property (nonatomic, strong) CustomButton      * myCircleBackView;
 //备注
 @property (nonatomic, copy  ) NSString          * remark;
-//举报按钮
-@property (nonatomic, strong) CustomButton      * reportBtn;
+//弹出视图背景
+@property (nonatomic, strong) UIView            * popBackView;
+//屏幕遮罩
+@property (nonatomic, strong) UIView            * screenCoverView;
 
 @end
 
@@ -67,6 +81,7 @@
     [self configUI];
     
     [self getData];
+    [self getCircles];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -85,10 +100,15 @@
         if (!sself.otherUser) {
             return;
         }
-        [sself.shareAlertPopView show];
+        if (sself.isFriend) {
+            [sself showRightPopView];
+        }else{
+            [sself reportClick:nil];
+        }
+        
     }];
     
-    self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:self.isFriend];
+    self.shareAlertPopView = [[ShareAlertPopView alloc] initWithIsFriend:NO];
     [self.shareAlertPopView setShareBlock:^(ShareAlertType type) {
         switch (type) {
             case ShareAlertFriend:
@@ -123,16 +143,12 @@
             break;
             case ShareAlertRemark:
             {
-                UIAlertView * alert     = [[UIAlertView alloc] initWithTitle:KHClubString(@"Personal_OtherPersonal_Remark") message:nil delegate:sself cancelButtonTitle:StringCommonCancel otherButtonTitles:StringCommonConfirm, nil];
-                alert.alertViewStyle    = UIAlertViewStylePlainTextInput;
-                UITextField * textField = [alert textFieldAtIndex:0];
-                textField.text          = sself.remark;
-                [alert show];
+
             }
                 break;
             case ShareAlertDelete:
             {
-                [sself deleteFriend];
+
             }
                 
             default:
@@ -144,35 +160,55 @@
 
     self.infoView          = [[PersonalInfoView alloc] initWithFrame:CGRectMake(10, 10, self.viewWidth-20, 190) isSelf:NO];
     self.imageBackView     = [[CustomButton alloc] init];
+    //圈子背景
+    self.myCircleBackView  = [[CustomButton alloc] init];
     self.imageView1        = [[CustomImageView alloc] init];
     self.imageView2        = [[CustomImageView alloc] init];
     self.imageView3        = [[CustomImageView alloc] init];
-    
+    self.circleImageView1  = [[CustomImageView alloc] init];
+    self.circleImageView2  = [[CustomImageView alloc] init];
+    self.circleImageView3  = [[CustomImageView alloc] init];
     //签名部分
     self.signBackView      = [[UIView alloc] init];
     self.signLabel         = [[CustomLabel alloc] init];
     //添加发送按钮
     self.sendOrAddBtn      = [[CustomButton alloc] init];
+    self.shareBtn          = [[CustomButton alloc] init];
     //举报按钮
-    self.reportBtn         = [[CustomButton alloc] init];
+    self.screenCoverView   = [[UIView alloc] init];
+    self.popBackView       = [[UIView alloc] init];
     
     [self.view addSubview:self.backScrollView];
     [self.backScrollView addSubview:self.infoView];
     [self.backScrollView addSubview:self.imageBackView];
+    [self.backScrollView addSubview:self.myCircleBackView];    
     [self.backScrollView addSubview:self.signBackView];
     [self.signBackView addSubview:self.signLabel];
     [self.backScrollView addSubview:self.sendOrAddBtn];
-    [self.navBar addSubview:self.reportBtn];
+    [self.backScrollView addSubview:self.shareBtn];
+    [self.imageBackView addSubview:self.imageView1];
+    [self.imageBackView addSubview:self.imageView2];
+    [self.imageBackView addSubview:self.imageView3];
+    [self.myCircleBackView addSubview:self.circleImageView1];
+    [self.myCircleBackView addSubview:self.circleImageView2];
+    [self.myCircleBackView addSubview:self.circleImageView3];
+    [self.view addSubview:self.screenCoverView];
+    [self.view addSubview:self.popBackView];
     
-    [self.sendOrAddBtn addTarget:self action:@selector(sendOrAddClick:) forControlEvents:UIControlEventTouchUpInside];
     //设置页面UI刷新
     [self.infoView setRefreshBlock:^{
-        sself.imageBackView.y = self.infoView.bottom+10;
-        sself.signBackView.y  = self.imageBackView.bottom+1;
+        sself.imageBackView.y    = self.infoView.bottom+10;
+        sself.myCircleBackView.y = self.imageBackView.bottom+1;
+        sself.signBackView.y     = self.myCircleBackView.bottom+1;
     }];
     
-    [self.reportBtn addTarget:self action:@selector(reportClick:) forControlEvents:UIControlEventTouchUpInside];
-
+    [self.sendOrAddBtn addTarget:self action:@selector(sendOrAddClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.myCircleBackView addTarget:self action:@selector(myCircleClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.shareBtn addTarget:self action:@selector(shareClick:) forControlEvents:UIControlEventTouchUpInside];
+    //遮罩点击消失
+    UITapGestureRecognizer * dissmissTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissCover:)];
+    [self.screenCoverView addGestureRecognizer:dissmissTap];
 }
 
 - (void)configUI
@@ -181,13 +217,8 @@
 
     self.navBar.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(3, 5, 0, 0);
     self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"personal_more"] forState:UIControlStateNormal];
+    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"more"] forState:UIControlStateNormal];
     self.navBar.rightBtn.frame                 = CGRectMake([DeviceManager getDeviceWidth]-45, 20, 40, 44);
-
-    self.reportBtn.frame                       = CGRectMake(self.navBar.rightBtn.x - 32, self.navBar.rightBtn.y+9, 30, 30);
-    self.reportBtn.imageEdgeInsets             = UIEdgeInsetsMake(0, 5, 0, 0);
-    self.reportBtn.imageView.contentMode       = UIViewContentModeScaleAspectFit;
-    [self.reportBtn setImage:[UIImage imageNamed:@"report"] forState:UIControlStateNormal];
     
     //背景滚动视图
     self.backScrollView.frame                        = CGRectMake(0, kNavBarAndStatusHeight, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight);
@@ -195,14 +226,13 @@
     //顶部栏设置部分
     self.imageBackView.frame           = CGRectMake(0, self.infoView.bottom+10, self.viewWidth, 60);
     self.imageBackView.backgroundColor = [UIColor whiteColor];
-
+    //TA的状态
     CustomLabel * imageLabel      = [[CustomLabel alloc] initWithFontSize:17];
     imageLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
     imageLabel.frame              = CGRectMake(15, 0, 80, 60);
-    imageLabel.text               = KHClubString(@"Personal_Personal_Moments");
+    imageLabel.text               = KHClubString(@"Personal_Personal_HisNews");
     [self.imageBackView addSubview:imageLabel];
-    [self.imageBackView addTarget:self action:@selector(myImageClick:) forControlEvents:UIControlEventTouchUpInside];
-    
+
     self.imageView1.frame               = CGRectMake(imageLabel.right+5, 5, 50, 50);
     self.imageView2.frame               = CGRectMake(self.imageView1.right+5, 5, 50, 50);
     self.imageView3.frame               = CGRectMake(self.imageView2.right+5, 5, 50, 50);
@@ -212,11 +242,33 @@
     self.imageView1.layer.masksToBounds = YES;
     self.imageView2.layer.masksToBounds = YES;
     self.imageView3.layer.masksToBounds = YES;
-    [self.imageBackView addSubview:self.imageView1];
-    [self.imageBackView addSubview:self.imageView2];
-    [self.imageBackView addSubview:self.imageView3];
+    self.imageView1.layer.cornerRadius  = 25;
+    self.imageView2.layer.cornerRadius  = 25;
+    self.imageView3.layer.cornerRadius  = 25;
     
-    self.signBackView.frame           = CGRectMake(0, self.imageBackView.bottom+1, self.viewWidth, 60);
+    //TA的圈子
+    self.myCircleBackView.frame               = CGRectMake(0, self.imageBackView.bottom+1, self.viewWidth, 60);
+    self.myCircleBackView.backgroundColor     = [UIColor whiteColor];
+    CustomLabel * circleLabel                 = [[CustomLabel alloc] initWithFontSize:17];
+    circleLabel.textColor                     = [UIColor colorWithHexString:ColorDeepBlack];
+    circleLabel.frame                         = CGRectMake(15, 0, 80, 60);
+    circleLabel.text                          = KHClubString(@"Personal_Personal_HisCircle");
+    [self.myCircleBackView addSubview:circleLabel];
+    
+    self.circleImageView1.frame               = CGRectMake(circleLabel.right+5, 5, 50, 50);
+    self.circleImageView2.frame               = CGRectMake(self.circleImageView1.right+5, 5, 50, 50);
+    self.circleImageView3.frame               = CGRectMake(self.circleImageView2.right+5, 5, 50, 50);
+    self.circleImageView1.contentMode         = UIViewContentModeScaleAspectFill;
+    self.circleImageView2.contentMode         = UIViewContentModeScaleAspectFill;
+    self.circleImageView3.contentMode         = UIViewContentModeScaleAspectFill;
+    self.circleImageView1.layer.masksToBounds = YES;
+    self.circleImageView2.layer.masksToBounds = YES;
+    self.circleImageView3.layer.masksToBounds = YES;
+    self.circleImageView1.layer.cornerRadius  = 25;
+    self.circleImageView2.layer.cornerRadius  = 25;
+    self.circleImageView3.layer.cornerRadius  = 25;
+    
+    self.signBackView.frame           = CGRectMake(0, self.myCircleBackView.bottom+1, self.viewWidth, 60);
     self.signBackView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
     
     CustomLabel * signTitleLabel      = [[CustomLabel alloc] initWithFontSize:17];
@@ -230,31 +282,140 @@
     self.signLabel.font               = [UIFont systemFontOfSize:15];
     self.signLabel.numberOfLines      = 0;
     self.signLabel.lineBreakMode      = NSLineBreakByCharWrapping;
-
-    self.sendOrAddBtn.frame           = CGRectMake(20, self.signBackView.bottom+20, self.viewWidth-40, 45);
-    self.sendOrAddBtn.backgroundColor = [UIColor colorWithHexString:ColorGold];
+    
+    //发送消息
+    self.sendOrAddBtn.frame              = CGRectMake(25, self.signBackView.bottom+20, (self.viewWidth-75)/2, 40);
+    self.sendOrAddBtn.backgroundColor    = [UIColor colorWithHexString:ColorGold];
+    //分享
+    self.shareBtn.frame                  = CGRectMake(self.sendOrAddBtn.right+25, self.signBackView.bottom+20, (self.viewWidth-75)/2, 40);
+    self.shareBtn.backgroundColor        = [UIColor colorWithHexString:ColorGold];
+    self.sendOrAddBtn.titleLabel.font    = [UIFont systemFontOfSize:16];
+    self.shareBtn.titleLabel.font        = [UIFont systemFontOfSize:16];
+    self.sendOrAddBtn.layer.cornerRadius = 3;
+    self.shareBtn.layer.cornerRadius     = 3;
+    
+    //右上角PopView
+    self.popBackView.backgroundColor     = [UIColor colorWithHexString:@"4d4d4d"];
+    self.popBackView.layer.masksToBounds = YES;
+    self.screenCoverView.frame           = self.view.bounds;
+    self.screenCoverView.hidden          = YES;
     
     if (self.uid == [UserService sharedService].user.uid) {
         self.sendOrAddBtn.hidden = YES;
+        self.shareBtn.hidden     = YES;
     }
+    
+    [self.shareBtn setTitle:KHClubString(@"Personal_OtherPersonal_ShareCard") forState:UIControlStateNormal];
     //是好友
     if (self.isFriend) {
         [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_Send") forState:UIControlStateNormal];
     }else {
         [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_AddFriend") forState:UIControlStateNormal];
     }
+    
+    //扫描二维码
+    CustomButton * remarkBtn       = [[CustomButton alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+    //添加好友
+    CustomButton * deleteFriendBtn = [[CustomButton alloc] initWithFrame:CGRectMake(0, 40, 100, 40)];
+    //新建群聊
+    CustomButton * clearBtn        = [[CustomButton alloc] initWithFrame:CGRectMake(0, 80, 100, 40)];
+    //新建举报
+    CustomButton * reportBtn       = [[CustomButton alloc] initWithFrame:CGRectMake(0, 120, 100, 40)];
+
+    
+    [self defaultTopRightBtnHandle:remarkBtn imageName:@"edit_remark" andTitle:KHClubString(@"Personal_OtherPersonal_Remark")];
+    [self defaultTopRightBtnHandle:deleteFriendBtn imageName:@"delete_friend" andTitle:KHClubString(@"Personal_OtherPersonal_DeleteFriend")];
+    [self defaultTopRightBtnHandle:clearBtn imageName:@"clear" andTitle:KHClubString(@"Personal_OtherPersonal_ClearMessage")];
+    [self defaultTopRightBtnHandle:reportBtn imageName:@"report" andTitle:KHClubString(@"Personal_OtherPersonal_Report")];
+    
+    remarkBtn.tag       = 1;
+    deleteFriendBtn.tag = 2;
+    clearBtn.tag        = 3;
+    reportBtn.tag       = 4;
+}
+//默认
+- (void)defaultTopRightBtnHandle:(CustomButton *)btn imageName:(NSString *)imageName andTitle:(NSString *)title
+{
+    CustomImageView * leftImageView = [[CustomImageView alloc] initWithFrame:CGRectMake(10, 12, 16, 16)];
+    leftImageView.contentMode       = UIViewContentModeScaleAspectFit;
+    leftImageView.image             = [UIImage imageNamed:imageName];
+    [btn addSubview:leftImageView];
+    
+    btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    btn.contentEdgeInsets          = UIEdgeInsetsMake(0, 35, 0, 0);
+    btn.titleLabel.font            = [UIFont systemFontOfSize:14];
+    [btn setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor colorWithHexString:ColorLightWhite] forState:UIControlStateHighlighted];
+    [btn setTitle:title forState:UIControlStateNormal];
+    [self.popBackView addSubview:btn];
+    
+    UIView * lineView        = [[UIView alloc] initWithFrame:CGRectMake(0, btn.height-1, btn.width, 1)];
+    lineView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
+    [btn addSubview:lineView];
+    
+    [btn addTarget:self action:@selector(popViewClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
-#pragma mark- UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//显示右边弹窗
+- (void)showRightPopView
 {
-    if (buttonIndex == 1) {
-        NSString * newRemark = [[alertView textFieldAtIndex:0].text trim];
-        if (![self.remark isEqualToString:newRemark]) {
-            [self setRemarkWith:newRemark];
-        }
-    }
+    self.screenCoverView.hidden = NO;
+    self.popBackView.frame      = CGRectMake(self.viewWidth-35, kNavBarAndStatusHeight, 0, 0);
+    [UIView animateWithDuration:0.2 animations:^{
+        self.popBackView.frame                   = CGRectMake(self.viewWidth-110, kNavBarAndStatusHeight, 100, 160);
+        //        self.navBar.rightBtn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);
+    }];
 }
+
+//遮罩点击消失
+- (void)dismissCover:(UITapGestureRecognizer *)ges
+{
+    self.screenCoverView.hidden = YES;
+    [UIView animateWithDuration:0.2 animations:^{
+        self.popBackView.frame                   = CGRectMake(self.viewWidth-110, kNavBarAndStatusHeight, 100, 0);
+    }];
+}
+//点击
+- (void)popViewClick:(CustomButton *)sender
+{
+    switch (sender.tag) {
+        case 1:
+        {
+            [self setRemark];
+        }
+            break;
+        case 2:
+        {
+            [self deleteFriend];
+        }
+            break;
+        case 3:
+        {
+            [self removeAllMessages:nil];
+        }
+            break;            
+        case 4:
+        {
+            [self reportClick:nil];
+        }
+            break;
+        default:
+            break;
+    }
+    
+    [self dismissCover:nil];
+}
+
+//#pragma mark- UIAlertViewDelegate
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+//{
+//    if (buttonIndex == 1) {
+//        NSString * newRemark = [[alertView textFieldAtIndex:0].text trim];
+//        if (![self.remark isEqualToString:newRemark]) {
+//            [self setRemarkWith:newRemark];
+//        }
+//    }
+//}
 
 #pragma mark- method response
 - (void)sendToFriend
@@ -292,6 +453,34 @@
     }
 }
 
+- (void)myCircleClick:(id)sender
+{
+    MyCircleListViewController * mclvc = [[MyCircleListViewController alloc] init];
+    mclvc.userId                       = self.uid;
+    [self pushVC:mclvc];
+}
+
+- (void)removeAllMessages:(id)sender
+{
+ 
+    EMConversation * conversation = [[EaseMob sharedInstance].chatManager conversationForChatter:[ToolsManager getCommonTargetId:self.otherUser.uid] conversationType:eConversationTypeChat];
+    
+    [EMAlertView showAlertWithTitle:NSLocalizedString(@"prompt", @"Prompt")
+                            message:NSLocalizedString(@"sureToDelete", @"please make sure to delete")
+                    completionBlock:^(NSUInteger buttonIndex, EMAlertView *alertView) {
+                        if (buttonIndex == 1) {
+                            [conversation removeAllMessages];
+                        }
+                    } cancelButtonTitle:NSLocalizedString(@"cancel", @"Cancel")
+                  otherButtonTitles:NSLocalizedString(@"ok", @"OK"), nil];
+    
+}
+
+- (void)shareClick:(id)sender
+{
+    [self.shareAlertPopView show];
+}
+
 #pragma mark- private method
 //获取用户信息
 - (void)getData
@@ -310,7 +499,6 @@
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
-    
 }
 
 //处理数据
@@ -336,6 +524,8 @@
     }
     //布局
     self.sendOrAddBtn.y = self.signBackView.bottom + 20;
+    self.shareBtn.y     = self.signBackView.bottom + 20;
+    
     //图片数组
     NSArray * imageList = responseData[HttpResult][@"image_list"];
     
@@ -371,6 +561,48 @@
     //设置数据
     [self.infoView setDataWithModel:self.otherUser];
 }
+
+//获取我创建的圈子
+- (void)getCircles
+{
+    //getMyCircleList
+    NSString * path = [kGetMyCircleListPath stringByAppendingFormat:@"?user_id=%ld", self.uid];
+    [HttpService getWithUrlString:path andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+        
+        int status = [responseData[HttpStatus] intValue];
+        if (status == HttpStatusCodeSuccess) {
+            NSArray * imageList = responseData[HttpResult];
+            
+            NSMutableArray * imageModelList = [[NSMutableArray alloc] init];
+            //遍历设置图片
+            for (int i=0; i<imageList.count; i++) {
+                NSDictionary * dic = imageList[i];
+                ImageModel * image = [[ImageModel alloc] init];
+                image.sub_url      = dic[@"circle_cover_sub_image"];
+                [imageModelList addObject:image];
+            }
+            self.circleImageView1.hidden = YES;
+            self.circleImageView2.hidden = YES;
+            self.circleImageView3.hidden = YES;
+            NSArray * imageArr = @[self.circleImageView1, self.circleImageView2, self.circleImageView3];
+            NSInteger size = imageModelList.count;
+            if (size > 3) {
+                size = 3;
+            }
+            for (int i=0; i<size; i++) {
+                ImageModel * image      = imageModelList[i];
+                UIImageView * imageView = imageArr[i];
+                imageView.hidden        = NO;
+                [imageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:image.sub_url]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
+            }
+            
+        }
+        
+    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
+}
+
 
 - (void)deleteFriend
 {
@@ -459,37 +691,26 @@
  *
  *  @param remark 备注
  */
-- (void)setRemarkWith:(NSString *)remark
+- (void)setRemark
 {
-    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
-                              @"target_id":[NSString stringWithFormat:@"%ld", self.uid],
-                              @"friend_remark":remark};
+    AddRemarkViewController * arvc = [[AddRemarkViewController alloc] init];
+    arvc.frinedId                  = self.otherUser.uid;
+    arvc.remark                    = self.remark;
+    [self pushVC:arvc];
     
-    [self showLoading:StringCommonUploadData];
-    
-    [HttpService postWithUrlString:kAddRemarkPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
-        [self hideLoading];
-        int status = [responseData[HttpStatus] intValue];
-        //成功后
-        if (status == HttpStatusCodeSuccess) {
-            self.infoView.remark = remark;
-            self.remark          = remark;
-            //设置数据
-            [self.infoView setDataWithModel:self.otherUser];
-            //如果有备注设置本地缓存
-            if (remark.length > 0) {
-                [[IMUtils shareInstance] setUserNickWithStr:remark andUsername:[NSString stringWithFormat:@"%@%ld", KH, self.uid]];
-            }else{
-                [[IMUtils shareInstance] setUserNickWithStr:self.otherUser.name andUsername:[NSString stringWithFormat:@"%@%ld", KH, self.uid]];
-            }
+    [arvc setChangeBlock:^(NSString *remark) {
+        self.infoView.remark = remark;
+        self.remark          = remark;
+        //设置数据
+        [self.infoView setDataWithModel:self.otherUser];
+        //如果有备注设置本地缓存
+        if (remark.length > 0) {
+            [[IMUtils shareInstance] setUserNickWithStr:remark andUsername:[NSString stringWithFormat:@"%@%ld", KH, self.uid]];
         }else{
-            [self showHint:StringCommonUploadDataFail];
+            [[IMUtils shareInstance] setUserNickWithStr:self.otherUser.name andUsername:[NSString stringWithFormat:@"%@%ld", KH, self.uid]];
         }
-        
-    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self hideLoading];
-        [self showHint:StringCommonNetException];
     }];
+    
 }
 
 /*

@@ -46,6 +46,11 @@
     
     self.dataArr     = [[NSMutableArray alloc] init];
 
+    if (self.userId) {
+        [self setNavBarTitle:KHClubString(@"Personal_Personal_HisCircle")];
+    }else{
+        [self setNavBarTitle:KHClubString(@"Personal_Personal_MyCircle")];
+    }
 }
 
 #pragma override
@@ -94,6 +99,10 @@
 {
     
     NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyCircleListPath, [UserService sharedService].user.uid];
+    if (self.userId != nil) {
+        url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyCircleListPath, self.userId];
+    }
+    
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         int status = [responseData[HttpStatus] intValue];

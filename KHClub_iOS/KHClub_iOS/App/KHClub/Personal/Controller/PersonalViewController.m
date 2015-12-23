@@ -217,6 +217,9 @@
     self.imageView1.layer.masksToBounds = YES;
     self.imageView2.layer.masksToBounds = YES;
     self.imageView3.layer.masksToBounds = YES;
+    self.imageView1.layer.cornerRadius  = 25;
+    self.imageView2.layer.cornerRadius  = 25;
+    self.imageView3.layer.cornerRadius  = 25;
     
     //我的圈子
     self.myCircleBackView.frame               = CGRectMake(0, self.imageBackView.bottom+10, self.viewWidth, 60);
@@ -236,6 +239,9 @@
     self.circleImageView1.layer.masksToBounds = YES;
     self.circleImageView2.layer.masksToBounds = YES;
     self.circleImageView3.layer.masksToBounds = YES;
+    self.circleImageView1.layer.cornerRadius  = 25;
+    self.circleImageView2.layer.cornerRadius  = 25;
+    self.circleImageView3.layer.cornerRadius  = 25;
     
     //签名
     self.signBackView.frame            = CGRectMake(0, self.imageBackView.bottom+1, self.viewWidth, 60);
@@ -384,7 +390,11 @@
             self.circleImageView2.hidden = YES;
             self.circleImageView3.hidden = YES;
             NSArray * imageArr = @[self.circleImageView1, self.circleImageView2, self.circleImageView3];
-            for (int i=0; i<imageModelList.count; i++) {
+            NSInteger size = imageModelList.count;
+            if (size > 3) {
+                size = 3;
+            }
+            for (int i=0; i<size; i++) {
                 ImageModel * image      = imageModelList[i];
                 UIImageView * imageView = imageArr[i];
                 imageView.hidden        = NO;

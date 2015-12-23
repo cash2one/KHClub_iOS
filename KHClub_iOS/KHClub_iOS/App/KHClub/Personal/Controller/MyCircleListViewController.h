@@ -8,7 +8,12 @@
 
 #import "RefreshViewController.h"
 
-//我的圈子列表
+//我的圈子列表或者其他人的
 @interface MyCircleListViewController : BaseViewController<UITableViewDataSource,UITableViewDelegate>
+
+/**
+ *  查询的用户ID
+ */
+@property (nonatomic, assign) NSInteger userId;
 
 @end
