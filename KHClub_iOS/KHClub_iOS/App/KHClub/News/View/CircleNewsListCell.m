@@ -1,12 +1,12 @@
 //
-//  NewsListCell.m
-//  JLXCSNS_iOS
+//  CircleNewsListCell.m
+//  KHClub_iOS
 //
-//  Created by 李晓航 on 15/5/17.
-//  Copyright (c) 2015年 JLXC. All rights reserved.
+//  Created by 李晓航 on 15/12/24.
+//  Copyright © 2015年 JLXC. All rights reserved.
 //
 
-#import "NewsListCell.h"
+#import "CircleNewsListCell.h"
 #import "ImageModel.h"
 #import "CommentModel.h"
 #import "UIImageView+WebCache.h"
@@ -15,7 +15,7 @@
 #import "OtherPersonalViewController.h"
 #import "NewsUtils.h"
 
-@interface NewsListCell()
+@interface CircleNewsListCell()
 
 //新闻模型
 @property (nonatomic, strong) NewsModel    * news;
@@ -23,6 +23,8 @@
 @property (nonatomic, strong) CustomButton * headImageBtn;
 //姓名
 @property (nonatomic, strong) CustomLabel  * nameLabel;
+//圈主标识
+@property (nonatomic, strong) CustomLabel  * isManagerLabel;
 //时间
 @property (nonatomic, strong) CustomLabel  * timeLabel;
 //职位 | 公司
@@ -47,7 +49,7 @@
 
 @end
 
-@implementation NewsListCell
+@implementation CircleNewsListCell
 
 -(instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -60,6 +62,8 @@
         self.headImageBtn                  = [[CustomButton alloc] init];
         //姓名
         self.nameLabel                     = [[CustomLabel alloc] init];
+        //圈主标识
+        self.isManagerLabel                = [[CustomLabel alloc] init];
         //时间
         self.timeLabel                     = [[CustomLabel alloc] init];
         //学校
@@ -80,6 +84,7 @@
         
         [self.contentView addSubview:self.headImageBtn];
         [self.contentView addSubview:self.nameLabel];
+        [self.contentView addSubview:self.isManagerLabel];
         [self.contentView addSubview:self.timeLabel];
         [self.contentView addSubview:self.jobBtn];
         [self.contentView addSubview:self.contentLabel];
@@ -109,16 +114,29 @@
 #pragma mark- layout
 - (void)configUI
 {
-    self.selectionStyle                      = UITableViewCellSelectionStyleNone;
-    
+    self.selectionStyle                    = UITableViewCellSelectionStyleNone;
+
     //头像
-    self.headImageBtn.frame                  = CGRectMake(10, 20, 45, 45);
-    self.headImageBtn.layer.cornerRadius     = 2;
-    self.headImageBtn.layer.masksToBounds    = YES;
+    self.headImageBtn.frame                = CGRectMake(10, 20, 45, 45);
+    self.headImageBtn.layer.cornerRadius   = 2;
+    self.headImageBtn.layer.masksToBounds  = YES;
     //姓名
-    self.nameLabel.frame                     = CGRectMake(self.headImageBtn.right+15, self.headImageBtn.y+2.5, 200, 16);
-    self.nameLabel.font                      = [UIFont systemFontOfSize:FontListName];
-    self.nameLabel.textColor                 = [UIColor colorWithHexString:ColorDeepBlack];
+    self.nameLabel.frame                   = CGRectMake(self.headImageBtn.right+15, self.headImageBtn.y+2.5, 200, 16);
+    self.nameLabel.font                    = [UIFont systemFontOfSize:FontListName];
+    self.nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
+    //圈主标识
+    self.isManagerLabel.frame              = CGRectMake(0, self.headImageBtn.y+2.5, 0, 0);
+    self.isManagerLabel.font               = [UIFont systemFontOfSize:11];
+    self.isManagerLabel.text               = KHClubString(@"Circle_Circle_CircleManager");
+    self.isManagerLabel.textAlignment      = NSTextAlignmentCenter;
+    self.isManagerLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
+    self.isManagerLabel.layer.cornerRadius = 5;
+    self.isManagerLabel.layer.borderColor  = [UIColor colorWithHexString:ColorGold].CGColor;
+    self.isManagerLabel.layer.borderWidth  = 1;
+    [self.isManagerLabel sizeToFit];
+    self.isManagerLabel.width += 5;
+    self.isManagerLabel.height = 16;
+    
     //职位
     self.jobBtn.frame                      = CGRectMake(self.nameLabel.x, self.nameLabel.bottom+10, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 14);
     self.jobBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
@@ -138,9 +156,8 @@
     //圈子
     [self.circleBtn setTitleColor:[UIColor colorWithHexString:@"323232"] forState:UIControlStateNormal];
     self.circleBtn.titleLabel.font            = [UIFont systemFontOfSize:12];
-    self.circleBtn.frame                      = CGRectMake(self.nameLabel.x, 0, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 12);
+    self.circleBtn.frame                      = CGRectMake(self.nameLabel.x, 0, 190, 12);
     self.circleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    self.circleBtn.titleLabel.lineBreakMode   = NSLineBreakByTruncatingTail;
     
     //地理位置
     [self.locationBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlue] forState:UIControlStateNormal];
@@ -148,17 +165,17 @@
     self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:12];
     self.locationBtn.frame                      = CGRectMake(self.nameLabel.x, 0, 190, 12);
     self.locationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-
+    
     
     //操作背景
     self.operateView.frame          = CGRectMake(0, 0, [DeviceManager getDeviceWidth], 30);
     self.commentBtn.frame           = CGRectMake(0, 0, [DeviceManager getDeviceWidth]/2, 30);
     self.likeBtn.frame              = CGRectMake([DeviceManager getDeviceWidth]/2, 0, [DeviceManager getDeviceWidth]/2, 30);
-
+    
     //评论按钮
     self.commentBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     self.commentBtn.titleEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
-
+    
     //点赞
     self.likeBtn.titleLabel.font    = [UIFont systemFontOfSize:12];
     self.likeBtn.titleEdgeInsets    = UIEdgeInsetsMake(0, 15, 0, 0);
@@ -181,11 +198,11 @@
     //底部线
     self.lineView.backgroundColor = [UIColor colorWithHexString:ColorSeparator];
     self.lineView.frame           = CGRectMake(0, 29, [DeviceManager getDeviceWidth], 1);
-
+    
 }
 
 /*! 内容填充*/
-- (void)setContentWithModel:(NewsModel *)news
+- (void)setContentWithModel:(NewsModel *)news withIsManager:(BOOL)isManager
 {
     self.news = news;
     
@@ -201,10 +218,17 @@
     //姓名
     NSString * name          = [ToolsManager emptyReturnNone:news.name];
     self.nameLabel.text      = name;
-
+    [self.nameLabel sizeToFit];
+    if (isManager) {
+        self.isManagerLabel.x      = self.nameLabel.right+10;
+        self.isManagerLabel.hidden = NO;
+    }else{
+        self.isManagerLabel.hidden = YES;
+    }
+    
     //学校
     [self.jobBtn setTitle:[NSString stringWithFormat:@"%@ | %@", [ToolsManager emptyReturnNone:news.job], [ToolsManager emptyReturnNone:news.company]] forState:UIControlStateNormal];
-
+    
     //内容
     CGSize contentSize       = [ToolsManager getSizeWithContent:news.content_text andFontSize:FontListContent andFrame:CGRectMake(0, 0, self.contentLabel.width, MAXFLOAT)];
     //内容长度计算
@@ -218,7 +242,7 @@
         self.contentLabel.height = 36;
     }
     self.contentLabel.text   = news.content_text;
-
+    
     //底部位置
     CGFloat bottomPosition = self.headImageBtn.bottom;
     //内容有的时候
@@ -226,7 +250,7 @@
         //底部位置
         bottomPosition = self.contentLabel.bottom;
     }
-
+    
     //图片处理
     if (news.image_arr.count == 1) {
         //一张图片放大
@@ -324,6 +348,7 @@
     
     //操作板位置
     self.operateView.y = bottomPosition+15;
+    
 }
 
 #pragma mark- method response
@@ -342,7 +367,7 @@
             [self.delegate longPressContent:self.news andGes:longPress];
         }
     }
-
+    
 }
 
 
@@ -415,9 +440,9 @@
 //评论点击
 - (void)commentTap:(UITapGestureRecognizer *)tap
 {
-//    NewsDetailViewController * ndvc = [[NewsDetailViewController alloc] init];
-//    ndvc.newsId                     = self.news.nid;
-//    [((BaseViewController *)self.delegate) pushVC:ndvc];
+    //    NewsDetailViewController * ndvc = [[NewsDetailViewController alloc] init];
+    //    ndvc.newsId                     = self.news.nid;
+    //    [((BaseViewController *)self.delegate) pushVC:ndvc];
 }
 
 //浏览其他人的主页
@@ -428,16 +453,5 @@
     [((BaseViewController *)self.delegate) pushVC:opvc];
     
 }
-
-
-//- (void)awakeFromNib {
-//    // Initialization code
-//}
-//
-//- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-//    [super setSelected:selected animated:animated];
-//
-//    // Configure the view for the selected state
-//}
 
 @end

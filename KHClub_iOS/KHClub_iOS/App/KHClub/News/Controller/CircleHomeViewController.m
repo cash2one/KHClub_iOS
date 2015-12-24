@@ -17,7 +17,7 @@
 #import "CommentModel.h"
 #import "LikeModel.h"
 #import "BrowseImageListViewController.h"
-#import "NewsListCell.h"
+#import "CircleNewsListCell.h"
 #import "NewsUtils.h"
 #import "CircleMembersViewController.h"
 #import "ShareAlertPopView.h"
@@ -25,6 +25,7 @@
 #import "ShareUtils.h"
 #import "UIImageView+WebCache.h"
 #import "CardChooseUserViewController.h"
+#import "CircleNoticeListViewController.h"
 
 @interface CircleHomeViewController ()<NewsListDelegate, RefreshDataDelegate>
 
@@ -45,8 +46,14 @@
 @property (nonatomic, strong) CustomButton      * followBtn;
 //圈友背景
 @property (nonatomic, strong) CustomButton      * circleFansView;
+//公告背景
+@property (nonatomic, strong) CustomButton      * circleNoticeView;
+//公告内容
+@property (nonatomic, strong) CustomLabel       * noticeLabel;
 //圈子模型
 @property (nonatomic, strong) CircleModel       * circleModel;
+//公告内容
+@property (nonatomic, copy)   NSString          * noticeContent;
 //成员列表
 @property (nonatomic, strong) NSMutableArray    * membersArray;
 //右上角点击分享按钮
@@ -85,6 +92,8 @@
     self.circleFansCountLabel = [[CustomLabel alloc] init];
     self.followBtn            = [[CustomButton alloc] init];
     self.circleFansView       = [[CustomButton alloc] init];
+    self.circleNoticeView     = [[CustomButton alloc] init];
+    self.noticeLabel          = [[CustomLabel alloc] init];
     self.publishBtn           = [[CustomButton alloc] init];
     
     [self.backView addSubview:self.coverImageView];
@@ -93,11 +102,14 @@
     [self.backView addSubview:self.circleFansCountLabel];
     [self.backView addSubview:self.followBtn];
     [self.backView addSubview:self.circleFansView];
+    [self.backView addSubview:self.circleNoticeView];
+    [self.circleNoticeView addSubview:self.noticeLabel];
     [self.view addSubview:self.publishBtn];
     
     //关注事件
     [self.followBtn addTarget:self action:@selector(followPress:) forControlEvents:UIControlEventTouchUpInside];
     [self.circleFansView addTarget:self action:@selector(fansListPress:) forControlEvents:UIControlEventTouchUpInside];
+    [self.circleNoticeView addTarget:self action:@selector(noticeListPress:) forControlEvents:UIControlEventTouchUpInside];
     
     UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headBackClick)];
     [self.backView addGestureRecognizer:tap];
@@ -137,7 +149,24 @@
     CustomImageView * countImageView        = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"member"]];
     countImageView.frame                    = CGRectMake(self.coverImageView.right+10, self.circleNameLabel.bottom+6, 15, 15);
     //成员列表
-    self.circleFansView.frame               = CGRectMake(0, self.coverImageView.bottom+5, self.viewWidth, 40);
+    self.circleFansView.frame               = CGRectMake(0, self.coverImageView.bottom+5, self.viewWidth, 30);
+    self.circleNoticeView.frame             = CGRectMake(0, self.circleFansView.bottom, self.viewWidth, 30);
+    
+    //圈达人图标
+    CustomImageView * noticeImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"members_cover"]];
+    noticeImageView.frame             = CGRectMake(self.coverImageView.x, 10, 20, 20);
+    //圈达人标题
+    CustomLabel * noticeTitleLabel    = [[CustomLabel alloc] initWithFontSize:12];
+    noticeTitleLabel.textColor        = [UIColor colorWithHexString:ColorDeepBlack];
+    noticeTitleLabel.frame            = CGRectMake(noticeImageView.right+5, 14, 50, 12);
+    noticeTitleLabel.text             = KHClubString(@"Circle_Circle_CircleMember");
+    //内容
+    self.noticeLabel.frame            = CGRectMake(noticeTitleLabel.right+5, 0, self.viewWidth-noticeTitleLabel.right-15, 40);
+    self.noticeLabel.font             = [UIFont systemFontOfSize:15];
+    self.noticeLabel.lineBreakMode    = NSLineBreakByTruncatingTail;
+    [self.circleNoticeView addSubview:noticeImageView];
+    [self.circleNoticeView addSubview:noticeTitleLabel];
+    
     //成员数量
     self.circleFansCountLabel.frame         = CGRectMake(countImageView.right+5, self.circleNameLabel.bottom+7, self.viewWidth-self.coverImageView.right-30, 13);
     self.circleFansCountLabel.font          = [UIFont systemFontOfSize:13];
@@ -152,7 +181,7 @@
     self.followBtn.layer.borderWidth        = 1;
     self.followBtn.hidden                   = YES;
     //线
-    UIView * lineView                       = [[UIView alloc] initWithFrame:CGRectMake(0, self.circleFansView.bottom+8, self.viewWidth, 5)];
+    UIView * lineView                       = [[UIView alloc] initWithFrame:CGRectMake(0, self.circleNoticeView.bottom+8, self.viewWidth, 5)];
     lineView.backgroundColor                = [UIColor colorWithHexString:ColorLightGary];
     [self.backView addSubview:lineView];
     [self.backView addSubview:countImageView];
@@ -245,13 +274,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    NSString * cellid   = [NSString stringWithFormat:@"%@%ld", @"newsList", indexPath.row];
-    NewsListCell * cell = [self.refreshTableView dequeueReusableCellWithIdentifier:cellid];
+    NSString * cellid         = [NSString stringWithFormat:@"%@%ld", @"newsList", indexPath.row];
+    CircleNewsListCell * cell = [self.refreshTableView dequeueReusableCellWithIdentifier:cellid];
     if (!cell) {
-        cell          = [[NewsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
+        cell          = [[CircleNewsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.delegate = self;
     }
-    [cell setConentWithModel:self.dataArr[indexPath.row]];
+    NewsModel * news = self.dataArr[indexPath.row];
+    [cell setContentWithModel:news withIsManager:news.uid == self.circleModel.managerId];
     
     return cell;
 }
@@ -276,7 +306,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 135;
+    return 165;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -289,7 +319,7 @@
     //顶部UI刷新
     [self.coverImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:self.circleModel.circle_cover_sub_image]] placeholderImage:[UIImage imageNamed:@"loading_default"]];
     self.circleTitleLabel.text     = [KHClubString(@"Circle_Circle_CircleName") stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.circle_name]];
-    self.circleNameLabel.text      = [KHClubString(@"Circle_Circle_CircleManager") stringByAppendingString:[ToolsManager emptyReturnNone:self.circleModel.manager_name]];
+    self.circleNameLabel.text      = [NSString stringWithFormat:@"%@：%@",KHClubString(@"Circle_Circle_CircleManager"), [ToolsManager emptyReturnNone:self.circleModel.manager_name]];
     //圈子存在
     if (self.circleModel.cid > 0) {
         self.circleFansCountLabel.text = [NSString stringWithFormat:@"%ld", self.circleModel.follow_quantity];
@@ -307,6 +337,9 @@
     memberTitleLabel.text             = KHClubString(@"Circle_Circle_CircleMember");
     [self.circleFansView addSubview:memberImageView];
     [self.circleFansView addSubview:memberTitleLabel];
+    
+    //公告
+    self.noticeLabel.text  = self.noticeContent;
     
     NSInteger membersCount = self.membersArray.count;
     if (membersCount > 5) {
@@ -428,7 +461,8 @@
                 self.circleModel.isFollow = YES;
                 self.publishBtn.hidden     = NO;
             }
-            
+            //通知
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_CIRCLE_LIST object:nil];
         }else{
             [self showWarn:StringCommonUploadDataFail];
         }
@@ -443,6 +477,14 @@
     CircleMembersViewController * cmvc = [[CircleMembersViewController alloc] init];
     cmvc.circleId = self.circleId;
     [self pushVC:cmvc];
+}
+
+- (void)noticeListPress:(id)sender
+{
+    CircleNoticeListViewController * cnlv = [[CircleNoticeListViewController alloc] init];
+    cnlv.circleID                         = self.circleId;
+    cnlv.isManager                        = self.circleModel.managerId == [UserService sharedService].user.uid;
+    [self pushVC:cnlv];
 }
 
 //顶部成员头像点击
@@ -617,7 +659,7 @@
             lineNum++;
         }
         CGFloat itemWidth = ([DeviceManager getDeviceWidth]-100) / 3;
-        height            += lineNum*(itemWidth+10)+15;
+        height            += lineNum*(itemWidth+10)+15-10;
     }
     
     //时间
@@ -634,7 +676,6 @@
     
     //底部操作栏
     height += 45;
-    
     return height;
 }
 /*

@@ -125,8 +125,12 @@
 //notifyKey
 //状态回复消息或点赞到来
 #define NOTIFY_NEWS_PUSH @"newsPush"
+//圈子主页刷新
+#define NOTIFY_CIRCLE_LIST @"circleList"
 //发送完状态 刷新通知
 #define NOTIFY_PUBLISH_NEWS @"publishNews"
+//发送完状态公告刷新
+#define NOTIFY_PUBLISH_NOTICE @"publishNotice"
 //tab栏徽标更新通知
 #define NOTIFY_TAB_BADGE @"tabBadge"
 //ip5

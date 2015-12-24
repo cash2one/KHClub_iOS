@@ -7,7 +7,7 @@
 //
 
 #import "RefreshViewController.h"
-
+//新闻列表
 @interface NewsListViewController : RefreshViewController
 
 @end

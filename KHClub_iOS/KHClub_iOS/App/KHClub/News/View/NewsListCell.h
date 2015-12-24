@@ -32,6 +32,6 @@
 @property (nonatomic, weak) id<NewsListDelegate> delegate;
 
 /*! 内容填充*/
-- (void)setConentWithModel:(NewsModel *)news;
+- (void)setContentWithModel:(NewsModel *)news;
 
 @end

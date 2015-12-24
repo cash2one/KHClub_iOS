@@ -144,6 +144,7 @@
 "News_CircleDetail_Title"                     = "圈子介绍";
 "News_CircleDetail_IntroTitle"                = "圈子详情";
 "News_CircleDetail_ModifyCircle"              = "修改资料";
+"News_PublishCircleNotice_Title"              = "公告";
 "News_Publish_EnterContent"                   = "请输入内容";
 "News_Publish_Where"                          = "所在位置";
 "News_Publish_ContentEmpty"                   = "图片和内容不能都为空";
@@ -199,8 +200,8 @@
 "Circle_Circle_WechatQrcodeTitle"             = "公众号二维码";
 "Circle_Circle_WebTitle"                      = "圈子网址";
 "Circle_Circle_CircleName"                    = "圈子名称：";
-"Circle_Circle_CircleManager"                 = "圈主：";
-"Circle_Circle_CircleMember"                  = "圈达人";
+"Circle_Circle_CircleManager"                 = "圈主";
+"Circle_Circle_CircleMember"                  = "圈会员";
 
 //Message
 "Message_Message_ScanQrcode"                  = "扫描二维码";

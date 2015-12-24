@@ -134,13 +134,14 @@
     
     //圈子
     [self.circleBtn setTitleColor:[UIColor colorWithHexString:@"323232"] forState:UIControlStateNormal];
-    self.circleBtn.titleLabel.font            = [UIFont systemFontOfSize:11];
-    self.circleBtn.frame                      = CGRectMake(self.headImageView.x, 0, 190, 20);
+    self.circleBtn.titleLabel.font            = [UIFont systemFontOfSize:12];
+    self.circleBtn.frame                      = CGRectMake(self.headImageView.x, 0, self.viewWidth-self.headImageView.x-10, 20);
     self.circleBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.circleBtn.titleLabel.numberOfLines   = 0;
     //地理位置
     [self.locationBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlue] forState:UIControlStateNormal];
     [self.locationBtn setImage:[UIImage imageNamed:@"location"] forState:UIControlStateNormal];
-    self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:11];
+    self.locationBtn.titleLabel.font            = [UIFont systemFontOfSize:12];
     self.locationBtn.frame                      = CGRectMake(self.headImageView.x, 0, 190, 20);
     self.locationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     //时间
@@ -276,7 +277,7 @@
     
     //学校
     self.jobLabel.frame          = CGRectMake(self.nameLabel.x, self.nameLabel.bottom, 250, 20);
-    self.jobLabel.text           = [NSString stringWithFormat:@"%@ | %@", self.news.job, self.news.company];
+    self.jobLabel.text           = [NSString stringWithFormat:@"%@ | %@", [ToolsManager emptyReturnNone:self.news.job], [ToolsManager emptyReturnNone:self.news.company]];
     //内容
     CGSize contentSize       = [ToolsManager getSizeWithContent:self.news.content_text andFontSize:15 andFrame:CGRectMake(0, 0, [DeviceManager getDeviceWidth]-30, MAXFLOAT)];
     if (self.news.content_text == nil || self.news.content_text.length < 1) {
@@ -333,13 +334,22 @@
         }
     }
     
-    //地址按钮 没有不显示
+    //圈子部分 没有不显示
     if (self.news.circle_arr.count > 0) {
-        NSString * circleTitle = [NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsList_CircleFrom"), [self.news.circle_arr componentsJoinedByString:@","]];
+        //字符串拼接
+        NSMutableAttributedString * circleTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsList_CircleFrom"), [self.news.circle_arr componentsJoinedByString:@","]]];
+        //大小计算
+        CGSize circleSize      = [ToolsManager getSizeWithContent:circleTitle.string andFontSize:12 andFrame:CGRectMake(0, 0, self.circleBtn.width, MAXFLOAT)];
+        if (circleSize.height > 12) {
+            self.circleBtn.height  = circleSize.height;
+        }
+        [circleTitle addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"dfb574"] range:NSMakeRange([KHClubString(@"News_NewsList_CircleFrom") length]+1, circleTitle.length-[KHClubString(@"News_NewsList_CircleFrom") length]-1)];
+        [self.circleBtn setAttributedTitle:circleTitle forState:UIControlStateNormal];
+        //位置
         self.circleBtn.y       = bottomPosition+5;
-        bottomPosition         = self.circleBtn.bottom;
         self.circleBtn.hidden  = NO;
-        [self.circleBtn setTitle:circleTitle forState:UIControlStateNormal];
+        bottomPosition         = self.circleBtn.bottom;
+        
     }else{
         self.circleBtn.hidden = YES;
     }

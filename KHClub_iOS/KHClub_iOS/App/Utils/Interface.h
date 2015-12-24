@@ -89,6 +89,18 @@
 // 我关注的圈子列表
 #define kGetMyFollowCircleListPath [kHomeAddr stringByAppendingString:@"/getMyFollowCircleList"]
 
+// 发布圈子公告
+#define kPostNewNoticePath [kHomeAddr stringByAppendingString:@"/postNewNotice"]
+
+// 获取公告列表
+#define kGetNoticeListPath [kHomeAddr stringByAppendingString:@"/getNoticeList"]
+
+// 发公告评论
+#define kSendNoticeCommentPath [kHomeAddr stringByAppendingString:@"/sendNoticeComment"]
+
+// 公告点赞
+#define kNoticeLikeOrCancelPath [kHomeAddr stringByAppendingString:@"/noticeLikeOrCancel"]
+
 ////////////////////////////////////////////////个人信息////////////////////////////////////////////////
 //修改个人信息
 #define kChangePersonalInformationPath [kHomeAddr stringByAppendingString:@"/changePersonalInformation"]

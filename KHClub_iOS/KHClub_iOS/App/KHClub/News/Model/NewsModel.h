@@ -27,55 +27,55 @@ enum {
 @interface NewsModel : NSObject
 
 /*! 该条状态的id*/
-@property (nonatomic, assign) NSInteger nid;
+@property (nonatomic, assign) NSInteger      nid;
 
 /*! 用户Id*/
-@property (nonatomic, assign) NSInteger uid;
+@property (nonatomic, assign) NSInteger      uid;
 
 /*! 用户昵称*/
-@property (nonatomic, copy) NSString * name;
+@property (nonatomic, copy  ) NSString       * name;
 
 /*! 头像*/
-@property (nonatomic, copy) NSString * head_image;
+@property (nonatomic, copy  ) NSString       * head_image;
 
 /*! 头像缩略图*/
-@property (nonatomic, copy) NSString * head_sub_image;
+@property (nonatomic, copy  ) NSString       * head_sub_image;
 
 /*! 公司*/
-@property (nonatomic, copy) NSString * company;
+@property (nonatomic, copy  ) NSString       * company;
 
 /*! 工作*/
-@property (nonatomic, copy) NSString * job;
+@property (nonatomic, copy  ) NSString       * job;
 
 /*! 消息体*/
-@property (nonatomic, copy) NSString * content_text;
+@property (nonatomic, copy  ) NSString       * content_text;
 
 /*! 是否拥有图片*/
-@property (nonatomic, assign) BOOL has_picture;
+@property (nonatomic, assign) BOOL           has_picture;
 
 /*! 是否拥有录像*/
-@property (nonatomic, assign) BOOL has_video;
+@property (nonatomic, assign) BOOL           has_video;
 
 /*! 是否拥有声音*/
-@property (nonatomic, assign) BOOL has_voice;
+@property (nonatomic, assign) BOOL           has_voice;
 
 /*! 地址*/
-@property (nonatomic, copy) NSString * location;
+@property (nonatomic, copy  ) NSString       * location;
 
 /*! 评论次数*/
-@property (nonatomic, assign) NSInteger comment_quantity;
+@property (nonatomic, assign) NSInteger      comment_quantity;
 
 /*! 浏览次数*/
-@property (nonatomic, assign) NSInteger browse_quantity;
+@property (nonatomic, assign) NSInteger      browse_quantity;
 
 /*! 点赞次数*/
-@property (nonatomic, assign) NSInteger like_quantity;
+@property (nonatomic, assign) NSInteger      like_quantity;
 
 /*! 发布日期*/
-@property (nonatomic, copy) NSString * publish_date;
+@property (nonatomic, copy  ) NSString       * publish_date;
 
 /*! 发布时间戳*/
-@property (nonatomic, copy) NSString * publish_time;
+@property (nonatomic, copy  ) NSString       * publish_time;
 
 /*! 图片数组*/
 @property (nonatomic, strong) NSMutableArray * image_arr;
@@ -90,10 +90,10 @@ enum {
 @property (nonatomic, strong) NSMutableArray * circle_arr;
 
 /*! 是否点过赞*/
-@property (nonatomic, assign) BOOL is_like;
+@property (nonatomic, assign) BOOL           is_like;
 
 /*! 类型字典*/
-@property (nonatomic, strong) NSDictionary * typeDic;
+@property (nonatomic, strong) NSDictionary   * typeDic;
 
 - (void)setContentWithDic:(NSDictionary *)newsDic;
 

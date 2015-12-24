@@ -57,40 +57,11 @@
 #pragma mark- layout
 - (void)initWidget
 {
-//    self.unreadView = [[UIView alloc] init];
-//    [self.navBar addSubview:self.unreadView];
+
 }
 
 - (void)configUI
 {
-//    [self setNavBarTitle:KHClubString(@"Common_Main_Home")];
-//    
-//    __weak typeof(self) sself = self;
-//    //左上角通知
-//    [self.navBar setLeftBtnWithContent:@"" andBlock:^{
-//        NotifyNewsViewController * nnvc = [[NotifyNewsViewController alloc] init];
-//        [sself pushVC:nnvc];
-//    }];
-//    //右上角发布
-//    [self.navBar setRightBtnWithContent:@"" andBlock:^{
-//        PublishNewsViewController * pnvc = [[PublishNewsViewController alloc] init];
-//        [sself pushVC:pnvc];
-//    }];
-//    
-//    
-//    self.navBar.leftBtn.hidden = NO;
-//    self.navBar.leftBtn.imageEdgeInsets        = UIEdgeInsetsMake(2, 6, 0, 16);
-//    self.navBar.leftBtn.imageView.contentMode  = UIViewContentModeScaleAspectFit;
-//    self.navBar.rightBtn.imageEdgeInsets       = UIEdgeInsetsMake(12, 26, 12, 0);
-//    self.navBar.rightBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
-//    
-//    [self.navBar.leftBtn setImage:[UIImage imageNamed:@"news_notice_normal"] forState:UIControlStateNormal];
-//    [self.navBar.rightBtn setImage:[UIImage imageNamed:@"news_publish_normal"] forState:UIControlStateNormal];
-//    
-//    //未读
-//    self.unreadView.frame              = CGRectMake(30, 29, 6, 6);
-//    self.unreadView.layer.cornerRadius = 3;
-//    self.unreadView.backgroundColor    = [UIColor redColor];
     self.navBar.hidden          = YES;
     self.refreshTableView.frame = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight);
 }
@@ -134,7 +105,7 @@
         cell          = [[NewsListCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
         cell.delegate = self;
     }
-    [cell setConentWithModel:self.dataArr[indexPath.row]];
+    [cell setContentWithModel:self.dataArr[indexPath.row]];
     
     return cell;
 }
@@ -191,7 +162,6 @@
     
     //成功失败都没反应
     [HttpService postWithUrlString:kLikeOrCancelPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
-        //        debugLog(@"%@", responseData);
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
         
     }];
@@ -271,23 +241,7 @@
 {
     //刷新页面
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newNewsPublish:) name:NOTIFY_PUBLISH_NEWS object:nil];
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshNotify:) name:NOTIFY_NEWS_PUSH object:nil];
-//    [self refreshNotify:nil];
 }
-
-//- (void)refreshNotify:(id)sender
-//{
-//    
-//    //徽标 最多显示99
-//    //未读推送
-//    NSInteger newsUnreadCount = [NewsPushModel findUnreadCount].count;
-//    if (newsUnreadCount > 0) {
-//        self.unreadView.hidden = NO;
-//    }else{
-//        self.unreadView.hidden = YES;
-//    }
-//
-//}
 
 //新消息发布成功刷新页面
 - (void)newNewsPublish:(NSNotification *)notify
@@ -332,7 +286,7 @@
             lineNum++;
         }
         CGFloat itemWidth = ([DeviceManager getDeviceWidth]-100) / 3;
-        height            += lineNum*(itemWidth+10)+15;
+        height            += lineNum*(itemWidth+10)+15-10;
     }
     
     //时间
@@ -363,7 +317,7 @@
 //        CGSize nameSize        = [ToolsManager getSizeWithContent:commentStr andFontSize:14 andFrame:CGRectMake(0, 0, self.viewWidth-30, MAXFLOAT)];
 //        height                 = height + nameSize.height+5;
 //    }
-    
+
     return height;
 }
 

@@ -32,6 +32,7 @@
     self.refreshTableView.footLabel.hidden             = YES;
     self.refreshTableView.showsVerticalScrollIndicator = NO;
 
+    [self registerNotify];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -192,6 +193,13 @@
 #pragma mark- method response
 
 #pragma mark- private method
+//注册通知
+- (void)registerNotify
+{
+    //刷新页面
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:NOTIFY_CIRCLE_LIST object:nil];
+}
+
 - (void)loadAndhandleData
 {
     

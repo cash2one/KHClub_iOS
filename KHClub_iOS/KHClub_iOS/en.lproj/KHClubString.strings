@@ -143,6 +143,7 @@
 "News_CircleList_Unfollow"                    = "Unfollow";
 "News_CircleDetail_Title"                     = "Circle Detail";
 "News_CircleDetail_ModifyCircle"              = "Modify Circle";
+"News_PublishCircleNotice_Title"              = "Notice";
 "News_CircleDetail_IntroTitle"                = "Circle Intro";
 "News_Publish_EnterContent"                   = "Please enter content";
 "News_Publish_Where"                          = "Where";
@@ -199,7 +200,7 @@
 "Circle_Circle_WechatQrcodeTitle"             = "Qrcode";
 "Circle_Circle_WebTitle"                      = "Web";
 "Circle_Circle_CircleName"                    = "Name：";
-"Circle_Circle_CircleManager"                 = "Master：";
+"Circle_Circle_CircleManager"                 = "Master";
 "Circle_Circle_CircleMember"                  = "Member";
 
 //Message
