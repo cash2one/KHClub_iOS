@@ -10,6 +10,7 @@
 #import "NewsPushModel.h"
 #import "NewsPushCell.h"
 #import "NewsDetailViewController.h"
+#import "CircleNoticeDetailViewController.h"
 #import "UIImageView+WebCache.h"
 
 @interface NotifyNewsViewController ()
@@ -147,9 +148,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NewsPushModel * news            = self.dataArr[indexPath.row];
+    if (news.type == PushNoticeComment) {
+        CircleNoticeDetailViewController * cndvc = [[CircleNoticeDetailViewController alloc] init];
+        cndvc.noticeID                           = news.news_id;
+        [self pushVC:cndvc];
+        return;
+    }
+    
     
     NewsDetailViewController * ndvc = [[NewsDetailViewController alloc] init];
-    NewsPushModel * news            = self.dataArr[indexPath.row];
     ndvc.newsId                     = news.news_id;
     [self pushVC:ndvc];
     

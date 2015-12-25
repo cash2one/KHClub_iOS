@@ -145,7 +145,7 @@
     self.locationBtn.frame                      = CGRectMake(self.headImageView.x, 0, 190, 20);
     self.locationBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     //时间
-    self.timeLabel.frame                        = CGRectMake(self.headImageView.x, 0, 250, 25);
+    self.timeLabel.frame                        = CGRectMake(self.headImageView.x, 0, 250, 20);
     self.timeLabel.font                         = [UIFont systemFontOfSize:12];
     self.timeLabel.textColor                    = [UIColor colorWithHexString:ColorLightBlack];
 
@@ -333,14 +333,14 @@
             }
         }
     }
-    
+
     //圈子部分 没有不显示
     if (self.news.circle_arr.count > 0) {
         //字符串拼接
         NSMutableAttributedString * circleTitle = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsList_CircleFrom"), [self.news.circle_arr componentsJoinedByString:@","]]];
         //大小计算
         CGSize circleSize      = [ToolsManager getSizeWithContent:circleTitle.string andFontSize:12 andFrame:CGRectMake(0, 0, self.circleBtn.width, MAXFLOAT)];
-        if (circleSize.height > 12) {
+        if (circleSize.height > 20) {
             self.circleBtn.height  = circleSize.height;
         }
         [circleTitle addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithHexString:@"dfb574"] range:NSMakeRange([KHClubString(@"News_NewsList_CircleFrom") length]+1, circleTitle.length-[KHClubString(@"News_NewsList_CircleFrom") length]-1)];
@@ -369,7 +369,7 @@
     self.timeLabel.text      = timeStr;
     
     //点赞按钮
-    self.likeBtn.frame      = CGRectMake([DeviceManager getDeviceWidth]-65, bottomPosition+3, 60, 25);
+    self.likeBtn.frame      = CGRectMake([DeviceManager getDeviceWidth]-65, bottomPosition, 60, 25);
     if (self.news.is_like) {
         [self.likeBtn setImage:[UIImage imageNamed:@"like_btn_press"] forState:UIControlStateNormal];
     }else{
@@ -413,7 +413,6 @@
     UIView * bottomLineView        = [[UIView alloc] initWithFrame:CGRectMake(0, bottomPosition+39, self.viewWidth, 1)];
     bottomLineView.backgroundColor = [UIColor colorWithHexString:ColorLightGary];
     [backView addSubview:bottomLineView];
-    
     return backView;
 }
 
@@ -720,9 +719,9 @@
             
             //如果是自己柯以删除
             if ([UserService sharedService].user.uid == news.uid) {
-                
+                self.navBar.rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
                 //右上角设置
-                __weak typeof(self) weakSelf = self;
+                __weak typeof(self) weakSelf         = self;
                 [self.navBar setRightBtnWithContent:@"" andBlock:^{
                     [weakSelf deleteNewsClick:weakSelf.news];
                 }];
@@ -854,8 +853,8 @@
     if (self.news.content_text == nil || self.news.content_text.length < 1) {
         contentSize.height = 0;
     }
-    //头像50 时间25 评论40 还有15的底线
-    NSInteger cellOtherHeight = 60+28+55;
+    //头像55 时间25 评论40 还有20的底线
+    NSInteger cellOtherHeight = 55+25+40+20;
     
     CGFloat height;
     if (self.news.image_arr.count < 1) {
@@ -877,10 +876,17 @@
         CGFloat itemWidth = [DeviceManager getDeviceWidth]/5.0;
         height            = cellOtherHeight+contentSize.height+lineNum*(itemWidth+10);
     }
-
     //圈子
     if (self.news.circle_arr.count > 0) {
-        height += 25;
+        
+        //字符串拼接
+        NSString * circleTitle = [NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsList_CircleFrom"), [self.news.circle_arr componentsJoinedByString:@","]];
+        //大小计算
+        CGSize circleSize      = [ToolsManager getSizeWithContent:circleTitle andFontSize:12 andFrame:CGRectMake(0, 0, self.circleBtn.width, MAXFLOAT)];
+        if (circleSize.height <= 20) {
+            circleSize.height = 20;
+        }
+        height += circleSize.height+5;
     }
     
     //地址
@@ -892,7 +898,6 @@
 //    if (self.news.circle_arr.count > 0) {
 //        height += 25;
 //    }
-    
     return height;
 }
 

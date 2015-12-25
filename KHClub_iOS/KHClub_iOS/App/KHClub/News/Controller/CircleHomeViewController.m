@@ -135,44 +135,25 @@
     
     self.backView.frame                     = CGRectMake(0, 0, self.viewWidth, 135);
     self.backView.backgroundColor           = [UIColor whiteColor];
-    self.coverImageView.frame               = CGRectMake(10, 20, 57, 57);
-    self.coverImageView.layer.cornerRadius  = 3;
+    self.coverImageView.frame               = CGRectMake(10, 20, 76, 76);
+    self.coverImageView.layer.cornerRadius  = 4;
     self.coverImageView.layer.masksToBounds = YES;
 
     //标题
-    self.circleTitleLabel.frame             = CGRectMake(self.coverImageView.right+10, self.coverImageView.y, self.viewWidth-self.coverImageView.right-100, 13);
-    self.circleTitleLabel.font              = [UIFont systemFontOfSize:13];
+    self.circleTitleLabel.frame             = CGRectMake(self.coverImageView.right+15, self.coverImageView.y+5, self.viewWidth-self.coverImageView.right-100, 16);
+    self.circleTitleLabel.font              = [UIFont systemFontOfSize:16];
     //人名
-    self.circleNameLabel.frame              = CGRectMake(self.coverImageView.right+10, self.circleTitleLabel.bottom+6, self.viewWidth-self.coverImageView.right-30, 13);
-    self.circleNameLabel.font               = [UIFont systemFontOfSize:13];
+    self.circleNameLabel.frame              = CGRectMake(self.coverImageView.right+15, self.circleTitleLabel.bottom+10, self.viewWidth-self.coverImageView.right-30, 16);
+    self.circleNameLabel.font               = [UIFont systemFontOfSize:16];
     //成员数量图片
     CustomImageView * countImageView        = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"member"]];
-    countImageView.frame                    = CGRectMake(self.coverImageView.right+10, self.circleNameLabel.bottom+6, 15, 15);
-    //成员列表
-    self.circleFansView.frame               = CGRectMake(0, self.coverImageView.bottom+5, self.viewWidth, 30);
-    self.circleNoticeView.frame             = CGRectMake(0, self.circleFansView.bottom, self.viewWidth, 30);
-    
-    //圈达人图标
-    CustomImageView * noticeImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"members_cover"]];
-    noticeImageView.frame             = CGRectMake(self.coverImageView.x, 10, 20, 20);
-    //圈达人标题
-    CustomLabel * noticeTitleLabel    = [[CustomLabel alloc] initWithFontSize:12];
-    noticeTitleLabel.textColor        = [UIColor colorWithHexString:ColorDeepBlack];
-    noticeTitleLabel.frame            = CGRectMake(noticeImageView.right+5, 14, 50, 12);
-    noticeTitleLabel.text             = KHClubString(@"Circle_Circle_CircleMember");
-    //内容
-    self.noticeLabel.frame            = CGRectMake(noticeTitleLabel.right+5, 0, self.viewWidth-noticeTitleLabel.right-15, 40);
-    self.noticeLabel.font             = [UIFont systemFontOfSize:15];
-    self.noticeLabel.lineBreakMode    = NSLineBreakByTruncatingTail;
-    [self.circleNoticeView addSubview:noticeImageView];
-    [self.circleNoticeView addSubview:noticeTitleLabel];
-    
+    countImageView.frame                    = CGRectMake(self.coverImageView.right+15, self.circleNameLabel.bottom+10, 13, 14);
     //成员数量
-    self.circleFansCountLabel.frame         = CGRectMake(countImageView.right+5, self.circleNameLabel.bottom+7, self.viewWidth-self.coverImageView.right-30, 13);
+    self.circleFansCountLabel.frame         = CGRectMake(countImageView.right+5, self.circleNameLabel.bottom+11, self.viewWidth-self.coverImageView.right-30, 13);
     self.circleFansCountLabel.font          = [UIFont systemFontOfSize:13];
-
+    
     //关注按钮
-    self.followBtn.frame                    = CGRectMake([DeviceManager getDeviceWidth]-75, 39, 60, 22);
+    self.followBtn.frame                    = CGRectMake([DeviceManager getDeviceWidth]-75, 47, 60, 22);
     [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
     [self.followBtn setTitleColor:[UIColor colorWithHexString:ColorGold] forState:UIControlStateNormal];
     self.followBtn.layer.cornerRadius       = 3;
@@ -180,9 +161,31 @@
     self.followBtn.titleLabel.font          = [UIFont systemFontOfSize:13];
     self.followBtn.layer.borderWidth        = 1;
     self.followBtn.hidden                   = YES;
+    
+    //成员列表
+    self.circleFansView.frame               = CGRectMake(0, self.coverImageView.bottom+10, self.viewWidth, 30);
+    self.circleNoticeView.frame             = CGRectMake(0, self.circleFansView.bottom+10, self.viewWidth, 30);
+    
+    //圈公告图标
+    CustomImageView * noticeImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"circle_notice"]];
+    noticeImageView.frame             = CGRectMake(self.coverImageView.x, 2.5, 25, 25);
+    //圈公告标题
+    CustomLabel * noticeTitleLabel    = [[CustomLabel alloc] initWithFontSize:14];
+    noticeTitleLabel.textColor        = [UIColor colorWithHexString:ColorDeepBlack];
+    noticeTitleLabel.frame            = CGRectMake(noticeImageView.right+10, 8, 60, 14);
+    noticeTitleLabel.text             = KHClubString(@"Circle_Circle_CircleNotice");
+    //内容
+    self.noticeLabel.frame            = CGRectMake(noticeTitleLabel.right+15, 0, self.viewWidth-noticeTitleLabel.right-25, 30);
+    self.noticeLabel.textColor        = [UIColor colorWithHexString:ColorLightBlack];
+    self.noticeLabel.font             = [UIFont systemFontOfSize:13];
+    self.noticeLabel.lineBreakMode    = NSLineBreakByTruncatingTail;
+
+    [self.circleNoticeView addSubview:noticeImageView];
+    [self.circleNoticeView addSubview:noticeTitleLabel];
+    
     //线
-    UIView * lineView                       = [[UIView alloc] initWithFrame:CGRectMake(0, self.circleNoticeView.bottom+8, self.viewWidth, 5)];
-    lineView.backgroundColor                = [UIColor colorWithHexString:ColorLightGary];
+    UIView * lineView                       = [[UIView alloc] initWithFrame:CGRectMake(0, self.circleNoticeView.bottom+10, self.viewWidth, 5)];
+    lineView.backgroundColor                = [UIColor colorWithHexString:@"efeff4"];
     [self.backView addSubview:lineView];
     [self.backView addSubview:countImageView];
     
@@ -306,7 +309,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 165;
+    return 95+96;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -329,15 +332,14 @@
     
     //圈达人图标
     CustomImageView * memberImageView = [[CustomImageView alloc] initWithImage:[UIImage imageNamed:@"members_cover"]];
-    memberImageView.frame             = CGRectMake(self.coverImageView.x, 10, 20, 20);
+    memberImageView.frame             = CGRectMake(self.coverImageView.x, 2.5, 25, 25);
     //圈达人标题
-    CustomLabel * memberTitleLabel    = [[CustomLabel alloc] initWithFontSize:12];
+    CustomLabel * memberTitleLabel    = [[CustomLabel alloc] initWithFontSize:14];
     memberTitleLabel.textColor        = [UIColor colorWithHexString:ColorDeepBlack];
-    memberTitleLabel.frame            = CGRectMake(memberImageView.right+5, 14, 50, 12);
+    memberTitleLabel.frame            = CGRectMake(memberImageView.right+10, 8, 60, 14);
     memberTitleLabel.text             = KHClubString(@"Circle_Circle_CircleMember");
     [self.circleFansView addSubview:memberImageView];
     [self.circleFansView addSubview:memberTitleLabel];
-    
     //公告
     self.noticeLabel.text  = self.noticeContent;
     
@@ -348,7 +350,7 @@
     
     for (int i=0; i<membersCount; i++) {
         UserModel * model = self.membersArray[i];
-        CustomImageView * fansImageView      = [[CustomImageView alloc] initWithFrame:CGRectMake(85+i*35, 5, 30, 30)];
+        CustomImageView * fansImageView      = [[CustomImageView alloc] initWithFrame:CGRectMake(120+i*40, 0, 30, 30)];
         fansImageView.layer.cornerRadius     = 15;
         fansImageView.layer.masksToBounds    = YES;
         fansImageView.userInteractionEnabled = YES;
@@ -538,7 +540,7 @@
 
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
-            
+
             if (self.currentPage <= 1) {
                 //获取内容
                 [self.membersArray removeAllObjects];
@@ -566,6 +568,12 @@
                 self.circleModel.phone_num              = cicleDic[@"phone_num"];
                 self.circleModel.managerId              = [cicleDic[@"user_id"] integerValue];
                 self.circleModel.follow_quantity        = [cicleDic[@"follow_quantity"] integerValue];
+                
+                //公告
+                NSDictionary * dic     = responseData[HttpResult][@"newNotice"];
+                NSString * contentText = [dic objectForKey:@"content_text"];
+                self.noticeContent  = [ToolsManager emptyReturnNone:contentText];
+
             }
             
             if (self.circleModel.isFollow) {

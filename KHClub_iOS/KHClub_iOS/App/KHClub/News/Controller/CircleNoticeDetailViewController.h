@@ -9,6 +9,9 @@
 #import "BaseViewController.h"
 
 //公告详情
-@interface CircleNoticeDetailViewController : BaseViewController
+@interface CircleNoticeDetailViewController : BaseViewController<UITableViewDelegate, UITableViewDataSource>
+
+//公告ID
+@property (nonatomic, assign) NSInteger noticeID;
 
 @end

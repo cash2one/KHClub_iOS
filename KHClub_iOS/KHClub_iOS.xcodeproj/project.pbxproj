@@ -170,6 +170,7 @@
 		42C2305C1BE70105002A185B /* KHClubString.strings in Resources */ = {isa = PBXBuildFile; fileRef = 42C2305E1BE70105002A185B /* KHClubString.strings */; };
 		42C89B181C0D3EB3004765EF /* CardChooseUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C89B171C0D3EB3004765EF /* CardChooseUserViewController.m */; };
 		42C89B5A1C0D73E6004765EF /* KHChatCardBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C89B591C0D73E6004765EF /* KHChatCardBubbleView.m */; };
+		42CA37A81C2D225000FBE8C2 /* circle_notice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA37A71C2D225000FBE8C2 /* circle_notice@2x.png */; };
 		42CD7F741C05A89600BA129C /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CD7F731C05A89600BA129C /* CardViewController.m */; };
 		42D0DAFE1C17D74A00499D83 /* CreateCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0DAFD1C17D74A00499D83 /* CreateCircleViewController.m */; };
 		42D0DB011C182F5700499D83 /* MyCircleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0DB001C182F5700499D83 /* MyCircleListViewController.m */; };
@@ -877,6 +878,7 @@
 		42C89B171C0D3EB3004765EF /* CardChooseUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardChooseUserViewController.m; sourceTree = "<group>"; };
 		42C89B581C0D73E6004765EF /* KHChatCardBubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KHChatCardBubbleView.h; sourceTree = "<group>"; };
 		42C89B591C0D73E6004765EF /* KHChatCardBubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KHChatCardBubbleView.m; sourceTree = "<group>"; };
+		42CA37A71C2D225000FBE8C2 /* circle_notice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_notice@2x.png"; sourceTree = "<group>"; };
 		42CD7F721C05A89600BA129C /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		42CD7F731C05A89600BA129C /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
 		42D0DAFC1C17D74A00499D83 /* CreateCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCircleViewController.h; sourceTree = "<group>"; };
@@ -3794,6 +3796,7 @@
 		42FDE2381BE7052300825E5E /* news */ = {
 			isa = PBXGroup;
 			children = (
+				42CA37A71C2D225000FBE8C2 /* circle_notice@2x.png */,
 				42DC16441C201A13004CA2C4 /* publish_news_big@2x.png */,
 				42DC16401C1FEB25004CA2C4 /* member@2x.png */,
 				42DC16411C1FEB25004CA2C4 /* members_cover@2x.png */,
@@ -4163,6 +4166,7 @@
 				42ED92DA1BF1DB9400E59147 /* chatBar_textBg@2x.png in Resources */,
 				42D1D6101BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png in Resources */,
 				42ED931A1BF1DB9400E59147 /* chat_receiver_audio_playing003.png in Resources */,
+				42CA37A81C2D225000FBE8C2 /* circle_notice@2x.png in Resources */,
 				42ED92E31BF1DB9400E59147 /* faceDelete.png in Resources */,
 				42ED93211BF1DB9400E59147 /* chat_sender_audio_playing_000@2x.png in Resources */,
 				42F1503F1C02E41C00D1A8E4 /* icon_manager_name@2x.png in Resources */,

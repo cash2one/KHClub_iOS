@@ -82,11 +82,11 @@
     self.contentLabel.numberOfLines          = 2;
     self.contentLabel.font                   = [UIFont systemFontOfSize:FontListContent];
     self.contentLabel.textColor              = [UIColor colorWithHexString:ColorDeepBlack];
+    self.contentLabel.lineBreakMode          = NSLineBreakByCharWrapping;
     //时间
-    self.timeLabel.frame                  = CGRectMake(self.contentLabel.x, 0, 100, 12);
+    self.timeLabel.frame                  = CGRectMake(self.contentLabel.x, 0, 200, 12);
     self.timeLabel.font                   = [UIFont systemFontOfSize:12];
     self.timeLabel.textColor              = [UIColor colorWithHexString:ColorLightBlack];
-    
     //操作背景
     self.operateView.frame          = CGRectMake(0, 0, [DeviceManager getDeviceWidth], 30);
     self.commentBtn.frame           = CGRectMake(0, 0, [DeviceManager getDeviceWidth]/2, 30);
@@ -124,20 +124,19 @@
 /*! 内容填充*/
 - (void)setContentWithModel:(CircleNoticeModel *)notice
 {
-    self.notice        = notice;
-    //内容
-    CGSize contentSize = [ToolsManager getSizeWithContent:notice.content_text andFontSize:FontListContent andFrame:CGRectMake(0, 0, self.contentLabel.width, MAXFLOAT)];
-    //内容长度计算
-    if (notice.content_text == nil || notice.content_text.length < 1) {
-        self.contentLabel.height = 0;
-    }else if (contentSize.height < 20) {
-        //单行
-        self.contentLabel.height = 18;
-    }else if (contentSize.height > 20) {
-        //双行
-        self.contentLabel.height = 36;
-    }
-    self.contentLabel.text = notice.content_text;
+    self.notice                    = notice;
+    
+    //特殊处理文字
+    NSMutableParagraphStyle * para = [[NSMutableParagraphStyle alloc] init];
+    para.lineBreakMode             = NSLineBreakByCharWrapping;
+    para.lineSpacing               = 10;
+    NSDictionary * dic             = @{NSFontAttributeName : [UIFont systemFontOfSize:FontListContent],
+                                       NSParagraphStyleAttributeName : para};
+    CGRect rect                                  = [self.notice.content_text boundingRectWithSize:CGSizeMake(self.contentLabel.width, 45) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
+    self.contentLabel.height                     = rect.size.height;
+    NSMutableAttributedString * attributedString = [[NSMutableAttributedString alloc] initWithString:notice.content_text];
+    [attributedString addAttribute:NSParagraphStyleAttributeName value:para range:NSMakeRange(0, [notice.content_text length])];
+    self.contentLabel.attributedText             = attributedString;
 
     //底部位置
     CGFloat bottomPosition = self.contentLabel.bottom;
@@ -145,8 +144,6 @@
     //时间
     NSString * timeStr       = [ToolsManager compareCurrentTime:notice.publish_date];
     //算长度
-    CGSize lengthSize        = [ToolsManager getSizeWithContent:timeStr andFontSize:13 andFrame:CGRectMake(0, 0, 200, 30)];
-    self.timeLabel.width     = lengthSize.width;
     self.timeLabel.y         = bottomPosition+15;
     self.timeLabel.text      = timeStr;
     bottomPosition           = self.timeLabel.bottom;

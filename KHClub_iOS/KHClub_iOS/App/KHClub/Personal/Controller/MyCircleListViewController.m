@@ -99,8 +99,12 @@
 {
     
     NSString * url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyCircleListPath, [UserService sharedService].user.uid];
-    if (self.userId != nil) {
+    if (self.userId != 0) {
         url = [NSString stringWithFormat:@"%@?user_id=%ld", kGetMyCircleListPath, self.userId];
+    }
+    
+    if (self.newsId != 0) {
+        //获取动态所属圈子接口
     }
     
     debugLog(@"%@", url);

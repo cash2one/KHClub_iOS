@@ -95,7 +95,7 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView * backView        = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.viewWidth, 30)];
-    backView.backgroundColor = [UIColor colorWithHexString:ColorLightGary];
+    backView.backgroundColor = [UIColor colorWithHexString:@"f7f9f8"];
     
     CustomLabel * titleLabel = [[CustomLabel alloc] initWithFrame:CGRectMake(10, 5, 200, 20)];
     titleLabel.font          = [UIFont systemFontOfSize:14];

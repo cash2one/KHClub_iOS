@@ -14,6 +14,7 @@
 #import "LikeModel.h"
 #import "OtherPersonalViewController.h"
 #import "NewsUtils.h"
+#import "MyCircleListViewController.h"
 
 @interface NewsListCell()
 
@@ -94,6 +95,8 @@
         [self.headImageBtn addTarget:self action:@selector(headClick:) forControlEvents:UIControlEventTouchUpInside];
         //评论
         [self.commentBtn addTarget:self action:@selector(sendCommentClick) forControlEvents:UIControlEventTouchUpInside];
+        //圈子点击
+        [self.circleBtn addTarget:self action:@selector(circleClick:) forControlEvents:UIControlEventTouchUpInside];
         //点赞
         [self.likeBtn addTarget:self action:@selector(sendLikeClick) forControlEvents:UIControlEventTouchUpInside];
         //长按内容复制
@@ -123,6 +126,8 @@
     self.jobBtn.frame                      = CGRectMake(self.nameLabel.x, self.nameLabel.bottom+10, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 14);
     self.jobBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
     self.jobBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.jobBtn.enabled                    = NO;
+    
     [self.jobBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlack] forState:UIControlStateNormal];
     //内容
     self.contentLabel.frame                  = CGRectMake(self.nameLabel.x, self.headImageBtn.bottom+20, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 0);
@@ -333,6 +338,12 @@
     [self browsePersonalHome:self.news.uid];
 }
 
+- (void)circleClick:(CustomButton *)sender
+{
+    MyCircleListViewController * mclvc = [[MyCircleListViewController alloc] init];
+    mclvc.newsId = self.news.nid;
+    [((BaseViewController *)self.delegate) pushVC:mclvc];
+}
 
 //长按复制
 - (void)longPressCopy:(UILongPressGestureRecognizer *)longPress
@@ -344,7 +355,6 @@
     }
 
 }
-
 
 //复制
 - (void)copyContnet:(id)sender

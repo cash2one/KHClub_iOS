@@ -18,7 +18,9 @@ typedef NS_ENUM(NSInteger, PushType){
     //点赞
     PushLikeNews      = 4,
     //成员邀请成员 发给群主的通知
-    PushGroupInvite   = 5
+    PushGroupInvite   = 5,
+    //公告中的评论
+    PushNoticeComment = 6
 };
 
 //该模型对应数据表 jlxc_news_push 该表中不存储类型为'添加好友'的推送类型

@@ -38,6 +38,16 @@
 //网站
 + (BOOL) validateWEB:(NSString *)content;
 
+/**
+ *  设置行间距
+ *
+ *  @param string      内容
+ *  @param lineSpacing 间距
+ *
+ *  @return 
+ */
++ (NSMutableAttributedString *)stringTransformToAttributedString:(NSString *)string withLineSpacing:(CGFloat)lineSpacing;
+
 /*!
  @method
  @brief 获取大小

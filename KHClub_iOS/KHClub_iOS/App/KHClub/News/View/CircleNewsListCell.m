@@ -141,6 +141,7 @@
     self.jobBtn.frame                      = CGRectMake(self.nameLabel.x, self.nameLabel.bottom+10, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 14);
     self.jobBtn.titleLabel.font            = [UIFont systemFontOfSize:14];
     self.jobBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    self.jobBtn.enabled                    = NO;
     [self.jobBtn setTitleColor:[UIColor colorWithHexString:ColorLightBlack] forState:UIControlStateNormal];
     //内容
     self.contentLabel.frame                  = CGRectMake(self.nameLabel.x, self.headImageBtn.bottom+20, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 0);

@@ -95,11 +95,17 @@
 // 获取公告列表
 #define kGetNoticeListPath [kHomeAddr stringByAppendingString:@"/getNoticeList"]
 
+// 获取公告详情
+#define kGetNoticeDetailsPath [kHomeAddr stringByAppendingString:@"/getNoticeDetails"]
+
 // 发公告评论
 #define kSendNoticeCommentPath [kHomeAddr stringByAppendingString:@"/sendNoticeComment"]
 
 // 公告点赞
 #define kNoticeLikeOrCancelPath [kHomeAddr stringByAppendingString:@"/noticeLikeOrCancel"]
+
+// 删除公告
+#define kDeleteNoticePath [kHomeAddr stringByAppendingString:@"/deleteNotice"]
 
 ////////////////////////////////////////////////个人信息////////////////////////////////////////////////
 //修改个人信息

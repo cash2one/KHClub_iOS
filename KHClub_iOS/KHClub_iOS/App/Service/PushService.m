@@ -94,6 +94,10 @@ static PushService *_shareInstance=nil;
             case PushGroupInvite:
                 [self handleGroupPush:dic];
                 break;
+                //公告中的评论
+            case PushNoticeComment:
+                [self handleNewsPush:dic];
+                break;
             default:
                 break;
         }

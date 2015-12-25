@@ -10,4 +10,14 @@
 
 @implementation CircleNoticeModel
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.comment_arr = [[NSMutableArray alloc] init];
+        self.like_arr    = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
 @end

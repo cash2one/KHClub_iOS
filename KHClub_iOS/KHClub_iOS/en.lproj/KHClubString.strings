@@ -202,6 +202,7 @@
 "Circle_Circle_CircleName"                    = "Name：";
 "Circle_Circle_CircleManager"                 = "Master";
 "Circle_Circle_CircleMember"                  = "Member";
+"Circle_Circle_CircleNotice"                  = "Notice";
 
 //Message
 "Message_Message_ScanQrcode"                  = "Scan QR code";

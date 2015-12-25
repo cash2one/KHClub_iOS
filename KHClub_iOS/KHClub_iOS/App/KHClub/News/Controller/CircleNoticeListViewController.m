@@ -7,6 +7,7 @@
 //
 
 #import "CircleNoticeListViewController.h"
+#import "CircleNoticeDetailViewController.h"
 #import "LikeModel.h"
 #import "CircleNoticeModel.h"
 #import "CircleNoticeCell.h"
@@ -29,7 +30,6 @@
     [self refreshData];
     [self registerNotify];
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -80,6 +80,10 @@
 #pragma mark- UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    CircleNoticeModel * notice               = self.dataArr[indexPath.row];
+    CircleNoticeDetailViewController * pcnvc = [[CircleNoticeDetailViewController alloc] init];
+    pcnvc.noticeID                           = notice.nid;
+    [self pushVC:pcnvc];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -214,13 +218,12 @@
 - (void)registerNotify
 {
     //刷新页面
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newNewsPublish:) name:NOTIFY_CIRCLE_LIST object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(newNewsPublish:) name:NOTIFY_PUBLISH_NOTICE object:nil];
 }
 
 //新消息发布成功刷新页面
 - (void)newNewsPublish:(NSNotification *)notify
 {
-    
     self.refreshTableView.contentOffset = CGPointZero;
     [self refreshData];
 }
@@ -228,17 +231,15 @@
 - (CGFloat)getCellHeightWith:(CircleNoticeModel *)notice
 {
     
-    CGSize contentSize    = [ToolsManager getSizeWithContent:notice.content_text andFontSize:15 andFrame:CGRectMake(0, 0, self.viewWidth-20, MAXFLOAT)];
-    if (notice.content_text == nil || notice.content_text.length < 1) {
-        contentSize.height = 0;
-    }else if (contentSize.height <= 20) {
-        contentSize.height = 18;
-    }else if (contentSize.height > 20) {
-        contentSize.height = 36;
-    }
+    NSMutableParagraphStyle * para = [[NSMutableParagraphStyle alloc] init];
+    para.lineBreakMode             = NSLineBreakByCharWrapping;
+    para.lineSpacing               = 10;
+    NSDictionary * dic             = @{NSFontAttributeName : [UIFont systemFontOfSize:FontListContent],
+                                       NSParagraphStyleAttributeName : para};
+    CGRect rect                    = [notice.content_text boundingRectWithSize:CGSizeMake(self.viewWidth-20, 45) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:dic context:nil];
     
     //总长
-    return contentSize.height+10+27+45;
+    return rect.size.height+10+27+45;
     
 }
 /*

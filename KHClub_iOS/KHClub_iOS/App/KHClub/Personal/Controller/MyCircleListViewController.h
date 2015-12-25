@@ -16,4 +16,9 @@
  */
 @property (nonatomic, assign) NSInteger userId;
 
+/**
+ *  如果是查看的状态所属圈子 那么这个newsId 不为空
+ */
+@property (nonatomic, assign) NSInteger newsId;
+
 @end
