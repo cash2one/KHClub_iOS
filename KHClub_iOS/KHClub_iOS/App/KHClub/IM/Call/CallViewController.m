@@ -80,7 +80,7 @@
         [self.view bringSubviewToFront:_topView];
         [self.view bringSubviewToFront:_actionView];
         
-#warning 要提前设置视频通话对方图像的显示区域
+//#warning 要提前设置视频通话对方图像的显示区域
         _callSession.displayView = _openGLView;
     }
     
@@ -510,7 +510,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         return;
     }
     
-#warning 捕捉数据输出，根据自己需求可随意更改
+//#warning 捕捉数据输出，根据自己需求可随意更改
     CVImageBufferRef imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer);
     if(CVPixelBufferLockBaseAddress(imageBuffer, 0) == kCVReturnSuccess)
     {

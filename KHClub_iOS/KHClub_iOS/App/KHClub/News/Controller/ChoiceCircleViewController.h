@@ -17,6 +17,9 @@ typedef void (^ChoiceCircleBlock) (NSArray * circles);
 @interface ChoiceCircleViewController : BaseViewController<UITableViewDataSource, UITableViewDelegate>
 
 
+//已选的圈子ID
+@property (nonatomic, assign) NSInteger circleID;
+
 /**
  *  设置圈子回调
  *

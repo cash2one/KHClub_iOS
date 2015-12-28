@@ -13,7 +13,7 @@
 @interface CircleHomeViewController : RefreshViewController
 
 //圈子ID
-@property (nonatomic, assign) NSInteger circleId;
+@property (nonatomic, assign) NSInteger circleID;
 //刚创建完毕
 @property (nonatomic, assign) BOOL isCreate;
 

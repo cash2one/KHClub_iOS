@@ -61,7 +61,7 @@
     CircleModel * circle            = self.dataArr[indexPath.row];
     //点击
     CircleHomeViewController * chvc = [[CircleHomeViewController alloc] init];
-    chvc.circleId                   = circle.cid;
+    chvc.circleID                   = circle.cid;
     [self pushVC:chvc];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

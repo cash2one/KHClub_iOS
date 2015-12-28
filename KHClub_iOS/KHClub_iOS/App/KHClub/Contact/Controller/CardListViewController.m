@@ -43,12 +43,19 @@
 //下拉刷新
 - (void)refreshData
 {
+    if (self.isReloading) {
+        return;
+    }
+    
     [super refreshData];
     [self loadAndhandleData];
 }
 //加载更多
 - (void)loadingData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super loadingData];
     [self loadAndhandleData];
 }
@@ -84,16 +91,6 @@
     [cell setContentWithModel:self.dataArr[indexPath.row]];
     return cell;
 }
-
-//- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    return YES;
-//}
-//
-//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    [self deleteCardModel:self.dataArr[indexPath.row]];
-//}
 
 #pragma mark- method response
 
@@ -140,34 +137,6 @@
         [self.refreshTableView refreshFinish];
         [self showWarn:StringCommonNetException];
     }];
-    
-}
-
-- (void)deleteCardModel:(CardModel *)model
-{
-//    NSDictionary * params = @{@"uid":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
-//                              @"current_id":[NSString stringWithFormat:@"%ld", model.uid]};
-//    
-//    debugLog(@"%@ %@", kDeleteVisitPath, params);
-//    [self showLoading:@"删除中"];
-//    [HttpService postWithUrlString:kDeleteVisitPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
-//        debugLog(@"%@", responseData);
-//        int status = [responseData[HttpStatus] intValue];
-//        if (status == HttpStatusCodeSuccess) {
-//            
-//            [self showComplete:responseData[HttpMessage]];
-//            [self.dataArr removeObject:model];
-//            [self.refreshTableView reloadData];
-//            
-//        }else{
-//            [self.dataArr removeObject:model];
-//            [self showWarn:responseData[HttpMessage]];
-//            [self.refreshTableView reloadData];
-//        }
-//        
-//    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        [self showWarn:StringCommonNetException];
-//    }];
     
 }
 

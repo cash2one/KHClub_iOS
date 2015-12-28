@@ -19,6 +19,8 @@
 @property (nonatomic, strong) CustomLabel     * likeLabel;
 //关注按钮
 @property (nonatomic, strong) CustomButton    * followBtn;
+//未读数量标签
+@property (nonatomic, strong) CustomLabel     * unreadLabel;
 //line
 @property (nonatomic, strong) UIView          * lineView;
 //持有模型
@@ -38,12 +40,14 @@
         self.nameLabel     = [[CustomLabel alloc] init];
         self.likeLabel     = [[CustomLabel alloc] init];
         self.followBtn     = [[CustomButton alloc] init];
+        self.unreadLabel   = [[CustomLabel alloc] init];
         self.lineView      = [[UIView alloc] init];
         
         [self.contentView addSubview:self.headImageView];
         [self.contentView addSubview:self.nameLabel];
         [self.contentView addSubview:self.likeLabel];
         [self.contentView addSubview:self.followBtn];
+        [self.contentView addSubview:self.unreadLabel];
         [self.contentView addSubview:self.lineView];
         
         [self.followBtn addTarget:self action:@selector(followPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -76,6 +80,12 @@
     self.likeLabel.frame                   = CGRectMake(likeImageView.right+7, self.nameLabel.bottom+12, 200, 18);
     self.likeLabel.font                    = [UIFont systemFontOfSize:12];
     self.likeLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
+    //未读数量
+    self.unreadLabel.frame                 = CGRectMake([DeviceManager getDeviceWidth]-70, 31, 55, 12);
+    self.unreadLabel.font                  = [UIFont systemFontOfSize:12];
+    self.unreadLabel.textColor             = [UIColor colorWithHexString:ColorGold];
+    self.unreadLabel.textAlignment         = NSTextAlignmentRight;
+    self.unreadLabel.hidden                = YES;
     //关注按钮
     self.followBtn.frame                   = CGRectMake([DeviceManager getDeviceWidth]-65, 23, 49, 22);
     [self.followBtn setTitle:KHClubString(@"News_CircleList_Follow") forState:UIControlStateNormal];
@@ -105,6 +115,13 @@
         self.followBtn.hidden = NO;
     }
     
+    //存在则显示
+    if (model.unread_count > 0) {
+        self.unreadLabel.text   = [@"+ " stringByAppendingFormat:@"%ld", model.unread_count];
+        self.unreadLabel.hidden = NO;
+    }else{
+        self.unreadLabel.hidden = YES;
+    }
 }
 
 

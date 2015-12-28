@@ -90,6 +90,7 @@
     //操作背景
     self.operateView.frame          = CGRectMake(0, 0, [DeviceManager getDeviceWidth], 30);
     self.commentBtn.frame           = CGRectMake(0, 0, [DeviceManager getDeviceWidth]/2, 30);
+    self.commentBtn.enabled         = NO;
     self.likeBtn.frame              = CGRectMake([DeviceManager getDeviceWidth]/2, 0, [DeviceManager getDeviceWidth]/2, 30);
     
     //评论按钮

@@ -343,7 +343,7 @@
             [self showSuccess:KHClubString(@"Circle_CreateCircle_CreateSuccess")];
             //创建成功 进入圈子
             CircleHomeViewController * chvc = [[CircleHomeViewController alloc] init];
-            chvc.circleId                   = [responseData[HttpResult][@"id"] integerValue];
+            chvc.circleID                   = [responseData[HttpResult][@"id"] integerValue];
             chvc.isCreate                   = YES;
             [(UINavigationController *)[self presentingViewController] pushViewController:chvc animated:YES];
             [self dismissViewControllerAnimated:YES completion:nil];

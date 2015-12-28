@@ -28,10 +28,9 @@
     self.followArray = [[NSMutableArray alloc] init];
     //处理继承table
     self.refreshTableView.frame = CGRectMake(0, 0, self.viewWidth, self.viewHeight-kNavBarAndStatusHeight-kTabBarHeight);
-    [self refreshData];
     self.refreshTableView.footLabel.hidden             = YES;
     self.refreshTableView.showsVerticalScrollIndicator = NO;
-
+    [self refreshData];
     [self registerNotify];
 }
 
@@ -39,11 +38,20 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+
+}
 
 #pragma override
 //下拉刷新
 - (void)refreshData
 {
+    
+    if (self.isReloading) {
+        return;
+    }
+    
     [super refreshData];
     [self loadAndhandleData];
 }
@@ -67,7 +75,7 @@
         circle = self.dataArr[indexPath.row];
     }
     //圈子ID
-    cdvc.circleId = circle.cid;
+    cdvc.circleID = circle.cid;
     [self pushVC:cdvc];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

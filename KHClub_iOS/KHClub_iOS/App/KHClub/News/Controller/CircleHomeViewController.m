@@ -209,12 +209,12 @@
                 break;
             case ShareAlertWechat:
             {
-                [ShareUtils shareWechatWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleId];
+                [ShareUtils shareWechatWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleID];
             }
                 break;
             case ShareAlertWechatMoment:
             {
-                [ShareUtils shareWechatMomentsWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleId];
+                [ShareUtils shareWechatMomentsWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleID];
             }
                 break;
             case ShareAlertSina:
@@ -223,12 +223,12 @@
                 break;
             case ShareAlertQQ:
             {
-                [ShareUtils shareQQWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleId];
+                [ShareUtils shareQQWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleID];
             }
                 break;
             case ShareAlertQzone:
             {
-                [ShareUtils shareQzoneWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleId];
+                [ShareUtils shareQzoneWithTitle:sself.circleModel.circle_name andManagerName:sself.circleModel.manager_name andImage:sself.circleModel.circle_cover_sub_image andCircleID:sself.circleID];
             }
                 break;
                 
@@ -263,12 +263,18 @@
 //下拉刷新
 - (void)refreshData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super refreshData];
     [self loadAndhandleData];
 }
 //加载更多
 - (void)loadingData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super loadingData];
     [self loadAndhandleData];
 }
@@ -444,7 +450,7 @@
 - (void)followPress:(id)sender
 {
     NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
-                              @"circle_id":[NSString stringWithFormat:@"%ld", self.circleId],
+                              @"circle_id":[NSString stringWithFormat:@"%ld", self.circleID],
                               @"isFollow":[NSString stringWithFormat:@"%d", !self.circleModel.isFollow]};
     debugLog(@"%@ %@", kFollowOrUnfollowCirclePath, params);
     [self showLoading:StringCommonUploadData];
@@ -477,14 +483,14 @@
 - (void)fansListPress:(id)sender
 {
     CircleMembersViewController * cmvc = [[CircleMembersViewController alloc] init];
-    cmvc.circleId = self.circleId;
+    cmvc.circleId = self.circleID;
     [self pushVC:cmvc];
 }
 
 - (void)noticeListPress:(id)sender
 {
     CircleNoticeListViewController * cnlv = [[CircleNoticeListViewController alloc] init];
-    cnlv.circleID                         = self.circleId;
+    cnlv.circleID                         = self.circleID;
     cnlv.isManager                        = self.circleModel.managerId == [UserService sharedService].user.uid;
     [self pushVC:cnlv];
 }
@@ -509,7 +515,7 @@
     CardChooseUserViewController * ccuvc = [[CardChooseUserViewController alloc] init];
     
     NSDictionary * cardDic = @{@"type":[@(100) stringValue],
-                               @"id":[NSString stringWithFormat:@"%ld", self.circleId],
+                               @"id":[NSString stringWithFormat:@"%ld", self.circleID],
                                @"title":self.circleModel.circle_name,
                                @"avatar":[ToolsManager completeUrlStr:self.circleModel.circle_cover_sub_image]};
     NSString * cardJson = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:cardDic options:NSJSONWritingPrettyPrinted error:nil] encoding:NSUTF8StringEncoding];
@@ -521,6 +527,7 @@
 - (void)publishClick:(id)sender
 {
     PublishNewsViewController * pnvc = [[PublishNewsViewController alloc] init];
+    pnvc.circleID                    = self.circleID;
     pnvc.returnVC                    = self;
     [self pushVC:pnvc];
 }
@@ -534,7 +541,7 @@
         first_time        = news.publish_time;
     }
     
-    NSString * url = [NSString stringWithFormat:@"%@?page=%d&circle_id=%ld&user_id=%ld&frist_time=%@", kGetCircleHomeListPath, self.currentPage, self.circleId, [UserService sharedService].user.uid, first_time];
+    NSString * url = [NSString stringWithFormat:@"%@?page=%d&circle_id=%ld&user_id=%ld&frist_time=%@", kGetCircleHomeListPath, self.currentPage, self.circleID, [UserService sharedService].user.uid, first_time];
     debugLog(@"%@", url);
     [HttpService getWithUrlString:url andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
 

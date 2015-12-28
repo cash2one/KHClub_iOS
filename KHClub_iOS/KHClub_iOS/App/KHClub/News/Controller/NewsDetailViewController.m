@@ -434,8 +434,7 @@
     }
     
     CommentModel * comment = self.news.comment_arr[indexPath.row];
-    
-    NSString * content = comment.comment_content;
+    NSString * content     = comment.comment_content;
     //回复别人的
     if (comment.target_id > 0) {
         NSString * reply = KHClubString(@"News_NewsDetail_Reply");
@@ -719,7 +718,7 @@
             
             //如果是自己柯以删除
             if ([UserService sharedService].user.uid == news.uid) {
-                self.navBar.rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);
+                self.navBar.rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
                 //右上角设置
                 __weak typeof(self) weakSelf         = self;
                 [self.navBar setRightBtnWithContent:@"" andBlock:^{

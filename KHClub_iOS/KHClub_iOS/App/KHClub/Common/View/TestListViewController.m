@@ -35,6 +35,9 @@
 //下拉刷新
 - (void)refreshData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super refreshData];
 
     [self performSelector:@selector(handleData) withObject:nil afterDelay:2.0];
@@ -42,6 +45,9 @@
 //加载更多
 - (void)loadingData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super loadingData];
     self.isLastPage = YES;
     [self performSelector:@selector(handleData) withObject:nil afterDelay:2.0];

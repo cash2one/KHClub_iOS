@@ -156,7 +156,6 @@
         return;
     }
     
-    
     NewsDetailViewController * ndvc = [[NewsDetailViewController alloc] init];
     ndvc.newsId                     = news.news_id;
     [self pushVC:ndvc];

@@ -29,6 +29,10 @@
  *  没有选择圈子时的提示
  */
 @property (nonatomic, strong) UIView         * noneCircleBackView;
+/**
+ *  在外面选择的圈子
+ */
+@property (nonatomic, strong) CircleModel    * choicedCircleModel;
 
 @end
 
@@ -105,6 +109,10 @@
 {
     UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     
+    if (self.choicedCircleModel != nil && indexPath.row == 0) {
+        return;
+    }
+    
     //样式转变
     if ([self.choiceArray containsObject:[NSString stringWithFormat:@"%ld", indexPath.row]]) {
         [self.choiceArray removeObject:[NSString stringWithFormat:@"%ld", indexPath.row]];
@@ -114,7 +122,6 @@
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }
     
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -135,6 +142,7 @@
     if (!cell) {
         cell          = [[CircleCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellid];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //关注的
     [cell setContentWithModel:self.dataArr[indexPath.row]];
     
@@ -197,6 +205,17 @@
                 model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
                 model.isFollow               = YES;
                 [self.dataArr addObject:model];
+                //选中的那个
+                if (self.circleID != 0 && self.circleID == model.cid) {
+                    self.choicedCircleModel = model;
+                }
+            }
+            //存在
+            if (self.choicedCircleModel) {
+                [self.dataArr removeObject:self.choicedCircleModel];
+                [self.dataArr insertObject:self.choicedCircleModel atIndex:0];
+                //默认选中
+                [self.choiceArray addObject:@"0"];
             }
             
             if (self.dataArr.count > 0) {

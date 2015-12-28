@@ -44,12 +44,18 @@
 //下拉刷新
 - (void)refreshData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super refreshData];
     [self loadAndhandleData];
 }
 //加载更多
 - (void)loadingData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super loadingData];
     [self loadAndhandleData];
 }
@@ -65,6 +71,24 @@
     CustomLabel * nameLabel           = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, headImageView.y+7, 200, 14)];
     nameLabel.font                    = [UIFont systemFontOfSize:14];
     nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
+    
+    if (indexPath.row == 0) {
+        //圈主标识
+        CustomLabel * isManagerLabel       = [[CustomLabel alloc] init];
+        isManagerLabel.backgroundColor     = [UIColor colorWithHexString:ColorGold];
+        isManagerLabel.frame               = CGRectMake(self.viewWidth-60, 25, 0, 20);
+        isManagerLabel.font                = [UIFont systemFontOfSize:12];
+        isManagerLabel.text                = KHClubString(@"Circle_Circle_CircleManager");
+        isManagerLabel.textAlignment       = NSTextAlignmentCenter;
+        isManagerLabel.textColor           = [UIColor colorWithHexString:ColorWhite];
+        isManagerLabel.layer.cornerRadius  = 4;
+        isManagerLabel.layer.masksToBounds = YES;
+        [isManagerLabel sizeToFit];
+        isManagerLabel.width += 8;
+        isManagerLabel.height = 20;
+        [cell.contentView addSubview:isManagerLabel];
+    }
+    
     //公司
     CustomLabel * jobLabel            = [[CustomLabel alloc] initWithFrame:CGRectMake(headImageView.right+10, nameLabel.bottom+5, 220, 13)];
     jobLabel.font                     = [UIFont systemFontOfSize:13];

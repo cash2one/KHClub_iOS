@@ -63,12 +63,18 @@
 //下拉刷新
 - (void)refreshData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super refreshData];
     [self loadAndhandleData];
 }
 //加载更多
 - (void)loadingData
 {
+    if (self.isReloading) {
+        return;
+    }
     [super loadingData];
     [self loadAndhandleData];
 }

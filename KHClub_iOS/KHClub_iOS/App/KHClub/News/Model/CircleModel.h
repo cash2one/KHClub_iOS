@@ -41,5 +41,7 @@
 @property (nonatomic, assign) BOOL      isFollow;
 //网页
 @property (nonatomic, copy  ) NSString  * circle_web;
+//未读消息数量
+@property (nonatomic, assign) NSInteger unread_count;
 
 @end

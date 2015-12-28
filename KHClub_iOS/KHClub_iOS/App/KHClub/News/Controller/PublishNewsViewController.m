@@ -231,9 +231,12 @@
         return;
     }
     
-    ChoiceCircleViewController * ccvc = [[ChoiceCircleViewController alloc] init];
-    
+    //选择圈子
+    ChoiceCircleViewController * ccvc         = [[ChoiceCircleViewController alloc] init];
+
     __weak ChoiceCircleViewController * weakC = ccvc;
+    weakC.circleID                            = self.circleID;
+    
     [ccvc setCircleBlock:^(NSArray *circles) {
 
         //确定后进行网络上传

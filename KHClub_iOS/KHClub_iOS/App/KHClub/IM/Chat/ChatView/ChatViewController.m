@@ -718,7 +718,7 @@
         }else{
             CircleHomeViewController * cdvc = [[CircleHomeViewController alloc] init];
             //圈子ID
-            cdvc.circleId                   = [cardDic[@"id"] integerValue];
+            cdvc.circleID                   = [cardDic[@"id"] integerValue];
             [self pushVC:cdvc];
         }
     }

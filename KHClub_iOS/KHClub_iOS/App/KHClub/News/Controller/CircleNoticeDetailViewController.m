@@ -400,9 +400,9 @@
     
     NSDictionary * params = @{@"cid":[NSString stringWithFormat:@"%ld", comment.cid],
                               @"news_id":[NSString stringWithFormat:@"%ld", self.notice.nid]};
-    debugLog(@"%@ %@", kDeleteCommentPath, params);
+    debugLog(@"%@ %@", @"", params);
     [self showLoading:StringCommonUploadData];
-    [HttpService postWithUrlString:kDeleteCommentPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+    [HttpService postWithUrlString:@"" params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         debugLog(@"%@", responseData);
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
@@ -421,6 +421,17 @@
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self showWarn:StringCommonNetException];
     }];
+}
+
+//回复评论
+- (void)replyComment:(CommentModel *)comment
+{
+    
+    self.currentTopComment           = comment;
+    
+    self.commentTextView.placeholder = [NSString stringWithFormat:@"%@：%@", KHClubString(@"News_NewsDetail_Reply"), comment.name];
+    
+    [self.commentTextView becomeFirstResponder];
 }
 
 #pragma mark- method response
@@ -570,7 +581,7 @@
             NSInteger userID = [noticeContentDic[@"user_id"] integerValue];
             //如果是自己柯以删除
             if (userID == [UserService sharedService].user.uid) {
-                self.navBar.rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 15, 0, 0);                
+                self.navBar.rightBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
                 //右上角设置
                 __weak typeof(self) weakSelf = self;
                 [self.navBar setRightBtnWithContent:@"" andBlock:^{
@@ -727,6 +738,7 @@
 #pragma mark- override
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+
     [self.commentTextView resignFirstResponder];
 }
 

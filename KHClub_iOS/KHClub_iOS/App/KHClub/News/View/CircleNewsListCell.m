@@ -125,17 +125,17 @@
     self.nameLabel.font                    = [UIFont systemFontOfSize:FontListName];
     self.nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
     //圈主标识
-    self.isManagerLabel.frame              = CGRectMake(0, self.headImageBtn.y+2.5, 0, 0);
-    self.isManagerLabel.font               = [UIFont systemFontOfSize:11];
-    self.isManagerLabel.text               = KHClubString(@"Circle_Circle_CircleManager");
-    self.isManagerLabel.textAlignment      = NSTextAlignmentCenter;
-    self.isManagerLabel.textColor          = [UIColor colorWithHexString:ColorDeepBlack];
-    self.isManagerLabel.layer.cornerRadius = 5;
-    self.isManagerLabel.layer.borderColor  = [UIColor colorWithHexString:ColorGold].CGColor;
-    self.isManagerLabel.layer.borderWidth  = 1;
+    self.isManagerLabel.frame               = CGRectMake(0, self.nameLabel.y, 0, 0);
+    self.isManagerLabel.font                = [UIFont systemFontOfSize:12];
+    self.isManagerLabel.text                = KHClubString(@"Circle_Circle_CircleManager");
+    self.isManagerLabel.textAlignment       = NSTextAlignmentCenter;
+    self.isManagerLabel.backgroundColor     = [UIColor colorWithHexString:ColorGold];
+    self.isManagerLabel.textColor           = [UIColor colorWithHexString:ColorWhite];
+    self.isManagerLabel.layer.cornerRadius  = 4;
+    self.isManagerLabel.layer.masksToBounds = YES;
     [self.isManagerLabel sizeToFit];
-    self.isManagerLabel.width += 5;
-    self.isManagerLabel.height = 16;
+    self.isManagerLabel.width += 8;
+    self.isManagerLabel.height = 18;
     
     //职位
     self.jobBtn.frame                      = CGRectMake(self.nameLabel.x, self.nameLabel.bottom+10, [DeviceManager getDeviceWidth]-self.nameLabel.x-10, 14);

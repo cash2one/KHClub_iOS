@@ -15,5 +15,7 @@
  *  发布成功后返回的VC 柯以为空
  */
 @property (nonatomic, strong) UIViewController * returnVC;
+//圈子ID
+@property (nonatomic, assign) NSInteger        circleID;
 
 @end
