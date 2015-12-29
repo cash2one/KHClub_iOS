@@ -171,12 +171,12 @@
                               @"circle_id":[NSString stringWithFormat:@"%ld", model.cid],
                               @"isFollow":[NSString stringWithFormat:@"%d", !model.isFollow]};
     debugLog(@"%@ %@", kFollowOrUnfollowCirclePath, params);
-    [self showLoading:StringCommonUploadData];
+    [self showHudInView:self.view hint:StringCommonUploadData];
     //成功失败都没反应
     [HttpService postWithUrlString:kFollowOrUnfollowCirclePath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
         int status = [responseData[HttpStatus] intValue];
         if (status == HttpStatusCodeSuccess) {
-            [self hideLoading];
+            [self hideHud];
             //修改
             if (model.isFollow) {
                 //这个页面不提供取消关注功能
@@ -189,11 +189,11 @@
             }
             
         }else{
-            [self showWarn:StringCommonUploadDataFail];
+            [self showFail:StringCommonUploadDataFail];
         }
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showWarn:StringCommonNetException];
+        [self showFail:StringCommonNetException];
     }];
     
 }
@@ -250,7 +250,7 @@
             [self reloadTable];
             
         }else{
-            [self showWarn:responseData[HttpMessage]];
+            [self showFail:responseData[HttpMessage]];
             self.isReloading = NO;
             [self.refreshTableView refreshFinish];
         }
@@ -258,7 +258,7 @@
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
         self.isReloading = NO;
         [self.refreshTableView refreshFinish];
-        [self showWarn:StringCommonNetException];
+        [self showFail:StringCommonNetException];
     }];
     
 }
