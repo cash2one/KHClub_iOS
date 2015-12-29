@@ -110,6 +110,9 @@
 // 删除公告评论
 #define kDeleteNoticeCommentPath [kHomeAddr stringByAppendingString:@"/deleteNoticeComment"]
 
+// 动态所属圈子列表
+#define kNewsCircleListPath [kHomeAddr stringByAppendingString:@"/newsCircleList"]
+
 ////////////////////////////////////////////////个人信息////////////////////////////////////////////////
 //修改个人信息
 #define kChangePersonalInformationPath [kHomeAddr stringByAppendingString:@"/changePersonalInformation"]
@@ -190,11 +193,9 @@
 #define kDeleteCardPath [kHomeAddr stringByAppendingString:@"/deleteCard"]
 // 获取所收藏的名片列表
 #define kGetCardListPath [kHomeAddr stringByAppendingString:@"/getCardList"]
-//// ////////////////////////////主菜，搜索，二维码，创建群///////////////////////////////////
+//////////////////////////////主菜，搜索，二维码，创建群///////////////////////////////////
 // 获取所收藏的名片列表
 #define kFindUserOrGroupPath [kHomeAddr stringByAppendingString:@"/findUserOrGroup"]
-
-
 
 
 #endif

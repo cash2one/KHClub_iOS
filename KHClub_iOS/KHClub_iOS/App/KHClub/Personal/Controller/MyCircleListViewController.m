@@ -51,6 +51,9 @@
     }else{
         [self setNavBarTitle:KHClubString(@"Personal_Personal_MyCircle")];
     }
+    if (self.newsId != 0) {
+        [self setNavBarTitle:KHClubString(@"Personal_Personal_CircleList")];
+    }
 }
 
 #pragma override
@@ -105,6 +108,7 @@
     
     if (self.newsId != 0) {
         //获取动态所属圈子接口
+        url = [NSString stringWithFormat:@"%@?news_id=%ld", kNewsCircleListPath, self.newsId];
     }
     
     debugLog(@"%@", url);

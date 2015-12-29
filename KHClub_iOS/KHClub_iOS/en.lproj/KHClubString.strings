@@ -82,6 +82,7 @@
 "Personal_Personal_HisNews"                   = "Moments";
 "Personal_Personal_HisCircle"                 = "Circles";
 "Personal_Personal_MyCircle"                  = "My Circles";
+"Personal_Personal_CircleList"                = "Circles";
 "Personal_Personal_None"                      = "None";
 "Personal_Personal_RobotTitle"                = "Official business manager";
 "Personal_PersonalSetting_Title"              = "Edit";
@@ -137,6 +138,7 @@
 "News_CircleList_CircleTitle"                 = "Circle";
 "News_CircleList_MyCircle"                    = "My Circles";
 "News_CircleList_RecommendCircle"             = "Recommend Circle";
+"News_CircleList_RecommendMembers"            = "Recommend Members";
 "News_CircleList_CircleHome"                  = "Circle Home";
 "News_CircleList_CircleMember"                = "Circle Member";
 "News_CircleList_Follow"                      = "Follow";

@@ -68,7 +68,7 @@
     self.headImageView.layer.cornerRadius  = 5;
     self.headImageView.layer.masksToBounds = YES;
     //名字
-    self.nameLabel.frame                   = CGRectMake(self.headImageView.right+10, self.headImageView.y+5, 250, 14);
+    self.nameLabel.frame                   = CGRectMake(self.headImageView.right+10, self.headImageView.y+18, 250, 14);
     self.nameLabel.font                    = [UIFont systemFontOfSize:14];
     self.nameLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
     //关注人数图片
@@ -80,6 +80,9 @@
     self.likeLabel.frame                   = CGRectMake(likeImageView.right+7, self.nameLabel.bottom+12, 200, 18);
     self.likeLabel.font                    = [UIFont systemFontOfSize:12];
     self.likeLabel.textColor               = [UIColor colorWithHexString:ColorDeepBlack];
+    //暂时隐藏
+    self.likeLabel.hidden = YES;
+    likeImageView.hidden  = YES;
     //未读数量
     self.unreadLabel.frame                 = CGRectMake([DeviceManager getDeviceWidth]-70, 31, 55, 12);
     self.unreadLabel.font                  = [UIFont systemFontOfSize:12];

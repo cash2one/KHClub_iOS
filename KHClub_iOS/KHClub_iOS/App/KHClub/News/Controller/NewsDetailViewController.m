@@ -19,6 +19,7 @@
 #import "HPGrowingTextView.h"
 #import "OtherPersonalViewController.h"
 #import "NewsUtils.h"
+#import "MyCircleListViewController.h"
 
 @interface NewsDetailViewController ()<NewsCommentDelegate,HPGrowingTextViewDelegate>
 
@@ -109,6 +110,7 @@
     [self.likeBtn addTarget:self action:@selector(sendLikeClick) forControlEvents:UIControlEventTouchUpInside];
     [self.commentCountBtn addTarget:self action:@selector(choiceCommentList:) forControlEvents:UIControlEventTouchUpInside];
     [self.likeCountBtn addTarget:self action:@selector(choiceLikeList:) forControlEvents:UIControlEventTouchUpInside];
+    [self.circleBtn addTarget:self action:@selector(circlesClick:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)configUI
@@ -581,6 +583,18 @@
 }
 
 #pragma mark- method response
+/**
+ *  圈子点击
+ *
+ *  @param sender
+ */
+- (void)circlesClick:(id)sender
+{
+    MyCircleListViewController * mclvc = [[MyCircleListViewController alloc] init];
+    mclvc.newsId                       = self.newsId;
+    [self pushVC:mclvc];
+}
+
 /**
  *  切换成评论
  *

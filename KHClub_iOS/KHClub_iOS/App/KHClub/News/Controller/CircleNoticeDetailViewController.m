@@ -399,7 +399,7 @@
 {
     
     NSDictionary * params = @{@"cid":[NSString stringWithFormat:@"%ld", comment.cid],
-                              @"news_id":[NSString stringWithFormat:@"%ld", self.notice.nid]};
+                              @"notice_id":[NSString stringWithFormat:@"%ld", self.notice.nid]};
     debugLog(@"%@ %@", kDeleteNoticeCommentPath, params);
     [self showLoading:StringCommonUploadData];
     [HttpService postWithUrlString:kDeleteNoticeCommentPath params:params andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {

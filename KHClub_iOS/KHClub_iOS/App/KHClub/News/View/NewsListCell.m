@@ -341,7 +341,7 @@
 - (void)circleClick:(CustomButton *)sender
 {
     MyCircleListViewController * mclvc = [[MyCircleListViewController alloc] init];
-    mclvc.newsId = self.news.nid;
+    mclvc.newsId                       = self.news.nid;
     [((BaseViewController *)self.delegate) pushVC:mclvc];
 }
 

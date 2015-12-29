@@ -82,6 +82,7 @@
 "Personal_Personal_HisNews"                   = "TA的动态";
 "Personal_Personal_HisCircle"                 = "TA的圈子";
 "Personal_Personal_MyCircle"                  = "我的圈子";
+"Personal_Personal_CircleList"                = "动态圈";
 "Personal_Personal_None"                      = "暂无信息";
 "Personal_Personal_RobotTitle"                = "官方商务管家";
 "Personal_PersonalSetting_Title"              = "编辑";
@@ -137,6 +138,7 @@
 "News_CircleList_CircleTitle"                 = "圈子";
 "News_CircleList_MyCircle"                    = "我的圈子";
 "News_CircleList_RecommendCircle"             = "推荐圈子";
+"News_CircleList_RecommendMembers"            = "推荐会员";
 "News_CircleList_CircleHome"                  = "圈子主页";
 "News_CircleList_CircleMember"                = "圈子达人";
 "News_CircleList_Follow"                      = "关注";

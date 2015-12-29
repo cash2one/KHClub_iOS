@@ -128,12 +128,16 @@
     [menuController setArrowDirection:UIMenuControllerArrowDown];
     [menuController setTargetRect:view.frame inView:view.superview];
     [menuController setMenuVisible:YES animated:YES];
+    
 }
 
 //发送评论
-- (void)sendCommentClick:(CircleNoticeModel *)news
+- (void)sendCommentClick:(CircleNoticeModel *)notice
 {
-
+    CircleNoticeDetailViewController * pcnvc = [[CircleNoticeDetailViewController alloc] init];
+    pcnvc.noticeID                           = notice.nid;
+    [self pushVC:pcnvc];
+    
 }
 //点赞
 - (void)likeClick:(CircleNoticeModel *)notice likeOrCancel:(BOOL)flag
