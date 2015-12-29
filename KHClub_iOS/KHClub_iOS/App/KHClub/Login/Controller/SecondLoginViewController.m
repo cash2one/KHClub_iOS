@@ -141,18 +141,10 @@
                      [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
                      //获取群组列表
                      [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
-                     
                      //数据本地缓存
                      [[UserService sharedService] saveAndUpdate];
-                     //登录成功进入主页
-                     [CusTabBarViewController reinit];
-                     CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
-                     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
-                     
-                     [self presentViewController:nav animated:YES completion:^{
-                         //登录成功 出栈
-                         [self.navigationController popToRootViewControllerAnimated:YES];
-                     }];
+                     //进入主页
+                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
                      
                  }
                  else

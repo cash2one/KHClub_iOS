@@ -123,6 +123,10 @@
 #endif
 
 //notifyKey
+//进入登录页面
+#define NOTIFY_ENTER_LOGIN @"enterLogin"
+//进入主页面
+#define NOTIFY_ENTER_MAIN @"enterMain"
 //状态回复消息或点赞到来
 #define NOTIFY_NEWS_PUSH @"newsPush"
 //圈子主页刷新

@@ -35,11 +35,8 @@
 
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     
-    //初始化主页
-    LoginViewController * vc       = [LoginViewController new];
-    vc.hideNavbar                  = YES;
-    UINavigationController * nav   = [[UINavigationController alloc] initWithRootViewController:vc];
-    self.window.rootViewController = nav;
+    //初始化控制器
+    [self autoLogin];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     //Status不隐藏
@@ -76,7 +73,46 @@
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     }
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterLoginController) name:NOTIFY_ENTER_LOGIN object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(enterMainController) name:NOTIFY_ENTER_MAIN object:nil];
+    
     return YES;
+}
+
+//自动登录
+-(void)autoLogin
+{
+    [[UserService sharedService] find];
+    
+    //环信自动登录
+    BOOL isAutoLogin = [[[EaseMob sharedInstance] chatManager] isAutoLoginEnabled];
+    
+    //如果用户登录过 自动登录
+    if (isAutoLogin && [UserService sharedService].user.uid > 0 && [UserService sharedService].user.login_token.length > 0) {
+        [self enterMainController];
+    }else{
+        [self enterLoginController];
+    }
+    
+}
+
+//第一次进入登录页面
+- (void)enterLoginController
+{
+    LoginViewController * vc       = [LoginViewController new];
+    vc.hideNavbar                  = YES;
+    UINavigationController * nav   = [[UINavigationController alloc] initWithRootViewController:vc];
+    self.window.rootViewController = nav;
+}
+//第一次进入主页面
+- (void)enterMainController
+{
+    //登录成功进入主页
+    [CusTabBarViewController reinit];
+    CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
+    UINavigationController * nav    = [[UINavigationController alloc] initWithRootViewController:ctbvc];
+    self.window.rootViewController  = nav;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

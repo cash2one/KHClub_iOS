@@ -26,7 +26,8 @@ static HttpService * instance;
 + (void)getWithUrlString:(NSString *)urlStr andCompletion:(SuccessBlock)success andFail:(FailBlock)fail
 {
     AFHTTPRequestOperationManager * manager = [[HttpService manager] createAFEntity];
-    
+    //token传输
+    urlStr = [urlStr stringByAppendingFormat:@"&login_token=%@", [UserService sharedService].user.login_token];
    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             @try {
@@ -51,8 +52,12 @@ static HttpService * instance;
 + (void)postWithUrlString:(NSString *)urlStr params:(NSDictionary *)params andCompletion:(SuccessBlock)success andFail:(FailBlock)fail
 {
     AFHTTPRequestOperationManager * manager = [[HttpService manager] createAFEntity];
-    
-    [manager POST:urlStr parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSMutableDictionary * finalDic          = [NSMutableDictionary dictionaryWithDictionary:params];
+    //存在token
+    if ([UserService sharedService].user.login_token != nil) {
+        [finalDic setObject:[UserService sharedService].user.login_token forKey:@"login_token"];
+    }
+    [manager POST:urlStr parameters:finalDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             @try {
                 success(operation, responseObject);
@@ -69,11 +74,15 @@ static HttpService * instance;
 }
 
     //files格式 @{FileDataKey:UIImageJPEGRepresentation(image, 0.8),FileNameKey:fileName}
-+ (void)postFileWithUrlString:(NSString *)urlStr params:(NSArray *)params files:(NSDictionary *)files andCompletion:(SuccessBlock)success andFail:(FailBlock)fail
++ (void)postFileWithUrlString:(NSString *)urlStr params:(NSDictionary *)params files:(NSArray *)files andCompletion:(SuccessBlock)success andFail:(FailBlock)fail
 {
     AFHTTPRequestOperationManager * manager = [[HttpService manager] createAFEntity];
-
-    [manager POST:urlStr parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    NSMutableDictionary * finalDic          = [NSMutableDictionary dictionaryWithDictionary:params];
+    //存在token
+    if ([UserService sharedService].user.login_token != nil) {
+        [finalDic setObject:[UserService sharedService].user.login_token forKey:@"login_token"];
+    }
+    [manager POST:urlStr parameters:finalDic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         if (files != nil && files.count >0) {
             for (NSDictionary * file in files) {
                 [formData appendPartWithFileData:file[FileDataKey] name:file[FileNameKey] fileName:file[FileNameKey] mimeType:@""];

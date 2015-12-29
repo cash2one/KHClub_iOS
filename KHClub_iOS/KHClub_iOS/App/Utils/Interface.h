@@ -107,6 +107,9 @@
 // 删除公告
 #define kDeleteNoticePath [kHomeAddr stringByAppendingString:@"/deleteNotice"]
 
+// 删除公告评论
+#define kDeleteNoticeCommentPath [kHomeAddr stringByAppendingString:@"/deleteNoticeComment"]
+
 ////////////////////////////////////////////////个人信息////////////////////////////////////////////////
 //修改个人信息
 #define kChangePersonalInformationPath [kHomeAddr stringByAppendingString:@"/changePersonalInformation"]

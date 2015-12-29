@@ -106,7 +106,8 @@
             //清空
             [[UserService sharedService] clear];
             [[PushService sharedInstance] logout];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            //进入登录页
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_LOGIN object:nil];
         }
     } onQueue:nil];
 }

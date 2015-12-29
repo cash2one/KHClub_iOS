@@ -15,15 +15,15 @@
 @interface RegisterViewController ()
 
 //注册按钮
-@property (nonatomic, strong) CustomButton * registerBtn;
+@property (nonatomic, strong) CustomButton    * registerBtn;
 //密码textfield
 @property (nonatomic, strong) CustomTextField * passwordTextField;
 
-@property (nonatomic, strong) CustomButton * reverifyBtn;
+@property (nonatomic, strong) CustomButton    * reverifyBtn;
 @property (nonatomic, strong) CustomTextField * verifyTextField;
 //倒计时
-@property (nonatomic, strong) NSTimer * timer;
-@property (nonatomic, assign) int timerNum;
+@property (nonatomic, strong) NSTimer         * timer;
+@property (nonatomic, assign) int             timerNum;
 
 @end
 
@@ -165,6 +165,7 @@
 #pragma mark- event Response
 - (void)verifyPress:(id)sender
 {
+    
     [self showLoading:KHClubString(@"Login_Login_WaitAMinute")];
     [SMS_SDK commitVerifyCode:self.verifyTextField.text result:^(enum SMS_ResponseState state) {
 
@@ -198,6 +199,9 @@
         
         int status = [responseData[@"status"] intValue];
         if (status == HttpStatusCodeSuccess) {
+            [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
+            //数据本地缓存
+            [[UserService sharedService] saveAndUpdate];
             
             //环信登录
             //异步登陆账号
@@ -217,35 +221,25 @@
                      [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
                      //隐藏
                      [self hideLoading];
-                     [self showComplete:KHClubString(@"Login_Register_RegisterSuccessful")];
-                     [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
-                     //数据本地缓存
-                     [[UserService sharedService] saveAndUpdate];
+                     [self showSuccess:KHClubString(@"Login_Register_RegisterSuccessful")];
                      //找回密码成功进入主页
-                     [CusTabBarViewController reinit];
-                     CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
-                     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
-                     
-                     [self presentViewController:nav animated:YES completion:^{
-                         //登录成功 出栈
-                         [self.navigationController popToRootViewControllerAnimated:YES];
-                     }];
+                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
                      
                  }
                  else
                  {
                      //隐藏
                      [self hideLoading];
-                     [self showWarn:StringCommonNetException];
+                     [self showFail:StringCommonNetException];
                  }
              } onQueue:nil];
             
         }else{
-            [self showWarn:StringCommonNetException];
+            [self showFail:StringCommonNetException];
         }
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showWarn:StringCommonNetException];
+        [self showFail:StringCommonNetException];
     }];
 }
 
@@ -265,16 +259,16 @@
         
         int status = [responseData[@"status"] intValue];
         if (status == HttpStatusCodeSuccess) {
-            
+            [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
+            //数据本地缓存
+            [[UserService sharedService] saveAndUpdate];
             //环信登录
             //异步登陆账号
             [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:[ToolsManager getCommonTargetId:[UserService sharedService].user.uid]
                                                                 password:IM_PWD
                                                               completion:
              ^(NSDictionary *loginInfo, EMError *error) {
-                 //隐藏
-                 [self hideLoading];
-                 
+
                  if (loginInfo && !error) {
                      
                      //设置是否自动登录
@@ -283,34 +277,28 @@
                      [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
                      //获取群组列表
                      [[EaseMob sharedInstance].chatManager asyncFetchMyGroupsList];
-                     
-                     [self showComplete:KHClubString(@"Login_Register_PasswordModifySuccessful")];
-                     [[[UserService sharedService] user] setModelWithDic:responseData[@"result"]];
-                     //数据本地缓存
-                     [[UserService sharedService] saveAndUpdate];
+                     //隐藏
+                     [self hideLoading];
+                     [self showSuccess:KHClubString(@"Login_Register_PasswordModifySuccessful")];
                      //找回密码成功进入主页
-                     [CusTabBarViewController reinit];
-                     CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
-                     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
-                     [self presentViewController:nav animated:YES completion:^{
-                         //登录成功 出栈
-                         [self.navigationController popToRootViewControllerAnimated:YES];
-                     }];
+                     [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_ENTER_MAIN object:nil];
                      
                  }
                  else
                  {
-                     [self showWarn:StringCommonNetException];
+                     //隐藏
+                     [self hideLoading];
+                     [self showFail:StringCommonNetException];
                  }
              } onQueue:nil];
             
         }else{
-            [self showWarn:StringCommonNetException];
+            [self showFail:StringCommonNetException];
         }
         
         
     } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showWarn:StringCommonNetException];
+        [self showFail:StringCommonNetException];
     }];
 }
 

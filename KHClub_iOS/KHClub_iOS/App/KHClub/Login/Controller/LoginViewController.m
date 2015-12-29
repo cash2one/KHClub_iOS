@@ -29,14 +29,8 @@
 
     self.view.backgroundColor = [UIColor colorWithHexString:ColorGold];
     
-    //自动登录
-    if ([self autoLogin]) {
-        return;
-    }else{
-        //非自动登录 初始化页面
-        [self createWidget];
-        [self configUI];
-    }
+    [self createWidget];
+    [self configUI];
 }
 
 #pragma mark- layout
@@ -208,31 +202,31 @@
 #pragma mark- privateMethod
 
 //自动登录
-- (BOOL)autoLogin
-{
-    [[UserService sharedService] find];
-    
-    //环信自动登录
-    BOOL isAutoLogin = [[[EaseMob sharedInstance] chatManager] isAutoLoginEnabled];
-    
-    //如果用户登录过 自动登录
-    if (isAutoLogin && [UserService sharedService].user.uid > 0 && [UserService sharedService].user.login_token.length > 0) {
-        
-        //登录成功进入主页
-        CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
-        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
-
-        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:nav animated:NO completion:^{
-            //自动登录成功 初始化这个页面
-            [self createWidget];
-            [self configUI];
-        }];
-        
-        return YES;
-    }
-    
-    return NO;
-}
+//- (BOOL)autoLogin
+//{
+//    [[UserService sharedService] find];
+//    
+//    //环信自动登录
+//    BOOL isAutoLogin = [[[EaseMob sharedInstance] chatManager] isAutoLoginEnabled];
+//    
+//    //如果用户登录过 自动登录
+//    if (isAutoLogin && [UserService sharedService].user.uid > 0 && [UserService sharedService].user.login_token.length > 0) {
+//        
+//        //登录成功进入主页
+//        CusTabBarViewController * ctbvc = [CusTabBarViewController sharedService];
+//        UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:ctbvc];
+//
+//        [[UIApplication sharedApplication].delegate.window.rootViewController presentViewController:nav animated:NO completion:^{
+//            //自动登录成功 初始化这个页面
+//            [self createWidget];
+//            [self configUI];
+//        }];
+//        
+//        return YES;
+//    }
+//    
+//    return NO;
+//}
 
 
 - (void)didReceiveMemoryWarning {
