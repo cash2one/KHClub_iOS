@@ -186,7 +186,7 @@ static ApplyViewController *controller = nil;
     //进入主页
     OtherPersonalViewController * opvc = [[OtherPersonalViewController alloc] init];
     opvc.uid                           = [[entity.applicantUsername stringByReplacingOccurrencesOfString:KH withString:@""] integerValue];
-    opvc.newFriend                     = YES;
+    opvc.newFriend                     = NO;
     [self pushVC:opvc];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

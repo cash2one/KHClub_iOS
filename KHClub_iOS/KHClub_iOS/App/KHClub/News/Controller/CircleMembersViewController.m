@@ -94,7 +94,7 @@
     jobLabel.font                     = [UIFont systemFontOfSize:13];
     jobLabel.textColor                = [UIColor colorWithHexString:ColorLightBlack];
     //底线
-    UIView * lineView                 = [[UIView alloc] initWithFrame:CGRectMake(headImageView.right+10, 64, [DeviceManager getDeviceWidth], 1)];
+    UIView * lineView                 = [[UIView alloc] initWithFrame:CGRectMake(headImageView.right+10, headImageView.bottom+9, [DeviceManager getDeviceWidth], 1)];
     lineView.backgroundColor          = [UIColor colorWithHexString:ColorLightGary];
     
     [cell.contentView addSubview:headImageView];
@@ -121,7 +121,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 72;
+    return 77;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

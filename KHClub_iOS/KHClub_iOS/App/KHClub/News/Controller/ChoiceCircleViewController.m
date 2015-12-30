@@ -149,6 +149,8 @@
     //样式转变
     if ([self.choiceArray containsObject:[NSString stringWithFormat:@"%ld", indexPath.row]]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     return cell;

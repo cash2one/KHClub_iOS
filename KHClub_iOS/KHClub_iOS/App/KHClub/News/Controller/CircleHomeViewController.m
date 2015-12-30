@@ -359,11 +359,11 @@
         CustomImageView * fansImageView      = [[CustomImageView alloc] initWithFrame:CGRectMake(120+i*40, 0, 30, 30)];
         fansImageView.layer.cornerRadius     = 15;
         fansImageView.layer.masksToBounds    = YES;
-        fansImageView.userInteractionEnabled = YES;
+//        fansImageView.userInteractionEnabled = YES;
         fansImageView.tag                    = model.uid;
-        //点击事件
-        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fansAvatarClick:)];
-        [fansImageView addGestureRecognizer:tap];
+//        //点击事件
+//        UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(fansAvatarClick:)];
+//        [fansImageView addGestureRecognizer:tap];
         
         [fansImageView sd_setImageWithURL:[NSURL URLWithString:[ToolsManager completeUrlStr:model.head_sub_image]] placeholderImage:[UIImage imageNamed:DEFAULT_AVATAR]];
         [self.circleFansView addSubview:fansImageView];

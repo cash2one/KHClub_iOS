@@ -27,7 +27,7 @@ static HttpService * instance;
 {
     AFHTTPRequestOperationManager * manager = [[HttpService manager] createAFEntity];
     //token传输
-    urlStr = [urlStr stringByAppendingFormat:@"&login_token=%@", [UserService sharedService].user.login_token];
+    urlStr = [urlStr stringByAppendingFormat:@"&login_token=%@&login_user=%ld", [UserService sharedService].user.login_token, [UserService sharedService].user.uid];
    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
             @try {
@@ -56,6 +56,7 @@ static HttpService * instance;
     //存在token
     if ([UserService sharedService].user.login_token != nil) {
         [finalDic setObject:[UserService sharedService].user.login_token forKey:@"login_token"];
+        [finalDic setObject:[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid] forKey:@"login_user"];
     }
     [manager POST:urlStr parameters:finalDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (success) {
@@ -81,6 +82,7 @@ static HttpService * instance;
     //存在token
     if ([UserService sharedService].user.login_token != nil) {
         [finalDic setObject:[UserService sharedService].user.login_token forKey:@"login_token"];
+        [finalDic setObject:[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid] forKey:@"login_user"];        
     }
     [manager POST:urlStr parameters:finalDic constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         if (files != nil && files.count >0) {

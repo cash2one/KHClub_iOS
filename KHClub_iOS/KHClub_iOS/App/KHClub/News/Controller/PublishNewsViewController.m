@@ -33,6 +33,8 @@
 
 //图片宽度
 @property (nonatomic, assign) CGFloat             itemWidth;
+//正在提交
+@property (nonatomic, assign) BOOL                isUpload;
 
 @end
 
@@ -238,7 +240,9 @@
     weakC.circleID                            = self.circleID;
     
     [ccvc setCircleBlock:^(NSArray *circles) {
-
+        if (self.isUpload) {
+            return ;
+        }
         //确定后进行网络上传
         NSDictionary * params = @{@"uid":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
                                   @"content_text":self.textView.text,
@@ -257,10 +261,12 @@
                 [files addObject:@{FileDataKey:UIImageJPEGRepresentation(image, 0.9),FileNameKey:fileName}];
             }
         }
-        
+        self.isUpload = YES;
         debugLog(@"%@", kPublishNewsPath);
         [self showLoading:nil];
         [HttpService postFileWithUrlString:kPublishNewsPath params:params files:files andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+            self.isUpload = NO;
+            
             debugLog(@"%@", responseData);
             int status = [responseData[HttpStatus] intValue];
             if (status == HttpStatusCodeSuccess) {
@@ -277,6 +283,7 @@
                 [weakC showFail];
             }
         } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+            self.isUpload = NO;
             [weakC showException];
         }];
         
