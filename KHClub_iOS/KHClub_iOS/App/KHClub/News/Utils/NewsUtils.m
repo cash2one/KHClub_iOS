@@ -13,15 +13,24 @@
 //获取合适的比例
 + (CGRect)getRectWithSize:(CGSize) size
 {
-    CGFloat x,y,width,height;
+    CGFloat width,height;
     if (size.width > size.height) {
-        width  = 200;
-        height = size.height*(200/size.width);
+        if (size.width > 200) {
+            width  = 200;
+        }else{
+            width  = size.width;
+        }
+
+        height = size.height*(width/size.width);
     }else{
-        height  = 250;
-        width = size.width*(250/size.height);
+        if (size.height > 230) {
+            height  = 230;
+        }else{
+            height  = size.height;
+        }
+        width = size.width*(height/size.height);
     }
-    CGRect rect = CGRectMake(x, y, width, height);
+    CGRect rect = CGRectMake(0, 0, width, height);
     
     return rect;
 }

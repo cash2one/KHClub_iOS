@@ -62,19 +62,13 @@
 
 - (void)configUI
 {
-//    __weak typeof(self) sself = self;
-//    [self.navBar setRightBtnWithContent:@"清空" andBlock:^{
-//        
-//        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:StringCommonPrompt message:@"确认要清空么?" delegate:sself cancelButtonTitle:StringCommonCancel otherButtonTitles:StringCommonConfirm, nil];
-//        [alert show];
-//        
-//    }];
-    
-//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
-//        self.automaticallyAdjustsScrollViewInsets = NO;
-//        [self setNeedsStatusBarAppearanceUpdate];
-//        [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-//    }
+    __weak typeof(self) sself = self;
+    [self.navBar setRightBtnWithContent:KHClubString(@"News_NotifyNews_Clear") andBlock:^{
+        
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:StringCommonPrompt message:KHClubString(@"News_NotifyNews_SureClearPrompt") delegate:sself cancelButtonTitle:StringCommonCancel otherButtonTitles:StringCommonConfirm, nil];
+        [alert show];
+        
+    }];
     
     [self setNavBarTitle:KHClubString(@"News_NotifyNews_Title")];
 }
@@ -178,15 +172,15 @@
 
 }
 
-//#pragma mark- UIAlertViewDelegate
-//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-//{
-//    if (buttonIndex == 1) {
-//        [NewsPushModel removeAll];
-//        
-//        [self.pushTableView reloadData];
-//    }
-//}
+#pragma mark- UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [NewsPushModel removeAll];
+        
+        [self refreshData];
+    }
+}
 
 #pragma mark- private method
 - (void)refreshData

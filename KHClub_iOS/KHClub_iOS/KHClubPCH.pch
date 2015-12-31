@@ -153,13 +153,13 @@
 //高德AppKey
 #define GAODE_AppKey @"7a00c288cbfd37f25fec5621e0368d4f"
 //云巴AppKey 正式562de0fa85f5aa6c14e24d1f 测试5616180ae6b2257059049482
-#define YunBa_AppKey @"5616180ae6b2257059049482"
+#define YunBa_AppKey @"562de0fa85f5aa6c14e24d1f"
 //SMS AppKey
 #define SMS_AppKey @"b87c4ca25bcb"
 //SMS AppSecurity
 #define SMS_Security @"675c44e12327b136c3f99c07c43ff82a"
 //环信 yukirin#khclub khclub2015#khclub
-#define IM_AppKey @"yukirin#khclub"
+#define IM_AppKey @"khclub2015#khclub"
 
 
 //IM 推送 id前缀

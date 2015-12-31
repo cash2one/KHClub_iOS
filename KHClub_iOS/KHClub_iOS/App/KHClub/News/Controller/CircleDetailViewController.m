@@ -261,7 +261,7 @@ typedef NS_ENUM(NSInteger, CircleDetailEnum) {
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"tel://15810710447"]];        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel://%@", self.circleModel.phone_num]]];
     }
 }
 

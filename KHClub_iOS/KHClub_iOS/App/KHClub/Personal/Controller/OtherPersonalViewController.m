@@ -306,11 +306,17 @@
     }
     
     [self.shareBtn setTitle:KHClubString(@"Personal_OtherPersonal_ShareCard") forState:UIControlStateNormal];
-    //是好友
-    if (self.isFriend) {
-        [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_Send") forState:UIControlStateNormal];
-    }else {
-        [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_AddFriend") forState:UIControlStateNormal];
+    
+    if (self.uid != [UserService sharedService].user.uid) {
+        //是好友
+        if (self.isFriend) {
+            [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_Send") forState:UIControlStateNormal];
+        }else {
+            [self.sendOrAddBtn setTitle:KHClubString(@"Personal_OtherPersonal_AddFriend") forState:UIControlStateNormal];
+            [self.navBar.rightBtn setImage:[UIImage imageNamed:@"report"] forState:UIControlStateNormal];
+        }
+    }else{
+        self.navBar.rightBtn.hidden = YES;
     }
     
     //扫描二维码
@@ -360,7 +366,7 @@
 - (void)showRightPopView
 {
     self.screenCoverView.hidden = NO;
-    self.popBackView.frame      = CGRectMake(self.viewWidth-35, kNavBarAndStatusHeight, 0, 0);
+    self.popBackView.frame      = CGRectMake(self.viewWidth-110, kNavBarAndStatusHeight, 100, 0);
     [UIView animateWithDuration:0.2 animations:^{
         self.popBackView.frame                   = CGRectMake(self.viewWidth-110, kNavBarAndStatusHeight, 100, 160);
         //        self.navBar.rightBtn.imageView.transform = CGAffineTransformMakeRotation(M_PI_4);

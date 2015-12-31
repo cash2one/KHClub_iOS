@@ -174,6 +174,8 @@
 "News_NewsDetail_ContentEmpty"                = "内容不能为空";
 "News_NewsDetail_CircleNoFollow"              = "您没有关注该动态发布的圈子，不能评论";
 "News_NotifyNews_Title"                       = "通知";
+"News_NotifyNews_Clear"                       = "清空";
+"News_NotifyNews_SureClearPrompt"             = "确定要清空吗？";
 "News_NotifyNews_LikeTitle"                   = "为你点了赞";
 "News_BrowseImage_SaveOk"                     = "保存成功";
 

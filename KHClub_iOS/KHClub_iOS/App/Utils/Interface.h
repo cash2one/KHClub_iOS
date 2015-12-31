@@ -11,11 +11,11 @@
 
 //192.168.1.108 120.25.213.171 114.215.95.23 127.0.0.1
 //附件
-#define kAttachmentAddr @"http://114.215.95.23/khclub_php/Uploads/"
+#define kAttachmentAddr @"http://www.pinweihuanqiu.com/khclub_php/Uploads/"
 //IP
-#define kRootAddr @"http://114.215.95.23/khclub_php/"
+#define kRootAddr @"http://www.pinweihuanqiu.com/khclub_php/"
 //home
-#define kHomeAddr @"http://114.215.95.23/khclub_php/index.php/Home/MobileApi"
+#define kHomeAddr @"http://www.pinweihuanqiu.com/khclub_php/index.php/Home/MobileApi"
 
 #define kUserProtocolPath @"http://www.pinweihuanqiu.com/license.html"
 
