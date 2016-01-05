@@ -7,6 +7,59 @@
 //
 
 #import <Foundation/Foundation.h>
+/**
+ *  圈子类型
+ */
+typedef NS_ENUM(NSInteger, CircleType){
+    /**
+     *  其他
+     */
+    CircleOther      = 1000,
+    /**
+     *  创业投资
+     */
+    CircleInvestment = 1001,
+    /**
+     *  商业协会
+     */
+    CircleBusiness   = 1002,
+    /**
+     *  茗品沉香
+     */
+    CircleTea        = 1003,
+    /**
+     *  名酒雪茄
+     */
+    CircleCigar      = 1004,
+    /**
+     *  金融理财
+     */
+    CircleWealthy    = 1005,
+    /**
+     *  艺术收藏
+     */
+    CircleArt        = 1006,
+    /**
+     *  高端旅游
+     */
+    CircleTour       = 1007,
+    /**
+     *  高尔夫
+     */
+    CircleGolf       = 1008,
+    /**
+     *  商学院
+     */
+    CircleCollege    = 1009,
+    /**
+     *  时尚奢侈品
+     */
+    CircleFashion    = 1010,
+    /**
+     *  豪车游艇
+     */
+    CircleBoat       = 1011
+};
 
 /**
  *  圈子详情
