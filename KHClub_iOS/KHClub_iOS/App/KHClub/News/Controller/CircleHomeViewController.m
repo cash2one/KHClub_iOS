@@ -140,7 +140,7 @@
     self.coverImageView.layer.masksToBounds = YES;
 
     //标题
-    self.circleTitleLabel.frame             = CGRectMake(self.coverImageView.right+15, self.coverImageView.y+5, self.viewWidth-self.coverImageView.right-100, 16);
+    self.circleTitleLabel.frame             = CGRectMake(self.coverImageView.right+15, self.coverImageView.y+5, self.viewWidth-self.coverImageView.right-30, 16);
     self.circleTitleLabel.font              = [UIFont systemFontOfSize:16];
     //人名
     self.circleNameLabel.frame              = CGRectMake(self.coverImageView.right+15, self.circleTitleLabel.bottom+10, self.viewWidth-self.coverImageView.right-30, 16);
@@ -580,7 +580,9 @@
                 NSDictionary * dic     = responseData[HttpResult][@"newNotice"];
                 NSString * contentText = [dic objectForKey:@"content_text"];
                 self.noticeContent  = [ToolsManager emptyReturnNone:contentText];
-
+                
+                //通知
+                [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFY_CIRCLE_LIST object:nil];
             }
             
             if (self.circleModel.isFollow) {

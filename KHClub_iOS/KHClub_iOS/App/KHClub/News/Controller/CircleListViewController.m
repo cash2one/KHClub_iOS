@@ -243,6 +243,7 @@
                 model.circle_name            = circleDic[@"circle_name"];
                 model.circle_cover_sub_image = circleDic[@"circle_cover_sub_image"];
                 model.follow_quantity        = [circleDic[@"follow_quantity"] integerValue];
+                model.unread_count           = [circleDic[@"new_newsnum"] integerValue];
                 model.isFollow               = YES;
                 [self.followArray addObject:model];
             }
