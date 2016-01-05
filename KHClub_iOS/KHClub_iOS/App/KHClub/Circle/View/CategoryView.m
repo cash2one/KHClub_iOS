@@ -15,12 +15,14 @@
     self = [super init];
     if (self) {
         self.layer.cornerRadius = 5;
-        self.backgroundColor    = [UIColor colorWithHexString:ColorGold];
+        self.layer.borderWidth  = 1;
+        self.layer.borderColor  = [UIColor colorWithHexString:ColorGold].CGColor;
+        self.backgroundColor    = [UIColor colorWithHexString:ColorWhite];
         self.titleLabel.font    = [UIFont systemFontOfSize:14];
         self.frame              = CGRectMake(0, 0, 77, 30);
         self.tag                = tag;
         [self setTitle:title forState:UIControlStateNormal];
-        [self setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
+        [self setTitleColor:[UIColor colorWithHexString:ColorGold] forState:UIControlStateNormal];
     }
     return self;
 }

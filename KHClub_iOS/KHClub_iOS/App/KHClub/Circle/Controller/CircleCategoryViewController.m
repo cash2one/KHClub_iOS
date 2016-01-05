@@ -22,6 +22,8 @@
  */
 @property (nonatomic, strong) CategoryView * choiceCategoryView;
 
+@property (nonatomic, strong) CategoryView * currentChoiceView;
+
 @end
 
 @implementation CircleCategoryViewController
@@ -80,6 +82,10 @@
     [self.navBar setRightBtnWithContent:StringCommonFinish andBlock:^{
         [sself choiceOK];
     }];
+    //颜色
+    [self.choiceCategoryView setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
+    self.choiceCategoryView.backgroundColor = [UIColor colorWithHexString:ColorGold];
+    
     //全部类别
     NSArray * categoryArray = @[@(CircleInvestment),@(CircleBusiness),@(CircleTea),@(CircleCigar),@(CircleWealthy),@(CircleArt),
                                 @(CircleTour),@(CircleGolf),@(CircleCollege),@(CircleFashion),@(CircleBoat),@(CircleOther)];
@@ -105,11 +111,20 @@
     
 }
 #pragma mark- method response
-- (void)categoryClick:(CustomButton *)sender
+- (void)categoryClick:(CategoryView *)sender
 {
     self.choiceCategoryView.hidden = NO;
     self.choiceType                = sender.tag;
     [self.choiceCategoryView setTitle:sender.currentTitle forState:UIControlStateNormal];
+    
+    if (self.currentChoiceView) {
+        [self.currentChoiceView setTitleColor:[UIColor colorWithHexString:ColorGold] forState:UIControlStateNormal];
+        self.currentChoiceView.backgroundColor = [UIColor colorWithHexString:ColorWhite];
+    }
+    
+    self.currentChoiceView = sender;
+    [self.currentChoiceView setTitleColor:[UIColor colorWithHexString:ColorWhite] forState:UIControlStateNormal];
+    self.currentChoiceView.backgroundColor = [UIColor colorWithHexString:ColorGold];
     
 }
 
