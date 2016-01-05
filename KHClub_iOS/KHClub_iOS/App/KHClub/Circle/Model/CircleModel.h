@@ -96,5 +96,7 @@ typedef NS_ENUM(NSInteger, CircleType){
 @property (nonatomic, copy  ) NSString  * circle_web;
 //未读消息数量
 @property (nonatomic, assign) NSInteger unread_count;
+//圈子类型
+@property (nonatomic, assign) CircleType circleType;
 
 @end

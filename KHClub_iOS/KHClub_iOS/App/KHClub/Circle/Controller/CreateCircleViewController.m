@@ -8,6 +8,7 @@
 
 #import "CreateCircleViewController.h"
 #import "CircleHomeViewController.h"
+#import "CircleCategoryViewController.h"
 
 @interface CreateCircleViewController ()<UITextFieldDelegate, UITextViewDelegate>
 
@@ -32,6 +33,8 @@
 @property (nonatomic, strong) UITextField       * circleWebTextField;
 //当前图片类型 1是封面 2是二维码
 @property (nonatomic, assign) NSInteger         currentImageType;
+//是否正在上传
+@property (nonatomic, assign) BOOL              isUpload;
 
 @end
 
@@ -147,11 +150,7 @@
     }else{
         self.backScrollView.contentSize = CGSizeMake(0, self.backScrollView.height+1);
     }
-    
-    __weak typeof(self) sself = self;
-    [self.navBar setLeftBtnWithContent:@"" andBlock:^{
-        [sself dismissViewControllerAnimated:YES completion:nil];
-    }];
+
 }
 
 #pragma mark - UITextFieldDelegate
@@ -317,42 +316,87 @@
 - (void)createCircle
 {
     
-    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
-                              @"circle_name":self.circleNameTextField.text,
-                              @"circle_detail":self.circleIntroTextField.text,
-                              @"address":self.circleAddressTextField.text,
-                              @"wx_num":self.wxTextField.text,
-                              @"phone_num":self.circlePhoneTextField.text,
-                              @"circle_web":self.circleWebTextField.text};
+//    NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+//                              @"circle_name":self.circleNameTextField.text,
+//                              @"circle_detail":self.circleIntroTextField.text,
+//                              @"address":self.circleAddressTextField.text,
+//                              @"wx_num":self.wxTextField.text,
+//                              @"phone_num":self.circlePhoneTextField.text,
+//                              @"circle_web":self.circleWebTextField.text};
+//    
+//    //封面和二维码处理
+//    NSString * fileName = [ToolsManager getUploadImageName];
+//    NSArray * files     = @[@{FileDataKey:UIImageJPEGRepresentation(self.circleImageView.image,0.9),FileNameKey:fileName}];
+//    if (self.wxQRcodeImageView.image != nil) {
+//        files = @[@{FileDataKey:UIImageJPEGRepresentation(self.circleImageView.image,0.9),FileNameKey:fileName},
+//                @{FileDataKey:UIImageJPEGRepresentation(self.wxQRcodeImageView.image,0.9),FileNameKey:[NSString stringWithFormat:@"qrcode%@", fileName]}];
+//    }
+//    
+//    debugLog(@"%@ %@", kPostNewCirclePath, params);
+//    //创建中
+//    [self showHudInView:self.view hint:KHClubString(@"Circle_CreateCircle_CreateHUD")];
+//    
+//    [HttpService postFileWithUrlString:kPostNewCirclePath params:params files:files andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+//        int status = [responseData[@"status"] intValue];
+//        if (status == HttpStatusCodeSuccess) {
+//            [self showSuccess:KHClubString(@"Circle_CreateCircle_CreateSuccess")];
+//            //创建成功 进入圈子
+//            CircleHomeViewController * chvc = [[CircleHomeViewController alloc] init];
+//            chvc.circleID                   = [responseData[HttpResult][@"id"] integerValue];
+//            chvc.isCreate                   = YES;
+//            [(UINavigationController *)[self presentingViewController] pushViewController:chvc animated:YES];
+//            [self dismissViewControllerAnimated:YES completion:nil];
+//        }else{
+//            [self showFail:KHClubString(@"Circle_CreateCircle_CreateFail")];
+//        }
+//    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        [self showFail:StringCommonNetException];
+//    }];
+
+    //选择圈子
+    CircleCategoryViewController * ccvc         = [[CircleCategoryViewController alloc] init];
     
-    //封面和二维码处理
-    NSString * fileName = [ToolsManager getUploadImageName];
-    NSArray * files     = @[@{FileDataKey:UIImageJPEGRepresentation(self.circleImageView.image,0.9),FileNameKey:fileName}];
-    if (self.wxQRcodeImageView.image != nil) {
-        files = @[@{FileDataKey:UIImageJPEGRepresentation(self.circleImageView.image,0.9),FileNameKey:fileName},
-                @{FileDataKey:UIImageJPEGRepresentation(self.wxQRcodeImageView.image,0.9),FileNameKey:[NSString stringWithFormat:@"qrcode%@", fileName]}];
-    }
+    __weak CircleCategoryViewController * weakC = ccvc;
     
-    debugLog(@"%@ %@", kPostNewCirclePath, params);
-    //创建中
-    [self showHudInView:self.view hint:KHClubString(@"Circle_CreateCircle_CreateHUD")];
-    
-    [HttpService postFileWithUrlString:kPostNewCirclePath params:params files:files andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
-        int status = [responseData[@"status"] intValue];
-        if (status == HttpStatusCodeSuccess) {
-            [self showSuccess:KHClubString(@"Circle_CreateCircle_CreateSuccess")];
-            //创建成功 进入圈子
-            CircleHomeViewController * chvc = [[CircleHomeViewController alloc] init];
-            chvc.circleID                   = [responseData[HttpResult][@"id"] integerValue];
-            chvc.isCreate                   = YES;
-            [(UINavigationController *)[self presentingViewController] pushViewController:chvc animated:YES];
-            [self dismissViewControllerAnimated:YES completion:nil];
-        }else{
-            [self showFail:KHClubString(@"Circle_CreateCircle_CreateFail")];
+    [ccvc setFinishBlock:^(NSInteger code) {
+        if (self.isUpload) {
+            return ;
         }
-    } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self showFail:StringCommonNetException];
+
+        NSDictionary * params = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.uid],
+                                  @"category_id":[NSString stringWithFormat:@"%ld", code],
+                                  @"circle_name":self.circleNameTextField.text,
+                                  @"circle_detail":self.circleIntroTextField.text,
+                                  @"address":self.circleAddressTextField.text,
+                                  @"wx_num":self.wxTextField.text,
+                                  @"phone_num":self.circlePhoneTextField.text,
+                                  @"circle_web":self.circleWebTextField.text};
+    
+        //封面和二维码处理
+        NSString * fileName = [ToolsManager getUploadImageName];
+        NSArray * files     = @[@{FileDataKey:UIImageJPEGRepresentation(self.circleImageView.image,0.9),FileNameKey:fileName}];
+        if (self.wxQRcodeImageView.image != nil) {
+            files = @[@{FileDataKey:UIImageJPEGRepresentation(self.circleImageView.image,0.9),FileNameKey:fileName},
+                    @{FileDataKey:UIImageJPEGRepresentation(self.wxQRcodeImageView.image,0.9),FileNameKey:[NSString stringWithFormat:@"qrcode%@", fileName]}];
+        }
+        self.isUpload = YES;
+        debugLog(@"%@ %@", kPostNewCirclePath, params);
+    
+        [HttpService postFileWithUrlString:kPostNewCirclePath params:params files:files andCompletion:^(AFHTTPRequestOperation *operation, id responseData) {
+            int status = [responseData[@"status"] intValue];
+            self.isUpload = NO;
+            if (status == HttpStatusCodeSuccess) {
+                [weakC postSuccessWithCircleID:[responseData[HttpResult][@"id"] integerValue]];
+            }else{
+                [weakC showFail];
+            }
+        } andFail:^(AFHTTPRequestOperation *operation, NSError *error) {
+            self.isUpload = NO;
+            [weakC showException];
+        }];
+        
     }];
+    [self pushVC:ccvc];
     
 }
 

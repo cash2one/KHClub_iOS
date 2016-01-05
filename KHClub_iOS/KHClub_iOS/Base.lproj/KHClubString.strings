@@ -193,7 +193,6 @@
 "Circle_CreateCircle_WxTooLong"               = "圈子微信太长";
 "Circle_CreateCircle_WebTooLong"              = "圈子网站太长";
 "Circle_CircleDetail_FirePhoneAlert"          = "是否拨打客服电话:";
-
 "Circle_Circle_NamePlaceholder"               = "(7个字以内)";
 "Circle_Circle_NameTitle"                     = "昵称";
 "Circle_Circle_IntroPlaceholder"              = "(200个字以内)";
@@ -207,6 +206,23 @@
 "Circle_Circle_CircleManager"                 = "圈主";
 "Circle_Circle_CircleMember"                  = "圈会员";
 "Circle_Circle_CircleNotice"                  = "圈公告";
+"Circle_CircleCategory_Title"                 = "选择标签";
+"Circle_CircleCategory_Choiced"               = "已选择";
+"Circle_CircleCategory_OnlyOne"               = "(只能选择一项)";
+"Circle_CircleCategory_CategoryNotNull"       = "标签不能为空";
+
+"Circle_CircleBoat"                           = "豪车游艇";
+"Circle_CircleInvestment"                     = "创业投资";
+"Circle_CircleBusiness"                       = "商业协会";
+"Circle_CircleTea"                            = "茗品沉香";
+"Circle_CircleCigar"                          = "名酒雪茄";
+"Circle_CircleWealthy"                        = "金融理财";
+"Circle_CircleArt"                            = "艺术收藏";
+"Circle_CircleTour"                           = "高尔夫";
+"Circle_CircleGolf"                           = "高端旅游";
+"Circle_CircleCollege"                        = "商学院";
+"Circle_CircleFashion"                        = "时尚奢侈品";
+"Circle_CircleOther"                          = "其他";
 
 //Message
 "Message_Message_ScanQrcode"                  = "扫描二维码";

@@ -105,7 +105,7 @@
         }else{
             //创建
             CreateCircleViewController * ccvc = [[CreateCircleViewController alloc] init];
-            [sself presentViewController:ccvc animated:YES completion:nil];
+            [sself pushVC:ccvc];
         }
         
     }];

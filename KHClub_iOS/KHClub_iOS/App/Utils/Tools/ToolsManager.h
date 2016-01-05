@@ -156,4 +156,13 @@
  */
 + (NSString *)emptyReturnNone:(NSString *)str;
 
+/**
+ *  获取圈子类型对应的字符串
+ *
+ *  @param type 圈子类型
+ *
+ *  @return 对应的文字
+ */
++ (NSString *)getCircleTypeWith:(NSInteger)type;
+
 @end

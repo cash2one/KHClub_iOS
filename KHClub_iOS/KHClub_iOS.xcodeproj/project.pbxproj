@@ -50,10 +50,6 @@
 		428C97CA1C10673A0058405F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 428C97C81C10673A0058405F /* InfoPlist.strings */; };
 		429D802F1BE8AC9B004FAF81 /* NewsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 429D802E1BE8AC9B004FAF81 /* NewsListViewController.m */; };
 		42B588EB1C0BE11A003434E1 /* NewsMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B588EA1C0BE11A003434E1 /* NewsMainViewController.m */; };
-		42B588EE1C0BE35C003434E1 /* CircleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B588ED1C0BE35C003434E1 /* CircleListViewController.m */; };
-		42B588F11C0BF62D003434E1 /* CircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B588F01C0BF62D003434E1 /* CircleModel.m */; };
-		42B588F41C0BF80A003434E1 /* CircleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B588F31C0BF80A003434E1 /* CircleCell.m */; };
-		42B588F71C0C0568003434E1 /* CircleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42B588F61C0C0568003434E1 /* CircleDetailViewController.m */; };
 		42C22E891BE6FDC0002A185B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C22E881BE6FDC0002A185B /* main.m */; };
 		42C22E8C1BE6FDC0002A185B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C22E8B1BE6FDC0002A185B /* AppDelegate.m */; };
 		42C22E941BE6FDC0002A185B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 42C22E931BE6FDC0002A185B /* Images.xcassets */; };
@@ -172,7 +168,6 @@
 		42C89B5A1C0D73E6004765EF /* KHChatCardBubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42C89B591C0D73E6004765EF /* KHChatCardBubbleView.m */; };
 		42CA37A81C2D225000FBE8C2 /* circle_notice@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42CA37A71C2D225000FBE8C2 /* circle_notice@2x.png */; };
 		42CD7F741C05A89600BA129C /* CardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CD7F731C05A89600BA129C /* CardViewController.m */; };
-		42D0DAFE1C17D74A00499D83 /* CreateCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0DAFD1C17D74A00499D83 /* CreateCircleViewController.m */; };
 		42D0DB011C182F5700499D83 /* MyCircleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D0DB001C182F5700499D83 /* MyCircleListViewController.m */; };
 		42D16EC21BEB27EB00A1C423 /* NewsCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EBF1BEB27EB00A1C423 /* NewsCommentCell.m */; };
 		42D16EC31BEB27EB00A1C423 /* NewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D16EC11BEB27EB00A1C423 /* NewsListCell.m */; };
@@ -182,8 +177,6 @@
 		42D1D60E1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60A1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png */; };
 		42D1D60F1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60B1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png */; };
 		42D1D6101BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42D1D60C1BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png */; };
-		42D68BFC1C16C74A0027DDF3 /* CircleHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D68BFB1C16C74A0027DDF3 /* CircleHomeViewController.m */; };
-		42D68BFF1C16F0900027DDF3 /* CircleMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42D68BFE1C16F0900027DDF3 /* CircleMembersViewController.m */; };
 		42DB9C4F1BFEF90400631721 /* groups_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */; };
 		42DB9C521BFF40AD00631721 /* QRcodeCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DB9C511BFF40AD00631721 /* QRcodeCardView.m */; };
 		42DC163F1C1FB382004CA2C4 /* create_circle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DC163E1C1FB382004CA2C4 /* create_circle@2x.png */; };
@@ -205,14 +198,23 @@
 		42DDB8441C06DA2D0086A72F /* ShareSDKUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42DDB8381C06DA2D0086A72F /* ShareSDKUI.framework */; };
 		42DDB8481C06E7FB0086A72F /* ShareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 42DDB8471C06E7FB0086A72F /* ShareUtils.m */; };
 		42DDB84A1C06F6AE0086A72F /* personal_info_edit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 42DDB8491C06F6AE0086A72F /* personal_info_edit@2x.png */; };
-		42E3204C1C1A807000758E49 /* ChoiceCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E3204B1C1A807000758E49 /* ChoiceCircleViewController.m */; };
-		42E3204F1C1AFA4C00758E49 /* ModifyCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E3204E1C1AFA4C00758E49 /* ModifyCircleViewController.m */; };
-		42E829791C2B9443002BB9A9 /* CircleNewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E829781C2B9443002BB9A9 /* CircleNewsListCell.m */; };
-		42E8297C1C2BABB0002BB9A9 /* CircleNoticeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E8297B1C2BABB0002BB9A9 /* CircleNoticeListViewController.m */; };
-		42E8297F1C2BC874002BB9A9 /* PublishCircleNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E8297E1C2BC874002BB9A9 /* PublishCircleNoticeViewController.m */; };
-		42E829821C2BE656002BB9A9 /* CircleNoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E829811C2BE656002BB9A9 /* CircleNoticeModel.m */; };
-		42E829851C2BE75A002BB9A9 /* CircleNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E829841C2BE75A002BB9A9 /* CircleNoticeCell.m */; };
-		42E829881C2BFAD5002BB9A9 /* CircleNoticeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E829871C2BFAD5002BB9A9 /* CircleNoticeDetailViewController.m */; };
+		42E0749F1C3BB79100696958 /* ChoiceCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E0748C1C3BB79100696958 /* ChoiceCircleViewController.m */; };
+		42E074A01C3BB79100696958 /* CircleDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E0748E1C3BB79100696958 /* CircleDetailViewController.m */; };
+		42E074A11C3BB79100696958 /* CircleHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074901C3BB79100696958 /* CircleHomeViewController.m */; };
+		42E074A21C3BB79100696958 /* CircleListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074921C3BB79100696958 /* CircleListViewController.m */; };
+		42E074A31C3BB79100696958 /* CircleMembersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074941C3BB79100696958 /* CircleMembersViewController.m */; };
+		42E074A41C3BB79100696958 /* CircleNoticeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074961C3BB79100696958 /* CircleNoticeDetailViewController.m */; };
+		42E074A51C3BB79100696958 /* CircleNoticeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074981C3BB79100696958 /* CircleNoticeListViewController.m */; };
+		42E074A61C3BB79100696958 /* CreateCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E0749A1C3BB79100696958 /* CreateCircleViewController.m */; };
+		42E074A71C3BB79100696958 /* ModifyCircleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E0749C1C3BB79100696958 /* ModifyCircleViewController.m */; };
+		42E074A81C3BB79100696958 /* PublishCircleNoticeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E0749E1C3BB79100696958 /* PublishCircleNoticeViewController.m */; };
+		42E074AD1C3BB82000696958 /* CircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074AA1C3BB82000696958 /* CircleModel.m */; };
+		42E074AE1C3BB82000696958 /* CircleNoticeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074AC1C3BB82000696958 /* CircleNoticeModel.m */; };
+		42E074B51C3BB82600696958 /* CircleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074B01C3BB82600696958 /* CircleCell.m */; };
+		42E074B61C3BB82600696958 /* CircleNewsListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074B21C3BB82600696958 /* CircleNewsListCell.m */; };
+		42E074B71C3BB82600696958 /* CircleNoticeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074B41C3BB82600696958 /* CircleNoticeCell.m */; };
+		42E074BC1C3BB8A300696958 /* CircleCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074BB1C3BB8A300696958 /* CircleCategoryViewController.m */; };
+		42E074BF1C3BBBC300696958 /* CategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E074BE1C3BBBC300696958 /* CategoryView.m */; };
 		42E84C441C03F99A00D92319 /* CardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C431C03F99A00D92319 /* CardModel.m */; };
 		42E84C471C03F9A600D92319 /* CardCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C461C03F9A600D92319 /* CardCell.m */; };
 		42E84C4A1C040DB000D92319 /* AppSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 42E84C491C040DB000D92319 /* AppSettingViewController.m */; };
@@ -664,14 +666,6 @@
 		429D802E1BE8AC9B004FAF81 /* NewsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsListViewController.m; sourceTree = "<group>"; };
 		42B588E91C0BE11A003434E1 /* NewsMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsMainViewController.h; sourceTree = "<group>"; };
 		42B588EA1C0BE11A003434E1 /* NewsMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsMainViewController.m; sourceTree = "<group>"; };
-		42B588EC1C0BE35C003434E1 /* CircleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleListViewController.h; sourceTree = "<group>"; };
-		42B588ED1C0BE35C003434E1 /* CircleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleListViewController.m; sourceTree = "<group>"; };
-		42B588EF1C0BF62D003434E1 /* CircleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleModel.h; sourceTree = "<group>"; };
-		42B588F01C0BF62D003434E1 /* CircleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleModel.m; sourceTree = "<group>"; };
-		42B588F21C0BF80A003434E1 /* CircleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCell.h; sourceTree = "<group>"; };
-		42B588F31C0BF80A003434E1 /* CircleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCell.m; sourceTree = "<group>"; };
-		42B588F51C0C0568003434E1 /* CircleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleDetailViewController.h; sourceTree = "<group>"; };
-		42B588F61C0C0568003434E1 /* CircleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleDetailViewController.m; sourceTree = "<group>"; };
 		42B9B0281C1147370061A3B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		42B9B0291C1147B10061A3B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		42B9B02A1C1147B70061A3B5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/KHClubString.strings; sourceTree = "<group>"; };
@@ -881,8 +875,6 @@
 		42CA37A71C2D225000FBE8C2 /* circle_notice@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circle_notice@2x.png"; sourceTree = "<group>"; };
 		42CD7F721C05A89600BA129C /* CardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardViewController.h; sourceTree = "<group>"; };
 		42CD7F731C05A89600BA129C /* CardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardViewController.m; sourceTree = "<group>"; };
-		42D0DAFC1C17D74A00499D83 /* CreateCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCircleViewController.h; sourceTree = "<group>"; };
-		42D0DAFD1C17D74A00499D83 /* CreateCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCircleViewController.m; sourceTree = "<group>"; };
 		42D0DAFF1C182F5700499D83 /* MyCircleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCircleListViewController.h; sourceTree = "<group>"; };
 		42D0DB001C182F5700499D83 /* MyCircleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCircleListViewController.m; sourceTree = "<group>"; };
 		42D16EBE1BEB27EB00A1C423 /* NewsCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCommentCell.h; sourceTree = "<group>"; };
@@ -896,10 +888,6 @@
 		42D1D60A1BFC8D9E005FCDC3 /* icon_menu_my_qr_code@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_my_qr_code@2x.png"; sourceTree = "<group>"; };
 		42D1D60B1BFC8D9E005FCDC3 /* icon_menu_new_group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_new_group@2x.png"; sourceTree = "<group>"; };
 		42D1D60C1BFC8D9E005FCDC3 /* icon_menu_qr_scan@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_menu_qr_scan@2x.png"; sourceTree = "<group>"; };
-		42D68BFA1C16C74A0027DDF3 /* CircleHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleHomeViewController.h; sourceTree = "<group>"; };
-		42D68BFB1C16C74A0027DDF3 /* CircleHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleHomeViewController.m; sourceTree = "<group>"; };
-		42D68BFD1C16F0900027DDF3 /* CircleMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMembersViewController.h; sourceTree = "<group>"; };
-		42D68BFE1C16F0900027DDF3 /* CircleMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMembersViewController.m; sourceTree = "<group>"; };
 		42DB9C4E1BFEF90400631721 /* groups_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "groups_icon@2x.png"; sourceTree = "<group>"; };
 		42DB9C501BFF40AD00631721 /* QRcodeCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRcodeCardView.h; sourceTree = "<group>"; };
 		42DB9C511BFF40AD00631721 /* QRcodeCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRcodeCardView.m; sourceTree = "<group>"; };
@@ -925,22 +913,40 @@
 		42DDB8461C06E7FB0086A72F /* ShareUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareUtils.h; sourceTree = "<group>"; };
 		42DDB8471C06E7FB0086A72F /* ShareUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareUtils.m; sourceTree = "<group>"; };
 		42DDB8491C06F6AE0086A72F /* personal_info_edit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "personal_info_edit@2x.png"; sourceTree = "<group>"; };
-		42E3204A1C1A807000758E49 /* ChoiceCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoiceCircleViewController.h; sourceTree = "<group>"; };
-		42E3204B1C1A807000758E49 /* ChoiceCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoiceCircleViewController.m; sourceTree = "<group>"; };
-		42E3204D1C1AFA4C00758E49 /* ModifyCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyCircleViewController.h; sourceTree = "<group>"; };
-		42E3204E1C1AFA4C00758E49 /* ModifyCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyCircleViewController.m; sourceTree = "<group>"; };
-		42E829771C2B9443002BB9A9 /* CircleNewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNewsListCell.h; sourceTree = "<group>"; };
-		42E829781C2B9443002BB9A9 /* CircleNewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNewsListCell.m; sourceTree = "<group>"; };
-		42E8297A1C2BABB0002BB9A9 /* CircleNoticeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNoticeListViewController.h; sourceTree = "<group>"; };
-		42E8297B1C2BABB0002BB9A9 /* CircleNoticeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNoticeListViewController.m; sourceTree = "<group>"; };
-		42E8297D1C2BC874002BB9A9 /* PublishCircleNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishCircleNoticeViewController.h; sourceTree = "<group>"; };
-		42E8297E1C2BC874002BB9A9 /* PublishCircleNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishCircleNoticeViewController.m; sourceTree = "<group>"; };
-		42E829801C2BE656002BB9A9 /* CircleNoticeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNoticeModel.h; sourceTree = "<group>"; };
-		42E829811C2BE656002BB9A9 /* CircleNoticeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNoticeModel.m; sourceTree = "<group>"; };
-		42E829831C2BE75A002BB9A9 /* CircleNoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNoticeCell.h; sourceTree = "<group>"; };
-		42E829841C2BE75A002BB9A9 /* CircleNoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNoticeCell.m; sourceTree = "<group>"; };
-		42E829861C2BFAD5002BB9A9 /* CircleNoticeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNoticeDetailViewController.h; sourceTree = "<group>"; };
-		42E829871C2BFAD5002BB9A9 /* CircleNoticeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNoticeDetailViewController.m; sourceTree = "<group>"; };
+		42E0748B1C3BB79100696958 /* ChoiceCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChoiceCircleViewController.h; sourceTree = "<group>"; };
+		42E0748C1C3BB79100696958 /* ChoiceCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChoiceCircleViewController.m; sourceTree = "<group>"; };
+		42E0748D1C3BB79100696958 /* CircleDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleDetailViewController.h; sourceTree = "<group>"; };
+		42E0748E1C3BB79100696958 /* CircleDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleDetailViewController.m; sourceTree = "<group>"; };
+		42E0748F1C3BB79100696958 /* CircleHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleHomeViewController.h; sourceTree = "<group>"; };
+		42E074901C3BB79100696958 /* CircleHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleHomeViewController.m; sourceTree = "<group>"; };
+		42E074911C3BB79100696958 /* CircleListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleListViewController.h; sourceTree = "<group>"; };
+		42E074921C3BB79100696958 /* CircleListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleListViewController.m; sourceTree = "<group>"; };
+		42E074931C3BB79100696958 /* CircleMembersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleMembersViewController.h; sourceTree = "<group>"; };
+		42E074941C3BB79100696958 /* CircleMembersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleMembersViewController.m; sourceTree = "<group>"; };
+		42E074951C3BB79100696958 /* CircleNoticeDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNoticeDetailViewController.h; sourceTree = "<group>"; };
+		42E074961C3BB79100696958 /* CircleNoticeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNoticeDetailViewController.m; sourceTree = "<group>"; };
+		42E074971C3BB79100696958 /* CircleNoticeListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNoticeListViewController.h; sourceTree = "<group>"; };
+		42E074981C3BB79100696958 /* CircleNoticeListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNoticeListViewController.m; sourceTree = "<group>"; };
+		42E074991C3BB79100696958 /* CreateCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateCircleViewController.h; sourceTree = "<group>"; };
+		42E0749A1C3BB79100696958 /* CreateCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateCircleViewController.m; sourceTree = "<group>"; };
+		42E0749B1C3BB79100696958 /* ModifyCircleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyCircleViewController.h; sourceTree = "<group>"; };
+		42E0749C1C3BB79100696958 /* ModifyCircleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyCircleViewController.m; sourceTree = "<group>"; };
+		42E0749D1C3BB79100696958 /* PublishCircleNoticeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishCircleNoticeViewController.h; sourceTree = "<group>"; };
+		42E0749E1C3BB79100696958 /* PublishCircleNoticeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishCircleNoticeViewController.m; sourceTree = "<group>"; };
+		42E074A91C3BB82000696958 /* CircleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleModel.h; sourceTree = "<group>"; };
+		42E074AA1C3BB82000696958 /* CircleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleModel.m; sourceTree = "<group>"; };
+		42E074AB1C3BB82000696958 /* CircleNoticeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNoticeModel.h; sourceTree = "<group>"; };
+		42E074AC1C3BB82000696958 /* CircleNoticeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNoticeModel.m; sourceTree = "<group>"; };
+		42E074AF1C3BB82600696958 /* CircleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCell.h; sourceTree = "<group>"; };
+		42E074B01C3BB82600696958 /* CircleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCell.m; sourceTree = "<group>"; };
+		42E074B11C3BB82600696958 /* CircleNewsListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNewsListCell.h; sourceTree = "<group>"; };
+		42E074B21C3BB82600696958 /* CircleNewsListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNewsListCell.m; sourceTree = "<group>"; };
+		42E074B31C3BB82600696958 /* CircleNoticeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleNoticeCell.h; sourceTree = "<group>"; };
+		42E074B41C3BB82600696958 /* CircleNoticeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleNoticeCell.m; sourceTree = "<group>"; };
+		42E074BA1C3BB8A300696958 /* CircleCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleCategoryViewController.h; sourceTree = "<group>"; };
+		42E074BB1C3BB8A300696958 /* CircleCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleCategoryViewController.m; sourceTree = "<group>"; };
+		42E074BD1C3BBBC300696958 /* CategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryView.h; sourceTree = "<group>"; };
+		42E074BE1C3BBBC300696958 /* CategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CategoryView.m; sourceTree = "<group>"; };
 		42E84C421C03F99A00D92319 /* CardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardModel.h; sourceTree = "<group>"; };
 		42E84C431C03F99A00D92319 /* CardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardModel.m; sourceTree = "<group>"; };
 		42E84C451C03F9A600D92319 /* CardCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardCell.h; sourceTree = "<group>"; };
@@ -1825,26 +1831,6 @@
 				42430A171BEA353F00731CA3 /* PublishNewsViewController.m */,
 				429D802D1BE8AC9B004FAF81 /* NewsListViewController.h */,
 				429D802E1BE8AC9B004FAF81 /* NewsListViewController.m */,
-				42B588EC1C0BE35C003434E1 /* CircleListViewController.h */,
-				42B588ED1C0BE35C003434E1 /* CircleListViewController.m */,
-				42D68BFA1C16C74A0027DDF3 /* CircleHomeViewController.h */,
-				42D68BFB1C16C74A0027DDF3 /* CircleHomeViewController.m */,
-				42B588F51C0C0568003434E1 /* CircleDetailViewController.h */,
-				42B588F61C0C0568003434E1 /* CircleDetailViewController.m */,
-				42D68BFD1C16F0900027DDF3 /* CircleMembersViewController.h */,
-				42D68BFE1C16F0900027DDF3 /* CircleMembersViewController.m */,
-				42D0DAFC1C17D74A00499D83 /* CreateCircleViewController.h */,
-				42D0DAFD1C17D74A00499D83 /* CreateCircleViewController.m */,
-				42E3204D1C1AFA4C00758E49 /* ModifyCircleViewController.h */,
-				42E3204E1C1AFA4C00758E49 /* ModifyCircleViewController.m */,
-				42E3204A1C1A807000758E49 /* ChoiceCircleViewController.h */,
-				42E3204B1C1A807000758E49 /* ChoiceCircleViewController.m */,
-				42E8297A1C2BABB0002BB9A9 /* CircleNoticeListViewController.h */,
-				42E8297B1C2BABB0002BB9A9 /* CircleNoticeListViewController.m */,
-				42E829861C2BFAD5002BB9A9 /* CircleNoticeDetailViewController.h */,
-				42E829871C2BFAD5002BB9A9 /* CircleNoticeDetailViewController.m */,
-				42E8297D1C2BC874002BB9A9 /* PublishCircleNoticeViewController.h */,
-				42E8297E1C2BC874002BB9A9 /* PublishCircleNoticeViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1860,10 +1846,6 @@
 				4257CE931BE86C1B00221F90 /* LikeModel.m */,
 				4257CE941BE86C1B00221F90 /* NewsModel.h */,
 				4257CE951BE86C1B00221F90 /* NewsModel.m */,
-				42B588EF1C0BF62D003434E1 /* CircleModel.h */,
-				42B588F01C0BF62D003434E1 /* CircleModel.m */,
-				42E829801C2BE656002BB9A9 /* CircleNoticeModel.h */,
-				42E829811C2BE656002BB9A9 /* CircleNoticeModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1888,12 +1870,6 @@
 				42D16EBF1BEB27EB00A1C423 /* NewsCommentCell.m */,
 				42D16EC01BEB27EB00A1C423 /* NewsListCell.h */,
 				42D16EC11BEB27EB00A1C423 /* NewsListCell.m */,
-				42E829771C2B9443002BB9A9 /* CircleNewsListCell.h */,
-				42E829781C2B9443002BB9A9 /* CircleNewsListCell.m */,
-				42B588F21C0BF80A003434E1 /* CircleCell.h */,
-				42B588F31C0BF80A003434E1 /* CircleCell.m */,
-				42E829831C2BE75A002BB9A9 /* CircleNoticeCell.h */,
-				42E829841C2BE75A002BB9A9 /* CircleNoticeCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2026,6 +2002,7 @@
 		42C22EED1BE70053002A185B /* KHClub */ = {
 			isa = PBXGroup;
 			children = (
+				42E074871C3BB6D200696958 /* Circle */,
 				42EF82BE1BF03B7400DA16C3 /* IM */,
 				422DBFBD1BE8BBE70021FB78 /* Personal */,
 				4257CE671BE86C1B00221F90 /* Contact */,
@@ -2478,6 +2455,71 @@
 				42DDB8471C06E7FB0086A72F /* ShareUtils.m */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		42E074871C3BB6D200696958 /* Circle */ = {
+			isa = PBXGroup;
+			children = (
+				42E074881C3BB6D200696958 /* Controller */,
+				42E074891C3BB6D200696958 /* Model */,
+				42E0748A1C3BB6D200696958 /* View */,
+			);
+			path = Circle;
+			sourceTree = "<group>";
+		};
+		42E074881C3BB6D200696958 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				42E0748B1C3BB79100696958 /* ChoiceCircleViewController.h */,
+				42E0748C1C3BB79100696958 /* ChoiceCircleViewController.m */,
+				42E0748D1C3BB79100696958 /* CircleDetailViewController.h */,
+				42E0748E1C3BB79100696958 /* CircleDetailViewController.m */,
+				42E0748F1C3BB79100696958 /* CircleHomeViewController.h */,
+				42E074901C3BB79100696958 /* CircleHomeViewController.m */,
+				42E074911C3BB79100696958 /* CircleListViewController.h */,
+				42E074921C3BB79100696958 /* CircleListViewController.m */,
+				42E074931C3BB79100696958 /* CircleMembersViewController.h */,
+				42E074941C3BB79100696958 /* CircleMembersViewController.m */,
+				42E074951C3BB79100696958 /* CircleNoticeDetailViewController.h */,
+				42E074961C3BB79100696958 /* CircleNoticeDetailViewController.m */,
+				42E074971C3BB79100696958 /* CircleNoticeListViewController.h */,
+				42E074981C3BB79100696958 /* CircleNoticeListViewController.m */,
+				42E074991C3BB79100696958 /* CreateCircleViewController.h */,
+				42E0749A1C3BB79100696958 /* CreateCircleViewController.m */,
+				42E0749B1C3BB79100696958 /* ModifyCircleViewController.h */,
+				42E0749C1C3BB79100696958 /* ModifyCircleViewController.m */,
+				42E0749D1C3BB79100696958 /* PublishCircleNoticeViewController.h */,
+				42E0749E1C3BB79100696958 /* PublishCircleNoticeViewController.m */,
+				42E074BA1C3BB8A300696958 /* CircleCategoryViewController.h */,
+				42E074BB1C3BB8A300696958 /* CircleCategoryViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		42E074891C3BB6D200696958 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				42E074A91C3BB82000696958 /* CircleModel.h */,
+				42E074AA1C3BB82000696958 /* CircleModel.m */,
+				42E074AB1C3BB82000696958 /* CircleNoticeModel.h */,
+				42E074AC1C3BB82000696958 /* CircleNoticeModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		42E0748A1C3BB6D200696958 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				42E074AF1C3BB82600696958 /* CircleCell.h */,
+				42E074B01C3BB82600696958 /* CircleCell.m */,
+				42E074B11C3BB82600696958 /* CircleNewsListCell.h */,
+				42E074B21C3BB82600696958 /* CircleNewsListCell.m */,
+				42E074B31C3BB82600696958 /* CircleNoticeCell.h */,
+				42E074B41C3BB82600696958 /* CircleNoticeCell.m */,
+				42E074BD1C3BBBC300696958 /* CategoryView.h */,
+				42E074BE1C3BBBC300696958 /* CategoryView.m */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		42ED91F01BF1DB9400E59147 /* Im */ = {
@@ -3867,6 +3909,7 @@
 		42C22E7B1BE6FDC0002A185B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = JLXC;
 				TargetAttributes = {
@@ -4213,7 +4256,6 @@
 				42EF83991BF03F5C00DA16C3 /* wav.mm in Sources */,
 				42430A191BEA353F00731CA3 /* PublishNewsViewController.m in Sources */,
 				42C22FF21BE70054002A185B /* Base64.m in Sources */,
-				42E8297F1C2BC874002BB9A9 /* PublishCircleNoticeViewController.m in Sources */,
 				42EF835F1BF03F5C00DA16C3 /* EMAudioPlayerUtil.m in Sources */,
 				42C22FE01BE70054002A185B /* RegisterViewController.m in Sources */,
 				422DC01C1BE8C11C0021FB78 /* PersonalInfoView.m in Sources */,
@@ -4226,6 +4268,7 @@
 				42FDE1EA1BE7037C00825E5E /* AttachmentModel.m in Sources */,
 				42FDE1EE1BE7037C00825E5E /* TabBarBtn.m in Sources */,
 				42ED93401BF212DC00E59147 /* IMUtils.m in Sources */,
+				42E074B61C3BB82600696958 /* CircleNewsListCell.m in Sources */,
 				4287679D1BEB9AEF007400B7 /* LikeListCell.m in Sources */,
 				42EF837A1BF03F5C00DA16C3 /* EMSDWebImagePrefetcher.m in Sources */,
 				42C22FEC1BE70054002A185B /* AFSecurityPolicy.m in Sources */,
@@ -4233,12 +4276,12 @@
 				42EF83851BF03F5C00DA16C3 /* PSTCollectionView.m in Sources */,
 				42C22FE91BE70054002A185B /* AFHTTPRequestOperationManager.m in Sources */,
 				42430A1E1BEA35E100731CA3 /* BrowseImageListViewController.m in Sources */,
+				42E074AD1C3BB82000696958 /* CircleModel.m in Sources */,
 				42C230431BE70054002A185B /* UIImage+MultiFormat.m in Sources */,
 				42FDE1EB1BE7037C00825E5E /* UserModel.m in Sources */,
 				42EF83741BF03F5C00DA16C3 /* EMSDImageCache.m in Sources */,
 				42C22FE81BE70054002A185B /* AFHTTPRequestOperation.m in Sources */,
 				42EF84661BF0C9CC00DA16C3 /* CreateGroupViewController.m in Sources */,
-				42D0DAFE1C17D74A00499D83 /* CreateCircleViewController.m in Sources */,
 				42EF84641BF0C9CC00DA16C3 /* ContactSelectionViewController.m in Sources */,
 				42EF83631BF03F5C00DA16C3 /* EMCDDeviceManager+ProximitySensor.m in Sources */,
 				42EF84571BF0C9CC00DA16C3 /* EMChatAudioBubbleView.m in Sources */,
@@ -4248,8 +4291,6 @@
 				42EF838C1BF03F5C00DA16C3 /* PSTCollectionViewUpdateItem.m in Sources */,
 				42C2303C1BE70054002A185B /* SDWebImageDecoder.m in Sources */,
 				42C2303B1BE70054002A185B /* SDWebImageCompat.m in Sources */,
-				42E829821C2BE656002BB9A9 /* CircleNoticeModel.m in Sources */,
-				42B588F11C0BF62D003434E1 /* CircleModel.m in Sources */,
 				42EF83641BF03F5C00DA16C3 /* EMCDDeviceManager+Remind.m in Sources */,
 				42DB9C521BFF40AD00631721 /* QRcodeCardView.m in Sources */,
 				42C2302C1BE70054002A185B /* HanyuPinyinOutputFormat.m in Sources */,
@@ -4266,17 +4307,20 @@
 				42EF84741BF0C9CC00DA16C3 /* InvitationManager.m in Sources */,
 				42C22FDA1BE70054002A185B /* CustomImageView.m in Sources */,
 				42430A1F1BEA35E100731CA3 /* BrowseImageViewController.m in Sources */,
+				42E0749F1C3BB79100696958 /* ChoiceCircleViewController.m in Sources */,
 				42EF846A1BF0C9CC00DA16C3 /* GroupSubjectChangingViewController.m in Sources */,
 				42EF84711BF0C9CC00DA16C3 /* ApplyFriendCell.m in Sources */,
 				42FDE1F31BE704B200825E5E /* NewsPushModel.m in Sources */,
 				42D16EC31BEB27EB00A1C423 /* NewsListCell.m in Sources */,
 				42C22FD91BE70054002A185B /* CustomButton.m in Sources */,
 				42C230451BE70054002A185B /* UIImageView+HighlightedWebCache.m in Sources */,
+				42E074A61C3BB79100696958 /* CreateCircleViewController.m in Sources */,
 				42EF82C21BF03B7400DA16C3 /* AppDelegate+EaseMob.m in Sources */,
 				42EF83D01BF0C8FB00DA16C3 /* NSString+Valid.m in Sources */,
 				42EF844D1BF0C9CC00DA16C3 /* ChatSendHelper.m in Sources */,
 				42EF845D1BF0C9CC00DA16C3 /* EMChatTimeCell.m in Sources */,
 				42C230241BE70054002A185B /* FMDatabaseQueue.m in Sources */,
+				42E074A81C3BB79100696958 /* PublishCircleNoticeViewController.m in Sources */,
 				42EF83681BF03F5C00DA16C3 /* EmojiEmoticons.m in Sources */,
 				42EF83BD1BF0C8B700DA16C3 /* EMSearchDisplayController.m in Sources */,
 				42EF83D31BF0C8FB00DA16C3 /* UIViewController+DismissKeyboard.m in Sources */,
@@ -4289,7 +4333,6 @@
 				42EF83671BF03F5C00DA16C3 /* Emoji.m in Sources */,
 				42EF836E1BF03F5C00DA16C3 /* MWPhoto.m in Sources */,
 				42C2303D1BE70054002A185B /* SDWebImageDownloader.m in Sources */,
-				42D68BFF1C16F0900027DDF3 /* CircleMembersViewController.m in Sources */,
 				42EF846F1BF0C9CC00DA16C3 /* AddFriendCell.m in Sources */,
 				42C230521BE70054002A185B /* DeviceManager.m in Sources */,
 				42EF83B71BF0C8B700DA16C3 /* EMSearchBar.m in Sources */,
@@ -4300,10 +4343,13 @@
 				42C22FDD1BE70054002A185B /* PlaceHolderTextView.m in Sources */,
 				42EF83651BF03F5C00DA16C3 /* EMCDDeviceManagerBase.m in Sources */,
 				42EF838E1BF03F5C00DA16C3 /* PSTGridLayoutItem.m in Sources */,
+				42E074A11C3BB79100696958 /* CircleHomeViewController.m in Sources */,
+				42E074BC1C3BB8A300696958 /* CircleCategoryViewController.m in Sources */,
 				42EF84691BF0C9CC00DA16C3 /* GroupSettingViewController.m in Sources */,
 				42EF83981BF03F5C00DA16C3 /* amrFileCodec.mm in Sources */,
 				42C2304E1BE70054002A185B /* NSString+Expand.m in Sources */,
 				42EF836B1BF03F5C00DA16C3 /* MWCaptionView.m in Sources */,
+				42E074A51C3BB79100696958 /* CircleNoticeListViewController.m in Sources */,
 				42430A181BEA353F00731CA3 /* ChoiceLocationViewController.m in Sources */,
 				42C22FF41BE70054002A185B /* EGORefreshTableHeaderView.m in Sources */,
 				42EF83951BF03F5C00DA16C3 /* SRSlimeView.m in Sources */,
@@ -4330,8 +4376,10 @@
 				42EF838A1BF03F5C00DA16C3 /* PSTCollectionViewItemKey.m in Sources */,
 				42C2302B1BE70054002A185B /* ChineseToPinyinResource.m in Sources */,
 				42EF845E1BF0C9CC00DA16C3 /* EMChatViewBaseCell.m in Sources */,
+				42E074A21C3BB79100696958 /* CircleListViewController.m in Sources */,
 				42EF84761BF0C9CC00DA16C3 /* EMRobotChatTextBubbleView.m in Sources */,
 				42EF83BC1BF0C8B700DA16C3 /* EMNavigationController.m in Sources */,
+				42E074B51C3BB82600696958 /* CircleCell.m in Sources */,
 				42C230551BE70054002A185B /* HttpStatus.m in Sources */,
 				42C2303E1BE70054002A185B /* SDWebImageDownloaderOperation.m in Sources */,
 				42EF837D1BF03F5C00DA16C3 /* UIButton+EMWebCache.m in Sources */,
@@ -4348,43 +4396,41 @@
 				42FDE1EC1BE7037C00825E5E /* NavBar.m in Sources */,
 				42F150321C02E00E00D1A8E4 /* CardListViewController.m in Sources */,
 				42EC0C601C2A954200A1BD5C /* AddRemarkViewController.m in Sources */,
-				42E829881C2BFAD5002BB9A9 /* CircleNoticeDetailViewController.m in Sources */,
 				42C22FEA1BE70054002A185B /* AFHTTPSessionManager.m in Sources */,
-				42B588EE1C0BE35C003434E1 /* CircleListViewController.m in Sources */,
+				42E074AE1C3BB82000696958 /* CircleNoticeModel.m in Sources */,
 				4287679A1BEB7595007400B7 /* NewsDetailViewController.m in Sources */,
 				42C22FE51BE70054002A185B /* PushService.m in Sources */,
 				42EF84551BF0C9CC00DA16C3 /* DXChatBarMoreView.m in Sources */,
 				42C230531BE70054002A185B /* HttpCache.m in Sources */,
 				42EF83841BF03F5C00DA16C3 /* NSIndexPath+PSTCollectionViewAdditions.m in Sources */,
 				42CD7F741C05A89600BA129C /* CardViewController.m in Sources */,
-				42E829791C2B9443002BB9A9 /* CircleNewsListCell.m in Sources */,
 				42C22FDE1BE70054002A185B /* LoginViewController.m in Sources */,
 				42E84C471C03F9A600D92319 /* CardCell.m in Sources */,
 				42C22FED1BE70054002A185B /* AFURLConnectionOperation.m in Sources */,
 				4257CEC21BE86C1B00221F90 /* NewsUtils.m in Sources */,
 				42EF845B1BF0C9CC00DA16C3 /* EMChatTextBubbleView.m in Sources */,
 				42430A2A1BEA399800731CA3 /* BrowseImageView.m in Sources */,
+				42E074A01C3BB79100696958 /* CircleDetailViewController.m in Sources */,
 				42EF84581BF0C9CC00DA16C3 /* EMChatBaseBubbleView.m in Sources */,
 				42C22FEE1BE70054002A185B /* AFURLRequestSerialization.m in Sources */,
 				42FDE1E61BE7037C00825E5E /* BaseViewController.m in Sources */,
 				42C89B5A1C0D73E6004765EF /* KHChatCardBubbleView.m in Sources */,
-				42E8297C1C2BABB0002BB9A9 /* CircleNoticeListViewController.m in Sources */,
 				42EF83761BF03F5C00DA16C3 /* EMSDWebImageDecoder.m in Sources */,
 				42EF846E1BF0C9CC00DA16C3 /* ContactsViewController.m in Sources */,
 				42C2304F1BE70054002A185B /* UIColor+Hexadecimal.m in Sources */,
 				42C22FF01BE70054002A185B /* AFURLSessionManager.m in Sources */,
 				42C230581BE70054002A185B /* ToolsManager.m in Sources */,
+				42E074A41C3BB79100696958 /* CircleNoticeDetailViewController.m in Sources */,
 				42EF83751BF03F5C00DA16C3 /* EMSDWebImageCompat.m in Sources */,
 				42C230471BE70054002A185B /* UIView+WebCacheOperation.m in Sources */,
-				42D68BFC1C16C74A0027DDF3 /* CircleHomeViewController.m in Sources */,
 				42EF83711BF03F5C00DA16C3 /* MWTapDetectingView.m in Sources */,
 				42C2303A1BE70054002A185B /* SDImageCache.m in Sources */,
 				42C230571BE70054002A185B /* ImageHelper.m in Sources */,
 				42EF84731BF0C9CC00DA16C3 /* RealtimeSearchUtil.m in Sources */,
 				42F274E51BECB52900A63012 /* MyNewsListViewController.m in Sources */,
+				42E074A71C3BB79100696958 /* ModifyCircleViewController.m in Sources */,
 				42EF83971BF03F5C00DA16C3 /* TTGlobalUICommon.m in Sources */,
 				42EF83BE1BF0C8B700DA16C3 /* XHMessageTextView.m in Sources */,
-				42B588F41C0BF80A003434E1 /* CircleCell.m in Sources */,
 				42EF83801BF03F5C00DA16C3 /* UIImage+EMWebP.m in Sources */,
 				42EF84701BF0C9CC00DA16C3 /* AddFriendViewController.m in Sources */,
 				42C2303F1BE70054002A185B /* SDWebImageManager.m in Sources */,
@@ -4392,15 +4438,14 @@
 				42EF84791BF0C9CC00DA16C3 /* RobotListViewController.m in Sources */,
 				42EF84591BF0C9CC00DA16C3 /* EMChatImageBubbleView.m in Sources */,
 				42C230261BE70054002A185B /* HMSegmentedControl.m in Sources */,
+				42E074BF1C3BBBC300696958 /* CategoryView.m in Sources */,
 				42EF845A1BF0C9CC00DA16C3 /* EMChatLocationBubbleView.m in Sources */,
 				42FDE1E81BE7037C00825E5E /* RefreshViewController.m in Sources */,
 				42C230401BE70054002A185B /* SDWebImagePrefetcher.m in Sources */,
 				42C22FEF1BE70054002A185B /* AFURLResponseSerialization.m in Sources */,
 				42EF83B81BF0C8B700DA16C3 /* EMTextView.m in Sources */,
 				42FDE1EF1BE7037C00825E5E /* TestListViewController.m in Sources */,
-				42E3204C1C1A807000758E49 /* ChoiceCircleViewController.m in Sources */,
 				42EF84651BF0C9CC00DA16C3 /* ContactView.m in Sources */,
-				42E3204F1C1AFA4C00758E49 /* ModifyCircleViewController.m in Sources */,
 				42FDE1ED1BE7037C00825E5E /* RefreshTableView.m in Sources */,
 				42EF83791BF03F5C00DA16C3 /* EMSDWebImageManager.m in Sources */,
 				42E84C4A1C040DB000D92319 /* AppSettingViewController.m in Sources */,
@@ -4422,14 +4467,15 @@
 				42C230221BE70054002A185B /* FMDatabaseAdditions.m in Sources */,
 				42EF84501BF0C9CC00DA16C3 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				42EF84781BF0C9CC00DA16C3 /* RobotChatViewController.m in Sources */,
-				42B588F71C0C0568003434E1 /* CircleDetailViewController.m in Sources */,
 				42C230461BE70054002A185B /* UIImageView+WebCache.m in Sources */,
 				42EF83881BF03F5C00DA16C3 /* PSTCollectionViewData.m in Sources */,
 				4257CEBE1BE86C1B00221F90 /* LikeModel.m in Sources */,
 				42EF83D41BF0C8FB00DA16C3 /* UIViewController+HUD.m in Sources */,
 				42C230311BE70054002A185B /* Reachability.m in Sources */,
+				42E074A31C3BB79100696958 /* CircleMembersViewController.m in Sources */,
 				42EBB1891C0FE241008FA90F /* SearchContactViewController.m in Sources */,
 				42EF83821BF03F5C00DA16C3 /* UIImageView+EMWebCache.m in Sources */,
+				42E074B71C3BB82600696958 /* CircleNoticeCell.m in Sources */,
 				42EF846C1BF0C9CC00DA16C3 /* PublicGroupListViewController.m in Sources */,
 				42EF846B1BF0C9CC00DA16C3 /* PublicGroupDetailViewController.m in Sources */,
 				42C22FE71BE70054002A185B /* UserService.m in Sources */,
@@ -4453,7 +4499,6 @@
 				42EF837E1BF03F5C00DA16C3 /* UIImage+EMGIF.m in Sources */,
 				42C230421BE70054002A185B /* UIImage+GIF.m in Sources */,
 				42C230231BE70054002A185B /* FMDatabasePool.m in Sources */,
-				42E829851C2BE75A002BB9A9 /* CircleNoticeCell.m in Sources */,
 				42EF83B61BF0C8B700DA16C3 /* BaseTableViewCell.m in Sources */,
 				4257CEBF1BE86C1B00221F90 /* NewsModel.m in Sources */,
 				42EF847A1BF0C9CC00DA16C3 /* RobotManager.m in Sources */,

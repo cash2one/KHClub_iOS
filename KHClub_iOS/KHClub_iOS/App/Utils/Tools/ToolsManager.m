@@ -9,6 +9,7 @@
 #import "ToolsManager.h"
 #import "HttpStatus.h"
 #import "ChineseToPinyinResource.h"
+#import "CircleModel.h"
 
 @interface ToolsManager()
 
@@ -395,6 +396,50 @@
     }
     
     return str;
+}
+
++ (NSString *)getCircleTypeWith:(NSInteger)type
+{
+    NSString * content = KHClubString(@"Circle_CircleOther");
+    switch (type) {
+        case CircleInvestment:
+            content = KHClubString(@"Circle_CircleInvestment");
+            break;
+        case CircleBusiness:
+            content = KHClubString(@"Circle_CircleBusiness");
+            break;
+        case CircleTea:
+            content = KHClubString(@"Circle_CircleTea");
+            break;
+        case CircleCigar:
+            content = KHClubString(@"Circle_CircleCigar");
+            break;
+        case CircleWealthy:
+            content = KHClubString(@"Circle_CircleWealthy");
+            break;
+        case CircleArt:
+            content = KHClubString(@"Circle_CircleArt");
+            break;
+        case CircleTour:
+            content = KHClubString(@"Circle_CircleTour");
+            break;
+        case CircleGolf:
+            content = KHClubString(@"Circle_CircleGolf");
+            break;
+        case CircleCollege:
+            content = KHClubString(@"Circle_CircleCollege");
+            break;
+        case CircleFashion:
+            content = KHClubString(@"Circle_CircleFashion");
+            break;
+        case CircleBoat:
+            content = KHClubString(@"Circle_CircleBoat");
+            break;
+        default:
+            break;
+    }
+    
+    return content;
 }
 
 @end

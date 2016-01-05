@@ -197,8 +197,6 @@
     
 }
 
-#pragma mark- private method
-
 
 /*
 #pragma mark - Navigation

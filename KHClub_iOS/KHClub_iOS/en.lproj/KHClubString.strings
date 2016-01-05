@@ -193,7 +193,6 @@
 "Circle_CreateCircle_WxTooLong"               = "Wechat can't be empty";
 "Circle_CreateCircle_WebTooLong"              = "Web can't be empty";
 "Circle_CircleDetail_FirePhoneAlert"          = "Call phone:";
-
 "Circle_Circle_NamePlaceholder"               = "(7 character at most)";
 "Circle_Circle_NameTitle"                     = "Nick";
 "Circle_Circle_IntroPlaceholder"              = "(200 character at most)";
@@ -207,6 +206,23 @@
 "Circle_Circle_CircleManager"                 = "Master";
 "Circle_Circle_CircleMember"                  = "Member";
 "Circle_Circle_CircleNotice"                  = "Notice";
+"Circle_CircleCategory_Title"                 = "Category";
+"Circle_CircleCategory_Choiced"               = "Choiced";
+"Circle_CircleCategory_OnlyOne"               = "Only One";
+"Circle_CircleCategory_CategoryNotNull"       = "Category can't be empty";
+
+"Circle_CircleBoat"                           = "Boat";
+"Circle_CircleInvestment"                     = "Investment";
+"Circle_CircleBusiness"                       = "Business";
+"Circle_CircleTea"                            = "Tea";
+"Circle_CircleCigar"                          = "Cigar";
+"Circle_CircleWealthy"                        = "Wealthy";
+"Circle_CircleArt"                            = "Art";
+"Circle_CircleTour"                           = "Tour";
+"Circle_CircleGolf"                           = "Golf";
+"Circle_CircleCollege"                        = "College";
+"Circle_CircleFashion"                        = "Fashion";
+"Circle_CircleOther"                          = "Other";
 
 //Message
 "Message_Message_ScanQrcode"                  = "Scan QR code";
