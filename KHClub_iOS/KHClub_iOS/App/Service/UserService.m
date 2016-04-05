@@ -27,50 +27,10 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[UserService alloc] init];
-
     });
     
     return instance;
 }
-
-- (void)setDeviceToken:(NSString *)deviceToken
-{
-    //<3ccd76ea 527d5d04 3b743b4c af4e7993 c811c6ca 65b2837b 8e3d47c7 72f9bd6f>
-    //token格式处理
-    if ([deviceToken hasPrefix:@"<"]) {
-        deviceToken = [deviceToken substringFromIndex:1];
-    }
-    
-    if ([deviceToken hasSuffix:@">"]) {
-        deviceToken = [deviceToken substringToIndex:deviceToken.length-1];
-    }
-    
-    deviceToken = [deviceToken stringByReplacingOccurrencesOfString:@" " withString:@""];
-    
-    _deviceToken = [deviceToken copy];
-    
-}
-
-- (void)saveDeviceToken
-{
-    if (self.deviceToken.length > 1) {
-        if ([UserService sharedService].user.uid > 0) {
-//            NSString * path = kBindDeviceTokenPath;
-//            NSDictionary * parameterDic = @{@"user_id":[NSString stringWithFormat:@"%ld", [UserService sharedService].user.id],
-//                                            @"ios_device":self.deviceToken};
-//            
-//            debugLog(@"%@ %@", path, parameterDic);
-//            
-//            [NetManager managerPostRequest:path withParameter:parameterDic success:^(NSMutableDictionary *dic) {
-//                
-//            } failed:^(NSString *err) {
-//                debugLog(@"成功失败都无返回值");
-//            }];
-        }
-        
-    }
-}
-
 
 //保存数据
 - (void)saveAndUpdate

@@ -101,8 +101,8 @@
 "Personal_PersonalSetting_EnterEmail"         = "Please enter email";
 "Personal_PersonalSetting_EnterPhone"         = "Please enter phone";
 "Personal_PersonalSetting_EnterCompany"       = "Please enter Company";
-"Personal_PersonalSetting_Man"                = "Man";
-"Personal_PersonalSetting_Woman"              = "Woman";
+"Personal_PersonalSetting_Man"                = "Male";
+"Personal_PersonalSetting_Woman"              = "Female";
 "Personal_PersonalSetting_NameNotNull"        = "Name can't be empty";
 "Personal_PersonalSetting_NameTooLong"        = "Name too long";
 "Personal_PersonalSetting_FriendsCanSee"      = "Only friends can see";

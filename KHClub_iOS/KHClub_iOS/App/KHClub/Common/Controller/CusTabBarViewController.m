@@ -266,7 +266,6 @@ static CusTabBarViewController * instance = nil;
     
     self.viewControllers = _vcArr;
     
-    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         //点击推送进来的
         if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"IMPush"] intValue] == 1) {
@@ -308,7 +307,7 @@ static CusTabBarViewController * instance = nil;
 #pragma mark- tabBar点击代理
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
 {
-    
+
     for (UIButton * item in _backView.subviews) {
         if ([item isKindOfClass:[UIButton class]]) {
             item.selected = NO;

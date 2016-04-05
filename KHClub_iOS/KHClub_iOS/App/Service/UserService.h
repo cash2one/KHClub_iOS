@@ -14,23 +14,11 @@
  */
 @interface UserService : NSObject
 
-/*! 
-    @property
-    @brief apns设备码
- */
-@property (nonatomic, copy) NSString * deviceToken;
-
 /*! 用户模型*/
 @property (nonatomic, strong) UserModel * user;
 
 /*! 返回用户服务单例*/
 + (instancetype)sharedService;
-
-/*! 
-    @method
-    @brief 存储token
- */
-- (void)saveDeviceToken;
 
 //保存数据
 - (void)saveAndUpdate;

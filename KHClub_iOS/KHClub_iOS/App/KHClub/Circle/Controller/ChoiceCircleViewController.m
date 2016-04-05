@@ -252,7 +252,7 @@
 - (void)popTo:(UIViewController *)vc
 {
     [self.navigationController popToViewController:vc animated:YES];
-    [self showComplete:KHClubString(@"News_Publish_Success")];    
+    [self showComplete:KHClubString(@"News_Publish_Success")];
 }
 
 /**
